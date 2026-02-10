@@ -1,0 +1,342 @@
+{
+  "app": {
+    "name": "RideIQ"
+  },
+  "nav": {
+    "rider": "Rider",
+    "scheduled": "Scheduled",
+    "driver": "Driver",
+    "wallet": "Wallet",
+    "history": "History",
+    "admin": "Admin",
+    "businesses": "Businesses",
+    "merchant": "Business",
+    "chats": "Chats",
+    "orders": "Orders",
+    "home": "Home",
+    "interests": "Interests"
+  },
+  "language": {
+    "label": "Language",
+    "english": "English",
+    "arabic": "Arabic"
+  },
+  "quote": {
+    "title": "Fare estimate",
+    "total": "Estimated total",
+    "base": "Base fare",
+    "distance": "Distance",
+    "perKm": "per km",
+    "product": "Ride type multiplier",
+    "surge": "Surge multiplier",
+    "surgeCapped": "Surge capped to",
+    "minFare": "Minimum fare",
+    "note": "Final price may change if pickup/dropoff changes or if the ride is significantly longer than estimated.",
+    "subtitle": "Estimate based on route distance and time.",
+    "baseFare": "Base fare",
+    "distanceFare": "Distance fare",
+    "timeFare": "Time fare",
+    "duration": "ETA",
+    "minimumFare": "Minimum fare",
+    "subtotal": "Subtotal",
+    "productMultiplier": "Vehicle multiplier",
+    "surgeCap": "Surge cap",
+    "rounding": "Cash rounding",
+    "surgeCappedTitle": "Surge capped",
+    "surgeCappedBody": "Raw surge {{raw}}× exceeded cap {{cap}}×. Cap applied.",
+    "surgeReason": "Surge reason"
+  },
+  "rideType": {
+    "label": "Ride type",
+    "standard": "Standard",
+    "premium": "Premium",
+    "family": "Family (5+ seats)",
+    "womenOnly": "Women Only (female driver)"
+  },
+  "prefs": {
+    "preferFemale": "Prefer female driver"
+  },
+  "buttons": {
+    "create": "Create ride request",
+    "createScheduled": "Create scheduled ride",
+    "loadingQuote": "Loading quote…"
+  },
+  "common": {
+    "back": "Back",
+    "save": "Save",
+    "saved": "Saved",
+    "add": "Add",
+    "added": "Added",
+    "delete": "Delete",
+    "deleted": "Deleted",
+    "loading": "Loading…",
+    "error": "Error",
+    "confirmDelete": "Delete this item?",
+    "close": "Close",
+    "cancel": "Cancel",
+    "on": "On",
+    "off": "Off",
+    "continue": "Continue",
+    "apply": "Apply",
+    "working": "Working…",
+    "setup": "setup",
+    "ready": "Ready",
+    "refresh": "Refresh"
+  },
+  "interests": {
+    "title": "Interests",
+    "subtitle": "Total: {{total}} • Enabled: {{enabled}} • Push: {{push}} • In-app: {{inapp}}",
+    "must_login": "Please sign in first.",
+    "add_keyword": "Add keyword",
+    "keyword_placeholder": "e.g., perfumes, iPhone, burger…",
+    "keyword_hint": "We’ll notify you when a promo matches this keyword.",
+    "add_category": "Add category",
+    "category_placeholder": "e.g., Electronics, Food…",
+    "category_hint": "We’ll notify you for promos in this category.",
+    "list": "Your interests",
+    "empty": "No interests yet. Add a keyword or category, or follow a business.",
+    "created_at": "Created: {{date}}",
+    "enabled": "Enabled",
+    "push": "Push",
+    "inapp": "In-app",
+    "max_per_week": "Per week",
+    "no_channels_warning": "Both push and in-app are off—this interest won’t notify you.",
+    "footer_hint": "Tip: Follow a business from its page to get its discounts.",
+    "kind": {
+      "merchant": "Business",
+      "product": "Product",
+      "category": "Category",
+      "keyword": "Keyword"
+    }
+  },
+  "business": {
+    "follow_discounts": "Follow discounts",
+    "unfollow_discounts": "Unfollow discounts",
+    "manage_interests": "Manage interests"
+  },
+  "safety": {
+    "title": "Safety Toolkit",
+    "subtitle": "Quick actions to help you stay safe during the trip.",
+    "open": "Safety",
+    "close": "Close",
+    "notAvailable": "Safety tools are available only during an active trip.",
+    "error": "Error",
+    "share": {
+      "title": "Share trip",
+      "desc": "Create a private link so family or friends can track this trip.",
+      "ttl": "Expires",
+      "create": "Create link",
+      "link": "Share link",
+      "copy": "Copy",
+      "open": "Open",
+      "toContact": "Send",
+      "copied": "Link copied",
+      "shared": "Shared"
+    },
+    "contacts": {
+      "title": "Trusted contacts",
+      "desc": "Add people you trust so you can quickly share a tracking link or SOS details.",
+      "manage": "Manage",
+      "none": "No trusted contacts yet.",
+      "listTitle": "Your contacts",
+      "activeCount": "Active: {{count}}",
+      "name": "Name",
+      "phone": "Phone",
+      "relationship": "Relationship (optional)",
+      "active": "Active",
+      "maxActive": "You can only have up to 5 active trusted contacts.",
+      "testTitle": "Test message",
+      "testHint": "Send a test message to confirm delivery setup (SMS provider).",
+      "channelSMS": "SMS",
+      "sendTest": "Send test",
+      "testSent": "Test message sent."
+    },
+    "settings": {
+      "autoShare": "Auto-share when trip starts",
+      "autoShareHint": "Creates a share link automatically when the trip moves to in-progress.",
+      "autoNotify": "Auto-notify on SOS",
+      "autoNotifyHint": "Logs a trusted contact event when SOS is triggered.",
+      "ttl": "Default share TTL (minutes)",
+      "ttlHint": "How long a shared link should stay valid (5–1440 minutes).",
+      "pinMode": "Pickup PIN mode",
+      "pinModeHint": "When enabled, riders get a 4-digit PIN and drivers must verify it before starting the trip.",
+      "pinModeOff": "Off",
+      "pinModeEveryRide": "Every ride",
+      "pinModeNightOnly": "Night only (10pm–6am)"
+    },
+    "sos": {
+      "title": "Emergency SOS",
+      "desc": "Triggers an SOS incident and notifies the RideIQ safety team.",
+      "activate": "Activate SOS",
+      "confirm": "Activate SOS now? Use only if you are in danger.",
+      "done": "SOS sent. Help will contact you."
+    },
+    "report": {
+      "title": "Report a problem",
+      "desc": "Send a report linked to this trip.",
+      "category": "Category",
+      "severity": "Severity",
+      "details": "Details",
+      "placeholder": "Describe what happened…",
+      "note": "Reports appear in Admin → Incidents.",
+      "send": "Submit report",
+      "sent": "Report sent"
+    },
+    "pickupPin": {
+      "title": "Pickup PIN",
+      "hint": "Use a 4-digit PIN to confirm you're getting into the right car.",
+      "reveal": "Show PIN",
+      "refresh": "Refresh",
+      "notRequired": "PIN is not required for this ride.",
+      "alreadyVerified": "PIN already verified.",
+      "verifiedTitle": "PIN verified",
+      "verifiedHint": "You're all set. The driver can start the trip.",
+      "driverTitle": "Verify Pickup PIN",
+      "driverHint": "Ask the rider for their 4-digit PIN and enter it to start the trip.",
+      "driverModalHint": "Tip: only accept the PIN in person at pickup.",
+      "enter": "Enter PIN",
+      "verify": "Verify",
+      "invalid": "Incorrect PIN",
+      "remaining": "{{count}} attempts left",
+      "locked": "Too many attempts. Try again later.",
+      "missingSecret": "Server is missing PIN_SECRET. Ask admin to set it in Supabase Edge Function secrets.",
+      "driverVerified": "PIN verified.",
+      "requiredBeforeStart": "Pickup PIN required before starting.",
+      "driverRequire": "Require Pickup PIN",
+      "driverRequireHint": "If enabled, your rides will require a verified PIN before starting (in-progress)."
+    },
+    "ridecheck": {
+      "title": "RideCheck",
+      "prompt": "Are you OK? We detected something unusual.",
+      "promptHint": "Choose an option. If you need help, we can alert support.",
+      "open": "Open",
+      "thanks": "Thanks — stay safe.",
+      "sosFailed": "Couldn't create SOS incident. Please try again.",
+      "kinds": {
+        "generic": "Safety check",
+        "gpsStale": "No location update",
+        "longStop": "Long stop",
+        "routeDeviation": "Route deviation"
+      },
+      "actions": {
+        "ok": "I'm OK",
+        "needHelp": "I need help",
+        "falseAlarm": "False alarm"
+      }
+    }
+  },
+  "share": {
+    "title": "Trip sharing",
+    "subtitle": "This page updates automatically while the trip is active.",
+    "loading": "Loading trip…",
+    "error": "Unable to load",
+    "notFound": "Trip not found or link expired.",
+    "ride": "Ride",
+    "status": "Status",
+    "created": "Created",
+    "pickup": "Pickup",
+    "dropoff": "Dropoff",
+    "vehicle": "Vehicle",
+    "plateSuffix": "Plate suffix",
+    "openMaps": "Open in Maps",
+    "lastLocation": "Last location",
+    "noLocation": "No location updates yet"
+  },
+  "roles": {
+    "current": "Mode",
+    "rider": "Customer",
+    "driver": "Driver",
+    "merchant": "Business",
+    "riderDesc": "Use the app as a customer: request rides and manage your wallet.",
+    "driverDesc": "Become a driver: set up your vehicle and accept rides.",
+    "merchantDesc": "Register your business: add products and chat with customers."
+  },
+  "onboarding": {
+    "chooseRoleTitle": "Choose how you want to use RideIQ",
+    "chooseRoleSubtitle": "You can switch modes later from the top bar.",
+    "chooseRoleHint": "Tip: start as a customer, then apply as driver or business when ready.",
+    "driverTitle": "Driver setup",
+    "merchantTitle": "Business setup",
+    "vehicleType": "Vehicle type",
+    "carCategory": "Car category",
+    "vehicleDetails": "Vehicle details",
+    "review": "Review",
+    "finish": "Finish",
+    "step": "Step {{step}} of {{total}}",
+    "driverKycHint": "Note: to go Available you may need to complete KYC verification."
+  },
+  "driverVehicles": {
+    "car": "Car",
+    "motorcycle": "Motorcycle",
+    "cargo": "Cargo vehicle",
+    "private": "Private",
+    "taxi": "Taxi"
+  },
+  "vehicle": {
+    "make": "Make",
+    "model": "Model",
+    "color": "Color",
+    "plate": "Plate number",
+    "capacity": "Capacity"
+  },
+  "merchant": {
+    "type": "Business type",
+    "name": "Business name",
+    "pendingHint": "Your business will be created as Pending until reviewed by an admin. You can already add products and chat with customers once approved.",
+    "validationName": "Please enter a business name.",
+    "status": {
+      "draft": "Draft",
+      "pending": "Pending approval",
+      "approved": "Approved",
+      "suspended": "Suspended"
+    }
+  },
+  "merchantTypes": {
+    "restaurant": "Restaurant",
+    "grocery": "Grocery",
+    "pharmacy": "Pharmacy",
+    "services": "Services",
+    "fleet": "Fleet / Taxi office",
+    "other": "Other"
+  },
+  "home": {
+    "title": "Home",
+    "subtitle": "Choose what you want to do now.",
+    "tiles": {
+      "ride": {
+        "title": "Ride",
+        "subtitle": "Request a ride or see your current trip."
+      },
+      "businesses": {
+        "title": "Businesses",
+        "subtitle": "Browse stores and services."
+      },
+      "orders": {
+        "title": "Orders",
+        "subtitle": "Track your orders and statuses."
+      },
+      "chats": {
+        "title": "Chats",
+        "subtitle": "Messages with businesses and support."
+      },
+      "wallet": {
+        "title": "Wallet",
+        "subtitle": "Balance, payouts, and notifications."
+      },
+      "driver": {
+        "title": "Driver",
+        "subtitle_ready": "Go online and manage rides/deliveries.",
+        "subtitle_setup": "Complete driver setup to start earning."
+      },
+      "merchant": {
+        "title": "Business",
+        "subtitle_ready": "Manage products, promos, and orders.",
+        "subtitle_setup": "Set up your business profile to start selling."
+      },
+      "history": {
+        "title": "History",
+        "subtitle": "Rides, deliveries, and payments."
+      }
+    }
+  }
+}

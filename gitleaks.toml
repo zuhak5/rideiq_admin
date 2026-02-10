@@ -1,0 +1,18 @@
+[extend]
+useDefault = true
+
+# Custom rules for Supabase key prefixes.
+# We intentionally *do not* match the documentation examples (e.g. `sb_secret_...`) because
+# those contain dots and are not real keys.
+
+[[rules]]
+id = "supabase-secret-key"
+description = "Supabase secret key (sb_secret_...)"
+regex = '''sb_secret_[A-Za-z0-9]{16,}'''
+tags = ["supabase", "api", "secret"]
+
+[[rules]]
+id = "supabase-publishable-key"
+description = "Supabase publishable key (sb_publishable_...)"
+regex = '''sb_publishable_[A-Za-z0-9]{16,}'''
+tags = ["supabase", "api", "key"]

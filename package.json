@@ -1,0 +1,40 @@
+{
+  "name": "rideshare",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "workspaces": [
+    "apps/*",
+    "admin_dashboard"
+  ],
+  "scripts": {
+    "dev": "pnpm -C apps/web dev",
+    "build": "pnpm -C apps/web build",
+    "preview": "pnpm -C apps/web preview",
+    "typecheck": "pnpm -C apps/web typecheck",
+    "lint": "pnpm -C apps/web lint",
+    "test": "pnpm -C apps/web test",
+    "schema:check": "node scripts/schema-contract-check.mjs",
+    "db:types": "node scripts/generate-db-types.mjs",
+    "test:watch": "pnpm -C apps/web test:watch",
+    "check": "pnpm security:generate:check && pnpm -C apps/web lint && pnpm -C apps/web test && pnpm -C apps/web build && pnpm schema:check && pnpm security:audit && pnpm security:rpc-audit && pnpm rbac:audit",
+    "security:audit": "node scripts/audit-edge-functions.mjs",
+    "security:rpc-audit": "node scripts/audit-rpc-allowlist.mjs",
+    "rbac:audit": "node scripts/audit-admin-rbac.mjs",
+    "security:generate": "node scripts/generate-security-hardening.mjs",
+    "security:generate:check": "node scripts/generate-security-hardening.mjs --check",
+    "check:strict": "pnpm security:generate:check && pnpm -C apps/web typecheck && pnpm -C apps/web lint && pnpm -C apps/web test && pnpm schema:check && pnpm security:audit && pnpm security:rpc-audit && pnpm rbac:audit",
+    "dev:admin": "pnpm -C admin_dashboard dev",
+    "build:admin": "pnpm -C admin_dashboard build",
+    "lint:admin": "pnpm -C admin_dashboard lint",
+    "test:admin": "pnpm -C admin_dashboard test"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": "^0.25.0"
+    }
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "vite": "^7.3.1"
+  }
+}

@@ -1,0 +1,346 @@
+{
+  "version": 2,
+  "description": "Edge Function Supabase key requirements and justifications. Enforced by scripts/audit-function-key-requirements.mjs.",
+  "functions": {
+    "achievement-claim": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "admin-api": {
+      "key": "service_role",
+      "reason": "Consolidated privileged admin API router that dispatches to multiple admin endpoints. Uses service role for controlled bypass of RLS after explicit permission checks (requirePermission) and rate limiting."
+    },
+    "admin-fraud-actions": {
+      "key": "service_role",
+      "reason": "Privileged admin endpoint: verifies admin permissions using user JWT, then uses service role for controlled reads/writes across fraud case/action tables."
+    },
+    "admin-fraud-cases": {
+      "key": "service_role",
+      "reason": "Privileged admin endpoint: verifies admin permissions using user JWT, then uses service role for controlled reads/writes across fraud case/action tables."
+    },
+    "admin-ride-intent-convert": {
+      "key": "service_role",
+      "reason": "Privileged admin endpoint: verifies admin permissions using user JWT, then uses service role to convert ride intents with controlled server-side updates."
+    },
+    "admin-users-list": {
+      "key": "service_role",
+      "reason": "Privileged admin endpoint: verifies admin permissions using user JWT, then uses service role to list users and admin membership safely."
+    },
+    "ai-gateway": {
+      "key": "service_role",
+      "reason": "AI gateway that performs server-side logging, policy enforcement, and privileged reads/writes; uses service role."
+    },
+    "asiapay-notify": {
+      "key": "service_role",
+      "reason": "Payment provider webhook ingest: verifies signature then persists events and updates payment records; service role required."
+    },
+    "asiapay-return": {
+      "key": "service_role",
+      "reason": "Payment/provider callback handler requiring service role to persist events and update records server-side."
+    },
+    "asiapay-withdraw-webhook": {
+      "key": "service_role",
+      "reason": "Withdrawal provider webhook ingest: verifies signature then persists events and updates payout records; service role required."
+    },
+    "concierge": {
+      "key": "service_role",
+      "reason": "Server-side concierge workflow that writes operational records and may bypass RLS for controlled orchestration."
+    },
+    "device-token-upsert": {
+      "key": "anon",
+      "reason": "Client-scoped write via RLS using publishable key and user JWT."
+    },
+    "driver-accept": {
+      "key": "anon",
+      "reason": "User-scoped driver endpoint. Uses anon key + user JWT and DB-side security-definer wrapper(s) bound to auth.uid()."
+    },
+    "driver-leaderboard-refresh": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "driver-location-update": {
+      "key": "anon",
+      "reason": "User-scoped driver endpoint. Uses anon key + user JWT and calls an auth.uid()-bound RPC; Edge enforces rate limiting and basic validation."
+    },
+    "driver-stats-rollup": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "earnings-coach": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "edge-webhook-dispatcher": {
+      "key": "service_role",
+      "reason": "Cron outbox dispatcher that claims tasks and invokes internal Edge webhook endpoints; requires service role to call service-only outbox RPCs."
+    },
+    "edge-webhook-prune": {
+      "key": "service_role",
+      "reason": "Cron maintenance job to prune processed outbox rows and prevent unbounded growth; requires service role to call service-only outbox prune RPC."
+    },
+    "expire-rides": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "family-invite": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key + user JWT; DB mutation/authorization enforced via SECURITY DEFINER RPC bound to auth.uid()."
+    },
+    "fare-engine": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "fee-breakdown": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "fraud-score-runner": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "geo": {
+      "key": "service_role",
+      "reason": "Server-side geo orchestration that calls third-party routing/geocoding APIs using secret provider keys, enforces provider fallback/quota rules, caches responses, and persists request logs; uses service role for controlled writes/reads."
+    },
+    "hotspot-guidance": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "interest-seed": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "kyc-doc-url": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "kyc-required-documents": {
+      "key": "anon",
+      "reason": "User-scoped KYC endpoint using publishable key with RLS and user JWT."
+    },
+    "kyc-submit": {
+      "key": "anon",
+      "reason": "User-scoped KYC endpoint using publishable key with RLS and user JWT."
+    },
+    "maps-config": {
+      "key": "none",
+      "reason": "Does not call Supabase APIs; no project keys required."
+    },
+    "maps-config-v2": {
+      "key": "service_role",
+      "reason": "Public provider selection endpoint that reads maps provider configuration + capability matrix and enforces monthly quota selection; uses service role to bypass RLS for controlled reads."
+    },
+    "maps-usage": {
+      "key": "service_role",
+      "reason": "Public metering endpoint that increments month-to-date usage counters for provider quota enforcement; uses service role to write usage rollups server-side."
+    },
+    "match-ride": {
+      "key": "anon",
+      "reason": "User-scoped endpoint. Uses anon key + user JWT and DB-side security-definer wrapper bound to auth.uid()."
+    },
+    "merchant-chat-autoreply": {
+      "key": "service_role",
+      "reason": "Webhook-driven chat automation that writes messages/metadata server-side; uses service role."
+    },
+    "notifications-dispatch": {
+      "key": "service_role",
+      "reason": "Internal dispatch worker that reads/writes notification queues and updates delivery state server-side; uses service role."
+    },
+    "notifications-send": {
+      "key": "service_role",
+      "reason": "Internal send worker that writes delivery outcomes and updates notification state server-side; uses service role."
+    },
+    "ops-alert-notifier": {
+      "key": "service_role",
+      "reason": "Cron notifier that dispatches ops alert events to Slack/webhooks/email and updates notification state; requires service role for server-side reads/writes."
+    },
+    "ops-alert-runner": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "ops-dashboard": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "passkey-authenticate": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "passkey-register": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "payments-config": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "payout-job-action": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "payout-job-create": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "payout-job-runner": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "payout-job-send": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "profile-avatar-url": {
+      "key": "service_role",
+      "reason": "Generates signed Storage URLs server-side (service role) after verifying the user JWT; DB updates remain RLS-scoped."
+    },
+    "promotion-notify": {
+      "key": "service_role",
+      "reason": "Payment/provider callback handler requiring service role to persist events and update records server-side."
+    },
+    "qicard-notify": {
+      "key": "service_role",
+      "reason": "Payment provider webhook ingest: verifies signature then persists events and updates payment records; service role required."
+    },
+    "qicard-return": {
+      "key": "none",
+      "reason": "Does not call Supabase APIs; no project keys required."
+    },
+    "qicard-withdraw-webhook": {
+      "key": "service_role",
+      "reason": "Withdrawal provider webhook ingest: verifies signature then persists events and updates payout records; service role required."
+    },
+    "rate-limit-prune": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "referral-apply": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "referral-claim": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "referral-code": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "referral-redeem": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "ride-chat-mark-read": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "ride-chat-media-url": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "ride-chat-send": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key + user JWT; critical state changes occur in SECURITY DEFINER RPCs bound to auth.uid()."
+    },
+    "ride-intent-create": {
+      "key": "anon",
+      "reason": "User-scoped endpoint. Uses publishable key + user JWT and a SECURITY DEFINER RPC bound to auth.uid() for the state-changing insert."
+    },
+    "ride-pickup-pin": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "ride-transition": {
+      "key": "anon",
+      "reason": "User-scoped endpoint. Uses anon/publishable key + user JWT and a SECURITY DEFINER RPC bound to auth.uid() for state changes."
+    },
+    "ride-verify-pin": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key + user JWT; critical mutation happens inside a SECURITY DEFINER RPC bound to auth.uid()."
+    },
+    "ridecheck-respond": {
+      "key": "anon",
+      "reason": "User-scoped safety endpoint using publishable key + user JWT; critical update is handled in ridecheck_respond_user (SECURITY DEFINER) and Edge only rate-limits/logs."
+    },
+    "safety-report": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "safety-sos": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "scheduled-ride-cancel": {
+      "key": "anon",
+      "reason": "User-scoped endpoint; fraud/rate-limit gating in Edge with mutation enforced by authenticated DB RPC."
+    },
+    "scheduled-ride-create": {
+      "key": "anon",
+      "reason": "User-scoped endpoint using publishable key with RLS and user JWT."
+    },
+    "shift-planner": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "sms-hook": {
+      "key": "service_role",
+      "reason": "Supabase Auth SMS hook handler writing OTP delivery logs/status server-side; uses service role."
+    },
+    "stats-rollup": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "topup-check": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "topup-create": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "topup-reconcile": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "trip-broadcast-runner": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "trip-share-auto": {
+      "key": "service_role",
+      "reason": "DB-triggered safety automation invoked via outbox dispatcher; requires service role for internal notifications and token writes."
+    },
+    "trusted-contacts-dispatch": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "voice-call-create": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "voice-call-end": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "voice-call-join": {
+      "key": "service_role",
+      "reason": "Server-side endpoint requiring service role for controlled privileged database access."
+    },
+    "webhook-job-runner": {
+      "key": "service_role",
+      "reason": "Background/cron job requiring service role for server-side writes and maintenance tasks."
+    },
+    "zaincash-return": {
+      "key": "service_role",
+      "reason": "Payment/provider callback handler requiring service role to persist events and update records server-side."
+    },
+    "zaincash-webhook": {
+      "key": "service_role",
+      "reason": "Payment provider webhook ingest: verifies signature then persists events and updates payment records; service role required."
+    },
+    "zaincash-withdraw-webhook": {
+      "key": "service_role",
+      "reason": "Withdrawal provider webhook ingest: verifies signature then persists events and updates payout records; service role required."
+    }
+  }
+}

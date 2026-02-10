@@ -1,0 +1,163 @@
+project_id = "rideshare-local"
+
+[api]
+port = 54321
+schemas = ["public", "storage", "auth"]
+extra_search_path = ["public", "extensions"]
+max_rows = 1000
+
+[db]
+port = 54322
+major_version = 17
+
+[studio]
+port = 54323
+
+[inbucket]
+port = 54324
+
+[auth]
+site_url = "http://localhost:5173"
+additional_redirect_urls = ["http://localhost:5173", "http://127.0.0.1:5173"]
+jwt_expiry = 3600
+enable_signup = true
+
+[auth.hook.send_sms]
+enabled = true
+uri = "https://ehtimvlmpghstlzvfipx.supabase.co/functions/v1/sms-hook"
+secrets = "env(AUTH_HOOK_SECRET)"
+# Edge Functions auth model
+# - Default: verify_jwt = true (Supabase gateway validates the user JWT before executing the function).
+# - Disable verify_jwt ONLY for endpoints that must be callable without a user JWT:
+#   * payment provider callbacks / redirects
+#   * public share/view endpoints
+#   * cron endpoints protected by CRON_SECRET (or similar)
+#
+# Notes:
+# - Authenticated endpoints should still verify the user inside the function (e.g. requireUser()) for explicitness.
+# - Supabase docs have updated guidance around verify_jwt and JWT signing keys.
+
+# Payment provider callbacks / redirects (no user JWT)
+[functions.asiapay-notify]
+verify_jwt = false
+
+[functions.ride-transition]
+verify_jwt = false
+
+[functions.driver-accept]
+verify_jwt = false
+
+[functions.match-ride]
+verify_jwt = false
+
+[functions.asiapay-return]
+verify_jwt = false
+
+[functions.asiapay-withdraw-webhook]
+verify_jwt = false
+
+[functions.qicard-notify]
+verify_jwt = false
+
+[functions.qicard-return]
+verify_jwt = false
+
+[functions.qicard-withdraw-webhook]
+verify_jwt = false
+
+[functions.zaincash-return]
+verify_jwt = false
+
+[functions.zaincash-webhook]
+verify_jwt = false
+
+[functions.zaincash-withdraw-webhook]
+verify_jwt = false
+
+# Public endpoints (no user JWT)
+[functions.maps-config]
+verify_jwt = false
+
+[functions.maps-config-v2]
+verify_jwt = false
+
+[functions.maps-usage]
+verify_jwt = false
+
+# User JWT endpoints with in-function auth (avoid gateway JWT validation issues)
+[functions.fare-engine]
+verify_jwt = false
+
+[functions.geo]
+verify_jwt = false
+
+[functions.driver-location-update]
+verify_jwt = false
+
+# Scheduled / maintenance endpoints (protected by CRON_SECRET)
+[functions.driver-leaderboard-refresh]
+verify_jwt = false
+
+[functions.driver-stats-rollup]
+verify_jwt = false
+
+[functions.expire-rides]
+verify_jwt = false
+
+[functions.fraud-score-runner]
+verify_jwt = false
+
+[functions.ops-alert-runner]
+verify_jwt = false
+
+[functions.ops-alert-notifier]
+verify_jwt = false
+
+[functions.payout-job-runner]
+verify_jwt = false
+
+[functions.rate-limit-prune]
+verify_jwt = false
+
+[functions.stats-rollup]
+verify_jwt = false
+
+[functions.topup-reconcile]
+verify_jwt = false
+
+[functions.trip-broadcast-runner]
+verify_jwt = false
+
+[functions.trusted-contacts-dispatch]
+verify_jwt = false
+
+[functions.webhook-job-runner]
+verify_jwt = false
+
+# Edge webhook outbox dispatcher (cron, no user JWT)
+[functions.edge-webhook-dispatcher]
+verify_jwt = false
+
+# Edge webhook outbox prune (cron, no user JWT)
+[functions.edge-webhook-prune]
+verify_jwt = false
+
+# Shared-secret webhooks (no user JWT)
+[functions.interest-seed]
+verify_jwt = false
+
+[functions.merchant-chat-autoreply]
+verify_jwt = false
+
+[functions.promotion-notify]
+verify_jwt = false
+
+[functions.sms-hook]
+verify_jwt = false
+
+[functions.trip-share-auto]
+verify_jwt = false
+
+# Optional JWT endpoints (user JWT optional)
+[functions.fee-breakdown]
+verify_jwt = false

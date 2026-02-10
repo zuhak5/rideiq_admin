@@ -1,0 +1,18 @@
+{
+  "extends": "./apps/web/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./apps/web",
+    "paths": {}
+  },
+  "include": [
+    "apps/web/src"
+  ],
+  "exclude": [
+    "apps/web/src/**/*.test.ts",
+    "apps/web/src/**/*.spec.ts",
+    "apps/web/src/**/*.test.tsx",
+    "apps/web/src/**/*.spec.tsx",
+    "apps/web/src/**/__tests__/**",
+    "**/__tests__/**"
+  ]
+}

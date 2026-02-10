@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Returning to RideIQ…</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; padding: 24px; }
+      .muted { opacity: 0.75; }
+      a { word-break: break-all; }
+    </style>
+  </head>
+  <body>
+    <h1>Returning to the app…</h1>
+    <p class="muted">If you are not redirected automatically, use the link below.</p>
+    <p><a id="link" href="#">Continue</a></p>
+
+    <script>
+      (function () {
+        var sp = new URLSearchParams(window.location.search || '');
+        var status = sp.get('status') || sp.get('Status') || '';
+        var intentId =
+          sp.get('intent_id') ||
+          sp.get('intentId') ||
+          sp.get('requestId') ||
+          sp.get('requestid') ||
+          sp.get('orderid') ||
+          sp.get('orderId') ||
+          '';
+        var paymentId = sp.get('paymentId') || sp.get('paymentid') || sp.get('payment_id') || '';
+        var provider = sp.get('provider') || sp.get('paymentProvider') || 'qicard';
+
+        // For GitHub Pages project sites, this file lives at: /<repo>/topup-return.html
+        // so base becomes: /<repo>
+        var basePath = window.location.pathname.replace(/\/[\w\-.]+$/, '');
+        var target =
+          basePath +
+          '/wallet?tab=topups' +
+          (intentId ? '&intent_id=' + encodeURIComponent(intentId) : '') +
+          (status ? '&status=' + encodeURIComponent(status) : '') +
+          (paymentId ? '&payment_id=' + encodeURIComponent(paymentId) : '') +
+          '&provider=' + encodeURIComponent(provider);
+
+        var fullTarget = window.location.origin + target;
+        var link = document.getElementById('link');
+        if (link) link.href = fullTarget;
+
+        window.location.replace(fullTarget);
+      })();
+    </script>
+
+    <noscript>JavaScript is required to return to the app.</noscript>
+  </body>
+</html>

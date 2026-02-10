@@ -1,0 +1,45 @@
+{
+  "name": "rideshare-web",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "build": "tsc -b && vite build",
+    "dev": "vite",
+    "lint": "eslint .",
+    "preview": "vite preview",
+    "seed:iraq:areas": "node scripts/seed-iraq-service-areas.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.95.2",
+    "@tanstack/react-query": "^5.90.20",
+    "i18next": "^25.8.4",
+    "mapbox-gl": "3.18.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "react-i18next": "^16.5.4",
+    "react-router-dom": "^7.13.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.18",
+    "@types/react": "^19.2.13",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.54.0",
+    "@typescript-eslint/parser": "^8.54.0",
+    "@vitejs/plugin-react": "^5.1.3",
+    "autoprefixer": "^10.4.24",
+    "eslint": "^9.15.0",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "eslint-plugin-react-refresh": "^0.5.0",
+    "globals": "^17.3.0",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.7.2",
+    "vite": "^7.3.1",
+    "vitest": "^4.0.18"
+  }
+}

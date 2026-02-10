@@ -1,0 +1,322 @@
+import { corsHeaders } from '../_shared/cors.ts';
+import { json, errorJson } from '../_shared/json.ts';
+import { envTrim } from '../_shared/config.ts';
+import { createServiceClient } from '../_shared/supabase.ts';
+import { buildRateLimitHeaders, consumeRateLimit, getClientIp } from '../_shared/rateLimit.ts';
+import { issueTelemetryTokenV1, type TelemetryTokenPayloadV1 } from '../_shared/telemetryToken.ts';
+
+type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest' | 'ors';
+type Capability = 'render' | 'directions' | 'geocode' | 'distance_matrix';
+
+type MapsConfigV2Response = {
+  ok: true;
+  capability: Capability;
+  provider: ProviderCode;
+  config: Record<string, unknown> & { language: string; region: string };
+  fallback_order: ProviderCode[];
+  // Render telemetry: a stable request_id + HMAC token so clients can
+  // log render success/failure without requiring end-user auth.
+  request_id?: string;
+  telemetry_token?: string;
+  telemetry_expires_at?: string;
+  limits: {
+    monthlySoftCapUnits?: number | null;
+    monthlyHardCapUnits?: number | null;
+  };
+};
+
+function isUuid(v: unknown): v is string {
+  if (typeof v !== 'string') return false;
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
+}
+
+function envTelemetrySecret(): string | null {
+  return envTrim('MAPS_TELEMETRY_HMAC_SECRET');
+}
+
+function parseCsv(input: string | null): string[] {
+  if (!input) return [];
+  return input
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean);
+}
+
+function getAllowedOrigins(): string[] {
+  // Backwards-compatible: allow either ALLOWED_ORIGINS (legacy for this function)
+  // or the shared CORS_ALLOW_ORIGINS used by our CORS helper.
+  const fromEnv = envTrim('ALLOWED_ORIGINS') || envTrim('CORS_ALLOW_ORIGINS') || '';
+  if (!fromEnv) return [];
+  return fromEnv
+    .split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
+    .map((v) => {
+      try {
+        return new URL(v).origin;
+      } catch {
+        return v;
+      }
+    });
+}
+
+function enforceOrigin(request: Request, allowedOrigins: string[]) {
+  // If ALLOWED_ORIGINS isn't set, do not block (local/dev), but still return CORS headers.
+  if (!allowedOrigins.length) return;
+  const origin = request.headers.get('origin') || '';
+  if (!origin) {
+    throw new Error('missing_origin');
+  }
+  if (!allowedOrigins.includes(origin)) {
+    throw new Error('origin_not_allowed');
+  }
+}
+
+const ALL_PROVIDERS: ProviderCode[] = ['google', 'mapbox', 'here', 'thunderforest', 'ors'];
+
+function providerHasKey(p: ProviderCode): boolean {
+  switch (p) {
+    case 'google':
+      return Boolean(envTrim('MAPS_CLIENT_KEY') || envTrim('GOOGLE_MAPS_CLIENT_KEY'));
+    case 'mapbox':
+      return Boolean(envTrim('MAPBOX_PUBLIC_TOKEN'));
+    case 'here':
+      return Boolean(envTrim('HERE_API_KEY'));
+    case 'thunderforest':
+      return Boolean(envTrim('THUNDERFOREST_API_KEY'));
+    case 'ors':
+      return Boolean(envTrim('ORS_API_KEY') || envTrim('OPENROUTESERVICE_API_KEY'));
+    default:
+      return false;
+  }
+}
+
+function buildClientConfig(p: ProviderCode, opts: { language: string; region: string }) {
+  const language = opts.language;
+  const region = opts.region;
+  switch (p) {
+    case 'google': {
+      const apiKey = envTrim('GOOGLE_MAPS_CLIENT_KEY') || envTrim('MAPS_CLIENT_KEY');
+      const mapId = envTrim('GOOGLE_MAP_ID'); // optional
+      return { apiKey, mapId, language, region };
+    }
+    case 'mapbox': {
+      const token = envTrim('MAPBOX_PUBLIC_TOKEN');
+      const styleUrl = envTrim('MAPBOX_STYLE_URL') || 'mapbox://styles/mapbox/streets-v12';
+      return { token, styleUrl, language, region };
+    }
+    case 'here': {
+      const apiKey = envTrim('HERE_API_KEY');
+      const style = envTrim('HERE_STYLE') || 'normal.day';
+      return { apiKey, style, language, region };
+    }
+    case 'thunderforest': {
+      const apiKey = envTrim('THUNDERFOREST_API_KEY');
+      const style = envTrim('THUNDERFOREST_STYLE') || 'atlas';
+      return { apiKey, style, language, region };
+    }
+    case 'ors': {
+      return { language, region };
+    }
+  }
+}
+
+Deno.serve(async (req) => {
+  if (req.method === 'OPTIONS') {
+    return new Response('ok', { headers: corsHeaders });
+  }
+  if (req.method !== 'GET' && req.method !== 'POST') {
+    return errorJson('method_not_allowed', 405, 'method_not_allowed', undefined, corsHeaders);
+  }
+
+  try {
+    // Basic anonymous rate limit (per IP).
+    const ip = getClientIp(req) ?? 'unknown';
+    const limit = 120;
+    const windowSeconds = 60;
+    const rl = await consumeRateLimit({
+      key: `maps-config-v2:${ip}`,
+      windowSeconds,
+      limit,
+      failOpen: true,
+    });
+    if (!rl.allowed) {
+      return errorJson(
+        'rate_limited',
+        429,
+        'rate_limited',
+        undefined,
+        {
+          ...corsHeaders,
+          ...buildRateLimitHeaders({ limit, remaining: rl.remaining, resetAt: rl.resetAt }),
+        },
+      );
+    }
+
+    enforceOrigin(req, getAllowedOrigins());
+
+    let capability: Capability = 'render';
+    let exclude: ProviderCode[] = [];
+    let supported: ProviderCode[] = [];
+    let requestId: string | null = null;
+
+    if (req.method === 'GET') {
+      const url = new URL(req.url);
+      capability = (url.searchParams.get('capability') || 'render') as Capability;
+      exclude = parseCsv(url.searchParams.get('exclude')) as ProviderCode[];
+      supported = parseCsv(url.searchParams.get('supported')) as ProviderCode[];
+      const rid = url.searchParams.get('request_id');
+      if (rid && isUuid(rid)) requestId = rid;
+    } else {
+      const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+      const cap = body['capability'];
+      if (typeof cap === 'string' && cap) capability = cap as Capability;
+
+      const ex = body['exclude'];
+      if (Array.isArray(ex)) exclude = ex.map(String) as ProviderCode[];
+      else if (typeof ex === 'string') exclude = parseCsv(ex) as ProviderCode[];
+
+      const sup = body['supported'];
+      if (Array.isArray(sup)) supported = sup.map(String) as ProviderCode[];
+      else if (typeof sup === 'string') supported = parseCsv(sup) as ProviderCode[];
+
+      const rid = body['request_id'];
+      if (isUuid(rid)) requestId = rid;
+    }
+
+    if (!['render', 'directions', 'geocode', 'distance_matrix'].includes(capability)) {
+      return errorJson('invalid_capability', 400, 'invalid_capability', undefined, corsHeaders);
+    }
+
+    const supportedSet = new Set<ProviderCode>(
+      (supported.length ? supported : ALL_PROVIDERS).filter((p) => ALL_PROVIDERS.includes(p)),
+    );
+
+    const supabase = createServiceClient();
+
+    // Attempt to pick a provider, skipping any providers without keys configured
+    // or unsupported by the requesting client.
+    const tried: ProviderCode[] = [...exclude];
+    let selected: ProviderCode | null = null;
+
+    for (let i = 0; i < ALL_PROVIDERS.length; i += 1) {
+      const { data, error } = await supabase.rpc('maps_pick_provider_v4', {
+        p_capability: capability,
+        p_exclude: tried,
+      });
+
+      if (error) {
+        return errorJson(
+          'failed_to_pick_provider',
+          500,
+          'failed_to_pick_provider',
+          { details: error.message },
+          corsHeaders,
+        );
+      }
+
+      const candidate = (data || null) as ProviderCode | null;
+      if (!candidate) break;
+
+      if (!supportedSet.has(candidate)) {
+        tried.push(candidate);
+        continue;
+      }
+      if (!providerHasKey(candidate)) {
+        tried.push(candidate);
+        continue;
+      }
+
+      selected = candidate;
+      break;
+    }
+
+    if (!selected) {
+      return errorJson('no_available_provider', 503, 'no_available_provider', undefined, corsHeaders);
+    }
+
+    const { data: providerRow, error: providerRowErr } = await supabase
+      .from('maps_providers')
+      .select('provider_code,language,region,monthly_soft_cap_units,monthly_hard_cap_units')
+      .eq('provider_code', selected)
+      .maybeSingle();
+
+    if (providerRowErr) {
+      return errorJson(
+        'failed_to_load_provider_config',
+        500,
+        'failed_to_load_provider_config',
+        { details: providerRowErr.message },
+        corsHeaders,
+      );
+    }
+
+    const language = providerRow?.language || 'ar';
+    const region = providerRow?.region || 'IQ';
+
+    // Compute fallback order, filtered to supported providers and configured keys.
+    const { data: orderRows, error: orderErr } = await supabase
+      .from('maps_providers')
+      .select('provider_code,priority,enabled')
+      .eq('enabled', true)
+      .order('priority', { ascending: false });
+
+    if (orderErr) {
+      return errorJson(
+        'failed_to_load_provider_order',
+        500,
+        'failed_to_load_provider_order',
+        { details: orderErr.message },
+        corsHeaders,
+      );
+    }
+
+    const fallback_order = (orderRows || [])
+      .map((r) => r.provider_code as ProviderCode)
+      .filter((p) => p !== selected)
+      .filter((p) => supportedSet.has(p))
+      .filter((p) => providerHasKey(p));
+
+    const out: MapsConfigV2Response = {
+      ok: true,
+      capability,
+      provider: selected,
+      config: buildClientConfig(selected, { language, region }),
+      fallback_order,
+      limits: {
+        monthlySoftCapUnits: providerRow?.monthly_soft_cap_units ?? null,
+        monthlyHardCapUnits: providerRow?.monthly_hard_cap_units ?? null,
+      },
+    };
+
+    if (capability === 'render') {
+      const rid = requestId ?? crypto.randomUUID();
+      out.request_id = rid;
+
+      const secret = envTelemetrySecret();
+      if (secret) {
+        const now = Math.floor(Date.now() / 1000);
+        const exp = now + 10 * 60; // 10 minutes
+        const origin = req.headers.get('origin') || null;
+
+        const payload: TelemetryTokenPayloadV1 = {
+          v: 1,
+          request_id: rid,
+          capability: 'render',
+          iat: now,
+          exp,
+          origin,
+        };
+        out.telemetry_token = await issueTelemetryTokenV1(payload, secret);
+        out.telemetry_expires_at = new Date(exp * 1000).toISOString();
+      }
+    }
+
+    // Render usage is logged by the client after a successful renderer initialization.
+    return json(out, 200, corsHeaders);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : 'unknown_error';
+    const status = msg === 'origin_not_allowed' ? 403 : 500;
+    return errorJson(msg, status, msg, undefined, corsHeaders);
+  }
+});

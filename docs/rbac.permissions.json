@@ -1,0 +1,580 @@
+{
+  "schema_version": 1,
+  "description": "Admin RBAC contract for RideIQ. Used by scripts/audit-admin-rbac.mjs and as a human-readable spec.",
+  "permissions": [
+    {
+      "key": "admin_access.manage",
+      "name": "Manage admin access",
+      "description": "Grant/revoke admin and assign admin roles"
+    },
+    {
+      "key": "agents.view",
+      "name": "View agents console",
+      "description": "Access agent/concierge console"
+    },
+    {
+      "key": "audit.read",
+      "name": "Read audit log",
+      "description": "Access admin audit log"
+    },
+    {
+      "key": "dashboard.view",
+      "name": "View dashboard",
+      "description": "Access summary dashboard metrics"
+    },
+    {
+      "key": "drivers.manage",
+      "name": "Manage drivers",
+      "description": "Edit driver configuration and financial limits"
+    },
+    {
+      "key": "drivers.read",
+      "name": "Read drivers",
+      "description": "View driver profiles, status, and vehicles"
+    },
+    {
+      "key": "drivers.suspend",
+      "name": "Suspend drivers",
+      "description": "Suspend/unsuspend driver accounts"
+    },
+    {
+      "key": "fraud.manage",
+      "name": "Manage fraud",
+      "description": "Resolve/close fraud cases and actions"
+    },
+    {
+      "key": "fraud.view",
+      "name": "View fraud",
+      "description": "Access fraud cases and enforcement actions"
+    },
+    {
+      "key": "incidents.manage",
+      "name": "Manage incidents",
+      "description": "Take actions on incidents/SOS events"
+    },
+    {
+      "key": "incidents.read",
+      "name": "Read incidents",
+      "description": "View safety incidents and SOS events"
+    },
+    {
+      "key": "maps.view",
+      "name": "View maps",
+      "description": "Access live maps and geo tooling"
+    },
+    {
+      "key": "merchants.manage",
+      "name": "Manage merchants",
+      "description": "Manage merchant accounts"
+    },
+    {
+      "key": "merchants.read",
+      "name": "Read merchants",
+      "description": "View merchant accounts"
+    },
+    {
+      "key": "observability.view",
+      "name": "View observability",
+      "description": "Access observability dashboards and recent system events"
+    },
+    {
+      "key": "ops.view",
+      "name": "View ops dashboard",
+      "description": "Access operational dashboards/alerts"
+    },
+    {
+      "key": "orders.manage",
+      "name": "Manage orders",
+      "description": "Update orders and handle exceptions"
+    },
+    {
+      "key": "orders.read",
+      "name": "Read orders",
+      "description": "View merchant orders and deliveries"
+    },
+    {
+      "key": "payments.read",
+      "name": "Read payments",
+      "description": "View payments and payment provider metadata"
+    },
+    {
+      "key": "payments.refund",
+      "name": "Refund payments",
+      "description": "Issue refunds for eligible payments"
+    },
+    {
+      "key": "payouts.read",
+      "name": "Read payout jobs",
+      "description": "View payout jobs and attempts"
+    },
+    {
+      "key": "payouts.retry",
+      "name": "Retry payouts",
+      "description": "Retry/cancel payout jobs and actions"
+    },
+    {
+      "key": "payouts.run",
+      "name": "Run payouts",
+      "description": "Create and start payout jobs"
+    },
+    {
+      "key": "pricing.manage",
+      "name": "Manage pricing",
+      "description": "Create/update pricing configurations"
+    },
+    {
+      "key": "pricing.read",
+      "name": "Read pricing",
+      "description": "View pricing configurations"
+    },
+    {
+      "key": "promotions.manage",
+      "name": "Manage promotions",
+      "description": "Create/update promotions/referrals/coupons"
+    },
+    {
+      "key": "promotions.read",
+      "name": "Read promotions",
+      "description": "View promotions/referrals/coupons"
+    },
+    {
+      "key": "rides.adjust_fare",
+      "name": "Adjust fare",
+      "description": "Apply fare corrections and adjustments"
+    },
+    {
+      "key": "rides.cancel",
+      "name": "Cancel rides",
+      "description": "Cancel an active ride with a reason"
+    },
+    {
+      "key": "rides.convert_intent",
+      "name": "Convert ride intents",
+      "description": "Convert a ride intent into a ride request (admin/operator initiated)"
+    },
+    {
+      "key": "rides.read",
+      "name": "Read rides",
+      "description": "View rides and ride details"
+    },
+    {
+      "key": "rides.reassign",
+      "name": "Reassign rides",
+      "description": "Move an active ride to another driver"
+    },
+    {
+      "key": "service_areas.manage",
+      "name": "Manage service areas",
+      "description": "Create/update/delete service areas"
+    },
+    {
+      "key": "service_areas.read",
+      "name": "Read service areas",
+      "description": "View service areas and geofences"
+    },
+    {
+      "key": "settings.manage",
+      "name": "Manage settings",
+      "description": "Update system settings and feature flags"
+    },
+    {
+      "key": "settings.read",
+      "name": "Read settings",
+      "description": "View system settings and feature flags"
+    },
+    {
+      "key": "support.manage",
+      "name": "Manage support",
+      "description": "Respond to tickets and manage support content"
+    },
+    {
+      "key": "support.read",
+      "name": "Read support",
+      "description": "View support tickets and support content"
+    },
+    {
+      "key": "users.read",
+      "name": "Read users",
+      "description": "List user profiles and admin access status"
+    },
+    {
+      "key": "withdrawals.approve",
+      "name": "Approve withdrawals",
+      "description": "Approve withdrawal requests"
+    },
+    {
+      "key": "withdrawals.mark_paid",
+      "name": "Mark withdrawals paid",
+      "description": "Manually mark withdrawals as paid / confirmed"
+    },
+    {
+      "key": "withdrawals.read",
+      "name": "Read withdrawals",
+      "description": "View withdrawal requests and status"
+    },
+    {
+      "key": "withdrawals.reject",
+      "name": "Reject withdrawals",
+      "description": "Reject withdrawal requests"
+    }
+  ],
+  "roles": [
+    {
+      "key": "auditor",
+      "grants": [
+        "audit.read"
+      ]
+    },
+    {
+      "key": "finance_admin",
+      "grants": [
+        "dashboard.view",
+        "payments.read",
+        "payments.refund",
+        "withdrawals.read",
+        "withdrawals.approve",
+        "withdrawals.reject",
+        "withdrawals.mark_paid",
+        "payouts.read",
+        "payouts.run",
+        "payouts.retry",
+        "audit.read"
+      ]
+    },
+    {
+      "key": "fraud_admin",
+      "grants": [
+        "dashboard.view",
+        "fraud.view",
+        "fraud.manage",
+        "rides.read",
+        "drivers.read"
+      ]
+    },
+    {
+      "key": "growth_admin",
+      "grants": [
+        "dashboard.view",
+        "promotions.read",
+        "promotions.manage",
+        "users.read",
+        "audit.read"
+      ]
+    },
+    {
+      "key": "legacy_admin",
+      "grants": [
+        "*"
+      ]
+    },
+    {
+      "key": "ops_admin",
+      "grants": [
+        "dashboard.view",
+        "ops.view",
+        "observability.view",
+        "rides.read",
+        "drivers.read"
+      ]
+    },
+    {
+      "key": "pricing_admin",
+      "grants": [
+        "dashboard.view",
+        "pricing.read",
+        "pricing.manage",
+        "service_areas.read",
+        "service_areas.manage",
+        "audit.read"
+      ]
+    },
+    {
+      "key": "safety_admin",
+      "grants": [
+        "dashboard.view",
+        "incidents.read",
+        "incidents.manage",
+        "fraud.view",
+        "fraud.manage",
+        "rides.read",
+        "drivers.read",
+        "audit.read"
+      ]
+    },
+    {
+      "key": "super_admin",
+      "grants": [
+        "*"
+      ]
+    },
+    {
+      "key": "support_admin",
+      "grants": [
+        "dashboard.view",
+        "support.read",
+        "support.manage",
+        "agents.view",
+        "users.read",
+        "audit.read"
+      ]
+    },
+    {
+      "key": "user_admin",
+      "grants": [
+        "dashboard.view",
+        "users.read",
+        "admin_access.manage",
+        "audit.read"
+      ]
+    }
+  ],
+  "pages": [
+    {
+      "route": "/admin-access",
+      "requires": "admin_access.manage"
+    },
+    {
+      "route": "/admin-access/requests",
+      "requires": "admin_access.manage"
+    },
+    {
+      "route": "/agents",
+      "requires": "agents.view"
+    },
+    {
+      "route": "/audit",
+      "requires": "audit.read"
+    },
+    {
+      "route": "/dashboard",
+      "requires": "dashboard.view"
+    },
+    {
+      "route": "/drivers",
+      "requires": "drivers.read"
+    },
+    {
+      "route": "/drivers/[id]",
+      "requires": "drivers.read"
+    },
+    {
+      "route": "/fraud",
+      "requires": "fraud.view"
+    },
+    {
+      "route": "/incidents",
+      "requires": "incidents.read"
+    },
+    {
+      "route": "/maps",
+      "requires": "maps.view"
+    },
+    {
+      "route": "/merchants",
+      "requires": "merchants.read"
+    },
+    {
+      "route": "/merchants/[id]",
+      "requires": "merchants.read"
+    },
+    {
+      "route": "/observability",
+      "requires": "observability.view"
+    },
+    {
+      "route": "/ops",
+      "requires": "ops.view"
+    },
+    {
+      "route": "/ops/alerting",
+      "requires": "ops.view"
+    },
+    {
+      "route": "/orders",
+      "requires": "orders.read"
+    },
+    {
+      "route": "/orders/[id]",
+      "requires": "orders.read"
+    },
+    {
+      "route": "/payments",
+      "requires": "payments.read"
+    },
+    {
+      "route": "/payments/[id]",
+      "requires": "payments.read"
+    },
+    {
+      "route": "/payouts/jobs",
+      "requires": "payouts.read"
+    },
+    {
+      "route": "/payouts/jobs/[id]",
+      "requires": "payouts.read"
+    },
+    {
+      "route": "/pricing",
+      "requires": "pricing.read"
+    },
+    {
+      "route": "/promotions",
+      "requires": "promotions.read"
+    },
+    {
+      "route": "/rides",
+      "requires": "rides.read"
+    },
+    {
+      "route": "/rides/[id]",
+      "requires": "rides.read"
+    },
+    {
+      "route": "/runbooks",
+      "requires": "ops.view"
+    },
+    {
+      "route": "/service-areas",
+      "requires": "service_areas.read"
+    },
+    {
+      "route": "/settings",
+      "requires": "settings.read"
+    },
+    {
+      "route": "/support",
+      "requires": "support.read"
+    },
+    {
+      "route": "/support/articles",
+      "requires": "support.read"
+    },
+    {
+      "route": "/support/tickets",
+      "requires": "support.read"
+    },
+    {
+      "route": "/users",
+      "requires": "users.read"
+    },
+    {
+      "route": "/withdrawals",
+      "requires": "withdrawals.read"
+    },
+    {
+      "route": "/withdrawals/[id]",
+      "requires": "withdrawals.read"
+    }
+  ],
+  "edge_functions": [
+    {
+      "name": "admin-api",
+      "routes": [
+        {
+          "path": "admin-alerting-status",
+          "requires": "ops.view"
+        },
+        {
+          "path": "admin-dashboard-summary",
+          "requires": "dashboard.view"
+        },
+        {
+          "path": "admin-driver-detail",
+          "requires": "drivers.read"
+        },
+        {
+          "path": "admin-driver-transition",
+          "requires": "drivers.suspend"
+        },
+        {
+          "path": "admin-drivers-list",
+          "requires": "drivers.read"
+        },
+        {
+          "path": "admin-fraud-actions",
+          "requires": "fraud.manage"
+        },
+        {
+          "path": "admin-fraud-cases",
+          "requires": "fraud.view"
+        },
+        {
+          "path": "admin-observability",
+          "requires": "observability.view"
+        },
+        {
+          "path": "admin-payment-detail",
+          "requires": "payments.read"
+        },
+        {
+          "path": "admin-payment-refund",
+          "requires": "payments.refund"
+        },
+        {
+          "path": "admin-withdrawals-list",
+          "requires": "withdrawals.read"
+        },
+        {
+          "path": "admin-withdrawal-detail",
+          "requires": "withdrawals.read"
+        },
+        {
+          "path": "admin-withdraw-approve",
+          "requires": "withdrawals.approve"
+        },
+        {
+          "path": "admin-withdraw-reject",
+          "requires": "withdrawals.reject"
+        },
+        {
+          "path": "admin-withdraw-mark-paid",
+          "requires": "withdrawals.mark_paid"
+        },
+        {
+          "path": "admin-payout-jobs-list",
+          "requires": "payouts.read"
+        },
+        {
+          "path": "admin-payout-job-detail",
+          "requires": "payouts.read"
+        },
+        {
+          "path": "admin-payout-job-create",
+          "requires": "payouts.run"
+        },
+        {
+          "path": "admin-payout-job-action",
+          "requires": "payouts.retry"
+        },
+        {
+          "path": "admin-payments-list",
+          "requires": "payments.read"
+        },
+        {
+          "path": "admin-ride-cancel",
+          "requires": "rides.cancel"
+        },
+        {
+          "path": "admin-ride-detail",
+          "requires": "rides.read"
+        },
+        {
+          "path": "admin-ride-intent-convert",
+          "requires": "rides.convert_intent"
+        },
+        {
+          "path": "admin-rides-list",
+          "requires": "rides.read"
+        },
+        {
+          "path": "admin-slo-summary",
+          "requires": "observability.view"
+        },
+        {
+          "path": "admin-users-list",
+          "requires": "users.read"
+        }
+      ]
+    }
+  ]
+}

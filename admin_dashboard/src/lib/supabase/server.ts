@@ -1,0 +1,27 @@
+import { createServerClient } from '@supabase/ssr';
+import { cookies } from 'next/headers';
+import { cache } from 'react';
+import { getEnv } from '@/lib/env';
+
+export const createClient = cache(async () => {
+  const env = getEnv();
+  const cookieStore = await cookies();
+
+  return createServerClient(env.NEXT_PUBLIC_SUPABASE_URL, env.NEXT_PUBLIC_SUPABASE_ANON_KEY, {
+    cookies: {
+      getAll() {
+        return cookieStore.getAll();
+      },
+      setAll(cookiesToSet) {
+        try {
+          cookiesToSet.forEach(({ name, value, options }) => {
+            cookieStore.set(name, value, options);
+          });
+        } catch {
+          // The `cookies()` API can be read-only in some rendering contexts.
+          // In those cases session refresh will be handled by the next request.
+        }
+      },
+    },
+  });
+});
