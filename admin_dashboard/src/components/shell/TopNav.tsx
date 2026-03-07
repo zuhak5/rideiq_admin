@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import * as React from 'react';
 import { CommandPalette } from '@/components/shell/CommandPalette';
+import { createClient } from '@/lib/supabase/browser';
 
 export function TopNav({
   email,
@@ -15,6 +16,17 @@ export function TopNav({
 }) {
   const shownRoles = (roles ?? []).slice(0, 3);
   const [open, setOpen] = React.useState(false);
+  const [signingOut, setSigningOut] = React.useState(false);
+  const supabase = createClient();
+
+  async function handleSignOut() {
+    setSigningOut(true);
+    try {
+      await supabase.auth.signOut();
+    } finally {
+      window.location.assign('/logout');
+    }
+  }
 
   return (
     <>
@@ -42,9 +54,14 @@ export function TopNav({
             </div>
           )}
           <div className="text-xs text-neutral-500">{email ?? ''}</div>
-          <Link href="/logout" className="text-xs rounded-md border px-2 py-1 hover:bg-neutral-50">
-            Sign out
-          </Link>
+          <button
+            type="button"
+            className="text-xs rounded-md border px-2 py-1 hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
+            disabled={signingOut}
+            onClick={() => void handleSignOut()}
+          >
+            {signingOut ? 'Signing out...' : 'Sign out'}
+          </button>
         </div>
       </header>
 
