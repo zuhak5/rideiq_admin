@@ -317,16 +317,35 @@ export async function fetchMapsRenderPreview(
 export async function fetchServiceAreasOverlay(
   supabase: SupabaseClient,
 ): Promise<any | null> {
-  const data = await invokeEdgeFunction<{ ok: boolean; geojson: any }>(
-    supabase,
-    'admin-api',
-    {
+  const pageSize = 200;
+  const maxRecords = 1000;
+  const features: any[] = [];
+
+  for (let offset = 0; offset < maxRecords; offset += pageSize) {
+    const data = await invokeEdgeFunction<{
+      ok: boolean;
+      geojson: any;
+      page?: { limit: number; offset: number; returned: number };
+    }>(supabase, 'admin-api', {
       path: 'admin-service-areas-list',
       method: 'POST',
-      body: { q: '', limit: 500, offset: 0 },
-    },
-  );
-  return data.geojson ?? null;
+      body: { q: '', limit: pageSize, offset },
+    });
+
+    const nextFeatures = Array.isArray(data.geojson?.features)
+      ? data.geojson.features
+      : [];
+    features.push(...nextFeatures);
+
+    if ((data.page?.returned ?? nextFeatures.length) < pageSize) {
+      break;
+    }
+  }
+
+  return {
+    type: 'FeatureCollection',
+    features,
+  };
 }
 
 export async function fetchLiveDrivers(
