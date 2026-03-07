@@ -13,7 +13,10 @@ export default async function MapsPage() {
     <div className="space-y-4">
       <div className="flex flex-col gap-1">
         <h1 className="text-xl font-semibold">Maps</h1>
-        <div className="text-xs text-neutral-500">Live drivers and service area overlays.</div>
+        <div className="text-xs text-neutral-500">
+          Renderer controls, provider health, request diagnostics, and live
+          service-area overlays.
+        </div>
       </div>
       <MapsClient />
     </div>

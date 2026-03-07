@@ -75,7 +75,7 @@ function messageFromError(error: unknown): string {
 }
 
 function formatDateTime(value: string | null | undefined): string {
-  if (!value) return '-';
+  if (!value) return '—';
   return new Date(value).toLocaleString();
 }
 
@@ -115,14 +115,14 @@ function capabilityKey(row: {
 }
 
 function percent(numerator: number, denominator: number | null): string {
-  if (denominator == null || denominator <= 0) return '-';
+  if (denominator == null || denominator <= 0) return '—';
   return `${Math.min(100, Math.max(0, (numerator / denominator) * 100)).toFixed(
     1,
   )}%`;
 }
 
 function summaryText(value: Record<string, unknown> | null): string {
-  if (!value) return '-';
+  if (!value) return '—';
   return JSON.stringify(value, null, 2);
 }
 
@@ -453,7 +453,7 @@ export default function MapsClient(): React.JSX.Element {
             <h2 className="text-lg font-semibold">App renderer control</h2>
             <p className="text-sm text-neutral-600">
               The app requests render config from <code>maps-config-v2</code>{' '}
-              with fixed fallback order: Google, then Mapbox, then HERE.
+              with fixed fallback order: Google → Mapbox → HERE.
             </p>
             <p className="text-xs text-neutral-500">
               Google, Mapbox, and HERE are editable here. ORS and
@@ -485,10 +485,10 @@ export default function MapsClient(): React.JSX.Element {
               Active renderer
             </div>
             <div className="mt-1 text-lg font-semibold">
-              {renderPreview ? providerLabel(renderPreview.provider) : 'Loading...'}
+              {renderPreview ? providerLabel(renderPreview.provider) : 'Loading…'}
             </div>
             <div className="mt-1 text-xs text-neutral-500">
-              request_id={renderPreview?.requestId ?? '-'}
+              request_id={renderPreview?.requestId ?? '—'}
             </div>
           </div>
           <div className="rounded-lg border bg-neutral-50 p-3">
@@ -498,7 +498,7 @@ export default function MapsClient(): React.JSX.Element {
             <div className="mt-1 text-sm font-medium">
               {(renderPreview?.fallbackOrder ?? [])
                 .map(providerLabel)
-                .join(' -> ') || '-'}
+                .join(' → ') || '—'}
             </div>
             <div className="mt-1 text-xs text-neutral-500">
               Supported set: Google, Mapbox, HERE
@@ -531,7 +531,7 @@ export default function MapsClient(): React.JSX.Element {
             </p>
           </div>
           {summaryLoading ? (
-            <div className="text-sm text-neutral-500">Refreshing...</div>
+            <div className="text-sm text-neutral-500">Refreshing…</div>
           ) : null}
         </div>
 
@@ -561,7 +561,7 @@ export default function MapsClient(): React.JSX.Element {
                         {providerLabel(row.provider_code)}
                       </div>
                       <div className="text-xs text-neutral-500">
-                        language={row.language} | region={row.region}
+                        language={row.language} • region={row.region}
                       </div>
                     </td>
                     <td className="px-3 py-3">
@@ -603,7 +603,7 @@ export default function MapsClient(): React.JSX.Element {
                     <td className="px-3 py-3 tabular-nums">{row.mtd_render}</td>
                     <td className="px-3 py-3">
                       {row.monthly_hard_cap_units == null
-                        ? '-'
+                        ? '—'
                         : `${row.monthly_hard_cap_units} (${percent(
                             row.mtd_render,
                             row.monthly_hard_cap_units,
@@ -623,7 +623,7 @@ export default function MapsClient(): React.JSX.Element {
                         onClick={() => void saveProvider(row)}
                       >
                         {savingProviderCode === row.provider_code
-                          ? 'Saving...'
+                          ? 'Saving…'
                           : 'Save'}
                       </button>
                     </td>
@@ -769,7 +769,7 @@ export default function MapsClient(): React.JSX.Element {
                       )}
                     </td>
                     <td className="px-3 py-3 text-neutral-500">
-                      {row.note ?? '-'}
+                      {row.note ?? '—'}
                     </td>
                     <td className="px-3 py-3 text-right">
                       {editable ? (
@@ -779,7 +779,7 @@ export default function MapsClient(): React.JSX.Element {
                           disabled={!dirty || savingCapabilityKey === key}
                           onClick={() => void saveCapability(row)}
                         >
-                          {savingCapabilityKey === key ? 'Saving...' : 'Save'}
+                          {savingCapabilityKey === key ? 'Saving…' : 'Save'}
                         </button>
                       ) : (
                         <span className="text-xs text-neutral-400">
@@ -841,10 +841,10 @@ export default function MapsClient(): React.JSX.Element {
                       {formatDateTime(row.disabled_until)}
                     </td>
                     <td className="px-3 py-3 tabular-nums">
-                      {row.last_http_status ?? '-'}
+                      {row.last_http_status ?? '—'}
                     </td>
                     <td className="px-3 py-3 text-red-700">
-                      {row.last_error_code ?? '-'}
+                      {row.last_error_code ?? '—'}
                     </td>
                     <td className="px-3 py-3 text-right">
                       <button
@@ -853,7 +853,7 @@ export default function MapsClient(): React.JSX.Element {
                         disabled={resettingHealthKey === key}
                         onClick={() => void handleHealthReset(row)}
                       >
-                        {resettingHealthKey === key ? 'Resetting...' : 'Reset'}
+                        {resettingHealthKey === key ? 'Resetting…' : 'Reset'}
                       </button>
                     </td>
                   </tr>
@@ -1035,9 +1035,9 @@ export default function MapsClient(): React.JSX.Element {
                   <td className="px-3 py-3 tabular-nums">
                     {row.latency_ms} ms
                   </td>
-                  <td className="px-3 py-3">{row.client_renderer ?? '-'}</td>
+                  <td className="px-3 py-3">{row.client_renderer ?? '—'}</td>
                   <td className="px-3 py-3 text-neutral-500">
-                    {row.fallback_reason ?? '-'}
+                    {row.fallback_reason ?? '—'}
                   </td>
                   <td className="px-3 py-3">
                     <pre className="max-w-[520px] overflow-x-auto rounded-lg border bg-neutral-50 p-2 text-xs text-neutral-700">
@@ -1090,9 +1090,9 @@ export default function MapsClient(): React.JSX.Element {
         <div className="mt-3 text-xs text-neutral-500">
           {showDrivers ? `drivers=${drivers.length}` : 'drivers=hidden'}
           {driversUpdatedAt
-            ? ` | updated=${new Date(driversUpdatedAt).toLocaleTimeString()}`
+            ? ` • updated=${new Date(driversUpdatedAt).toLocaleTimeString()}`
             : ''}
-          {driversSince ? ` | window=${driversSince}` : ''}
+          {driversSince ? ` • window=${driversSince}` : ''}
         </div>
         {mapError ? (
           <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
