@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useRouter } from 'next/navigation';
+import { persistServerSession } from '@/lib/auth/persistSession';
 import { createClient } from '@/lib/supabase/browser';
 
 const schema = z.object({
@@ -14,7 +14,6 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 export default function LoginPage() {
-  const router = useRouter();
   const supabase = createClient();
   const [serverError, setServerError] = useState<string | null>(null);
   const form = useForm<FormValues>({
@@ -24,12 +23,33 @@ export default function LoginPage() {
 
   async function onSubmit(values: FormValues) {
     setServerError(null);
-    const { error } = await supabase.auth.signInWithPassword(values);
+    const { data, error } = await supabase.auth.signInWithPassword(values);
     if (error) {
       setServerError(error.message);
       return;
     }
-    router.replace('/dashboard');
+
+    if (!data.session) {
+      setServerError('Login succeeded but no session was returned.');
+      return;
+    }
+
+    try {
+      await persistServerSession({
+        access_token: data.session.access_token,
+        refresh_token: data.session.refresh_token,
+      });
+    } catch (persistError) {
+      await supabase.auth.signOut();
+      setServerError(
+        persistError instanceof Error
+          ? persistError.message
+          : 'Failed to persist server session.',
+      );
+      return;
+    }
+
+    window.location.assign('/dashboard');
   }
 
   return (

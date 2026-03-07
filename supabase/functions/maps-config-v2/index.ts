@@ -1,9 +1,10 @@
-import { corsHeaders } from '../_shared/cors.ts';
+import { getCorsHeadersForRequest } from '../_shared/cors.ts';
 import { json, errorJson } from '../_shared/json.ts';
 import { envTrim } from '../_shared/config.ts';
-import { createServiceClient } from '../_shared/supabase.ts';
+import { createServiceClient, requireUser } from '../_shared/supabase.ts';
 import { buildRateLimitHeaders, consumeRateLimit, getClientIp } from '../_shared/rateLimit.ts';
 import { issueTelemetryTokenV1, type TelemetryTokenPayloadV1 } from '../_shared/telemetryToken.ts';
+import { canServeMapsConfigRequest } from './policy.ts';
 
 type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest' | 'ors';
 type Capability = 'render' | 'directions' | 'geocode' | 'distance_matrix';
@@ -60,18 +61,6 @@ function getAllowedOrigins(): string[] {
     });
 }
 
-function enforceOrigin(request: Request, allowedOrigins: string[]) {
-  // If ALLOWED_ORIGINS isn't set, do not block (local/dev), but still return CORS headers.
-  if (!allowedOrigins.length) return;
-  const origin = request.headers.get('origin') || '';
-  if (!origin) {
-    throw new Error('missing_origin');
-  }
-  if (!allowedOrigins.includes(origin)) {
-    throw new Error('origin_not_allowed');
-  }
-}
-
 const ALL_PROVIDERS: ProviderCode[] = ['google', 'mapbox', 'here', 'thunderforest', 'ors'];
 
 function providerHasKey(p: ProviderCode): boolean {
@@ -122,11 +111,13 @@ function buildClientConfig(p: ProviderCode, opts: { language: string; region: st
 }
 
 Deno.serve(async (req) => {
+  const responseHeaders = getCorsHeadersForRequest(req);
+
   if (req.method === 'OPTIONS') {
-    return new Response('ok', { headers: corsHeaders });
+    return new Response('ok', { headers: responseHeaders });
   }
   if (req.method !== 'GET' && req.method !== 'POST') {
-    return errorJson('method_not_allowed', 405, 'method_not_allowed', undefined, corsHeaders);
+    return errorJson('method_not_allowed', 405, 'method_not_allowed', undefined, responseHeaders);
   }
 
   try {
@@ -147,13 +138,24 @@ Deno.serve(async (req) => {
         'rate_limited',
         undefined,
         {
-          ...corsHeaders,
+          ...responseHeaders,
           ...buildRateLimitHeaders({ limit, remaining: rl.remaining, resetAt: rl.resetAt }),
         },
       );
     }
 
-    enforceOrigin(req, getAllowedOrigins());
+    const allowedOrigins = getAllowedOrigins();
+    const origin = req.headers.get('origin');
+    let hasAuthenticatedUser = false;
+
+    if (!canServeMapsConfigRequest({ origin, allowedOrigins, hasAuthenticatedUser })) {
+      const { user } = await requireUser(req);
+      hasAuthenticatedUser = Boolean(user?.id);
+    }
+
+    if (!canServeMapsConfigRequest({ origin, allowedOrigins, hasAuthenticatedUser })) {
+      throw new Error('origin_not_allowed');
+    }
 
     let capability: Capability = 'render';
     let exclude: ProviderCode[] = [];
@@ -185,7 +187,7 @@ Deno.serve(async (req) => {
     }
 
     if (!['render', 'directions', 'geocode', 'distance_matrix'].includes(capability)) {
-      return errorJson('invalid_capability', 400, 'invalid_capability', undefined, corsHeaders);
+      return errorJson('invalid_capability', 400, 'invalid_capability', undefined, responseHeaders);
     }
 
     const supportedSet = new Set<ProviderCode>(
@@ -211,7 +213,7 @@ Deno.serve(async (req) => {
           500,
           'failed_to_pick_provider',
           { details: error.message },
-          corsHeaders,
+          responseHeaders,
         );
       }
 
@@ -232,7 +234,7 @@ Deno.serve(async (req) => {
     }
 
     if (!selected) {
-      return errorJson('no_available_provider', 503, 'no_available_provider', undefined, corsHeaders);
+      return errorJson('no_available_provider', 503, 'no_available_provider', undefined, responseHeaders);
     }
 
     const { data: providerRow, error: providerRowErr } = await supabase
@@ -247,7 +249,7 @@ Deno.serve(async (req) => {
         500,
         'failed_to_load_provider_config',
         { details: providerRowErr.message },
-        corsHeaders,
+        responseHeaders,
       );
     }
 
@@ -267,7 +269,7 @@ Deno.serve(async (req) => {
         500,
         'failed_to_load_provider_order',
         { details: orderErr.message },
-        corsHeaders,
+        responseHeaders,
       );
     }
 
@@ -313,10 +315,10 @@ Deno.serve(async (req) => {
     }
 
     // Render usage is logged by the client after a successful renderer initialization.
-    return json(out, 200, corsHeaders);
+    return json(out, 200, responseHeaders);
   } catch (e) {
     const msg = e instanceof Error ? e.message : 'unknown_error';
     const status = msg === 'origin_not_allowed' ? 403 : 500;
-    return errorJson(msg, status, msg, undefined, corsHeaders);
+    return errorJson(msg, status, msg, undefined, responseHeaders);
   }
 });

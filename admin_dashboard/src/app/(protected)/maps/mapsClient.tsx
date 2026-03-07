@@ -526,7 +526,7 @@ export default function MapsClient(): React.JSX.Element {
           <div>
             <h2 className="text-lg font-semibold">Primary render providers</h2>
             <p className="text-sm text-neutral-600">
-              Enable or disable each renderer and adjust priority. Lower
+              Enable or disable each renderer and adjust priority. Higher
               priority wins.
             </p>
           </div>
