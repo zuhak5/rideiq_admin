@@ -85,6 +85,9 @@ verify_jwt = false
 verify_jwt = false
 
 # User JWT endpoints with in-function auth (avoid gateway JWT validation issues)
+[functions.admin-api]
+verify_jwt = false
+
 [functions.fare-engine]
 verify_jwt = false
 

@@ -1,8 +1,21 @@
 import React from 'react';
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import MapsClient from '@/app/(protected)/maps/mapsClient';
 
 const mockCreateClient = jest.fn(() => ({}));
+const mockLeafletHandlers: Record<string, (() => void) | undefined> = {};
+const mockLeafletMap = {
+  getBounds: jest.fn(() => ({
+    getSouthWest: () => ({ lat: 33.25, lng: 44.2 }),
+    getNorthEast: () => ({ lat: 33.45, lng: 44.5 }),
+  })),
+  on: jest.fn((event: string, handler: () => void) => {
+    mockLeafletHandlers[event] = handler;
+  }),
+  off: jest.fn((event: string) => {
+    delete mockLeafletHandlers[event];
+  }),
+};
 const mockListMapsProviders = jest.fn();
 const mockListMapsCapabilities = jest.fn();
 const mockListMapsRequestStats = jest.fn();
@@ -20,7 +33,12 @@ jest.mock('@/lib/supabase/browser', () => ({
 }));
 
 jest.mock('@/components/maps/LeafletMapPreview', () => ({
-  LeafletMapPreview: () => <div data-testid="leaflet-map-preview" />,
+  LeafletMapPreview: ({ onMapReady }: { onMapReady?: (map: unknown) => void }) => {
+    React.useEffect(() => {
+      onMapReady?.(mockLeafletMap);
+    }, [onMapReady]);
+    return <div data-testid="leaflet-map-preview" />;
+  },
 }));
 
 jest.mock('@/lib/admin/maps', () => ({
@@ -45,6 +63,9 @@ jest.mock('@/lib/admin/maps', () => ({
 describe('MapsClient', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    for (const key of Object.keys(mockLeafletHandlers)) {
+      delete mockLeafletHandlers[key];
+    }
     mockListMapsProviders.mockResolvedValue([
       {
         provider_code: 'google',
@@ -158,7 +179,7 @@ describe('MapsClient', () => {
     render(<MapsClient />);
 
     expect(await screen.findByText('Primary render providers')).toBeInTheDocument();
-    expect(await screen.findByText('Google')).toBeInTheDocument();
+    expect(await screen.findByLabelText('Enable google')).toBeInTheDocument();
     expect(screen.getByTestId('maps-request-log-table')).toHaveTextContent('/route');
 
     fireEvent.click(screen.getByLabelText('Enable google'));
@@ -177,5 +198,20 @@ describe('MapsClient', () => {
         }),
       );
     });
+  });
+
+  it('does not refetch live drivers when the map reports the same bounds', async () => {
+    render(<MapsClient />);
+
+    await waitFor(() => {
+      expect(mockFetchLiveDrivers).toHaveBeenCalledTimes(1);
+    });
+
+    await act(async () => {
+      mockLeafletHandlers.moveend?.();
+      await Promise.resolve();
+    });
+
+    expect(mockFetchLiveDrivers).toHaveBeenCalledTimes(1);
   });
 });

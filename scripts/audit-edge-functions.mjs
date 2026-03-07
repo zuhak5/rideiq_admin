@@ -79,8 +79,40 @@ function hasAny(patterns, text) {
   return patterns.some((re) => re.test(text));
 }
 
+function getFunctionDir(name) {
+  return path.join(FUNCTIONS_DIR, name);
+}
+
+function readFunctionSource(name) {
+  const dir = getFunctionDir(name);
+  if (!fs.existsSync(dir)) return null;
+
+  const parts = [];
+  const stack = [dir];
+  while (stack.length) {
+    const current = stack.pop();
+    for (const entry of fs.readdirSync(current, { withFileTypes: true })) {
+      const fullPath = path.join(current, entry.name);
+      if (entry.isDirectory()) {
+        stack.push(fullPath);
+        continue;
+      }
+      if (!entry.isFile() || !fullPath.endsWith('.ts')) continue;
+      parts.push(readText(fullPath));
+    }
+  }
+
+  return parts.join('\n');
+}
+
 const PATTERNS = {
-  userAuth: [/\brequireUser\s*\(/, /\brequireAdmin\s*\(/, /\bauth\.getUser\b/i, /\bAuthorization\b/i],
+  userAuth: [
+    /\brequireUser\s*\(/,
+    /\brequireAdmin\s*\(/,
+    /\brequirePermission\s*\(/,
+    /\bauth\.getUser\b/i,
+    /\bAuthorization\b/i,
+  ],
   cronSecret: [/\brequireCronSecret\s*\(/, /CRON_SECRET/i, /x-cron/i, /cron/i],
   signature: [
     /webhook_token/i,
@@ -146,7 +178,7 @@ function audit() {
       failures.push({ name, reason: `Missing function entrypoint: ${indexPath}` });
       continue;
     }
-    const src = readText(indexPath);
+    const src = readFunctionSource(name) ?? readText(indexPath);
 
     const entry = contract[name];
     if (!entry) {

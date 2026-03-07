@@ -67,6 +67,16 @@ function bboxFromLeafletBounds(bounds: any): BBox | null {
   }
 }
 
+function bboxEquals(left: BBox | null, right: BBox | null): boolean {
+  if (!left || !right) return left === right;
+  return (
+    left.min_lat === right.min_lat &&
+    left.min_lng === right.min_lng &&
+    left.max_lat === right.max_lat &&
+    left.max_lng === right.max_lng
+  );
+}
+
 function messageFromError(error: unknown): string {
   if (error instanceof Error && error.message.trim()) {
     return error.message;
@@ -188,7 +198,7 @@ export default function MapsClient(): React.JSX.Element {
     const update = () => {
       const nextBbox = bboxFromLeafletBounds(map.getBounds());
       if (nextBbox) {
-        setBbox(nextBbox);
+        setBbox((current) => (bboxEquals(current, nextBbox) ? current : nextBbox));
       }
     };
     update();
@@ -1103,7 +1113,7 @@ export default function MapsClient(): React.JSX.Element {
         <LeafletMapPreview
           center={{ lat: 33.3152, lng: 44.3661 }}
           zoom={11}
-          onMapReady={(leafletMap) => setMap(leafletMap)}
+          onMapReady={setMap}
           fitGeojson={false}
           geojson={showAreas ? areasGeojson : null}
           markers={showDrivers ? drivers : []}
