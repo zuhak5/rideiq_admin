@@ -1,8 +1,21 @@
 // Shared geo types used by the Supabase Edge geo orchestrator and provider adapters.
 // These are intentionally provider-agnostic so the frontend can treat the response uniformly.
 
-export type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest' | 'ors';
+export const ALL_PROVIDER_CODES = ['google', 'mapbox', 'here'] as const;
+
+export type ProviderCode = (typeof ALL_PROVIDER_CODES)[number];
 export type Capability = 'directions' | 'geocode' | 'distance_matrix';
+
+export function isProviderCode(value: unknown): value is ProviderCode {
+  return typeof value === 'string' &&
+    (ALL_PROVIDER_CODES as readonly string[]).includes(value.trim().toLowerCase());
+}
+
+export function parseProviderCode(value: unknown): ProviderCode | null {
+  if (typeof value !== 'string') return null;
+  const normalized = value.trim().toLowerCase();
+  return isProviderCode(normalized) ? normalized : null;
+}
 
 export type LatLng = { lat: number; lng: number };
 

@@ -3,14 +3,8 @@ import { z } from 'zod';
 import { invokeEdgeFunction } from '@/lib/supabase/edge';
 
 export const primaryMapsProviders = ['google', 'mapbox', 'here'] as const;
-export const diagnosticMapsProviders = ['ors', 'thunderforest'] as const;
-export const allMapsProviders = [
-  ...primaryMapsProviders,
-  ...diagnosticMapsProviders,
-] as const;
-
 export type PrimaryMapsProvider = (typeof primaryMapsProviders)[number];
-export type DiagnosticMapsProvider = (typeof diagnosticMapsProviders)[number];
+export const allMapsProviders = [...primaryMapsProviders] as const;
 export type ProviderCode = (typeof allMapsProviders)[number];
 export type MapsCapability =
   | 'render'
@@ -110,6 +104,15 @@ export type MapsRenderPreview = {
   config: Record<string, unknown>;
 };
 
+export type MapsRendererConfig = {
+  provider: PrimaryMapsProvider;
+  fallbackOrder: ProviderCode[];
+  requestId: string | null;
+  telemetryToken: string | null;
+  telemetryExpiresAt: string | null;
+  config: Record<string, unknown>;
+};
+
 export function isEditableMapsProvider(
   providerCode: ProviderCode,
 ): providerCode is PrimaryMapsProvider {
@@ -149,18 +152,21 @@ const providerCodeSchema = z.enum([
   'google',
   'mapbox',
   'here',
-  'ors',
-  'thunderforest',
 ]);
 
-const mapsRenderPreviewSchema = z.object({
+const mapsRendererConfigSchema = z.object({
   ok: z.literal(true),
   capability: z.literal('render'),
-  provider: z.enum(primaryMapsProviders),
+  provider: providerCodeSchema,
   config: z.record(z.string(), z.unknown()).default({}),
   fallback_order: z.array(providerCodeSchema).optional(),
   request_id: z.string().nullable().optional(),
+  telemetry_token: z.string().nullable().optional(),
   telemetry_expires_at: z.string().nullable().optional(),
+});
+
+const mapboxRendererConfigSchema = mapsRendererConfigSchema.extend({
+  provider: z.literal('mapbox'),
 });
 
 async function listRpcRows<T>(
@@ -295,22 +301,70 @@ export async function fetchMapsRenderPreview(
   supabase: SupabaseClient,
 ): Promise<MapsRenderPreview> {
   const data = await invokeEdgeFunction<
-    z.infer<typeof mapsRenderPreviewSchema>
+    z.infer<typeof mapsRendererConfigSchema>
   >(supabase, 'maps-config-v2', {
     method: 'POST',
     body: {
       capability: 'render',
       supported: [...primaryMapsProviders],
     },
-    schema: mapsRenderPreviewSchema,
+    schema: mapsRendererConfigSchema,
   });
 
   return {
-    provider: data.provider,
+    provider: data.provider as PrimaryMapsProvider,
     fallbackOrder: data.fallback_order ?? [],
     requestId: data.request_id ?? null,
     telemetryExpiresAt: data.telemetry_expires_at ?? null,
     config: sanitizeRendererConfig(data.config),
+  };
+}
+
+export async function fetchMapboxRendererConfig(
+  supabase: SupabaseClient,
+): Promise<MapsRendererConfig & { provider: 'mapbox' }> {
+  const data = await invokeEdgeFunction<
+    z.infer<typeof mapboxRendererConfigSchema>
+  >(supabase, 'maps-config-v2', {
+    method: 'POST',
+    body: {
+      capability: 'render',
+      supported: ['mapbox'],
+    },
+    schema: mapboxRendererConfigSchema,
+  });
+
+  return {
+    provider: 'mapbox',
+    fallbackOrder: data.fallback_order ?? [],
+    requestId: data.request_id ?? null,
+    telemetryToken: data.telemetry_token ?? null,
+    telemetryExpiresAt: data.telemetry_expires_at ?? null,
+    config: data.config,
+  };
+}
+
+export async function fetchOperationsRendererConfig(
+  supabase: SupabaseClient,
+): Promise<MapsRendererConfig> {
+  const data = await invokeEdgeFunction<
+    z.infer<typeof mapsRendererConfigSchema>
+  >(supabase, 'maps-config-v2', {
+    method: 'POST',
+    body: {
+      capability: 'render',
+      supported: [...primaryMapsProviders],
+    },
+    schema: mapsRendererConfigSchema,
+  });
+
+  return {
+    provider: data.provider as PrimaryMapsProvider,
+    fallbackOrder: data.fallback_order ?? [],
+    requestId: data.request_id ?? null,
+    telemetryToken: data.telemetry_token ?? null,
+    telemetryExpiresAt: data.telemetry_expires_at ?? null,
+    config: data.config,
   };
 }
 

@@ -3,24 +3,13 @@ import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import MapsClient from '@/app/(protected)/maps/mapsClient';
 
 const mockCreateClient = jest.fn(() => ({}));
-const mockLeafletHandlers: Record<string, (() => void) | undefined> = {};
-const mockLeafletMap = {
-  getBounds: jest.fn(() => ({
-    getSouthWest: () => ({ lat: 33.25, lng: 44.2 }),
-    getNorthEast: () => ({ lat: 33.45, lng: 44.5 }),
-  })),
-  on: jest.fn((event: string, handler: () => void) => {
-    mockLeafletHandlers[event] = handler;
-  }),
-  off: jest.fn((event: string) => {
-    delete mockLeafletHandlers[event];
-  }),
-};
+const mockPreviewControls: { emitBounds?: () => void } = {};
 const mockListMapsProviders = jest.fn();
 const mockListMapsCapabilities = jest.fn();
 const mockListMapsRequestStats = jest.fn();
 const mockListMapsProviderHealth = jest.fn();
 const mockFetchMapsRenderPreview = jest.fn();
+const mockFetchOperationsRendererConfig = jest.fn();
 const mockListMapsRequestLogs = jest.fn();
 const mockFetchServiceAreasOverlay = jest.fn();
 const mockFetchLiveDrivers = jest.fn();
@@ -32,19 +21,27 @@ jest.mock('@/lib/supabase/browser', () => ({
   createClient: () => mockCreateClient(),
 }));
 
-jest.mock('@/components/maps/LeafletMapPreview', () => ({
-  LeafletMapPreview: ({ onMapReady }: { onMapReady?: (map: unknown) => void }) => {
+jest.mock('@/components/maps/ApprovedMapPreview', () => ({
+  ApprovedMapPreview: ({ onBoundsChange }: { onBoundsChange?: (bbox: unknown) => void }) => {
     React.useEffect(() => {
-      onMapReady?.(mockLeafletMap);
-    }, [onMapReady]);
-    return <div data-testid="leaflet-map-preview" />;
+      const bbox = {
+        min_lat: 33.25,
+        min_lng: 44.2,
+        max_lat: 33.45,
+        max_lng: 44.5,
+      };
+      onBoundsChange?.(bbox);
+      mockPreviewControls.emitBounds = () => onBoundsChange?.(bbox);
+    }, [onBoundsChange]);
+    return <div data-testid="approved-map-preview" />;
   },
 }));
 
 jest.mock('@/lib/admin/maps', () => ({
   primaryMapsProviders: ['google', 'mapbox', 'here'],
-  diagnosticMapsProviders: ['ors', 'thunderforest'],
   fetchLiveDrivers: (...args: unknown[]) => mockFetchLiveDrivers(...args),
+  fetchOperationsRendererConfig: (...args: unknown[]) =>
+    mockFetchOperationsRendererConfig(...args),
   fetchMapsRenderPreview: (...args: unknown[]) => mockFetchMapsRenderPreview(...args),
   fetchServiceAreasOverlay: (...args: unknown[]) => mockFetchServiceAreasOverlay(...args),
   isEditableMapsProvider: (providerCode: string) =>
@@ -63,9 +60,7 @@ jest.mock('@/lib/admin/maps', () => ({
 describe('MapsClient', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    for (const key of Object.keys(mockLeafletHandlers)) {
-      delete mockLeafletHandlers[key];
-    }
+    delete mockPreviewControls.emitBounds;
     mockListMapsProviders.mockResolvedValue([
       {
         provider_code: 'google',
@@ -81,23 +76,6 @@ describe('MapsClient', () => {
         mtd_render: 120,
         mtd_directions: 15,
         mtd_geocode: 20,
-        mtd_distance_matrix: 0,
-        updated_at: '2026-03-06T09:00:00.000Z',
-      },
-      {
-        provider_code: 'ors',
-        priority: 9,
-        enabled: true,
-        language: 'ar',
-        region: 'IQ',
-        monthly_soft_cap_units: null,
-        monthly_hard_cap_units: null,
-        cache_enabled: false,
-        cache_ttl_seconds: null,
-        note: 'diagnostics only',
-        mtd_render: 0,
-        mtd_directions: 60,
-        mtd_geocode: 22,
         mtd_distance_matrix: 0,
         updated_at: '2026-03-06T09:00:00.000Z',
       },
@@ -145,6 +123,14 @@ describe('MapsClient', () => {
       requestId: 'req-123',
       telemetryExpiresAt: '2026-03-06T10:00:00.000Z',
       config: { language: 'ar', region: 'IQ', mapId: 'demo-map' },
+    });
+    mockFetchOperationsRendererConfig.mockResolvedValue({
+      provider: 'google',
+      fallbackOrder: ['mapbox', 'here'],
+      requestId: 'req-google',
+      telemetryToken: 'token-google',
+      telemetryExpiresAt: '2026-03-06T10:00:00.000Z',
+      config: { apiKey: 'test-google-key', language: 'ar', region: 'IQ' },
     });
     mockListMapsRequestLogs.mockResolvedValue([
       {
@@ -208,7 +194,7 @@ describe('MapsClient', () => {
     });
 
     await act(async () => {
-      mockLeafletHandlers.moveend?.();
+      mockPreviewControls.emitBounds?.();
       await Promise.resolve();
     });
 

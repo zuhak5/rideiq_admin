@@ -2,12 +2,13 @@
 
 import React from 'react';
 import {
-  LeafletMapPreview,
-  type LeafletMarker,
-} from '@/components/maps/LeafletMapPreview';
+  ApprovedMapPreview,
+  type ApprovedMapPreviewMarker,
+  type PreviewBBox,
+} from '@/components/maps/ApprovedMapPreview';
 import {
-  diagnosticMapsProviders,
   fetchLiveDrivers,
+  fetchOperationsRendererConfig,
   fetchMapsRenderPreview,
   fetchServiceAreasOverlay,
   isEditableMapsProvider,
@@ -24,6 +25,7 @@ import {
   type CapabilityRow,
   type MapsCapability,
   type MapsRenderPreview,
+  type MapsRendererConfig,
   type MapsRequestLogRow,
   type PrimaryMapsProvider,
   type ProviderCode,
@@ -49,24 +51,6 @@ type CapabilityDraft = {
   enabled?: boolean;
 };
 
-function clamp(n: number, min: number, max: number): number {
-  return Math.max(min, Math.min(max, n));
-}
-
-function bboxFromLeafletBounds(bounds: any): BBox | null {
-  try {
-    const sw = bounds.getSouthWest();
-    const ne = bounds.getNorthEast();
-    const min_lat = clamp(Number(sw.lat), -90, 90);
-    const max_lat = clamp(Number(ne.lat), -90, 90);
-    const min_lng = clamp(Number(sw.lng), -180, 180);
-    const max_lng = clamp(Number(ne.lng), -180, 180);
-    return { min_lat, min_lng, max_lat, max_lng };
-  } catch {
-    return null;
-  }
-}
-
 function bboxEquals(left: BBox | null, right: BBox | null): boolean {
   if (!left || !right) return left === right;
   return (
@@ -85,7 +69,7 @@ function messageFromError(error: unknown): string {
 }
 
 function formatDateTime(value: string | null | undefined): string {
-  if (!value) return '—';
+  if (!value) return '-';
   return new Date(value).toLocaleString();
 }
 
@@ -97,10 +81,6 @@ function providerLabel(providerCode: ProviderCode): string {
       return 'Mapbox';
     case 'here':
       return 'HERE';
-    case 'ors':
-      return 'OpenRouteService';
-    case 'thunderforest':
-      return 'Thunderforest';
   }
 }
 
@@ -125,31 +105,32 @@ function capabilityKey(row: {
 }
 
 function percent(numerator: number, denominator: number | null): string {
-  if (denominator == null || denominator <= 0) return '—';
+  if (denominator == null || denominator <= 0) return '-';
   return `${Math.min(100, Math.max(0, (numerator / denominator) * 100)).toFixed(
     1,
   )}%`;
 }
 
 function summaryText(value: Record<string, unknown> | null): string {
-  if (!value) return '—';
+  if (!value) return '-';
   return JSON.stringify(value, null, 2);
 }
 
 export default function MapsClient(): React.JSX.Element {
   const supabase = React.useMemo(() => createClient(), []);
-  const [map, setMap] = React.useState<any>(null);
   const [bbox, setBbox] = React.useState<BBox | null>(null);
 
   const [showAreas, setShowAreas] = React.useState(true);
   const [showDrivers, setShowDrivers] = React.useState(true);
   const [areasGeojson, setAreasGeojson] = React.useState<any | null>(null);
-  const [drivers, setDrivers] = React.useState<LeafletMarker[]>([]);
+  const [drivers, setDrivers] = React.useState<ApprovedMapPreviewMarker[]>([]);
   const [driversSince, setDriversSince] = React.useState<string | null>(null);
   const [driversUpdatedAt, setDriversUpdatedAt] = React.useState<string | null>(
     null,
   );
   const [mapError, setMapError] = React.useState<string | null>(null);
+  const [operationsRenderer, setOperationsRenderer] =
+    React.useState<MapsRendererConfig | null>(null);
 
   const [providers, setProviders] = React.useState<ProviderRow[]>([]);
   const [capabilities, setCapabilities] = React.useState<CapabilityRow[]>([]);
@@ -192,23 +173,6 @@ export default function MapsClient(): React.JSX.Element {
   const [resettingHealthKey, setResettingHealthKey] = React.useState<
     string | null
   >(null);
-
-  React.useEffect(() => {
-    if (!map) return;
-    const update = () => {
-      const nextBbox = bboxFromLeafletBounds(map.getBounds());
-      if (nextBbox) {
-        setBbox((current) => (bboxEquals(current, nextBbox) ? current : nextBbox));
-      }
-    };
-    update();
-    map.on('moveend', update);
-    map.on('zoomend', update);
-    return () => {
-      map.off('moveend', update);
-      map.off('zoomend', update);
-    };
-  }, [map]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -275,6 +239,28 @@ export default function MapsClient(): React.JSX.Element {
       window.clearInterval(intervalId);
     };
   }, [bbox, showDrivers, supabase]);
+
+  React.useEffect(() => {
+    let cancelled = false;
+    const load = async () => {
+      try {
+        const nextRenderer = await fetchOperationsRendererConfig(supabase);
+        if (cancelled) return;
+        setOperationsRenderer(nextRenderer);
+        setMapError(null);
+      } catch (error) {
+        if (cancelled) return;
+        setOperationsRenderer(null);
+        setMapError(messageFromError(error));
+      }
+    };
+    void load();
+    const intervalId = window.setInterval(load, 60_000);
+    return () => {
+      cancelled = true;
+      window.clearInterval(intervalId);
+    };
+  }, [supabase]);
 
   React.useEffect(() => {
     let cancelled = false;
@@ -356,9 +342,6 @@ export default function MapsClient(): React.JSX.Element {
       row,
     ): row is ProviderRow & { provider_code: PrimaryMapsProvider } =>
       isEditableMapsProvider(row.provider_code),
-  );
-  const diagnosticProviders = providers.filter(
-    (row) => !isEditableMapsProvider(row.provider_code),
   );
 
   const updateProviderDraft = (
@@ -463,12 +446,11 @@ export default function MapsClient(): React.JSX.Element {
             <h2 className="text-lg font-semibold">App renderer control</h2>
             <p className="text-sm text-neutral-600">
               The app requests render config from <code>maps-config-v2</code>{' '}
-              with fixed fallback order: Google → Mapbox → HERE.
+              with fixed fallback order: Google -&gt; Mapbox -&gt; HERE.
             </p>
             <p className="text-xs text-neutral-500">
-              Google, Mapbox, and HERE are editable here. ORS and
-              Thunderforest stay read-only because backend geo fallback still
-              depends on them.
+              Google, Mapbox, and HERE are the only approved providers across
+              app render, geo fallback, and admin observability.
             </p>
           </div>
           <button
@@ -495,10 +477,10 @@ export default function MapsClient(): React.JSX.Element {
               Active renderer
             </div>
             <div className="mt-1 text-lg font-semibold">
-              {renderPreview ? providerLabel(renderPreview.provider) : 'Loading…'}
+              {renderPreview ? providerLabel(renderPreview.provider) : 'Loading...'}
             </div>
             <div className="mt-1 text-xs text-neutral-500">
-              request_id={renderPreview?.requestId ?? '—'}
+              request_id={renderPreview?.requestId ?? '-'}
             </div>
           </div>
           <div className="rounded-lg border bg-neutral-50 p-3">
@@ -508,7 +490,7 @@ export default function MapsClient(): React.JSX.Element {
             <div className="mt-1 text-sm font-medium">
               {(renderPreview?.fallbackOrder ?? [])
                 .map(providerLabel)
-                .join(' → ') || '—'}
+                .join(' -> ') || '-'}
             </div>
             <div className="mt-1 text-xs text-neutral-500">
               Supported set: Google, Mapbox, HERE
@@ -541,7 +523,7 @@ export default function MapsClient(): React.JSX.Element {
             </p>
           </div>
           {summaryLoading ? (
-            <div className="text-sm text-neutral-500">Refreshing…</div>
+            <div className="text-sm text-neutral-500">Refreshing...</div>
           ) : null}
         </div>
 
@@ -571,7 +553,7 @@ export default function MapsClient(): React.JSX.Element {
                         {providerLabel(row.provider_code)}
                       </div>
                       <div className="text-xs text-neutral-500">
-                        language={row.language} • region={row.region}
+                        language={row.language} | region={row.region}
                       </div>
                     </td>
                     <td className="px-3 py-3">
@@ -613,7 +595,7 @@ export default function MapsClient(): React.JSX.Element {
                     <td className="px-3 py-3 tabular-nums">{row.mtd_render}</td>
                     <td className="px-3 py-3">
                       {row.monthly_hard_cap_units == null
-                        ? '—'
+                        ? ''
                         : `${row.monthly_hard_cap_units} (${percent(
                             row.mtd_render,
                             row.monthly_hard_cap_units,
@@ -633,7 +615,7 @@ export default function MapsClient(): React.JSX.Element {
                         onClick={() => void saveProvider(row)}
                       >
                         {savingProviderCode === row.provider_code
-                          ? 'Saving…'
+                          ? 'Saving...'
                           : 'Save'}
                       </button>
                     </td>
@@ -660,59 +642,10 @@ export default function MapsClient(): React.JSX.Element {
 
       <section className="rounded-xl border bg-white p-4">
         <div className="space-y-1">
-          <h2 className="text-lg font-semibold">Backend diagnostics providers</h2>
-          <p className="text-sm text-neutral-600">
-            ORS and Thunderforest remain read-only here because backend geo
-            routing and fallback policy are out of scope.
-          </p>
-        </div>
-
-        <div className="mt-4 overflow-x-auto">
-          <table className="w-full min-w-[680px] text-sm">
-            <thead className="border-b bg-neutral-50 text-left text-neutral-500">
-              <tr>
-                <th className="px-3 py-2 font-medium">Provider</th>
-                <th className="px-3 py-2 font-medium">Enabled</th>
-                <th className="px-3 py-2 font-medium">Priority</th>
-                <th className="px-3 py-2 font-medium">Directions MTD</th>
-                <th className="px-3 py-2 font-medium">Geocode MTD</th>
-                <th className="px-3 py-2 font-medium">Updated</th>
-              </tr>
-            </thead>
-            <tbody>
-              {diagnosticProviders.map((row) => (
-                <tr key={row.provider_code} className="border-b last:border-b-0">
-                  <td className="px-3 py-3 font-medium">
-                    {providerLabel(row.provider_code)}
-                  </td>
-                  <td className="px-3 py-3">{row.enabled ? 'On' : 'Off'}</td>
-                  <td className="px-3 py-3 tabular-nums">{row.priority}</td>
-                  <td className="px-3 py-3 tabular-nums">
-                    {row.mtd_directions}
-                  </td>
-                  <td className="px-3 py-3 tabular-nums">{row.mtd_geocode}</td>
-                  <td className="px-3 py-3 text-neutral-500">
-                    {formatDateTime(row.updated_at)}
-                  </td>
-                </tr>
-              ))}
-              {diagnosticProviders.length === 0 ? (
-                <tr>
-                  <td className="px-3 py-6 text-neutral-500" colSpan={6}>
-                    No diagnostics providers returned.
-                  </td>
-                </tr>
-              ) : null}
-            </tbody>
-          </table>
-        </div>
-      </section>
-
-      <section className="rounded-xl border bg-white p-4">
-        <div className="space-y-1">
           <h2 className="text-lg font-semibold">Capability matrix</h2>
           <p className="text-sm text-neutral-600">
-            Capability flags stay editable for Google, Mapbox, and HERE only.
+            Capability flags stay editable for the same three-provider contract:
+            Google, Mapbox, and HERE.
           </p>
         </div>
 
@@ -779,7 +712,7 @@ export default function MapsClient(): React.JSX.Element {
                       )}
                     </td>
                     <td className="px-3 py-3 text-neutral-500">
-                      {row.note ?? '—'}
+                      {row.note ?? '-'}
                     </td>
                     <td className="px-3 py-3 text-right">
                       {editable ? (
@@ -789,7 +722,7 @@ export default function MapsClient(): React.JSX.Element {
                           disabled={!dirty || savingCapabilityKey === key}
                           onClick={() => void saveCapability(row)}
                         >
-                          {savingCapabilityKey === key ? 'Saving…' : 'Save'}
+                          {savingCapabilityKey === key ? 'Saving...' : 'Save'}
                         </button>
                       ) : (
                         <span className="text-xs text-neutral-400">
@@ -851,10 +784,10 @@ export default function MapsClient(): React.JSX.Element {
                       {formatDateTime(row.disabled_until)}
                     </td>
                     <td className="px-3 py-3 tabular-nums">
-                      {row.last_http_status ?? '—'}
+                      {row.last_http_status ?? '-'}
                     </td>
                     <td className="px-3 py-3 text-red-700">
-                      {row.last_error_code ?? '—'}
+                      {row.last_error_code ?? '-'}
                     </td>
                     <td className="px-3 py-3 text-right">
                       <button
@@ -863,7 +796,7 @@ export default function MapsClient(): React.JSX.Element {
                         disabled={resettingHealthKey === key}
                         onClick={() => void handleHealthReset(row)}
                       >
-                        {resettingHealthKey === key ? 'Resetting…' : 'Reset'}
+                        {resettingHealthKey === key ? 'Resetting...' : 'Reset'}
                       </button>
                     </td>
                   </tr>
@@ -964,13 +897,11 @@ export default function MapsClient(): React.JSX.Element {
                 }
               >
                 <option value="all">All</option>
-                {[...primaryMapsProviders, ...diagnosticMapsProviders].map(
-                  (provider) => (
-                    <option key={provider} value={provider}>
-                      {providerLabel(provider)}
-                    </option>
-                  ),
-                )}
+                {primaryMapsProviders.map((provider) => (
+                  <option key={provider} value={provider}>
+                    {providerLabel(provider)}
+                  </option>
+                ))}
               </select>
             </label>
             <label className="text-sm">
@@ -1045,9 +976,9 @@ export default function MapsClient(): React.JSX.Element {
                   <td className="px-3 py-3 tabular-nums">
                     {row.latency_ms} ms
                   </td>
-                  <td className="px-3 py-3">{row.client_renderer ?? '—'}</td>
+                  <td className="px-3 py-3">{row.client_renderer ?? '-'}</td>
                   <td className="px-3 py-3 text-neutral-500">
-                    {row.fallback_reason ?? '—'}
+                    {row.fallback_reason ?? '-'}
                   </td>
                   <td className="px-3 py-3">
                     <pre className="max-w-[520px] overflow-x-auto rounded-lg border bg-neutral-50 p-2 text-xs text-neutral-700">
@@ -1073,8 +1004,8 @@ export default function MapsClient(): React.JSX.Element {
           <div className="space-y-1">
             <h2 className="text-lg font-semibold">Operations map</h2>
             <p className="text-sm text-neutral-600">
-              Service-area overlays and live driver points from the existing
-              admin backend endpoints.
+              Service-area overlays and live driver points using the approved
+              Google, Mapbox, or HERE renderer fed by <code>maps-config-v2</code>.
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3 text-sm">
@@ -1100,9 +1031,9 @@ export default function MapsClient(): React.JSX.Element {
         <div className="mt-3 text-xs text-neutral-500">
           {showDrivers ? `drivers=${drivers.length}` : 'drivers=hidden'}
           {driversUpdatedAt
-            ? ` • updated=${new Date(driversUpdatedAt).toLocaleTimeString()}`
+            ? ` | updated=${new Date(driversUpdatedAt).toLocaleTimeString()}`
             : ''}
-          {driversSince ? ` • window=${driversSince}` : ''}
+          {driversSince ? ` | window=${driversSince}` : ''}
         </div>
         {mapError ? (
           <div className="mt-3 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
@@ -1110,16 +1041,26 @@ export default function MapsClient(): React.JSX.Element {
           </div>
         ) : null}
 
-        <LeafletMapPreview
-          center={{ lat: 33.3152, lng: 44.3661 }}
-          zoom={11}
-          onMapReady={setMap}
-          fitGeojson={false}
-          geojson={showAreas ? areasGeojson : null}
-          markers={showDrivers ? drivers : []}
-          className="mt-4 h-[72vh] w-full rounded-xl border"
-        />
+        {operationsRenderer ? (
+          <ApprovedMapPreview
+            rendererConfig={operationsRenderer}
+            center={{ lat: 33.3152, lng: 44.3661 }}
+            zoom={11}
+            onBoundsChange={(nextBbox: PreviewBBox | null) =>
+              setBbox((current) => (bboxEquals(current, nextBbox) ? current : nextBbox))
+            }
+            fitGeojson={false}
+            geojson={showAreas ? areasGeojson : null}
+            markers={showDrivers ? drivers : []}
+            className="mt-4 h-[72vh] w-full rounded-xl border"
+          />
+        ) : (
+          <div className="mt-4 flex h-[72vh] w-full items-center justify-center rounded-xl border bg-neutral-50 text-sm text-neutral-500">
+            Loading approved map renderer...
+          </div>
+        )}
       </section>
     </div>
   );
 }
+

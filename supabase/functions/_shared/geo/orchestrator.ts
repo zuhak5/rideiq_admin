@@ -69,10 +69,6 @@ export function providerHasServerKey(provider: ProviderCode): boolean {
       return envFirstNonEmpty('MAPBOX_SECRET_TOKEN', 'MAPBOX_PUBLIC_TOKEN').length > 0;
     case 'here':
       return envFirstNonEmpty('HERE_API_KEY').length > 0;
-    case 'thunderforest':
-      return envFirstNonEmpty('THUNDERFOREST_API_KEY').length > 0;
-    case 'ors':
-      return envFirstNonEmpty('ORS_API_KEY', 'OPENROUTESERVICE_API_KEY').length > 0;
     default:
       return false;
   }
@@ -86,10 +82,6 @@ export function getServerKey(provider: ProviderCode): string {
       return envFirstNonEmpty('MAPBOX_SECRET_TOKEN', 'MAPBOX_PUBLIC_TOKEN');
     case 'here':
       return envFirstNonEmpty('HERE_API_KEY');
-    case 'thunderforest':
-      return envFirstNonEmpty('THUNDERFOREST_API_KEY');
-    case 'ors':
-      return envFirstNonEmpty('ORS_API_KEY', 'OPENROUTESERVICE_API_KEY');
   }
 }
 

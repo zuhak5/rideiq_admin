@@ -7,8 +7,6 @@ import { googleComputeRoutes, googleComputeRouteMatrix } from '../_shared/geo/pr
 import { googleGeocode, googleReverseGeocode } from '../_shared/geo/providers/googleGeocoding.ts';
 import { mapboxDirections, mapboxGeocode, mapboxMatrix, mapboxReverse } from '../_shared/geo/providers/mapbox.ts';
 import { hereGeocode, hereRevGeocode, hereRoutes } from '../_shared/geo/providers/here.ts';
-import { orsDirections, orsGeocode, orsMatrix, orsReverse } from '../_shared/geo/providers/ors.ts';
-import { getOrsErrorCode, getOrsErrorMessage, isOrsNoRouteError } from '../_shared/geo/providers/orsErrors.ts';
 import {
   createServiceClientForGeo,
   getProviderDefaults,
@@ -17,7 +15,7 @@ import {
   pickProvider,
   providerHasServerKey,
 } from '../_shared/geo/orchestrator.ts';
-import type { Capability, LatLng, ProviderCode } from '../_shared/geo/types.ts';
+import { parseProviderCode, type Capability, type LatLng, type ProviderCode } from '../_shared/geo/types.ts';
 
 type Action = 'route' | 'geocode' | 'reverse' | 'matrix';
 
@@ -60,8 +58,7 @@ function estimateUnits(action: Action, body: any): number {
 }
 
 function normalizeProviderCode(v: unknown): ProviderCode | null {
-  if (v === 'google' || v === 'mapbox' || v === 'here' || v === 'thunderforest' || v === 'ors') return v;
-  return null;
+  return parseProviderCode(v);
 }
 
 function defaultCapabilityForAction(action: Action): Capability {
@@ -99,22 +96,9 @@ function endpointHint(provider: ProviderCode, action: Action): string {
     case 'here':
       if (action === 'route') return 'router.hereapi.com/v8/routes';
       return 'geocode.search.hereapi.com/v1';
-    case 'ors':
-      if (action === 'route') return 'api.openrouteservice.org/v2/directions';
-      if (action === 'matrix') return 'api.openrouteservice.org/v2/matrix';
-      return 'api.openrouteservice.org/geocode';
-    case 'thunderforest':
     default:
       return 'n/a';
   }
-}
-
-function envPositiveInt(name: string, fallback: number, bounds: { min: number; max: number }): number {
-  const raw = (Deno.env.get(name) ?? '').trim();
-  if (!raw) return fallback;
-  const n = Number(raw);
-  if (!Number.isFinite(n) || n <= 0) return fallback;
-  return Math.max(bounds.min, Math.min(bounds.max, Math.trunc(n)));
 }
 
 export default Deno.serve((req: Request) => withRequestContext('geo', req, async (ctx) => {
@@ -160,23 +144,14 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
   const exclude: ProviderCode[] = Array.isArray(body?.exclude)
     ? (body.exclude.map(normalizeProviderCode).filter(Boolean) as ProviderCode[])
     : [];
-  if (exclude.includes('ors')) {
-    // ORS is the only non-renderer provider we can use when maps are Thunderforest,
-    // so never allow client-side excludes to block it.
-    exclude.splice(exclude.indexOf('ors'), 1);
-  }
   if (!googleAllowedForRenderer(renderer)) {
     if (!exclude.includes('google')) exclude.push('google');
   }
   if (!mapboxAllowedForRenderer(renderer)) {
     if (!exclude.includes('mapbox')) exclude.push('mapbox');
   }
-  if (renderer === 'thunderforest' && exclude.includes('ors')) {
-    // Ensure Thunderforest (render-only) can always fall back to ORS for server-side routing/geocoding.
-    exclude.splice(exclude.indexOf('ors'), 1);
-  }
   const missingServerKeyProviders: ProviderCode[] = [];
-  for (const p of ['google', 'mapbox', 'here', 'ors'] as ProviderCode[]) {
+  for (const p of ['google', 'mapbox', 'here'] as ProviderCode[]) {
     if (!providerHasServerKey(p) && !exclude.includes(p)) {
       exclude.push(p);
       missingServerKeyProviders.push(p);
@@ -297,8 +272,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
     error_code: string;
     error_detail: string;
     kind: 'no_route' | 'upstream';
-    ors_error_code?: number | null;
-    ors_error_message?: string | null;
   };
   const failures: AttemptFailure[] = [];
   const maxAttempts = 4;
@@ -310,8 +283,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
       error_code: f.error_code,
       error_detail: f.error_detail,
       kind: f.kind,
-      ors_error_code: f.ors_error_code ?? undefined,
-      ors_error_message: f.ors_error_message ?? undefined,
     }));
   }
 
@@ -466,20 +437,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
             language,
           });
           raw = out.raw; normalized = out.normalized;
-        } else if (provider === 'ors') {
-          const orsProfile = profile === 'walking' ? 'foot-walking' : profile === 'cycling' ? 'cycling-regular' : 'driving-car';
-          // Increase ORS point snapping tolerance (default 350m can fail for off-road pickup pins).
-          const orsSnapRadiusMeters = envPositiveInt('ORS_DIRECTIONS_SNAP_RADIUS_METERS', 1200, { min: 50, max: 10000 });
-          const out = await orsDirections({
-            apiKey: key,
-            origin,
-            destination,
-            profile: orsProfile,
-            language,
-            steps,
-            snapRadiusMeters: orsSnapRadiusMeters,
-          });
-          raw = out.raw; normalized = out.normalized;
         } else {
           throw new Error('provider_unsupported_for_route');
         }
@@ -557,15 +514,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
         } else if (provider === 'here') {
           const out = await hereGeocode({ apiKey: key, query, language, limit, inFilter: `countryCode:${region === 'IQ' ? 'IRQ' : region}` });
           raw = out.raw; normalized = out.normalized;
-        } else if (provider === 'ors') {
-          const out = await orsGeocode({
-            apiKey: key,
-            query,
-            language,
-            region,
-            limit,
-          });
-          raw = out.raw; normalized = out.normalized;
         } else {
           throw new Error('provider_unsupported_for_geocode');
         }
@@ -632,15 +580,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
           raw = out.raw; normalized = out.normalized;
         } else if (provider === 'here') {
           const out = await hereRevGeocode({ apiKey: key, at, language, limit });
-          raw = out.raw; normalized = out.normalized;
-        } else if (provider === 'ors') {
-          const out = await orsReverse({
-            apiKey: key,
-            at,
-            language,
-            region,
-            limit,
-          });
           raw = out.raw; normalized = out.normalized;
         } else {
           throw new Error('provider_unsupported_for_reverse');
@@ -719,19 +658,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
             annotations: ['duration', 'distance'],
           });
           raw = out.raw; normalized = out.normalized;
-        } else if (provider === 'ors') {
-          const locations = [...origins, ...destinations];
-          const sources = origins.map((_, i) => i);
-          const destinationsIdx = destinations.map((_, i) => i + origins.length);
-          const out = await orsMatrix({
-            apiKey: key,
-            profile: 'driving-car',
-            locations,
-            sources,
-            destinations: destinationsIdx,
-            metrics: ['duration', 'distance'],
-          });
-          raw = out.raw; normalized = out.normalized;
         } else {
           throw new Error('provider_unsupported_for_matrix');
         }
@@ -760,7 +686,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
       const message = err instanceof Error ? err.message : String(err);
 
       const errAny = err as any;
-      const rawBody = errAny?.rawBody;
       const retryAfterSeconds =
         typeof errAny?.rateLimit?.retryAfterSeconds === 'number' && Number.isFinite(errAny.rateLimit.retryAfterSeconds)
           ? Math.trunc(errAny.rateLimit.retryAfterSeconds)
@@ -776,15 +701,13 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
         ? 504
         : (typeof errAny?.httpStatus === 'number' && Number.isFinite(errAny.httpStatus) ? errAny.httpStatus : (parsedStatus ?? 502));
       const isInternal = message.startsWith('provider_unsupported_');
-      const orsErrorCode = provider === 'ors' ? getOrsErrorCode(rawBody) : null;
-      const orsErrorMessage = provider === 'ors' ? getOrsErrorMessage(rawBody) : null;
-      const orsNoRoute =
-        provider === 'ors' &&
+      const noRoute =
         action === 'route' &&
         (
-          isOrsNoRouteError(rawBody) ||
-          (typeof orsErrorMessage === 'string' && /route could not be found|could not find point/i.test(orsErrorMessage)) ||
-          (message.startsWith('ors_directions_http_') && httpStatus === 404)
+          message === 'no_route_found' ||
+          message.toLowerCase().includes('no route') ||
+          message.toLowerCase().includes('route_not_found') ||
+          httpStatus === 404
         );
 
       let fallbackReason = 'upstream_error';
@@ -805,12 +728,12 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
         fallbackReason = 'upstream_4xx';
         baseCooldownSeconds = 0;
       }
-      if (orsNoRoute) {
+      if (noRoute) {
         fallbackReason = 'no_route';
         baseCooldownSeconds = 0;
       }
 
-      const errorCode = orsNoRoute
+      const errorCode = noRoute
         ? 'no_route_found'
         : (parsedStatus ? `upstream_http_${parsedStatus}` : (isTimeout ? 'timeout' : 'upstream_error'));
 
@@ -827,15 +750,13 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
         });
       }
 
-      const failureDetail = orsErrorMessage ? `${message}: ${orsErrorMessage}` : message;
+      const failureDetail = message;
       failures.push({
         provider,
         http_status: httpStatus,
         error_code: errorCode,
         error_detail: failureDetail,
-        kind: orsNoRoute ? 'no_route' : 'upstream',
-        ors_error_code: orsErrorCode,
-        ors_error_message: orsErrorMessage,
+        kind: noRoute ? 'no_route' : 'upstream',
       });
 
       const responseSummary: Record<string, unknown> = {};
@@ -843,8 +764,6 @@ export default Deno.serve((req: Request) => withRequestContext('geo', req, async
         responseSummary.retry_after_seconds = retryAfterSeconds;
         responseSummary.rate_limit_headers = errAny?.rateLimit?.headers;
       }
-      if (orsErrorCode != null) responseSummary.ors_error_code = orsErrorCode;
-      if (orsErrorMessage) responseSummary.ors_error_message = orsErrorMessage;
 
       await logAttempt({
         provider,

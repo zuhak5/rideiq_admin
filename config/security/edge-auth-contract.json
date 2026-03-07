@@ -64,9 +64,6 @@
     "interest-seed": {
       "auth": "webhook_signature"
     },
-    "maps-config": {
-      "auth": "public_readonly"
-    },
     "maps-config-v2": {
       "auth": "public_readonly"
     },

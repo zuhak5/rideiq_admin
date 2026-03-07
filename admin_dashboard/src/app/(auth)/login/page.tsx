@@ -62,8 +62,14 @@ export default function LoginPage() {
 
         <form onSubmit={form.handleSubmit(onSubmit)} className="mt-6 space-y-4">
           <div>
-            <label className="block text-xs font-medium text-neutral-700">Email</label>
+            <label
+              htmlFor="email"
+              className="block text-xs font-medium text-neutral-700"
+            >
+              Email
+            </label>
             <input
+              id="email"
               type="email"
               autoComplete="email"
               className="mt-1 w-full rounded-md border px-3 py-2 text-sm"
@@ -75,8 +81,14 @@ export default function LoginPage() {
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-neutral-700">Password</label>
+            <label
+              htmlFor="password"
+              className="block text-xs font-medium text-neutral-700"
+            >
+              Password
+            </label>
             <input
+              id="password"
               type="password"
               autoComplete="current-password"
               className="mt-1 w-full rounded-md border px-3 py-2 text-sm"
@@ -98,7 +110,7 @@ export default function LoginPage() {
             className="w-full rounded-md bg-neutral-900 text-white py-2 text-sm hover:bg-neutral-800 disabled:opacity-50"
             disabled={form.formState.isSubmitting}
           >
-            {form.formState.isSubmitting ? 'Signing in…' : 'Sign in'}
+            {form.formState.isSubmitting ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
 
@@ -109,3 +121,4 @@ export default function LoginPage() {
     </main>
   );
 }
+

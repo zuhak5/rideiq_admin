@@ -1,10 +1,12 @@
-import { fetchMapsConfigV2, type MapsConfigV2 } from './mapsConfig';
+'use client';
 
-// Re-export for backward compatibility with older imports.
-export type { MapsProvider, MapsCapability, MapsConfigV2 } from './mapsConfig';
+type GoogleRendererConfig = {
+  provider: 'google';
+  config: Record<string, unknown>;
+};
 
 let loaderPromise: Promise<void> | null = null;
-let requestedLibraries = new Set<string>();
+const requestedLibraries = new Set<string>();
 
 function ensureGoogleBootstrap(args: {
   apiKey: string;
@@ -16,15 +18,21 @@ function ensureGoogleBootstrap(args: {
   if (loaderPromise) return loaderPromise;
 
   loaderPromise = new Promise<void>((resolve, reject) => {
-    const existing = document.querySelector<HTMLScriptElement>("script[data-google-maps='true']");
+    const existing = document.querySelector<HTMLScriptElement>(
+      "script[data-google-maps='true']",
+    );
     if (existing) {
       existing.addEventListener('load', () => resolve(), { once: true });
-      existing.addEventListener('error', () => reject(new Error('Failed to load Google Maps script')), { once: true });
+      existing.addEventListener(
+        'error',
+        () => reject(new Error('Failed to load Google Maps script')),
+        { once: true },
+      );
       if ((window as any).google?.maps?.importLibrary) resolve();
       return;
     }
 
-    const callbackName = '__rideiqGoogleMapsReady';
+    const callbackName = '__rideiqAdminGoogleMapsReady';
     (window as any)[callbackName] = () => {
       delete (window as any)[callbackName];
       resolve();
@@ -44,10 +52,14 @@ function ensureGoogleBootstrap(args: {
     script.async = true;
     script.defer = true;
     script.dataset.googleMaps = 'true';
-    script.addEventListener('error', () => {
-      delete (window as any)[callbackName];
-      reject(new Error('Failed to load Google Maps script'));
-    }, { once: true });
+    script.addEventListener(
+      'error',
+      () => {
+        delete (window as any)[callbackName];
+        reject(new Error('Failed to load Google Maps script'));
+      },
+      { once: true },
+    );
     document.head.appendChild(script);
   });
 
@@ -67,23 +79,20 @@ async function importRequestedLibraries(libraries: string[]): Promise<void> {
   }
 }
 
-export async function loadGoogleMaps(libraries: string[] = []): Promise<void> {
-  if (typeof window === 'undefined') return;
-  const cfg = await fetchMapsConfigV2({ capability: 'render', supported: ['google'] });
-  await loadGoogleMapsWithConfig(cfg, libraries);
-}
-
-export async function loadGoogleMapsWithConfig(cfg: MapsConfigV2, libraries: string[] = []): Promise<void> {
+export async function loadGoogleMapsWithConfig(
+  cfg: GoogleRendererConfig,
+  libraries: string[] = [],
+): Promise<void> {
   if (typeof window === 'undefined') return;
   if (cfg.provider !== 'google') {
     throw new Error(`Active maps provider is ${cfg.provider}; Google renderer is not loaded`);
   }
 
-  const apiKey = cfg.config.apiKey as string | undefined;
+  const apiKey = String(cfg.config.apiKey ?? '').trim();
   if (!apiKey) throw new Error('missing_google_api_key');
 
-  const language = (cfg.config.language || 'ar') as string;
-  const region = (cfg.config.region || 'IQ') as string;
+  const language = String(cfg.config.language ?? 'ar').trim() || 'ar';
+  const region = String(cfg.config.region ?? 'IQ').trim() || 'IQ';
 
   await ensureGoogleBootstrap({ apiKey, language, region });
   await importRequestedLibraries(libraries);
@@ -91,8 +100,4 @@ export async function loadGoogleMapsWithConfig(cfg: MapsConfigV2, libraries: str
   if (!(window as any).google?.maps) {
     throw new Error('Google Maps loaded but window.google.maps is missing');
   }
-}
-
-export function hasGoogleMapsLoaded(): boolean {
-  return Boolean((window as any).google?.maps);
 }

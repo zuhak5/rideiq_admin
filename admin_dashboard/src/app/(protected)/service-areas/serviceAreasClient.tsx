@@ -1,9 +1,15 @@
 'use client';
 
 import React from 'react';
-import { LeafletPolygonEditor } from '@/components/maps/LeafletPolygonEditor';
+import { FallbackPolygonEditor } from '@/components/maps/FallbackPolygonEditor';
+import { MapboxPolygonEditor } from '@/components/maps/MapboxPolygonEditor';
+import {
+  fetchOperationsRendererConfig,
+  type MapsRendererConfig,
+} from '@/lib/admin/maps';
 import type { ServiceAreaRow } from '@/lib/admin/serviceAreas';
 import type { PricingConfigRow } from '@/lib/admin/pricing';
+import { createClient } from '@/lib/supabase/browser';
 import { upsertServiceAreaAction, deleteServiceAreaAction } from './actions';
 
 function centroidOfGeometry(geom: any): { lat: number; lng: number } | null {
@@ -47,8 +53,14 @@ export default function ServiceAreasClient(props: {
   page: { limit: number; offset: number; returned: number };
   pricingConfigs: PricingConfigRow[];
 }): React.JSX.Element {
+  const supabase = React.useMemo(() => createClient(), []);
   const [open, setOpen] = React.useState(false);
   const [editing, setEditing] = React.useState<ServiceAreaRow | null>(null);
+  const [rendererConfig, setRendererConfig] = React.useState<MapsRendererConfig | null>(null);
+  const [mapboxRendererConfig, setMapboxRendererConfig] = React.useState<
+    (MapsRendererConfig & { provider: 'mapbox' }) | null
+  >(null);
+  const [rendererError, setRendererError] = React.useState<string | null>(null);
 
   const [name, setName] = React.useState('');
   const [governorate, setGovernorate] = React.useState('Baghdad');
@@ -102,6 +114,38 @@ export default function ServiceAreasClient(props: {
 
   const geojsonStr = React.useMemo(() => (geometry ? JSON.stringify(geometry) : ''), [geometry]);
 
+  React.useEffect(() => {
+    if (!open) return;
+    let cancelled = false;
+
+    setRendererConfig(null);
+    setMapboxRendererConfig(null);
+    setRendererError(null);
+
+    void (async () => {
+      try {
+        const config = await fetchOperationsRendererConfig(supabase);
+        if (cancelled) return;
+
+        setRendererConfig(config);
+        setRendererError(null);
+
+        if (config.provider === 'mapbox') {
+          setMapboxRendererConfig(config as MapsRendererConfig & { provider: 'mapbox' });
+        }
+      } catch (error) {
+        if (cancelled) return;
+        setRendererConfig(null);
+        setMapboxRendererConfig(null);
+        setRendererError(error instanceof Error ? error.message : 'Failed to load map renderer');
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, supabase]);
+
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between gap-3">
@@ -135,9 +179,9 @@ export default function ServiceAreasClient(props: {
               <tr key={a.id} className="border-b last:border-b-0">
                 <td className="px-4 py-2">
                   <div className="font-medium">{a.name}</div>
-                  <div className="text-xs text-neutral-500">{a.id.slice(0, 8)}…</div>
+                  <div className="text-xs text-neutral-500">{a.id.slice(0, 8)}...</div>
                 </td>
-                <td className="px-4 py-2">{a.governorate ?? '—'}</td>
+                <td className="px-4 py-2">{a.governorate ?? '-'}</td>
                 <td className="px-4 py-2">
                   {a.is_active ? <span className="text-emerald-700">active</span> : <span className="text-neutral-500">inactive</span>}
                 </td>
@@ -147,7 +191,7 @@ export default function ServiceAreasClient(props: {
                   {a.surge_reason ? <div className="text-xs text-neutral-500">{a.surge_reason}</div> : null}
                 </td>
                 <td className="px-4 py-2">
-                  {a.pricing_config_id ? <span className="text-xs">{a.pricing_config_id.slice(0, 8)}…</span> : '—'}
+                  {a.pricing_config_id ? <span className="text-xs">{a.pricing_config_id.slice(0, 8)}...</span> : '-'}
                 </td>
                 <td className="px-4 py-2 text-right">
                   <div className="flex justify-end gap-2">
@@ -164,7 +208,7 @@ export default function ServiceAreasClient(props: {
                         type="submit"
                         className="rounded-md border border-red-200 bg-white px-2 py-1 text-red-700 hover:bg-red-50"
                         onClick={(e) => {
-                          if (!confirm(`Delete service area “${a.name}”?`)) e.preventDefault();
+                          if (!confirm(`Delete service area ${a.name}?`)) e.preventDefault();
                         }}
                       >
                         Delete
@@ -258,7 +302,7 @@ export default function ServiceAreasClient(props: {
                     <option value="">(none)</option>
                     {props.pricingConfigs.map((p) => (
                       <option key={p.id} value={p.id}>
-                        {(p.name ? p.name : p.id)} (v{p.version}){p.is_default ? ' — default' : ''}
+                        {(p.name ? p.name : p.id)} (v{p.version}){p.is_default ? ' - default' : ''}
                       </option>
                     ))}
                   </select>
@@ -340,15 +384,37 @@ export default function ServiceAreasClient(props: {
               <div>
                 <div className="text-sm font-medium">Polygon editor</div>
                 <div className="mt-1 text-xs text-neutral-500">
-                  Use the draw tool to create a polygon. Creating a new polygon replaces the old one.
+                  {mapboxRendererConfig
+                    ? 'Mapbox Draw is active. Creating a new polygon replaces the old one.'
+                    : 'If Mapbox Draw is unavailable, the editor falls back to click-to-draw on the approved renderer.'}
                 </div>
+                {rendererError ? (
+                  <div className="mt-2 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-sm text-red-700">
+                    {rendererError}
+                  </div>
+                ) : null}
                 <div className="mt-2 rounded-xl overflow-hidden border">
-                  <LeafletPolygonEditor
-                    center={center}
-                    zoom={12}
-                    initialGeometry={geometry}
-                    onGeometryChange={(g) => setGeometry(g)}
-                  />
+                  {mapboxRendererConfig ? (
+                    <MapboxPolygonEditor
+                      rendererConfig={mapboxRendererConfig}
+                      center={center}
+                      zoom={12}
+                      initialGeometry={geometry}
+                      onGeometryChange={(g) => setGeometry(g)}
+                    />
+                  ) : rendererConfig ? (
+                    <FallbackPolygonEditor
+                      rendererConfig={rendererConfig}
+                      center={center}
+                      zoom={12}
+                      initialGeometry={geometry}
+                      onGeometryChange={(g) => setGeometry(g)}
+                    />
+                  ) : (
+                    <div className="flex h-[520px] items-center justify-center bg-neutral-50 text-sm text-neutral-500">
+                      Loading map editor...
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -381,3 +447,4 @@ export default function ServiceAreasClient(props: {
     </div>
   );
 }
+

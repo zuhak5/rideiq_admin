@@ -1,50 +1,43 @@
-# Runbook: Maps billing spike / abuse
+# Runbook: maps billing spike or abuse
 
 ## Alert signals
-- `maps_origin_denied_high` (ticket)
+
+- `maps_origin_denied_high`
 
 ## Dashboards
-- SQL:
-  - `select * from public.ops_maps_metrics_15m;`
-- Logs:
-  - Filter Edge Function logs for `component=maps-config`.
 
-## Immediate triage (0–15 min)
-1. **Confirm symptom**
-   - `origin_denied` indicates requests from non-allowlisted origins (blocked by our origin allowlist).
-   - `rate_limited` indicates our server-side throttling is actively protecting.
+- SQL: `select * from public.ops_maps_metrics_15m;`
+- Logs: filter Edge Function logs for `component=maps-config-v2`
 
-2. **Identify source origin(s)**
-   - Check `Origin` / `Referer` in `maps-config` logs.
-   - Validate that production domains are allowlisted.
+## Immediate triage
 
-3. **Check Google Maps key restrictions**
-   - Ensure the underlying Google Maps key is restricted (HTTP referrer restrictions + API restrictions + quotas).
-   - Rotate the key if there is evidence of exfiltration.
+1. Confirm the symptom.
+   - `origin_denied` means a browser origin is outside the allowlist.
+   - `rate_limited` means abuse throttling is working.
+2. Identify the origin.
+   - Check `Origin` or `Referer` in `maps-config-v2` logs.
+   - Verify production/admin domains are allowlisted.
+3. Check provider key restrictions.
+   - Google browser key: referrer-restricted and Maps JavaScript API only.
+   - Mapbox public token: restricted to approved domains.
+   - HERE key: restricted to approved origins/workloads.
 
-## Common causes / fixes
-### A) New domain / subdomain not allowlisted
-- Symptoms: `origin_denied` rises, user map loads fail.
-- Fix:
-  - Add the new domain to allowed origins in environment configuration (do not loosen to `*`).
+## Common causes
 
-### B) Misconfigured publishable key
-- Symptoms: `misconfigured` rises.
-- Fix:
-  - Validate required env vars are present.
-  - Ensure secrets are not being referenced from the frontend bundle.
+### New domain not allowlisted
+- Symptom: `origin_denied` rises and map loads fail from a new domain.
+- Fix: add the exact domain to the allowlist. Do not loosen to `*`.
 
-### C) Key abuse / leak
-- Symptoms: billing spike, normal traffic does not explain usage.
-- Fix:
-  - Immediately rotate the Google Maps key.
-  - Apply strict referrer + API restrictions.
-  - Set hard daily quota and alerts in Google Cloud.
+### Misconfigured provider token
+- Symptom: `misconfigured` or render init failures rise.
+- Fix: validate `maps-config-v2` env vars and deploy config changes.
+
+### Key abuse or leak
+- Symptom: billing spike with no matching legitimate traffic.
+- Fix: rotate the affected provider key, keep strict origin restrictions, and review recent deploys/logs.
 
 ## Verification
-- `origin_denied` returns to baseline.
-- End-user map loads succeed from production domains.
 
-## Rollback
-- Revert allowlist changes if they inadvertently expand access.
-- Roll back any key rotation changes if they break legitimate production domains.
+- `origin_denied` returns to baseline.
+- `/maps` and `/service-areas` load cleanly.
+- No requests hit legacy providers or `maps-config`.

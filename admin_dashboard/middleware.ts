@@ -58,10 +58,18 @@ function buildCsp(nonce: string): string {
     .filter(Boolean)
     .join(' ');
 
+  const styleSrcOrigins = [
+    "'self'",
+    'https://fonts.googleapis.com',
+    'https://js.api.here.com',
+  ].join(' ');
+
   const cspHeader = `
     default-src 'self';
     script-src 'self' 'nonce-${nonce}' 'strict-dynamic'${isDev ? " 'unsafe-eval'" : ''};
-    style-src 'self' 'nonce-${nonce}';
+    style-src ${styleSrcOrigins} 'unsafe-inline';
+    style-src-elem ${styleSrcOrigins} 'unsafe-inline';
+    style-src-attr 'unsafe-inline';
     img-src ${imgSrc};
     font-src 'self' data: https:;
     connect-src ${connectSrc};

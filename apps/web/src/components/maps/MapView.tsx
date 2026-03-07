@@ -3,7 +3,6 @@ import { fetchMapsConfigV2, type MapsConfigV2, type MapsProvider } from '../../l
 import { loadGoogleMapsWithConfig } from '../../lib/googleMaps';
 import { applyArabicLabelLanguage, loadMapboxGL } from '../../lib/mapboxLoader';
 import { loadHereMaps } from '../../lib/hereLoader';
-import { loadLeaflet } from '../../lib/leafletLoader';
 import { logMapsUsage } from '../../lib/mapsUsage';
 
 export type LatLng = { lat: number; lng: number };
@@ -59,7 +58,7 @@ type Props = {
   onProviderChange?: (provider: MapsProvider) => void;
 };
 
-const DEFAULT_SUPPORTED_RENDER_PROVIDERS: MapsProvider[] = ['google', 'mapbox', 'here', 'thunderforest'];
+const DEFAULT_SUPPORTED_RENDER_PROVIDERS: MapsProvider[] = ['google', 'mapbox', 'here'];
 
 function isFiniteLatLng(p: LatLng) {
   return Number.isFinite(p.lat) && Number.isFinite(p.lng);
@@ -343,7 +342,7 @@ function createMapboxAdapter(
     if (!token) throw new Error('missing_mapbox_token');
     mapboxgl.accessToken = token;
 
-    const styleUrl = (cfg.config.styleUrl as string | undefined) ?? 'mapbox://styles/mapbox/streets-v12';
+    const styleUrl = (cfg.config.styleUrl as string | undefined) ?? 'mapbox://styles/mapbox/standard';
 
     const map = new mapboxgl.Map({
       container,
@@ -855,182 +854,6 @@ async function createHereAdapter(
   };
 }
 
-async function createThunderforestAdapter(
-  container: HTMLDivElement,
-  cfg: MapsConfigV2,
-  initial: { center: LatLng; zoom: number },
-): Promise<MapAdapter> {
-  const L = await loadLeaflet();
-  if (!L?.map) throw new Error('leaflet_missing');
-
-  const apiKey = String((cfg.config as any).apiKey ?? '');
-  if (!apiKey) throw new Error('thunderforest_api_key_missing');
-
-  const style = String((cfg.config as any).style ?? 'atlas');
-
-  const map = L.map(container, {
-    center: [initial.center.lat, initial.center.lng],
-    zoom: initial.zoom,
-    zoomControl: true,
-    attributionControl: true,
-  });
-
-  const tileUrl = `https://{s}.tile.thunderforest.com/${encodeURIComponent(style)}/{z}/{x}/{y}.png?apikey=${encodeURIComponent(apiKey)}`;
-  const attribution =
-    'Maps © <a href="https://www.thunderforest.com/">Thunderforest</a>, Data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
-  L.tileLayer(tileUrl, {
-    maxZoom: 22,
-    subdomains: 'abc',
-    attribution,
-  }).addTo(map);
-
-  const markersById = new Map<string, any>();
-  const circlesById = new Map<string, any>();
-  const rectanglesById = new Map<string, any>();
-  const polylinesById = new Map<string, any>();
-  let clickHandler: any | null = null;
-
-  const setOnClick = (handler?: ((pos: LatLng) => void) | null) => {
-    if (clickHandler) {
-      try {
-        map.off('click', clickHandler);
-      } catch {
-        // ignore
-      }
-      clickHandler = null;
-    }
-    if (!handler) return;
-    clickHandler = (evt: any) => {
-      const ll = evt?.latlng;
-      if (!ll) return;
-      handler({ lat: ll.lat, lng: ll.lng });
-    };
-    map.on('click', clickHandler);
-  };
-
-  const setMarkers = (markers: MapMarker[]) => {
-    const keep = new Set(markers.map((m) => m.id));
-    for (const [id, marker] of markersById.entries()) {
-      if (!keep.has(id)) {
-        marker.remove();
-        markersById.delete(id);
-      }
-    }
-
-    for (const m of markers) {
-      if (!isFiniteLatLng(m.position)) continue;
-      const existing = markersById.get(m.id);
-      if (existing) {
-        existing.setLatLng([m.position.lat, m.position.lng]);
-        continue;
-      }
-      const marker = L.marker([m.position.lat, m.position.lng], { title: m.title ?? '' });
-      marker.addTo(map);
-      markersById.set(m.id, marker);
-    }
-  };
-
-  const setCircles = (circles: MapCircle[]) => {
-    const keep = new Set(circles.map((c) => c.id));
-    for (const [id, circle] of circlesById.entries()) {
-      if (!keep.has(id)) {
-        circle.remove();
-        circlesById.delete(id);
-      }
-    }
-
-    for (const c of circles) {
-      if (!isFiniteLatLng(c.center)) continue;
-      const existing = circlesById.get(c.id);
-      if (existing) {
-        existing.setLatLng([c.center.lat, c.center.lng]);
-        existing.setRadius(c.radiusMeters);
-        continue;
-      }
-      const circle = L.circle([c.center.lat, c.center.lng], { radius: c.radiusMeters });
-      circle.addTo(map);
-      circlesById.set(c.id, circle);
-    }
-  };
-
-  const setRectangles = (rectangles: MapRectangle[]) => {
-    const keep = new Set(rectangles.map((r) => r.id));
-    for (const [id, rect] of rectanglesById.entries()) {
-      if (!keep.has(id)) {
-        rect.remove();
-        rectanglesById.delete(id);
-      }
-    }
-
-    for (const r of rectangles) {
-      const b = r.bounds;
-      if (!Number.isFinite(b.north) || !Number.isFinite(b.south) || !Number.isFinite(b.east) || !Number.isFinite(b.west)) continue;
-      const bounds = [
-        [b.south, b.west],
-        [b.north, b.east],
-      ];
-      const existing = rectanglesById.get(r.id);
-      if (existing) {
-        existing.setBounds(bounds);
-        continue;
-      }
-      const rect = L.rectangle(bounds as any);
-      rect.addTo(map);
-      rectanglesById.set(r.id, rect);
-    }
-  };
-
-  const setPolylines = (polylines: MapPolyline[]) => {
-    const keep = new Set(polylines.map((p) => p.id));
-    for (const [id, pl] of polylinesById.entries()) {
-      if (!keep.has(id)) {
-        pl.remove();
-        polylinesById.delete(id);
-      }
-    }
-
-    for (const p of polylines) {
-      const latlngs = p.path.filter(isFiniteLatLng).map((pt) => [pt.lat, pt.lng]);
-      const existing = polylinesById.get(p.id);
-      if (existing) {
-        existing.setLatLngs(latlngs);
-        continue;
-      }
-      const pl = L.polyline(latlngs as any);
-      pl.addTo(map);
-      polylinesById.set(p.id, pl);
-    }
-  };
-
-  const setView = (center: LatLng, zoom: number) => {
-    if (!isFiniteLatLng(center)) return;
-    map.setView([center.lat, center.lng], clampZoom(zoom));
-  };
-
-  return {
-    provider: 'thunderforest',
-    setView,
-    setMarkers,
-    setCircles,
-    setRectangles,
-    setPolylines,
-    setOnClick,
-    destroy: () => {
-      try {
-        if (clickHandler) map.off('click', clickHandler);
-      } catch {
-        // ignore
-      }
-      try {
-        map.remove();
-      } catch {
-        // ignore
-      }
-    },
-  };
-}
-
 async function initAdapter(args: {
   container: HTMLDivElement;
   supportedProviders: MapsProvider[];
@@ -1065,14 +888,12 @@ async function initAdapter(args: {
       let adapter: MapAdapter;
 
       if (provider === 'google') {
-        await loadGoogleMapsWithConfig(cfg, ['places']);
+        await loadGoogleMapsWithConfig(cfg, []);
         adapter = createGoogleAdapter(container, cfg, { center: args.initialCenter, zoom: args.initialZoom });
       } else if (provider === 'mapbox') {
         adapter = await createMapboxAdapter(container, cfg, { center: args.initialCenter, zoom: args.initialZoom });
       } else if (provider === 'here') {
         adapter = await createHereAdapter(container, cfg, { center: args.initialCenter, zoom: args.initialZoom });
-      } else if (provider === 'thunderforest') {
-        adapter = await createThunderforestAdapter(container, cfg, { center: args.initialCenter, zoom: args.initialZoom });
       } else {
         throw new Error(`renderer_not_supported_${provider}`);
       }
@@ -1139,7 +960,7 @@ export function MapView({
   const supported = (supportedRenderProviders?.length
     ? supportedRenderProviders
     : DEFAULT_SUPPORTED_RENDER_PROVIDERS
-  ).filter((p) => ['google', 'mapbox', 'here', 'thunderforest'].includes(p)) as MapsProvider[];
+  ).filter((p) => ['google', 'mapbox', 'here'].includes(p)) as MapsProvider[];
 
   // Initialize the adapter once.
   React.useEffect(() => {
@@ -1237,3 +1058,4 @@ export function MapView({
     </div>
   );
 }
+

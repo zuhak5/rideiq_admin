@@ -1,50 +1,48 @@
 # Maps usage inventory
 
-This repo uses a **multi-provider maps stack** for Iraq, with Arabic localization and automated fallback.
+This repo uses a three-provider maps stack for Iraq with Arabic localization and controlled fallback.
 
-Active providers (in priority order):
-1) Google Maps
-2) Mapbox
-3) HERE
-4) OpenRouteService (server-side directions/geocoding)
-5) Thunderforest (Leaflet tiles)
+Active providers in priority order:
+1. Google Maps
+2. Mapbox
+3. HERE
 
-Provider selection is controlled in Postgres (`maps_providers`, `maps_provider_capabilities`) and served to the web app via the `maps-config-v2` Edge Function. The web app (`MapView`) initializes the selected renderer and falls back at runtime if a provider fails to load.
+Provider selection is controlled in Postgres (`maps_providers`, `maps_provider_capabilities`) and served to clients through `maps-config-v2`. Web renderers initialize the selected provider and can fall back at runtime if a renderer fails to load.
 
-## Where Maps is used
+## Where maps is used
 
-### Public pages
-- `apps/web/src/pages/ShareTripPage.tsx` → `MapView` (pickup/dropoff markers; optional driver marker)
+### Flutter app
+- `lib/features/maps/` renders ride maps through provider-specific host documents and route previews.
 
-### Admin pages
-- `apps/web/src/components/maps/AdminDriversPreviewMap.tsx` (driver markers + radius circle + optional bbox rectangle)
-- `apps/web/src/components/maps/AdminServiceAreaMap.tsx` (editable service area rectangle)
-- `apps/web/src/components/maps/AdminServiceAreaGeoJsonMap.tsx` (GeoJSON overlay via Data layer)
+### Admin dashboard
+- `admin_dashboard/src/app/(protected)/maps` shows live drivers and GeoJSON overlays on a Mapbox display map fed by `maps-config-v2`.
+- `admin_dashboard/src/app/(protected)/service-areas` edits polygons with Mapbox GL Draw.
 
-## Required Maps APIs / SDKs (allowlist)
+### Legacy web app
+- `apps/web/src/components/maps/MapView.tsx` renders Google, Mapbox, or HERE.
+- `apps/web/src/pages/AdminMapsPage.tsx` exposes provider controls and Geo API diagnostics.
 
-### Client keys (browser)
+## Required client SDKs
 
-Keys are **never** embedded in Vite environment variables. The browser fetches provider config at runtime from `maps-config-v2`.
+Keys are never embedded in Vite environment variables. Clients fetch provider config at runtime from `maps-config-v2`.
 
-- **Google Maps JavaScript API** (required when Google render is enabled)
-- **Mapbox GL JS** (token required when Mapbox render is enabled)
-- **HERE Maps JS** (apikey required when HERE render is enabled)
-- **Thunderforest tiles** (API key required when Thunderforest render is enabled)
+- Google Maps JavaScript API
+- Mapbox GL JS
+- HERE Maps JavaScript API
 
-No usage of:
-- Places (JS or Web Service)
-- Routes/Directions API
-- Geocoding API
-- Elevation API
-- Distance Matrix API
-- Drawing library
-- Geometry library
+Excluded from the client stack:
+- unsupported tile providers
+- legacy polygon editors
+- Places UI
 
-> Note: Maps overlays used (`Marker`, `Circle`, `Rectangle`, `Data` layer) are provided by the base Maps JS API and do not require extra JS libraries.
+## Server-side geo providers
 
-### Server keys (geo/directions)
+Server-side routing/geocoding is orchestrated by the `geo` Edge Function with provider selection, quota enforcement, and optional short-lived caching.
 
-Server-side routing/geocoding is orchestrated by the `geo` Edge Function (provider selection + caching + rate limiting). Use separate server keys per provider if you enable these capabilities (including OpenRouteService for non-Google/Mapbox rendering). For ORS, set `ORS_API_KEY` (or `OPENROUTESERVICE_API_KEY`).
+- Google web services are only allowed when the active renderer is Google.
+- Mapbox web services are only allowed when the active renderer is Mapbox.
+- HERE is allowed for rendering and geo services.
 
-Google-specific key restriction guidance still applies; see `docs/maps/key-restrictions.md`.
+## Admin-specific note
+
+Polygon editing is Mapbox-only. Google's Drawing library is deprecated, so admin/service-area editing uses Mapbox GL Draw while the broader renderer stack remains Google, Mapbox, and HERE.

@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.maps_provider_health (
   last_failure_at timestamptz NULL,
   updated_at timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (provider_code, capability),
-  CONSTRAINT mph_provider_chk CHECK (provider_code IN ('google','mapbox','here','thunderforest')),
+  CONSTRAINT mph_provider_chk CHECK (provider_code IN ('google','mapbox','here')),
   CONSTRAINT mph_cap_chk CHECK (capability IN ('render','directions','geocode','distance_matrix'))
 );
 
@@ -45,7 +45,7 @@ DECLARE
   v_new_failures int;
   v_effective int;
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -91,7 +91,7 @@ DECLARE
   v_provider text := lower(btrim(p_provider_code));
   v_cap text := lower(btrim(p_capability));
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -217,7 +217,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN

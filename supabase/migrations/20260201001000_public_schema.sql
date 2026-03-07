@@ -2192,7 +2192,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -2273,7 +2273,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -2408,7 +2408,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_code NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 
@@ -2468,7 +2468,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_code NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 
@@ -7445,7 +7445,7 @@ DECLARE
   v_ttl int := greatest(1, least(coalesce(p_ttl_seconds, 300), 2592000)); -- max 30 days
   v_expires timestamptz := now() + make_interval(secs => v_ttl);
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('directions','geocode','distance_matrix') THEN
@@ -8328,7 +8328,7 @@ DECLARE
   v_new_failures int;
   v_effective int;
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -8378,7 +8378,7 @@ DECLARE
   v_provider text := lower(btrim(p_provider_code));
   v_cap text := lower(btrim(p_capability));
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
+  IF v_provider NOT IN ('google','mapbox','here') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -18281,7 +18281,7 @@ CREATE TABLE public.geo_cache (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT geo_cache_cap_chk CHECK ((capability = ANY (ARRAY['directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT geo_cache_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
+    CONSTRAINT geo_cache_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
 );
 
 
@@ -18439,7 +18439,7 @@ CREATE TABLE public.maps_provider_health (
     last_failure_at timestamp with time zone,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT mph_cap_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT mph_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
+    CONSTRAINT mph_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
 );
 
 
@@ -18464,7 +18464,7 @@ CREATE TABLE public.maps_providers (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     cache_enabled boolean DEFAULT false NOT NULL,
     cache_ttl_seconds integer,
-    CONSTRAINT maps_providers_provider_code_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
+    CONSTRAINT maps_providers_provider_code_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
 );
 
 
@@ -18498,7 +18498,7 @@ CREATE TABLE public.maps_requests_log (
     fallback_reason text,
     CONSTRAINT maps_requests_log_action_chk CHECK ((action = ANY (ARRAY['route'::text, 'geocode'::text, 'reverse'::text, 'matrix'::text, 'directions'::text, 'reverse_geocode'::text, 'render'::text]))),
     CONSTRAINT maps_requests_log_cap_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT maps_requests_log_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
+    CONSTRAINT maps_requests_log_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
 );
 
 
@@ -39479,3 +39479,4 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES 
 -- TOC entry 4692 (class 826 OID 16557)
 
 COMMIT;
+

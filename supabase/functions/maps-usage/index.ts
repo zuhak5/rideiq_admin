@@ -4,8 +4,8 @@ import { envTrim } from '../_shared/config.ts';
 import { createServiceClient, requireUser } from '../_shared/supabase.ts';
 import { buildRateLimitHeaders, consumeRateLimit, getClientIp } from '../_shared/rateLimit.ts';
 import { verifyTelemetryTokenV1 } from '../_shared/telemetryToken.ts';
+import { ALL_PROVIDER_CODES, isProviderCode, type ProviderCode } from '../_shared/geo/types.ts';
 
-type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest';
 type Capability = 'render';
 type RenderEvent = 'render_success' | 'render_failure';
 
@@ -17,10 +17,6 @@ function isUuid(v: unknown): v is string {
   if (typeof v !== 'string') return false;
   // Basic UUID validation (accept hyphenated RFC 4122 forms).
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
-}
-
-function isProviderCode(v: unknown): v is ProviderCode {
-  return v === 'google' || v === 'mapbox' || v === 'here' || v === 'thunderforest';
 }
 
 function isRenderEvent(v: unknown): v is RenderEvent {
@@ -96,7 +92,7 @@ Deno.serve(async (req) => {
         'invalid_provider_code',
         400,
         'invalid_provider_code',
-        { allowed: ['google', 'mapbox', 'here', 'thunderforest'] },
+        { allowed: [...ALL_PROVIDER_CODES] },
         corsHeaders,
       );
     }

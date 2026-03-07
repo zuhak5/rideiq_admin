@@ -1,60 +1,61 @@
 # Maps key restrictions
 
-Session 04 requires treating the Maps browser key as **public**, and preventing abuse via **application restrictions** + **API restrictions** in Google Cloud Console.
+`maps-config-v2` is the only public runtime config endpoint for browser/mobile map rendering.
 
-## Keys
+## Google
 
-### `MAPS_CLIENT_KEY` (public / browser)
+### Browser key
 Used by:
-- `supabase/functions/maps-config` to return the key to the web client at runtime.
-- The web client loads Maps JS with `key=<MAPS_CLIENT_KEY>`.
+- `maps-config-v2` when Google render is selected
+- web renderers that dynamically load the Maps JavaScript API
+- Flutter web host documents that call `google.maps.importLibrary(...)`
 
-**Do not** reuse this key for server-side requests.
+Restrictions:
+- HTTP referrers only
+- production domains, including `https://rideiqadmin.vercel.app`
+- local development origins such as `http://localhost:3000/*`, `http://localhost:3001/*`, `http://localhost:5173/*`, `http://127.0.0.1:3000/*`, `http://127.0.0.1:3001/*`, and `http://127.0.0.1:5173/*`
+- API restriction: Maps JavaScript API only
 
-### `MAPS_SERVER_KEY` (secret / server)
-Not currently used in this repo. Reserve for any future server-side calls to Google Maps Web Services (Directions / Geocoding / Places Web Service, etc.).
+Do not reuse the browser key for server-side Google Routes or Geocoding.
 
-## Application restrictions
+### Server key
+Used by:
+- `supabase/functions/geo` for Google routing/geocoding only when renderer=`google`
 
-### Web (required)
-Restrict `MAPS_CLIENT_KEY` by **HTTP referrers** for each environment.
+Restrictions:
+- server-side only
+- restrict to the exact Google web services in use
 
-Minimum suggested allowlist patterns:
-- Production:
-  - `https://<your-prod-domain>/*`
-- Staging:
-  - `https://<your-staging-domain>/*`
-- Local development:
-  - `http://localhost:5173/*` (or your Vite port)
-  - `http://127.0.0.1:5173/*`
+## Mapbox
 
-> If you serve the web app via GitHub Pages, also include the repository pages domain pattern.
+### Public token
+Used by:
+- `maps-config-v2`
+- admin dashboard display maps
+- Mapbox GL Draw polygon editor
+- Flutter/web Mapbox renderers
 
-### Android (when a mobile app is added)
-Restrict by:
-- package name (e.g. `com.rideiq.app`)
-- SHA-1 signing certificate fingerprint(s) for debug + release keys
+Restrictions:
+- URL/domain restrictions for production and local development
+- default style should be Mapbox Standard unless a vetted custom style is configured
 
-### iOS (when a mobile app is added)
-Restrict by:
-- bundle identifier (e.g. `com.rideiq.app`)
+### Secret token
+Only for server-side Mapbox web services used by `geo`. Keep it out of shipped bundles.
 
-## API restrictions (fail-closed)
+## HERE
 
-### `MAPS_CLIENT_KEY`
-Restrict to only:
-- **Maps JavaScript API**
+### JavaScript/api key
+Used by:
+- `maps-config-v2`
+- HERE web renderers
+- `geo` when HERE is selected
 
-If you later add Places UI/autocomplete or the Drawing/Geometry libraries, update both:
-1) this allowlist, and
-2) `docs/maps/inventory.md`.
-
-### `MAPS_SERVER_KEY`
-Restrict to only the exact Google Maps Web Services you use (e.g. Directions, Geocoding).
+Restrictions:
+- restrict to approved web origins and server workloads
+- keep separate prod and non-prod keys when possible
 
 ## Operational notes
-- Keep separate keys per environment where feasible (prod vs staging) to isolate risk and simplify incident response.
-- Rotate keys after any suspected leakage or abuse.
 
-## Server-side calls (when added)
-For Google Maps Web Services, do **not** send keys in URL query parameters. Prefer the `x-goog-api-key` header as recommended in Google Cloud API key guidance.
+- Rotate keys after any suspected leakage.
+- Keep separate environments isolated.
+- Do not introduce unsupported providers, legacy editors, or the legacy `maps-config` endpoint anywhere in the client stack.

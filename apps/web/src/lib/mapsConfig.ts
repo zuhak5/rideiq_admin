@@ -1,15 +1,7 @@
 import { invokeEdge } from './edgeInvoke';
 
-export type MapsProvider = 'google' | 'mapbox' | 'here' | 'thunderforest';
+export type MapsProvider = 'google' | 'mapbox' | 'here';
 export type MapsCapability = 'render' | 'directions' | 'geocode' | 'distance_matrix';
-
-// Legacy endpoint contract: supabase/functions/maps-config
-// (Google-only, older deployments)
-type LegacyMapsConfig = {
-  google_maps_api_key?: string;
-  apiKey?: string;
-  mapId?: string;
-};
 
 // maps-config-v2 contract. The `config` object is provider-specific, but always
 // includes { language, region }.
@@ -51,7 +43,7 @@ export async function fetchMapsConfigV2(opts?: {
 }): Promise<MapsConfigV2> {
   const capability = opts?.capability ?? 'render';
   const exclude = opts?.exclude ?? [];
-  const supported = opts?.supported ?? ['google', 'mapbox', 'here', 'thunderforest'];
+  const supported = opts?.supported ?? ['google', 'mapbox', 'here'];
   const request_id = opts?.request_id;
 
   const key = JSON.stringify({ capability, exclude, supported, request_id: capability === 'render' ? request_id ?? null : null });
@@ -61,37 +53,15 @@ export async function fetchMapsConfigV2(opts?: {
   if (cached) _cache.delete(key);
 
   const fetcher = async () => {
-    try {
-      const { data } = await invokeEdge<MapsConfigV2>('maps-config-v2', {
-        capability,
-        supported,
-        exclude,
-        ...(request_id ? { request_id } : {}),
-      });
-      if (!data?.ok) throw new Error('maps-config-v2 returned not ok');
-      _lastMapsConfig = data;
-      return data;
-    } catch {
-      // Fallback to legacy endpoint (Google-only).
-      const { data } = await invokeEdge<LegacyMapsConfig>('maps-config');
-      const apiKey = data?.apiKey ?? data?.google_maps_api_key;
-      if (!apiKey) throw new Error('maps-config missing apiKey');
-
-      const legacy: MapsConfigV2 = {
-        ok: true,
-        capability: 'render',
-        provider: 'google',
-        config: {
-          apiKey,
-          mapId: data?.mapId ?? null,
-          language: 'ar',
-          region: 'IQ',
-        },
-        fallback_order: ['google'],
-      };
-      _lastMapsConfig = legacy;
-      return legacy;
-    }
+    const { data } = await invokeEdge<MapsConfigV2>('maps-config-v2', {
+      capability,
+      supported,
+      exclude,
+      ...(request_id ? { request_id } : {}),
+    });
+    if (!data?.ok) throw new Error('maps-config-v2 returned not ok');
+    _lastMapsConfig = data;
+    return data;
   };
 
   const promise = fetcher();

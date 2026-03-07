@@ -1,63 +1,58 @@
-# Geo Orchestrator (Maps, Directions, Geocoding) — Architecture Notes
+# Geo orchestrator architecture notes
 
-This repo supports multiple map providers with **fallback** (Google → Mapbox → HERE → OpenRouteService) and a server-side **Geo API** that centralizes all third-party routing/geocoding calls. Thunderforest remains the renderer-only tile provider.
+This repo supports a three-provider maps stack with fallback:
+
+- Google
+- Mapbox
+- HERE
+
+The `geo` Edge Function centralizes routing, forward geocoding, reverse geocoding, and distance matrix calls.
 
 ## Goals
 
-1. Keep provider keys **server-side** (Edge Functions).
-2. Provide a normalized API (`/functions/v1/geo`) for:
-   - Directions / routing
-   - Forward geocoding
-   - Reverse geocoding
-   - Distance matrix
-3. Enforce per-provider monthly quotas and automatic fallback.
-4. Ensure Iraqi UX defaults: Arabic (`ar`) + Iraq region (`IQ`).
-5. Provide strong observability: request logs + admin live view.
+1. Keep provider keys server-side.
+2. Normalize geo responses across providers.
+3. Enforce quotas, provider health cooldowns, and fallback.
+4. Default to Arabic (`ar`) and Iraq (`IQ`).
+5. Keep observability in `maps_requests_log`, `maps_usage_daily`, and the admin maps surfaces.
 
-## Provider compliance: Google “no mixing” constraint
+## Compliance routing
 
-Google Maps Platform terms restrict use of certain Google content (e.g., directions/geocoding/distance matrix output) in conjunction with a non-Google map.
+Google Maps Platform content should only be combined with a Google renderer. In this repo:
 
-In this repo, the Geo API excludes Google for these capabilities unless the currently active renderer is also Google.
+- Google web services are only used when the active renderer is Google.
+- Mapbox web services are only used when the active renderer is Mapbox.
+- HERE can serve both rendering and geo requests.
 
-If you want a different behavior, discuss with counsel and re-evaluate compliance.
+## Database
 
-## Key components
+- `maps_providers`
+- `maps_provider_capabilities`
+- `maps_provider_health`
+- `maps_usage_daily`
+- `maps_requests_log`
+- `geo_cache`
 
-### Database
+## Edge functions
 
-- `maps_providers`, `maps_provider_capabilities`, `maps_usage_monthly` — provider config + quotas.
-- `maps_requests_log` — immutable request log for routing/geocoding/matrix (used by Admin UI).
-- `geo_cache` — short-lived normalized cache to reduce redundant provider calls.
+- `maps-config-v2`: renderer/config selection for approved origins and authenticated callers
+- `maps-usage`: render telemetry and usage metering
+- `geo`: server-side routing/geocoding orchestration
 
-### Edge Function: `geo`
+## Admin surfaces
 
-Located at `supabase/functions/geo/index.ts`.
-
-Inputs (JSON):
-
-- `action`: `route` | `geocode` | `reverse` | `matrix`
-- `language` (optional): defaults to Arabic.
-- `region` (optional): defaults to Iraq.
-- `renderer` (optional): map renderer currently in use. Used for compliance gating.
-
-Outputs are normalized across providers.
-
-### Admin UI
-
-`apps/web/src/pages/AdminMapsPage.tsx` now shows:
-
-- Live route test (calls the Geo API).
-- Recent Geo requests table (polling the log RPC).
+- `admin_dashboard/src/app/(protected)/maps`
+- `admin_dashboard/src/app/(protected)/service-areas`
+- `apps/web/src/pages/AdminMapsPage.tsx`
 
 ## Environment variables
 
-Set these in your Supabase Edge Function environment:
+Set these in Supabase Edge Functions:
 
-- `MAPS_SERVER_KEY` (Google server key for Routes API + Geocoding)
-- `MAPBOX_PUBLIC_TOKEN` (Mapbox token)
+- `MAPS_SERVER_KEY` for Google server-side web services
+- `MAPS_CLIENT_KEY` for Google browser rendering
+- `MAPBOX_PUBLIC_TOKEN`
+- `MAPBOX_SECRET_TOKEN` if server-side Mapbox services are enabled
 - `HERE_API_KEY`
-- `THUNDERFOREST_API_KEY`
-- `ORS_API_KEY` (OpenRouteService)
-- `OPENROUTESERVICE_API_KEY` (OpenRouteService fallback alias)
-- `ORS_DIRECTIONS_SNAP_RADIUS_METERS` (optional, default `1200`; increases ORS road-snap tolerance for pickup/dropoff points)
+
+Do not configure ORS, Thunderforest, Leaflet, or legacy `maps-config` dependencies.

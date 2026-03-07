@@ -74,10 +74,6 @@ verify_jwt = false
 [functions.zaincash-withdraw-webhook]
 verify_jwt = false
 
-# Public endpoints (no user JWT)
-[functions.maps-config]
-verify_jwt = false
-
 [functions.maps-config-v2]
 verify_jwt = false
 

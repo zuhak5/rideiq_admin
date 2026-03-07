@@ -122,10 +122,6 @@
       "key": "anon",
       "reason": "User-scoped KYC endpoint using publishable key with RLS and user JWT."
     },
-    "maps-config": {
-      "key": "none",
-      "reason": "Does not call Supabase APIs; no project keys required."
-    },
     "maps-config-v2": {
       "key": "service_role",
       "reason": "Public provider selection endpoint that reads maps provider configuration + capability matrix and enforces monthly quota selection; uses service role to bypass RLS for controlled reads."

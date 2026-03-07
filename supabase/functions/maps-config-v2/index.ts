@@ -4,9 +4,9 @@ import { envTrim } from '../_shared/config.ts';
 import { createServiceClient, requireUser } from '../_shared/supabase.ts';
 import { buildRateLimitHeaders, consumeRateLimit, getClientIp } from '../_shared/rateLimit.ts';
 import { issueTelemetryTokenV1, type TelemetryTokenPayloadV1 } from '../_shared/telemetryToken.ts';
+import { ALL_PROVIDER_CODES, isProviderCode, type ProviderCode } from '../_shared/geo/types.ts';
 import { canServeMapsConfigRequest } from './policy.ts';
 
-type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest' | 'ors';
 type Capability = 'render' | 'directions' | 'geocode' | 'distance_matrix';
 
 type MapsConfigV2Response = {
@@ -47,8 +47,7 @@ function getAllowedOrigins(): string[] {
   // Backwards-compatible: allow either ALLOWED_ORIGINS (legacy for this function)
   // or the shared CORS_ALLOW_ORIGINS used by our CORS helper.
   const fromEnv = envTrim('ALLOWED_ORIGINS') || envTrim('CORS_ALLOW_ORIGINS') || '';
-  if (!fromEnv) return [];
-  return fromEnv
+  const configuredOrigins = fromEnv
     .split(',')
     .map((s) => s.trim())
     .filter(Boolean)
@@ -59,9 +58,17 @@ function getAllowedOrigins(): string[] {
         return v;
       }
     });
+  return Array.from(new Set<string>([
+    ...configuredOrigins,
+    'https://rideiqadmin.vercel.app',
+    'http://127.0.0.1:3000',
+    'http://127.0.0.1:3001',
+    'http://127.0.0.1:5173',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'http://localhost:5173',
+  ]));
 }
-
-const ALL_PROVIDERS: ProviderCode[] = ['google', 'mapbox', 'here', 'thunderforest', 'ors'];
 
 function providerHasKey(p: ProviderCode): boolean {
   switch (p) {
@@ -71,10 +78,6 @@ function providerHasKey(p: ProviderCode): boolean {
       return Boolean(envTrim('MAPBOX_PUBLIC_TOKEN'));
     case 'here':
       return Boolean(envTrim('HERE_API_KEY'));
-    case 'thunderforest':
-      return Boolean(envTrim('THUNDERFOREST_API_KEY'));
-    case 'ors':
-      return Boolean(envTrim('ORS_API_KEY') || envTrim('OPENROUTESERVICE_API_KEY'));
     default:
       return false;
   }
@@ -91,21 +94,13 @@ function buildClientConfig(p: ProviderCode, opts: { language: string; region: st
     }
     case 'mapbox': {
       const token = envTrim('MAPBOX_PUBLIC_TOKEN');
-      const styleUrl = envTrim('MAPBOX_STYLE_URL') || 'mapbox://styles/mapbox/streets-v12';
+      const styleUrl = envTrim('MAPBOX_STYLE_URL') || 'mapbox://styles/mapbox/standard';
       return { token, styleUrl, language, region };
     }
     case 'here': {
       const apiKey = envTrim('HERE_API_KEY');
       const style = envTrim('HERE_STYLE') || 'normal.day';
       return { apiKey, style, language, region };
-    }
-    case 'thunderforest': {
-      const apiKey = envTrim('THUNDERFOREST_API_KEY');
-      const style = envTrim('THUNDERFOREST_STYLE') || 'atlas';
-      return { apiKey, style, language, region };
-    }
-    case 'ors': {
-      return { language, region };
     }
   }
 }
@@ -191,17 +186,18 @@ Deno.serve(async (req) => {
     }
 
     const supportedSet = new Set<ProviderCode>(
-      (supported.length ? supported : ALL_PROVIDERS).filter((p) => ALL_PROVIDERS.includes(p)),
+      (supported.length ? supported : [...ALL_PROVIDER_CODES])
+        .filter((provider): provider is ProviderCode => isProviderCode(provider)),
     );
 
     const supabase = createServiceClient();
 
     // Attempt to pick a provider, skipping any providers without keys configured
     // or unsupported by the requesting client.
-    const tried: ProviderCode[] = [...exclude];
+    const tried: string[] = exclude.filter((provider): provider is ProviderCode => isProviderCode(provider));
     let selected: ProviderCode | null = null;
 
-    for (let i = 0; i < ALL_PROVIDERS.length; i += 1) {
+    for (let i = 0; i < ALL_PROVIDER_CODES.length + 2; i += 1) {
       const { data, error } = await supabase.rpc('maps_pick_provider_v4', {
         p_capability: capability,
         p_exclude: tried,
@@ -217,8 +213,12 @@ Deno.serve(async (req) => {
         );
       }
 
-      const candidate = (data || null) as ProviderCode | null;
+      const candidate = typeof data === 'string' ? data.trim().toLowerCase() : null;
       if (!candidate) break;
+      if (!isProviderCode(candidate)) {
+        tried.push(candidate);
+        continue;
+      }
 
       if (!supportedSet.has(candidate)) {
         tried.push(candidate);
@@ -274,7 +274,8 @@ Deno.serve(async (req) => {
     }
 
     const fallback_order = (orderRows || [])
-      .map((r) => r.provider_code as ProviderCode)
+      .map((r) => (typeof r.provider_code === 'string' ? r.provider_code.trim().toLowerCase() : null))
+      .filter((provider): provider is ProviderCode => isProviderCode(provider))
       .filter((p) => p !== selected)
       .filter((p) => supportedSet.has(p))
       .filter((p) => providerHasKey(p));

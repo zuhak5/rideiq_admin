@@ -7,7 +7,7 @@ import { invokeEdge } from '../lib/edgeInvoke';
 import { errorText } from '../lib/errors';
 import { supabase } from '../lib/supabaseClient';
 
-type ProviderCode = 'google' | 'mapbox' | 'here' | 'thunderforest' | 'ors';
+type ProviderCode = 'google' | 'mapbox' | 'here';
 
 type ProviderRow = {
   provider_code: ProviderCode;
@@ -116,7 +116,7 @@ async function fetchCapabilities(): Promise<CapabilityRow[]> {
 async function fetchActiveProvider(): Promise<ActiveProviderResp> {
   const { data } = await invokeEdge<ActiveProviderResp>('maps-config-v2', {
     capability: 'render',
-    supported: ['google', 'mapbox', 'here', 'thunderforest', 'ors'],
+    supported: ['google', 'mapbox', 'here'],
   });
   if (!data?.ok) throw new Error('maps-config-v2 returned not ok');
   return data;
@@ -435,7 +435,7 @@ export default function AdminMapsPage() {
                 Toggle providers, set priority + caps, and review month-to-date usage.
               </div>
               <div className="text-xs text-gray-500 mt-2">
-                Web app render adapters: Google + Mapbox. HERE + Thunderforest render adapters will be added later.
+                Approved renderer stack: Google, Mapbox, and HERE only.
               </div>
             </div>
             <div className="flex gap-2">
@@ -892,7 +892,6 @@ export default function AdminMapsPage() {
                 <option value="google">Google</option>
                 <option value="mapbox">Mapbox</option>
                 <option value="here">HERE</option>
-                <option value="thunderforest">Thunderforest</option>
               </select>
             </div>
           </div>
@@ -989,8 +988,6 @@ export default function AdminMapsPage() {
                   <option value="google">Google</option>
                   <option value="mapbox">Mapbox</option>
                   <option value="here">HERE</option>
-                  <option value="thunderforest">Thunderforest</option>
-                  <option value="ors">OpenRouteService</option>
                 </select>
               </div>
               <div>
