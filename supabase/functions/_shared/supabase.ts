@@ -77,7 +77,7 @@ export async function requireUser(req: Request, ctx?: RequestCtxLike) {
   const { data, error } = await supabase.auth.getClaims(token);
   if (error || !data?.claims) {
     // Fallback to network-backed verification for compatibility / older projects.
-    return await requireUserStrict(req);
+    return await requireUserStrict(req, ctx);
   }
 
   const userId = String((data.claims as any).sub ?? '');

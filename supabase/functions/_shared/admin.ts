@@ -1,9 +1,13 @@
 import type { RequestContext } from './requestContext.ts';
 import { errorJson } from './json.ts';
-import { createUserClient, requireUserStrict } from './supabase.ts';
+import { createUserClient, requireUser } from './supabase.ts';
 
 export type AdminGuardOk = { user: { id: string } };
 export type AdminGuardErr = { res: Response };
+
+// Admin routes already sit behind gateway JWT verification, so prefer the
+// JWKS-backed guard and avoid a second Auth round-trip that can spuriously 401.
+export const adminAuthGuard = requireUser;
 
 function isMissingRpc(err: any): boolean {
   const msg = String(err?.message ?? err ?? '').toLowerCase();
@@ -17,7 +21,7 @@ function isMissingRpc(err: any): boolean {
 }
 
 export async function requireAdmin(req: Request, ctx?: RequestContext): Promise<AdminGuardOk | AdminGuardErr> {
-  const auth = await requireUserStrict(req, ctx);
+  const auth = await adminAuthGuard(req, ctx);
   if (auth.error || !auth.user) {
     return { res: errorJson('Unauthorized', 401, 'UNAUTHORIZED', undefined, ctx?.headers) };
   }
@@ -43,7 +47,7 @@ export async function requirePermission(
   permission: string = '',
 ): Promise<AdminGuardOk | AdminGuardErr> {
   // Always require a valid user JWT.
-  const auth = await requireUserStrict(req, ctx);
+  const auth = await adminAuthGuard(req, ctx);
   if (auth.error || !auth.user) {
     return { res: errorJson('Unauthorized', 401, 'UNAUTHORIZED', undefined, ctx?.headers) };
   }
