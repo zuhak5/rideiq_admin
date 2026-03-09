@@ -35,6 +35,7 @@ export function resolveRenderRequestRequiredCapabilities(params: {
   capability: RenderRequestCapability;
   requiredCapabilities: readonly RequiredGeoCapability[];
   origin: string | null;
+  userAgent?: string | null;
 }): RequiredGeoCapability[] {
   if (params.capability !== "render") {
     return [...params.requiredCapabilities];
@@ -42,14 +43,21 @@ export function resolveRenderRequestRequiredCapabilities(params: {
   if (params.requiredCapabilities.length > 0) {
     return [...params.requiredCapabilities];
   }
-  if (params.origin) {
+  if (params.origin && !isNativeDartCaller(params.userAgent)) {
     return [];
   }
 
-  // Native mobile callers do not send an Origin header. Default them to the
-  // geo-capable renderer contract so older app builds cannot receive a render
-  // provider that later fails the paired geo request.
+  // Native Flutter callers use Dart's HTTP stack. Some app builds still attach
+  // a synthetic local Origin header, so the user agent is the reliable signal
+  // for keeping them on the geo-capable renderer contract.
   return ["geocode", "directions"];
+}
+
+function isNativeDartCaller(userAgent: string | null | undefined): boolean {
+  const normalized = typeof userAgent === "string"
+    ? userAgent.trim().toLowerCase()
+    : "";
+  return normalized.startsWith("dart/");
 }
 
 export function buildEnabledCapabilityMap(

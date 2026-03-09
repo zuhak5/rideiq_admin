@@ -239,6 +239,7 @@ Deno.serve(async (req) => {
       capability,
       requiredCapabilities,
       origin,
+      userAgent: req.headers.get("user-agent"),
     });
 
     if (

@@ -47,8 +47,9 @@ Flutter render requests must send
 `required_capabilities: ['geocode', 'directions']` to `maps-config-v2` so the
 selected renderer can also satisfy the app's geo flows. For backward
 compatibility with older native app builds, `maps-config-v2` now defaults
-authenticated render requests without an `Origin` header to that same geo-safe
-capability set when `required_capabilities` is omitted.
+authenticated render requests to that same geo-safe capability set when
+`required_capabilities` is omitted. `Dart/*` callers are treated as native even
+if they still send a synthetic local `Origin` header.
 
 ## Admin surfaces
 

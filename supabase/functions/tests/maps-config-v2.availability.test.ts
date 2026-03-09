@@ -12,6 +12,7 @@ Deno.test("browser render requests keep omitted required capabilities empty", ()
     capability: "render",
     requiredCapabilities: [],
     origin: "https://rideiqadmin.vercel.app",
+    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
   });
 
   assertEquals(required, []);
@@ -22,6 +23,18 @@ Deno.test("native render requests default to geo-safe capabilities when omitted"
     capability: "render",
     requiredCapabilities: [],
     origin: null,
+    userAgent: "Dart/3.10 (dart:io)",
+  });
+
+  assertEquals(required, ["geocode", "directions"]);
+});
+
+Deno.test("native Dart render requests stay geo-safe with a synthetic origin header", () => {
+  const required = resolveRenderRequestRequiredCapabilities({
+    capability: "render",
+    requiredCapabilities: [],
+    origin: "http://localhost:5173",
+    userAgent: "Dart/3.10 (dart:io)",
   });
 
   assertEquals(required, ["geocode", "directions"]);
