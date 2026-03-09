@@ -3,10 +3,31 @@ import { assertEquals } from "jsr:@std/assert";
 import {
   buildEnabledCapabilityMap,
   isProviderEligibleForRenderRequest,
+  resolveRenderRequestRequiredCapabilities,
 } from "../_shared/geo/providerEligibility.ts";
 import type { ProviderCode } from "../_shared/geo/types.ts";
 
-Deno.test("legacy render requests remain eligible without geo server keys", () => {
+Deno.test("browser render requests keep omitted required capabilities empty", () => {
+  const required = resolveRenderRequestRequiredCapabilities({
+    capability: "render",
+    requiredCapabilities: [],
+    origin: "https://rideiqadmin.vercel.app",
+  });
+
+  assertEquals(required, []);
+});
+
+Deno.test("native render requests default to geo-safe capabilities when omitted", () => {
+  const required = resolveRenderRequestRequiredCapabilities({
+    capability: "render",
+    requiredCapabilities: [],
+    origin: null,
+  });
+
+  assertEquals(required, ["geocode", "directions"]);
+});
+
+Deno.test("legacy browser render requests remain eligible without geo server keys", () => {
   const enabledCapabilities = buildEnabledCapabilityMap([
     { provider_code: "google", capability: "render", enabled: true },
   ]);

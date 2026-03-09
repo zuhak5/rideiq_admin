@@ -22,6 +22,7 @@ import {
   normalizeRequiredCapabilities,
   type RenderRequestCapability,
   type RequiredGeoCapability,
+  resolveRenderRequestRequiredCapabilities,
 } from "../_shared/geo/providerEligibility.ts";
 import {
   providerHasClientRenderKey,
@@ -233,6 +234,12 @@ Deno.serve(async (req) => {
       const rid = body["request_id"];
       if (isUuid(rid)) requestId = rid;
     }
+
+    requiredCapabilities = resolveRenderRequestRequiredCapabilities({
+      capability,
+      requiredCapabilities,
+      origin,
+    });
 
     if (
       !["render", "directions", "geocode", "distance_matrix"].includes(

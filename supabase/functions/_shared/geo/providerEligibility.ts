@@ -31,6 +31,27 @@ export function normalizeRequiredCapabilities(
   return [...required];
 }
 
+export function resolveRenderRequestRequiredCapabilities(params: {
+  capability: RenderRequestCapability;
+  requiredCapabilities: readonly RequiredGeoCapability[];
+  origin: string | null;
+}): RequiredGeoCapability[] {
+  if (params.capability !== "render") {
+    return [...params.requiredCapabilities];
+  }
+  if (params.requiredCapabilities.length > 0) {
+    return [...params.requiredCapabilities];
+  }
+  if (params.origin) {
+    return [];
+  }
+
+  // Native mobile callers do not send an Origin header. Default them to the
+  // geo-capable renderer contract so older app builds cannot receive a render
+  // provider that later fails the paired geo request.
+  return ["geocode", "directions"];
+}
+
 export function buildEnabledCapabilityMap(
   rows: Array<{
     provider_code: unknown;
