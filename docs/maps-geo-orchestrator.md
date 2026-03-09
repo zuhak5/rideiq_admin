@@ -39,6 +39,9 @@ Google Maps Platform content should only be combined with a Google renderer. In 
 - `maps-usage`: render telemetry and usage metering
 - `geo`: server-side routing/geocoding orchestration
 
+Flutter render requests must send `required_capabilities: ['geocode', 'directions']`
+to `maps-config-v2` so the selected renderer can also satisfy the app's geo flows.
+
 ## Admin surfaces
 
 - `admin_dashboard/src/app/(protected)/maps`
@@ -52,7 +55,7 @@ Set these in Supabase Edge Functions:
 - `MAPS_SERVER_KEY` for Google server-side web services
 - `MAPS_CLIENT_KEY` for Google browser rendering
 - `MAPBOX_PUBLIC_TOKEN`
-- `MAPBOX_SECRET_TOKEN` if server-side Mapbox services are enabled
+- `MAPBOX_SECRET_TOKEN` for server-side Mapbox services (preferred; public token is only a compatibility fallback)
 - `HERE_API_KEY`
 
 Do not configure ORS, Thunderforest, Leaflet, or legacy `maps-config` dependencies.

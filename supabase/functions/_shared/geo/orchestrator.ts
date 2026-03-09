@@ -1,7 +1,8 @@
-import type { SupabaseClient } from 'npm:@supabase/supabase-js@2.92.0';
-import { sha256Hex } from './hash.ts';
-import { Capability, ProviderCode } from './types.ts';
-import { createServiceClient } from '../supabase.ts';
+import type { SupabaseClient } from "npm:@supabase/supabase-js@2.92.0";
+import { sha256Hex } from "./hash.ts";
+import { Capability, ProviderCode } from "./types.ts";
+import { createServiceClient } from "../supabase.ts";
+import { getGeoServerKey, providerHasGeoServerKey } from "./providerKeys.ts";
 
 export function createServiceClientForGeo(): SupabaseClient {
   return createServiceClient();
@@ -12,7 +13,7 @@ export async function pickProvider(
   capability: Capability,
   exclude: ProviderCode[],
 ): Promise<ProviderCode | null> {
-  const { data, error } = await supabase.rpc('maps_pick_provider_v4', {
+  const { data, error } = await supabase.rpc("maps_pick_provider_v4", {
     p_capability: capability,
     p_exclude: exclude,
   });
@@ -26,66 +27,44 @@ export async function getProviderDefaults(
   provider: ProviderCode,
 ): Promise<
   | {
-      language: string;
-      region: string;
-      enabled: boolean;
-      cache_enabled: boolean;
-      cache_ttl_seconds: number | null;
-    }
+    language: string;
+    region: string;
+    enabled: boolean;
+    cache_enabled: boolean;
+    cache_ttl_seconds: number | null;
+  }
   | null
 > {
   const { data, error } = await supabase
-    .from('maps_providers')
-    .select('language, region, enabled, cache_enabled, cache_ttl_seconds')
-    .eq('provider_code', provider)
+    .from("maps_providers")
+    .select("language, region, enabled, cache_enabled, cache_ttl_seconds")
+    .eq("provider_code", provider)
     .maybeSingle();
   if (error) throw error;
   if (!data) return null;
   return {
-    language: (data as any).language ?? 'ar',
-    region: (data as any).region ?? 'IQ',
+    language: (data as any).language ?? "ar",
+    region: (data as any).region ?? "IQ",
     enabled: Boolean((data as any).enabled),
     cache_enabled: Boolean((data as any).cache_enabled),
-    cache_ttl_seconds:
-      typeof (data as any).cache_ttl_seconds === 'number' && Number.isFinite((data as any).cache_ttl_seconds)
-        ? Math.trunc((data as any).cache_ttl_seconds)
-        : null,
+    cache_ttl_seconds: typeof (data as any).cache_ttl_seconds === "number" &&
+        Number.isFinite((data as any).cache_ttl_seconds)
+      ? Math.trunc((data as any).cache_ttl_seconds)
+      : null,
   };
 }
 
-function envFirstNonEmpty(...names: string[]): string {
-  for (const name of names) {
-    const value = (Deno.env.get(name) ?? '').trim();
-    if (value) return value;
-  }
-  return '';
-}
-
 export function providerHasServerKey(provider: ProviderCode): boolean {
-  switch (provider) {
-    case 'google':
-      return envFirstNonEmpty('MAPS_SERVER_KEY', 'GOOGLE_MAPS_SERVER_KEY').length > 0;
-    case 'mapbox':
-      return envFirstNonEmpty('MAPBOX_SECRET_TOKEN', 'MAPBOX_PUBLIC_TOKEN').length > 0;
-    case 'here':
-      return envFirstNonEmpty('HERE_API_KEY').length > 0;
-    default:
-      return false;
-  }
+  return providerHasGeoServerKey(provider);
 }
 
 export function getServerKey(provider: ProviderCode): string {
-  switch (provider) {
-    case 'google':
-      return envFirstNonEmpty('MAPS_SERVER_KEY', 'GOOGLE_MAPS_SERVER_KEY');
-    case 'mapbox':
-      return envFirstNonEmpty('MAPBOX_SECRET_TOKEN', 'MAPBOX_PUBLIC_TOKEN');
-    case 'here':
-      return envFirstNonEmpty('HERE_API_KEY');
-  }
+  return getGeoServerKey(provider);
 }
 
-export async function makeCacheKey(parts: Record<string, unknown>): Promise<string> {
+export async function makeCacheKey(
+  parts: Record<string, unknown>,
+): Promise<string> {
   const json = JSON.stringify(parts, Object.keys(parts).sort());
   return sha256Hex(json);
 }
