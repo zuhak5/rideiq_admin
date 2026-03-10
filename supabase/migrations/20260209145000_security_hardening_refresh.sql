@@ -155,6 +155,7 @@ DECLARE
         'family_update_policy',
         'get_active_shift',
         'get_applicable_pricing_rules',
+        'get_assigned_driver',
         'get_live_activity_throttle_config',
         'get_my_app_context',
         'get_nearby_hotspots',
