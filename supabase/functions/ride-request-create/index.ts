@@ -237,7 +237,9 @@ Deno.serve((req) =>
     }
 
     const createResult = createData as Record<string, unknown>;
-    const rideRequest = createResult['ride_request'] as Record<string, unknown>?;
+    const rideRequest = createResult['ride_request'] as
+      | Record<string, unknown>
+      | undefined;
     const rideRequestId = String(rideRequest?.['id'] ?? '').trim();
     ctx.setCorrelationId(rideRequestId);
 
@@ -274,7 +276,7 @@ Deno.serve((req) =>
 
     const matchResult = (Array.isArray(matchData)
       ? matchData[0]
-      : matchData) as MatchRow?;
+      : matchData) as MatchRow | undefined;
 
     return json(
       {

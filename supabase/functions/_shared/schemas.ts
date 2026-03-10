@@ -74,6 +74,32 @@ export const rideIntentCreateSchema = z.object({
 
 export type RideIntentCreateInput = z.infer<typeof rideIntentCreateSchema>;
 
+export const rideRequestCreateSchema = z.object({
+    pickup_lat: latitudeSchema,
+    pickup_lng: longitudeSchema,
+    dropoff_lat: latitudeSchema,
+    dropoff_lng: longitudeSchema,
+    pickup_address: optionalTrimmedString(240),
+    dropoff_address: optionalTrimmedString(240),
+    product_code: z
+        .string()
+        .optional()
+        .default('standard')
+        .transform((s) => s.toLowerCase().trim().slice(0, 32)),
+    preferences: z.record(z.unknown()).optional().default({}),
+    payment_method: z.preprocess(
+        (v) => {
+            if (typeof v !== 'string') return v;
+            return v.trim().toLowerCase();
+        },
+        z.enum(['wallet', 'cash']).optional().default('wallet'),
+    ),
+    fare_quote_id: z.string().uuid('fare_quote_id must be a valid UUID'),
+    request_id: z.string().uuid('request_id must be a valid UUID').optional().nullable(),
+});
+
+export type RideRequestCreateInput = z.infer<typeof rideRequestCreateSchema>;
+
 // --- fare-quote schema (route-based quote; stored for auditing/ML telemetry) ---
 
 const CURRENT_YEAR = new Date().getUTCFullYear();
