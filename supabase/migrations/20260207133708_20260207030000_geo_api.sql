@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS public.maps_requests_log (
   tried_providers text[] NULL,
   request_summary jsonb NULL,
   response_summary jsonb NULL,
-  CONSTRAINT maps_requests_log_provider_chk CHECK (provider_code IN ('google','mapbox','here')),
+  CONSTRAINT maps_requests_log_provider_chk CHECK (provider_code IN ('google','mapbox','here','thunderforest')),
   CONSTRAINT maps_requests_log_cap_chk CHECK (capability IN ('directions','geocode','distance_matrix')),
   CONSTRAINT maps_requests_log_action_chk CHECK (action IN ('route','geocode','reverse','matrix'))
 );
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS public.geo_cache (
   expires_at timestamptz NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT geo_cache_provider_chk CHECK (provider_code IN ('google','mapbox','here')),
+  CONSTRAINT geo_cache_provider_chk CHECK (provider_code IN ('google','mapbox','here','thunderforest')),
   CONSTRAINT geo_cache_cap_chk CHECK (capability IN ('directions','geocode','distance_matrix'))
 );
 
@@ -98,7 +98,7 @@ DECLARE
   v_ttl int := greatest(1, least(coalesce(p_ttl_seconds, 300), 2592000)); -- max 30 days
   v_expires timestamptz := now() + make_interval(secs => v_ttl);
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('directions','geocode','distance_matrix') THEN

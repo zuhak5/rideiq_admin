@@ -5,7 +5,6 @@
 -- render + edit service area polygons without direct geometry access.
 
 begin;
-
 -- --- Helpers ---
 
 create or replace function public._admin_require_role_v1()
@@ -23,9 +22,7 @@ begin
   end if;
 end;
 $$;
-
 comment on function public._admin_require_role_v1() is 'Internal helper: throws unless service_role or admin.';
-
 -- --- Service areas list ---
 
 create or replace function public.admin_service_areas_list_v1(
@@ -88,10 +85,8 @@ begin
   offset greatest(0, coalesce(p_offset, 0));
 end;
 $$;
-
 comment on function public.admin_service_areas_list_v1(text, integer, integer)
   is 'Admin list service areas with geometry serialized as GeoJSON.';
-
 -- --- Service area get ---
 
 create or replace function public.admin_service_area_get_v1(p_id uuid)
@@ -143,10 +138,8 @@ begin
   where sa.id = p_id;
 end;
 $$;
-
 comment on function public.admin_service_area_get_v1(uuid)
   is 'Admin get service area (including GeoJSON geometry) by id.';
-
 -- --- Service area upsert by id ---
 
 create or replace function public.admin_service_area_upsert_v1(
@@ -247,10 +240,8 @@ begin
   return v_id;
 end;
 $$;
-
 comment on function public.admin_service_area_upsert_v1(uuid, text, text, jsonb, integer, boolean, uuid, integer, numeric, text, integer, integer, integer)
   is 'Admin upsert service area by id; accepts GeoJSON geometry.';
-
 -- --- Service area delete ---
 
 create or replace function public.admin_service_area_delete_v1(p_id uuid)
@@ -264,10 +255,8 @@ begin
   delete from public.service_areas where id = p_id;
 end;
 $$;
-
 comment on function public.admin_service_area_delete_v1(uuid)
   is 'Admin delete service area by id.';
-
 -- --- Grants ---
 
 grant execute on function public._admin_require_role_v1() to authenticated;
@@ -275,5 +264,4 @@ grant execute on function public.admin_service_areas_list_v1(text, integer, inte
 grant execute on function public.admin_service_area_get_v1(uuid) to authenticated;
 grant execute on function public.admin_service_area_upsert_v1(uuid, text, text, jsonb, integer, boolean, uuid, integer, numeric, text, integer, integer, integer) to authenticated;
 grant execute on function public.admin_service_area_delete_v1(uuid) to authenticated;
-
 commit;

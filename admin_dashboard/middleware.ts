@@ -1,5 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { createServerClient } from '@supabase/ssr';
+import { hasAdminAccess } from './src/lib/auth/access';
 
 const PROTECTED_PREFIXES = [
   '/dashboard',
@@ -131,13 +132,28 @@ export async function middleware(request: NextRequest) {
     return redirect;
   }
 
-  // Redirect authenticated users away from /login.
-  if (user && pathname === '/login') {
-    const redirect = NextResponse.redirect(new URL('/dashboard', request.url));
-    redirect.headers.set('Content-Security-Policy', csp);
-    return redirect;
+  if (user && (isProtected || pathname === '/login')) {
+    let isAdmin = false;
+    try {
+      isAdmin = await hasAdminAccess(supabase);
+    } catch {
+      isAdmin = false;
+    }
+
+    if (isProtected && !isAdmin) {
+      const redirect = NextResponse.redirect(new URL('/forbidden', request.url));
+      redirect.headers.set('Content-Security-Policy', csp);
+      return redirect;
+    }
+
+    if (pathname === '/login') {
+      const redirect = NextResponse.redirect(new URL(isAdmin ? '/dashboard' : '/forbidden', request.url));
+      redirect.headers.set('Content-Security-Policy', csp);
+      return redirect;
+    }
   }
 
+  // Redirect authenticated users away from /login.
   return response;
 }
 

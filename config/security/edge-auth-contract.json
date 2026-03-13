@@ -16,6 +16,15 @@
     "asiapay-withdraw-webhook": {
       "auth": "webhook_signature"
     },
+    "auth-begin": {
+      "auth": "public_integrity"
+    },
+    "auth-phone-status": {
+      "auth": "public_readonly"
+    },
+    "auth-request-otp": {
+      "auth": "public_integrity"
+    },
     "concierge": {
       "auth": "user_jwt"
     },
@@ -117,6 +126,9 @@
     },
     "rate-limit-prune": {
       "auth": "cron_secret"
+    },
+    "ride-request-create": {
+      "auth": "user_jwt"
     },
     "ride-transition": {
       "auth": "user_jwt"

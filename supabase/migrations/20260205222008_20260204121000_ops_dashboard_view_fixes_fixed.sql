@@ -7,7 +7,7 @@ begin;
 -- Fix for: cannot change name of view column "total" to "avg_latency_ms"
 drop view if exists public.ops_payment_metrics_15m;
 
-create view public.ops_payment_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_payment_metrics_15m as
 select
   coalesce(nullif(payload->>'provider_code',''), 'unknown') as provider_code,
   count(*) filter (where event_type = 'metric.payment.topup_create' and coalesce(payload->>'ok','false') = 'true') as topup_ok,
@@ -23,8 +23,7 @@ where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.payment.%'
 group by 1;
 
-drop view if exists public.ops_job_worker_metrics_15m;
-create view public.ops_job_worker_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_job_worker_metrics_15m as
 select
   count(*) filter (where event_type = 'metric.job.processed' and coalesce(payload->>'outcome','') = 'succeeded') as succeeded,
   count(*) filter (where event_type = 'metric.job.processed' and coalesce(payload->>'outcome','') <> 'succeeded') as failed,

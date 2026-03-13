@@ -7,7 +7,6 @@
 --  - Admin RPCs are SECURITY DEFINER and gated by admin RBAC (promotions.* permissions).
 
 BEGIN;
-
 -- ------------------------------------------------------------
 -- 1) Admin audit actions (extend enum)
 -- ------------------------------------------------------------
@@ -16,7 +15,6 @@ ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'gift_code_create';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'gift_code_void';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'merchant_promotion_toggle';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'referral_campaign_update';
-
 -- ------------------------------------------------------------
 -- 2) Gift codes: add voiding fields + enforce at redemption
 -- ------------------------------------------------------------
@@ -25,11 +23,9 @@ ALTER TABLE public.gift_codes
   ADD COLUMN IF NOT EXISTS voided_by uuid,
   ADD COLUMN IF NOT EXISTS voided_at timestamptz,
   ADD COLUMN IF NOT EXISTS voided_reason text;
-
 CREATE INDEX IF NOT EXISTS ix_gift_codes_voided_at
   ON public.gift_codes(voided_at)
   WHERE voided_at IS NOT NULL;
-
 -- Redeem: reject voided codes.
 -- We replace the function (definition originates in the schema migration).
 CREATE OR REPLACE FUNCTION public.redeem_gift_code(p_code text) RETURNS public.gift_codes
@@ -103,7 +99,6 @@ BEGIN
   RETURN v_gift;
 END;
 $$;
-
 -- Admin list gift codes with basic status filtering.
 CREATE OR REPLACE FUNCTION public.admin_gift_codes_list_v1(
   p_q text DEFAULT NULL,
@@ -162,7 +157,6 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 -- Admin bulk generator: creates N single-use gift codes.
 CREATE OR REPLACE FUNCTION public.admin_generate_gift_codes_v1(
   p_count integer,
@@ -222,7 +216,6 @@ BEGIN
   );
 END;
 $$;
-
 -- Admin void single gift code.
 CREATE OR REPLACE FUNCTION public.admin_void_gift_code_v1(
   p_code text,
@@ -280,7 +273,6 @@ BEGIN
   RETURN v_row;
 END;
 $$;
-
 -- ------------------------------------------------------------
 -- 3) Merchant promotions: admin list + toggle active
 -- ------------------------------------------------------------
@@ -341,7 +333,6 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_set_merchant_promotion_active_v1(
   p_id uuid,
   p_is_active boolean,
@@ -388,7 +379,6 @@ BEGIN
   RETURN row;
 END;
 $$;
-
 -- ------------------------------------------------------------
 -- 4) Referral campaigns: admin list + update
 -- ------------------------------------------------------------
@@ -410,7 +400,6 @@ AS $$
   WHERE public.admin_has_permission('promotions.read')
   ORDER BY rc.created_at DESC;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_update_referral_campaign_v1(
   p_key text,
   p_referrer_reward_iqd integer,
@@ -461,7 +450,6 @@ BEGIN
   RETURN row;
 END;
 $$;
-
 -- ------------------------------------------------------------
 -- 5) Grants (RPC allowlist is handled in repo config)
 -- ------------------------------------------------------------
@@ -473,5 +461,4 @@ GRANT EXECUTE ON FUNCTION public.admin_merchant_promotions_list_v1(text, boolean
 GRANT EXECUTE ON FUNCTION public.admin_set_merchant_promotion_active_v1(uuid, boolean, text) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_referral_campaigns_list_v1() TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_update_referral_campaign_v1(text, integer, integer, boolean) TO authenticated, service_role;
-
 COMMIT;

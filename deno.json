@@ -1,3 +1,7 @@
 {
-  "nodeModulesDir": false
+  "nodeModulesDir": false,
+  "tasks": {
+    "test:edge-auth": "deno test --allow-env supabase/functions/tests/auth-public-flow.test.ts supabase/functions/tests/auth-otp.test.ts",
+    "test:edge-sms": "deno test --allow-env supabase/functions/tests/sms-hook.test.ts"
+  }
 }

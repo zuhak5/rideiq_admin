@@ -3,7 +3,6 @@
 -- instead of re-evaluating per-row.
 
 BEGIN;
-
 DO $$
 BEGIN
   IF EXISTS (
@@ -21,6 +20,4 @@ BEGIN
       );
   END IF;
 END $$;
-
 COMMIT;
-

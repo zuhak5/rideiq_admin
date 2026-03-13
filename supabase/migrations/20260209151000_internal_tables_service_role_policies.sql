@@ -4,7 +4,6 @@
 -- (Edge Functions / server-side jobs) or SECURITY DEFINER functions.
 
 BEGIN;
-
 DO $$
 DECLARE
   t text;
@@ -47,6 +46,4 @@ BEGIN
     END IF;
   END LOOP;
 END $$;
-
 COMMIT;
-

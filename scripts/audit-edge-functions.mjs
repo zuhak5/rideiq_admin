@@ -151,6 +151,13 @@ function audit() {
     webhook_signature: { required: PATTERNS.signature },
     cron_secret: { required: PATTERNS.cronSecret },
     token_public: { required: PATTERNS.token },
+    public_integrity: {
+      required: [
+        /\bcaptchaToken\b/,
+        /\bgetClientInstallationId\s*\(/,
+        /\bconsumeRateLimit\s*\(/,
+      ],
+    },
     public_readonly: { readonly: true },
     return_handler: { warnPrivileged: true },
     passkey_login: { required: [/credential/i, /challenge/i] },
@@ -161,6 +168,7 @@ function audit() {
     'webhook_signature',
     'cron_secret',
     'token_public',
+    'public_integrity',
     'public_readonly',
     'return_handler',
     'optional_jwt',

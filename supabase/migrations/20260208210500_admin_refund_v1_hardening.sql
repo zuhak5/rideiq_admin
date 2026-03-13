@@ -4,7 +4,6 @@
 --  - Pin SECURITY DEFINER search_path and schema-qualify references
 
 BEGIN;
-
 CREATE OR REPLACE FUNCTION public.admin_record_ride_refund(
   p_ride_id uuid,
   p_refund_amount_iqd integer DEFAULT NULL,
@@ -102,8 +101,6 @@ BEGIN
   );
 END;
 $$;
-
 REVOKE ALL ON FUNCTION public.admin_record_ride_refund(uuid, integer, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_record_ride_refund(uuid, integer, text) TO authenticated, service_role;
-
 COMMIT;

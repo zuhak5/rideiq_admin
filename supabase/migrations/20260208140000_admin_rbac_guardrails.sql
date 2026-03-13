@@ -1,5 +1,4 @@
 BEGIN;
-
 -- Session 4: RBAC guardrails
 -- - Prevent removing the last user who has admin_access.manage.
 -- - Keep behavior centralized in DB (server-side enforcement).
@@ -107,8 +106,6 @@ BEGIN
   );
 END;
 $$;
-
 -- Explicit grants (hardening migration will still enforce allowlist)
 GRANT EXECUTE ON FUNCTION public.admin_set_user_roles_v1(uuid, text[], text) TO authenticated, service_role;
-
 COMMIT;

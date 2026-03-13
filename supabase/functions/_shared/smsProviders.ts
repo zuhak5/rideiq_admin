@@ -1,28 +1,277 @@
-import { envTrim } from './config.ts';
-import { normalizeIraqPhoneNoPlus, toIraqLocal07 } from './phone.ts';
+import { envTrim } from "./config.ts";
+import { normalizeIraqPhoneNoPlus } from "./phone.ts";
+
+export type SmsProvider = "otpiq" | "bulksmsiraq";
 
 export type SmsSendResult = {
+  provider: SmsProvider;
   ok: boolean;
-  provider: 'iraqisms' | 'otpiq' | 'bulksmsiraq';
+  httpStatus?: number;
+  providerErrorCode?: string;
+  retryable: boolean;
   messageId?: string;
   raw?: unknown;
   error?: string;
 };
 
-function requiredEnv(key: string): string {
-  const v = envTrim(key);
-  if (!v) throw new Error(`Missing required env var: ${key}`);
-  return v;
+export const OTP_PROVIDER_ORDER = ["otpiq", "bulksmsiraq"] as const;
+
+const DEFAULT_SMS_PROVIDER_TIMEOUT_MS = 1_200;
+const OTPIQ_AUTH_PROVIDER = "whatsapp-telegram-sms";
+
+function parsePositiveInt(raw: string, fallback: number): number {
+  const value = Number.parseInt(raw, 10);
+  return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
-async function fetchWithTimeout(input: RequestInfo | URL, init: RequestInit & { timeoutMs?: number } = {}) {
+export function resolveProviderTimeoutMs(override?: number): number {
+  if (override != null && Number.isFinite(override) && override > 0) {
+    return Math.floor(override);
+  }
+  return parsePositiveInt(
+    envTrim("SMS_PROVIDER_TIMEOUT_MS"),
+    DEFAULT_SMS_PROVIDER_TIMEOUT_MS,
+  );
+}
+
+function requiredEnv(key: string): string {
+  const value = envTrim(key);
+  if (!value) {
+    throw new Error(`Missing required env var: ${key}`);
+  }
+  return value;
+}
+
+function extractErrorText(raw: unknown): string {
+  if (typeof raw === "string") {
+    return raw;
+  }
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return "";
+  }
+
+  const record = raw as Record<string, unknown>;
+  const fields = [
+    "message",
+    "error",
+    "error_description",
+    "details",
+    "detail",
+    "msg",
+  ];
+  for (const field of fields) {
+    const value = record[field];
+    if (typeof value === "string" && value.trim().length > 0) {
+      return value.trim();
+    }
+  }
+
+  const errors = record["errors"];
+  if (Array.isArray(errors) && errors.length > 0) {
+    const first = errors[0];
+    if (first && typeof first === "object" && !Array.isArray(first)) {
+      return extractErrorText(first);
+    }
+    if (typeof first === "string" && first.trim().length > 0) {
+      return first.trim();
+    }
+  }
+
+  return "";
+}
+
+function extractProviderErrorCode(raw: unknown): string | undefined {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return undefined;
+  }
+
+  const record = raw as Record<string, unknown>;
+  const fields = ["code", "error_code", "status_code", "status"];
+  for (const field of fields) {
+    const value = record[field];
+    if (typeof value === "string" && value.trim().length > 0) {
+      return value.trim();
+    }
+    if (typeof value === "number") {
+      return `${value}`;
+    }
+  }
+
+  const errors = record["errors"];
+  if (Array.isArray(errors) && errors.length > 0) {
+    const first = errors[0];
+    if (first && typeof first === "object" && !Array.isArray(first)) {
+      return extractProviderErrorCode(first);
+    }
+  }
+
+  return undefined;
+}
+
+function messageIdFromBody(raw: unknown, keys: string[]): string | undefined {
+  if (!raw || typeof raw !== "object" || Array.isArray(raw)) {
+    return undefined;
+  }
+  const record = raw as Record<string, unknown>;
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === "string" && value.trim().length > 0) {
+      return value.trim();
+    }
+  }
+  return undefined;
+}
+
+function deepStringField(raw: unknown, keys: string[]): string | undefined {
+  if (raw == null) {
+    return undefined;
+  }
+  if (Array.isArray(raw)) {
+    for (const item of raw) {
+      const nested = deepStringField(item, keys);
+      if (nested) {
+        return nested;
+      }
+    }
+    return undefined;
+  }
+  if (typeof raw !== "object") {
+    return undefined;
+  }
+
+  const record = raw as Record<string, unknown>;
+  const direct = messageIdFromBody(record, keys);
+  if (direct) {
+    return direct;
+  }
+
+  for (const value of Object.values(record)) {
+    const nested = deepStringField(value, keys);
+    if (nested) {
+      return nested;
+    }
+  }
+  return undefined;
+}
+
+function deepBooleanField(raw: unknown, keys: string[]): boolean | undefined {
+  if (raw == null) {
+    return undefined;
+  }
+  if (Array.isArray(raw)) {
+    for (const item of raw) {
+      const nested = deepBooleanField(item, keys);
+      if (nested != null) {
+        return nested;
+      }
+    }
+    return undefined;
+  }
+  if (typeof raw !== "object") {
+    return undefined;
+  }
+
+  const record = raw as Record<string, unknown>;
+  for (const key of keys) {
+    const value = record[key];
+    if (typeof value === "boolean") {
+      return value;
+    }
+  }
+  for (const value of Object.values(record)) {
+    const nested = deepBooleanField(value, keys);
+    if (nested != null) {
+      return nested;
+    }
+  }
+  return undefined;
+}
+
+function looksLikeOtpiqAcceptedResponse(
+  raw: unknown,
+  httpStatus: number,
+): { accepted: boolean; messageId?: string } {
+  const messageId = deepStringField(raw, [
+    "smsId",
+    "sms_id",
+    "message_id",
+    "messageId",
+    "request_id",
+    "requestId",
+    "task_id",
+    "taskId",
+    "id",
+  ]);
+  if (messageId) {
+    return { accepted: true, messageId };
+  }
+
+  if (httpStatus === 204) {
+    return { accepted: true };
+  }
+
+  if (deepBooleanField(raw, ["success", "ok", "accepted"]) === true) {
+    return { accepted: true };
+  }
+
+  const status = deepStringField(raw, ["status", "state", "result"])
+    ?.trim()
+    .toLowerCase();
+  if (
+    status && [
+      "success",
+      "ok",
+      "accepted",
+      "queued",
+      "sent",
+      "created",
+      "processed",
+    ].includes(status)
+  ) {
+    return { accepted: true };
+  }
+
+  const message = extractErrorText(raw).trim().toLowerCase();
+  if (
+    message &&
+    (
+      message.includes("created successfully") ||
+      message.includes("sent successfully") ||
+      message.includes("queued successfully") ||
+      message.includes("accepted successfully") ||
+      message.includes("verification code sent") ||
+      message.includes("otp sent") ||
+      message.includes("sms task created successfully")
+    ) &&
+    !(
+      message.includes("error") ||
+      message.includes("failed") ||
+      message.includes("invalid") ||
+      message.includes("not allowed") ||
+      message.includes("insufficient") ||
+      message.includes("trial mode") ||
+      message.includes("whitelist") ||
+      message.includes("unauthorized") ||
+      message.includes("forbidden")
+    )
+  ) {
+    return { accepted: true };
+  }
+
+  return { accepted: false };
+}
+
+async function fetchWithTimeout(
+  input: RequestInfo | URL,
+  init: RequestInit & { timeoutMs?: number } = {},
+) {
   const { timeoutMs = 10_000, ...rest } = init;
   const controller = new AbortController();
-  const id = setTimeout(() => controller.abort(), timeoutMs);
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
   try {
     return await fetch(input, { ...rest, signal: controller.signal });
   } finally {
-    clearTimeout(id);
+    clearTimeout(timer);
   }
 }
 
@@ -34,121 +283,283 @@ async function safeJson(text: string): Promise<unknown> {
   }
 }
 
-export async function sendViaIraqISMS(params: { phone: string; message: string; timeoutMs?: number }): Promise<SmsSendResult> {
-  try {
-    const apiKey = requiredEnv('IRAQISMS_API_KEY');
-    const phoneNoPlus = normalizeIraqPhoneNoPlus(params.phone); // 9647...
-
-    const url = new URL('https://iraqisms.com/api/v1/sms/send/get');
-    const sendBy = envTrim('IRAQISMS_SEND_BY') || '1';
-    // Docs show these fields as required: "message", "mobile number". We use "mobile_number".
-    url.searchParams.set('mobile_number', phoneNoPlus);
-    url.searchParams.set('message', params.message);
-    url.searchParams.set('send_by', sendBy);
-
-    const res = await fetchWithTimeout(url, {
-      method: 'GET',
-      headers: {
-        apikey: apiKey,
-        accept: 'application/json',
-      },
-      timeoutMs: params.timeoutMs ?? 10_000,
-    });
-
-    const data = await safeJson(await res.text());
-    if (!res.ok) return { ok: false, provider: 'iraqisms', raw: data, error: `HTTP ${res.status}` };
-
-    const success = typeof data === 'object' && data !== null && (data as any).success === true;
-    return { ok: success, provider: 'iraqisms', raw: data, messageId: (data as any)?.smsId ?? undefined, error: success ? undefined : 'Provider returned success=false' };
-  } catch (e) {
-    return { ok: false, provider: 'iraqisms', error: e instanceof Error ? e.message : String(e) };
+function retryableForHttpStatus(status?: number): boolean {
+  if (status == null) {
+    return true;
   }
+  if (status === 408 || status === 409 || status === 425 || status === 429) {
+    return true;
+  }
+  return status >= 500;
 }
 
-export async function sendViaOTPIQ(params: { phone: string; otp: string; provider?: string; senderId?: string; timeoutMs?: number }): Promise<SmsSendResult> {
-  try {
-    const apiKey = requiredEnv('OTPIQ_API_KEY');
-    const phoneNoPlus = normalizeIraqPhoneNoPlus(params.phone); // required by OTPIQ
+function classifyOtpiqFailure(params: {
+  httpStatus?: number;
+  raw?: unknown;
+  error?: string;
+}): Pick<SmsSendResult, "providerErrorCode" | "retryable" | "error"> {
+  const text = [
+    params.error ?? "",
+    extractErrorText(params.raw),
+  ].join(" ").trim().toLowerCase();
+  const providerErrorCode = extractProviderErrorCode(params.raw);
 
-    const res = await fetchWithTimeout('https://api.otpiq.com/api/sms', {
-      method: 'POST',
+  if (text.includes("trial mode") || text.includes("owner")) {
+    return {
+      providerErrorCode: providerErrorCode ?? "trial_mode_restriction",
+      retryable: false,
+      error: params.error ?? "OTPIQ trial-mode restriction",
+    };
+  }
+  if (text.includes("insufficient balance") || text.includes("balance")) {
+    return {
+      providerErrorCode: providerErrorCode ?? "insufficient_balance",
+      retryable: false,
+      error: params.error ?? "OTPIQ balance exhausted",
+    };
+  }
+  if (text.includes("whitelist")) {
+    return {
+      providerErrorCode: providerErrorCode ?? "recipient_not_whitelisted",
+      retryable: false,
+      error: params.error ?? "OTPIQ recipient not whitelisted",
+    };
+  }
+  if (params.httpStatus === 401 || params.httpStatus === 403) {
+    return {
+      providerErrorCode: providerErrorCode ?? "auth_rejected",
+      retryable: false,
+      error: params.error ?? `HTTP ${params.httpStatus}`,
+    };
+  }
+  if (params.httpStatus === 404) {
+    return {
+      providerErrorCode: providerErrorCode ?? "endpoint_not_found",
+      retryable: false,
+      error: params.error ?? "OTPIQ endpoint not found",
+    };
+  }
+  return {
+    providerErrorCode,
+    retryable: retryableForHttpStatus(params.httpStatus),
+    error: (params.error ?? extractErrorText(params.raw)) ||
+      "OTPIQ request failed",
+  };
+}
+
+function classifyBulkSmsFailure(params: {
+  httpStatus?: number;
+  raw?: unknown;
+  error?: string;
+}): Pick<SmsSendResult, "providerErrorCode" | "retryable" | "error"> {
+  const text = [
+    params.error ?? "",
+    extractErrorText(params.raw),
+  ].join(" ").trim().toLowerCase();
+  const providerErrorCode = extractProviderErrorCode(params.raw);
+
+  if (text.includes("hourly limit exceeded")) {
+    return {
+      providerErrorCode: providerErrorCode ?? "hourly_limit_exceeded",
+      retryable: false,
+      error: params.error ?? "BulkSMSIraq hourly limit exceeded",
+    };
+  }
+  if (text.includes("insufficient balance") || text.includes("balance")) {
+    return {
+      providerErrorCode: providerErrorCode ?? "insufficient_balance",
+      retryable: false,
+      error: params.error ?? "BulkSMSIraq balance exhausted",
+    };
+  }
+  if (params.httpStatus === 401 || params.httpStatus === 403) {
+    return {
+      providerErrorCode: providerErrorCode ?? "auth_rejected",
+      retryable: false,
+      error: params.error ?? `HTTP ${params.httpStatus}`,
+    };
+  }
+  if (params.httpStatus === 404) {
+    return {
+      providerErrorCode: providerErrorCode ?? "endpoint_not_found",
+      retryable: false,
+      error: params.error ?? "BulkSMSIraq endpoint not found",
+    };
+  }
+  return {
+    providerErrorCode,
+    retryable: retryableForHttpStatus(params.httpStatus),
+    error: (params.error ?? extractErrorText(params.raw)) ||
+      "BulkSMSIraq request failed",
+  };
+}
+
+export function buildOtpMessage(params: { otp: string; appName?: string }) {
+  const appName = (params.appName ?? envTrim("OTP_APP_NAME")) || "RideIQ";
+  return `${appName} verification code: ${params.otp}`;
+}
+
+export async function sendViaOTPIQ(params: {
+  phone: string;
+  otp: string;
+  senderId?: string;
+  timeoutMs?: number;
+}): Promise<SmsSendResult> {
+  try {
+    const apiKey = requiredEnv("OTPIQ_API_KEY");
+    const phoneNoPlus = normalizeIraqPhoneNoPlus(params.phone);
+    const senderId = params.senderId ?? envTrim("OTPIQ_SENDER_ID");
+    const res = await fetchWithTimeout("https://api.otpiq.com/api/sms", {
+      method: "POST",
       headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        accept: 'application/json',
+        authorization: `Bearer ${apiKey}`,
+        "content-type": "application/json",
+        accept: "application/json",
       },
       body: JSON.stringify({
         phoneNumber: phoneNoPlus,
-        smsType: 'verification',
+        smsType: "verification",
         verificationCode: params.otp,
-        provider: params.provider ?? 'sms',
-        ...(params.senderId ? { senderId: params.senderId } : {}),
+        // Auth OTP delivery uses OTPIQ's verification mode with the project's
+        // configured multi-channel route.
+        provider: OTPIQ_AUTH_PROVIDER,
+        ...(senderId.length > 0 ? { senderId } : {}),
       }),
-      timeoutMs: params.timeoutMs ?? 10_000,
+      timeoutMs: resolveProviderTimeoutMs(params.timeoutMs),
     });
 
-    const data = await safeJson(await res.text());
-    if (!res.ok) return { ok: false, provider: 'otpiq', raw: data, error: `HTTP ${res.status}` };
+    const raw = await safeJson(await res.text());
+    if (!res.ok) {
+      const classified = classifyOtpiqFailure({
+        httpStatus: res.status,
+        raw,
+        error: `HTTP ${res.status}`,
+      });
+      return {
+        provider: "otpiq",
+        ok: false,
+        httpStatus: res.status,
+        raw,
+        ...classified,
+      };
+    }
 
-    // Docs show: { message: "SMS task created successfully", smsId: "..." }
-    const ok = typeof data === 'object' && data !== null && typeof (data as any).smsId === 'string';
-    return { ok, provider: 'otpiq', raw: data, messageId: (data as any)?.smsId ?? undefined, error: ok ? undefined : 'Unexpected response' };
-  } catch (e) {
-    return { ok: false, provider: 'otpiq', error: e instanceof Error ? e.message : String(e) };
+    const accepted = looksLikeOtpiqAcceptedResponse(raw, res.status);
+    if (!accepted.accepted) {
+      const classified = classifyOtpiqFailure({
+        httpStatus: res.status,
+        raw,
+        error: "Unexpected OTPIQ response",
+      });
+      return {
+        provider: "otpiq",
+        ok: false,
+        httpStatus: res.status,
+        raw,
+        ...classified,
+      };
+    }
+
+    return {
+      provider: "otpiq",
+      ok: true,
+      httpStatus: res.status,
+      retryable: false,
+      messageId: accepted.messageId,
+      raw,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const classified = classifyOtpiqFailure({ error: message });
+    return {
+      provider: "otpiq",
+      ok: false,
+      raw: message,
+      ...classified,
+    };
   }
 }
 
-export async function sendViaBulkSMSIraq(params: { phone: string; message: string; timeoutMs?: number }): Promise<SmsSendResult> {
+export async function sendViaBulkSMSIraq(params: {
+  phone: string;
+  message: string;
+  timeoutMs?: number;
+}): Promise<SmsSendResult> {
   try {
-    const apiKey = requiredEnv('BULKSMSIRAQ_API_KEY');
-    const senderId = requiredEnv('BULKSMSIRAQ_SENDER_ID');
-    const recipient = toIraqLocal07(params.phone);
-
-    const res = await fetchWithTimeout('https://gateway.standingtech.com/api/v4/sms/send', {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        'Content-Type': 'application/json',
-        accept: 'application/json',
+    const apiKey = requiredEnv("BULKSMSIRAQ_API_KEY");
+    const senderId = requiredEnv("BULKSMSIRAQ_SENDER_ID");
+    const recipient = normalizeIraqPhoneNoPlus(params.phone);
+    const res = await fetchWithTimeout(
+      "https://gateway.standingtech.com/api/v4/sms/send",
+      {
+        method: "POST",
+        headers: {
+          authorization: `Bearer ${apiKey}`,
+          "content-type": "application/json",
+          accept: "application/json",
+        },
+        body: JSON.stringify({
+          recipient,
+          sender_id: senderId,
+          type: "plain",
+          message: params.message,
+        }),
+        timeoutMs: resolveProviderTimeoutMs(params.timeoutMs),
       },
-      body: JSON.stringify({
-        recipient,
-        sender_id: senderId,
-        type: 'text',
-        message: params.message,
-      }),
-      timeoutMs: params.timeoutMs ?? 10_000,
-    });
+    );
 
-    const data = await safeJson(await res.text());
-    if (!res.ok) return { ok: false, provider: 'bulksmsiraq', raw: data, error: `HTTP ${res.status}` };
+    const raw = await safeJson(await res.text());
+    if (!res.ok) {
+      const classified = classifyBulkSmsFailure({
+        httpStatus: res.status,
+        raw,
+        error: `HTTP ${res.status}`,
+      });
+      return {
+        provider: "bulksmsiraq",
+        ok: false,
+        httpStatus: res.status,
+        raw,
+        ...classified,
+      };
+    }
 
-    const ok = typeof data === 'object' && data !== null && (data as any).status === 'success';
-    return { ok, provider: 'bulksmsiraq', raw: data, messageId: (data as any)?.message_id ?? undefined, error: ok ? undefined : 'Provider returned status!=success' };
-  } catch (e) {
-    return { ok: false, provider: 'bulksmsiraq', error: e instanceof Error ? e.message : String(e) };
+    const status = !raw || typeof raw !== "object" || Array.isArray(raw)
+      ? ""
+      : `${(raw as Record<string, unknown>)["status"] ?? ""}`.trim()
+        .toLowerCase();
+    const messageId = messageIdFromBody(raw, ["message_id", "messageId", "id"]);
+    if (status != "success" && !messageId) {
+      const classified = classifyBulkSmsFailure({
+        httpStatus: res.status,
+        raw,
+        error: "BulkSMSIraq returned a non-success payload",
+      });
+      return {
+        provider: "bulksmsiraq",
+        ok: false,
+        httpStatus: res.status,
+        raw,
+        ...classified,
+      };
+    }
+
+    return {
+      provider: "bulksmsiraq",
+      ok: true,
+      httpStatus: res.status,
+      retryable: false,
+      messageId,
+      raw,
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const classified = classifyBulkSmsFailure({ error: message });
+    return {
+      provider: "bulksmsiraq",
+      ok: false,
+      raw: message,
+      ...classified,
+    };
   }
-}
-
-export async function sendOtpWithFallback(params: { phone: string; otp: string; appName?: string }) {
-  // JS/TS forbids mixing `??` with `||`/`&&` without parentheses.
-  // We intentionally use `||` so empty strings fall back to the default.
-  const appName = (params.appName ?? envTrim('OTP_APP_NAME')) || 'RideIQ';
-  const message = `${appName} verification code: ${params.otp}`;
-
-  const primary = await sendViaIraqISMS({ phone: params.phone, message });
-  if (primary.ok) return primary;
-
-  const fallback = await sendViaOTPIQ({
-    phone: params.phone,
-    otp: params.otp,
-    provider: envTrim('OTPIQ_PROVIDER') || 'sms',
-    senderId: envTrim('OTPIQ_SENDER_ID') || undefined,
-  });
-  if (fallback.ok) return fallback;
-
-  const last = await sendViaBulkSMSIraq({ phone: params.phone, message });
-  return last.ok
-    ? last
-    : { ok: false, provider: 'bulksmsiraq', raw: { primary, fallback, last }, error: 'All providers failed' };
 }

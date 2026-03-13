@@ -1,5 +1,4 @@
 BEGIN;
-
 -- Session 5: privileged role change workflow + richer audit logging
 -- Goals:
 --  - Add structured audit details (old_roles/new_roles + request metadata)
@@ -9,7 +8,6 @@ BEGIN;
 -- 1) Audit log structured details
 ALTER TABLE public.admin_audit_log
   ADD COLUMN IF NOT EXISTS details jsonb;
-
 -- Tighten audit log SELECT policy to permission-based RBAC
 DROP POLICY IF EXISTS admin_audit_log_admin_select ON public.admin_audit_log;
 DROP POLICY IF EXISTS admin_audit_log_audit_read_select ON public.admin_audit_log;
@@ -18,10 +16,8 @@ CREATE POLICY admin_audit_log_audit_read_select
   FOR SELECT
   TO authenticated
   USING (public.admin_has_permission('audit.read'));
-
 -- 2) Extend audit action enum for request events
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'request_admin_role_change';
-
 -- 3) Role change request table (super_admin changes require approval)
 CREATE TABLE IF NOT EXISTS public.admin_role_change_requests (
   id uuid PRIMARY KEY DEFAULT gen_random_uuid(),
@@ -36,18 +32,14 @@ CREATE TABLE IF NOT EXISTS public.admin_role_change_requests (
   executed_by uuid REFERENCES public.profiles(id) ON DELETE RESTRICT,
   executed_at timestamptz
 );
-
 ALTER TABLE public.admin_role_change_requests ENABLE ROW LEVEL SECURITY;
-
 -- No policies on this table; access is via SECURITY DEFINER RPCs only.
 REVOKE ALL ON TABLE public.admin_role_change_requests FROM PUBLIC;
 REVOKE ALL ON TABLE public.admin_role_change_requests FROM anon;
 REVOKE ALL ON TABLE public.admin_role_change_requests FROM authenticated;
 GRANT ALL ON TABLE public.admin_role_change_requests TO service_role;
-
 CREATE INDEX IF NOT EXISTS ix_admin_role_change_requests_status_created_at
   ON public.admin_role_change_requests(status, created_at DESC);
-
 -- Utility: compute if a role key set grants a permission.
 CREATE OR REPLACE FUNCTION public.admin_role_keys_have_permission(
   p_role_keys text[],
@@ -69,7 +61,6 @@ AS $$
       )
     END;
 $$;
-
 -- List pending/sent super_admin role-change requests.
 CREATE OR REPLACE FUNCTION public.admin_list_role_change_requests_v1(
   p_status text DEFAULT 'pending',
@@ -127,7 +118,6 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 -- Create a super_admin role-change request (2-person approval).
 CREATE OR REPLACE FUNCTION public.admin_create_role_change_request_v1(
   p_user uuid,
@@ -250,7 +240,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'request_id', req_id);
 END;
 $$;
-
 -- Approve and execute a pending super_admin role-change request.
 -- Enforces 2-person rule: approver must differ from requester.
 CREATE OR REPLACE FUNCTION public.admin_approve_role_change_request_v1(
@@ -376,7 +365,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'request_id', p_request_id, 'status', 'executed');
 END;
 $$;
-
 -- Override direct role-setting function:
 --  - retain last-admin_access.manage guardrail
 --  - add structured audit details
@@ -496,11 +484,9 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'user_id', p_user, 'roles', v_roles);
 END;
 $$;
-
 -- Explicit grants (hardening migration will still enforce allowlist)
 GRANT EXECUTE ON FUNCTION public.admin_role_keys_have_permission(text[], text) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_list_role_change_requests_v1(text, integer, integer) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_create_role_change_request_v1(uuid, text[], text) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_approve_role_change_request_v1(uuid, text) TO authenticated, service_role;
-
 COMMIT;

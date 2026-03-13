@@ -1,6 +1,7 @@
 import { redirect } from 'next/navigation';
 import { unstable_noStore as noStore } from 'next/cache';
 import { createClient } from '@/lib/supabase/server';
+import { hasAdminAccess } from '@/lib/auth/access';
 
 type AdminContext = {
   supabase: Awaited<ReturnType<typeof createClient>>;
@@ -32,13 +33,9 @@ export async function requireSession() {
   return { supabase, user: data.user };
 }
 
-export async function requireAdmin() {
+export async function requireAdminSession() {
   const { supabase, user } = await requireSession();
-
-  const { data: isAdmin, error } = await supabase.rpc('is_admin');
-  if (error) {
-    throw new Error(`Failed to check admin privileges: ${error.message}`);
-  }
+  const isAdmin = await hasAdminAccess(supabase);
   if (!isAdmin) {
     redirect('/forbidden');
   }
@@ -46,8 +43,12 @@ export async function requireAdmin() {
   return { supabase, user };
 }
 
+export async function requireAdmin() {
+  return requireAdminSession();
+}
+
 export async function requirePermission(permission: string) {
-  const { supabase, user } = await requireAdmin();
+  const { supabase, user } = await requireAdminSession();
 
   const perm = String(permission ?? '').trim();
   if (!perm) return { supabase, user };

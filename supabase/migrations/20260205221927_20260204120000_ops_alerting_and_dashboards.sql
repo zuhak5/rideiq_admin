@@ -86,11 +86,7 @@ grant all on table public.ops_alert_events to service_role;
 -- Dashboard views (15m windows)
 -- -----------------------------
 
--- NOTE: This migration intentionally drops + recreates ops views.
--- `CREATE OR REPLACE VIEW` cannot change column names, and earlier baselines
--- may define incompatible shapes for these dashboards.
-drop view if exists public.ops_webhook_metrics_15m;
-create view public.ops_webhook_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_webhook_metrics_15m as
 select
   coalesce(nullif(payload->>'provider_code',''), 'unknown') as provider_code,
   count(*) filter (where event_type = 'metric.webhook.accepted') as accepted,
@@ -104,8 +100,7 @@ where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.webhook.%'
 group by 1;
 
-drop view if exists public.ops_payment_metrics_15m;
-create view public.ops_payment_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_payment_metrics_15m as
 select
   coalesce(nullif(payload->>'provider_code',''), 'unknown') as provider_code,
   count(*) filter (where event_type = 'metric.payment.topup_create' and coalesce(payload->>'ok','false') = 'true') as topup_ok,
@@ -118,8 +113,7 @@ where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.payment.%'
 group by 1;
 
-drop view if exists public.ops_dispatch_metrics_15m;
-create view public.ops_dispatch_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_dispatch_metrics_15m as
 select
   count(*) filter (where event_type = 'metric.dispatch.match' and coalesce(payload->>'ok','false') = 'true') as ok,
   count(*) filter (where event_type = 'metric.dispatch.match' and coalesce(payload->>'ok','false') <> 'true') as failed,
@@ -132,8 +126,7 @@ from public.app_events
 where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.dispatch.%';
 
-drop view if exists public.ops_safety_metrics_15m;
-create view public.ops_safety_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_safety_metrics_15m as
 select
   count(*) filter (where event_type = 'metric.safety.sos') as sos_total,
   count(*) filter (where event_type = 'metric.safety.sos' and coalesce(payload->>'ok','false') = 'true') as sos_ok,
@@ -148,8 +141,7 @@ from public.app_events
 where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.safety.%';
 
-drop view if exists public.ops_maps_metrics_15m;
-create view public.ops_maps_metrics_15m with (security_invoker='true') as
+create or replace view public.ops_maps_metrics_15m as
 select
   count(*) filter (where event_type = 'metric.maps.config_served') as config_served,
   count(*) filter (where event_type = 'metric.maps.origin_denied') as origin_denied,
@@ -160,8 +152,7 @@ from public.app_events
 where created_at >= now() - interval '15 minutes'
   and event_type like 'metric.maps.%';
 
-drop view if exists public.ops_job_queue_summary;
-create view public.ops_job_queue_summary with (security_invoker='true') as
+create or replace view public.ops_job_queue_summary as
 select
   count(*) filter (where status = 'queued') as queued,
   count(*) filter (where status = 'failed') as failed,

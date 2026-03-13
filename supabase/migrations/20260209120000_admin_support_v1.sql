@@ -9,7 +9,6 @@
 --  - support.manage (respond/update/curate content)
 
 BEGIN;
-
 -- ------------------------------------------------------------
 -- 1) Admin audit actions (extend enum)
 -- ------------------------------------------------------------
@@ -20,7 +19,6 @@ ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'support_ticket_rep
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'support_ticket_internal_note';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'support_section_upsert';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'support_article_upsert';
-
 -- ------------------------------------------------------------
 -- 2) Admin-only internal notes (separate table; agent-only)
 -- ------------------------------------------------------------
@@ -32,12 +30,9 @@ CREATE TABLE IF NOT EXISTS public.support_internal_notes (
   note text NOT NULL,
   created_at timestamptz NOT NULL DEFAULT now()
 );
-
 CREATE INDEX IF NOT EXISTS ix_support_internal_notes_ticket_id_created_at
   ON public.support_internal_notes(ticket_id, created_at DESC);
-
 ALTER TABLE public.support_internal_notes ENABLE ROW LEVEL SECURITY;
-
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -60,9 +55,7 @@ BEGIN
       WITH CHECK (public.admin_has_permission('support.manage') AND author_id = auth.uid());
   END IF;
 END $$;
-
 GRANT SELECT, INSERT ON TABLE public.support_internal_notes TO authenticated, service_role;
-
 -- ------------------------------------------------------------
 -- 3) Ticket inbox RPCs
 -- ------------------------------------------------------------
@@ -147,9 +140,7 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_tickets_list_v1(text, text, text, uuid, integer, integer) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_ticket_get_v1(p_ticket_id uuid)
 RETURNS jsonb
 LANGUAGE plpgsql STABLE SECURITY DEFINER
@@ -211,9 +202,7 @@ BEGIN
   );
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_ticket_get_v1(uuid) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_ticket_assign_v1(
   p_ticket_id uuid,
   p_assigned_to uuid DEFAULT NULL,
@@ -253,9 +242,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'ticket', to_jsonb(v_ticket));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_ticket_assign_v1(uuid, uuid, text) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_ticket_set_status_v1(
   p_ticket_id uuid,
   p_status public.support_ticket_status,
@@ -296,9 +283,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'ticket', to_jsonb(v_ticket));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_ticket_set_status_v1(uuid, public.support_ticket_status, text) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_ticket_post_message_v1(
   p_ticket_id uuid,
   p_message text,
@@ -342,9 +327,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'message', to_jsonb(v_msg));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_ticket_post_message_v1(uuid, text, jsonb) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_ticket_add_internal_note_v1(
   p_ticket_id uuid,
   p_note text
@@ -387,9 +370,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'internal_note', to_jsonb(v_note));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_ticket_add_internal_note_v1(uuid, text) TO authenticated, service_role;
-
 -- ------------------------------------------------------------
 -- 4) Help Center content RPCs (sections + articles)
 -- ------------------------------------------------------------
@@ -418,9 +399,7 @@ BEGIN
   ORDER BY s.sort_order ASC, s.title ASC;
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_sections_list_v1() TO authenticated, service_role;
-
 DROP FUNCTION IF EXISTS public.admin_support_section_upsert_v1(uuid, text, text, integer, boolean);
 CREATE OR REPLACE FUNCTION public.admin_support_section_upsert_v1(
   p_key text,
@@ -469,9 +448,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'section', to_jsonb(v_section));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_section_upsert_v1(text, text, integer, boolean, uuid) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_articles_list_v1(
   p_q text DEFAULT NULL,
   p_section_id uuid DEFAULT NULL,
@@ -526,9 +503,7 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_articles_list_v1(text, uuid, boolean, integer, integer) TO authenticated, service_role;
-
 CREATE OR REPLACE FUNCTION public.admin_support_article_get_v1(p_id uuid)
 RETURNS jsonb
 LANGUAGE plpgsql STABLE SECURITY DEFINER
@@ -556,9 +531,7 @@ BEGIN
   );
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_article_get_v1(uuid) TO authenticated, service_role;
-
 DROP FUNCTION IF EXISTS public.admin_support_article_upsert_v1(uuid, uuid, text, text, text, text, text[], boolean);
 CREATE OR REPLACE FUNCTION public.admin_support_article_upsert_v1(
   p_slug text,
@@ -630,7 +603,5 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'article', to_jsonb(v_article));
 END;
 $$;
-
 GRANT EXECUTE ON FUNCTION public.admin_support_article_upsert_v1(text, text, uuid, text, text, text[], boolean, uuid) TO authenticated, service_role;
-
 COMMIT;

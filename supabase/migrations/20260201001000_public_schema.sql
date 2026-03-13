@@ -4,12 +4,9 @@
 -- Follow-up changes must be added as incremental migrations under supabase/migrations/.
 
 BEGIN;
-
 SET client_min_messages = warning;
 SET check_function_bodies = false;
 SET search_path = public, extensions;
-
-
 -- Name: admin_audit_action; Type: TYPE; Schema: public; Owner: postgres
 --
 
@@ -17,10 +14,7 @@ CREATE TYPE public.admin_audit_action AS ENUM (
     'grant_admin',
     'revoke_admin'
 );
-
-
 ALTER TYPE public.admin_audit_action OWNER TO postgres;
-
 --
 -- TOC entry 2680 (class 1247 OID 39588)
 
@@ -32,10 +26,7 @@ CREATE TYPE public.app_event_level AS ENUM (
     'warn',
     'error'
 );
-
-
 ALTER TYPE public.app_event_level OWNER TO postgres;
-
 --
 -- TOC entry 2747 (class 1247 OID 62962)
 
@@ -47,10 +38,7 @@ CREATE TYPE public.cash_collection_status AS ENUM (
     'verified',
     'void'
 );
-
-
 ALTER TYPE public.cash_collection_status OWNER TO postgres;
-
 --
 -- TOC entry 3164 (class 1247 OID 61260)
 
@@ -63,10 +51,7 @@ CREATE TYPE public.chat_message_type AS ENUM (
     'image',
     'system'
 );
-
-
 ALTER TYPE public.chat_message_type OWNER TO postgres;
-
 --
 -- TOC entry 2668 (class 1247 OID 64914)
 
@@ -77,10 +62,7 @@ CREATE TYPE public.contact_channel AS ENUM (
     'sms',
     'webhook'
 );
-
-
 ALTER TYPE public.contact_channel OWNER TO postgres;
-
 --
 -- TOC entry 3167 (class 1247 OID 61278)
 
@@ -92,10 +74,7 @@ CREATE TYPE public.delivery_actor_role AS ENUM (
     'driver',
     'merchant'
 );
-
-
 ALTER TYPE public.delivery_actor_role OWNER TO postgres;
-
 --
 -- TOC entry 3170 (class 1247 OID 61286)
 
@@ -107,10 +86,7 @@ CREATE TYPE public.device_platform AS ENUM (
     'ios',
     'web'
 );
-
-
 ALTER TYPE public.device_platform OWNER TO postgres;
-
 --
 -- TOC entry 3173 (class 1247 OID 61294)
 
@@ -121,10 +97,7 @@ CREATE TYPE public.driver_rank_period AS ENUM (
     'weekly',
     'monthly'
 );
-
-
 ALTER TYPE public.driver_rank_period OWNER TO postgres;
-
 --
 -- TOC entry 2683 (class 1247 OID 39596)
 
@@ -139,10 +112,7 @@ CREATE TYPE public.driver_status AS ENUM (
     'reserved',
     'assigned'
 );
-
-
 ALTER TYPE public.driver_status OWNER TO postgres;
-
 --
 -- TOC entry 2546 (class 1247 OID 62262)
 
@@ -155,10 +125,7 @@ CREATE TYPE public.driver_vehicle_type AS ENUM (
     'motorcycle',
     'cargo'
 );
-
-
 ALTER TYPE public.driver_vehicle_type OWNER TO postgres;
-
 --
 -- TOC entry 3042 (class 1247 OID 63796)
 
@@ -170,10 +137,7 @@ CREATE TYPE public.family_member_role AS ENUM (
     'teen',
     'adult'
 );
-
-
 ALTER TYPE public.family_member_role OWNER TO postgres;
-
 --
 -- TOC entry 3045 (class 1247 OID 63804)
 
@@ -185,10 +149,7 @@ CREATE TYPE public.family_member_status AS ENUM (
     'active',
     'suspended'
 );
-
-
 ALTER TYPE public.family_member_status OWNER TO postgres;
-
 --
 -- TOC entry 2904 (class 1247 OID 63684)
 
@@ -199,10 +160,7 @@ CREATE TYPE public.fraud_case_status AS ENUM (
     'open',
     'closed'
 );
-
-
 ALTER TYPE public.fraud_case_status OWNER TO postgres;
-
 --
 -- TOC entry 2895 (class 1247 OID 63675)
 
@@ -215,10 +173,7 @@ CREATE TYPE public.fraud_subject_kind AS ENUM (
     'device',
     'ip_prefix'
 );
-
-
 ALTER TYPE public.fraud_subject_kind OWNER TO postgres;
-
 --
 -- TOC entry 3027 (class 1247 OID 63781)
 
@@ -231,10 +186,7 @@ CREATE TYPE public.gender_identity AS ENUM (
     'nonbinary',
     'undisclosed'
 );
-
-
 ALTER TYPE public.gender_identity OWNER TO postgres;
-
 --
 -- TOC entry 3039 (class 1247 OID 63790)
 
@@ -245,10 +197,7 @@ CREATE TYPE public.gender_visibility AS ENUM (
     'hidden',
     'shown_to_matches'
 );
-
-
 ALTER TYPE public.gender_visibility OWNER TO postgres;
-
 --
 -- TOC entry 2686 (class 1247 OID 39608)
 
@@ -261,10 +210,7 @@ CREATE TYPE public.incident_severity AS ENUM (
     'high',
     'critical'
 );
-
-
 ALTER TYPE public.incident_severity OWNER TO postgres;
-
 --
 -- TOC entry 2689 (class 1247 OID 39618)
 
@@ -277,10 +223,7 @@ CREATE TYPE public.incident_status AS ENUM (
     'resolved',
     'closed'
 );
-
-
 ALTER TYPE public.incident_status OWNER TO postgres;
-
 --
 -- TOC entry 3176 (class 1247 OID 61300)
 
@@ -292,10 +235,7 @@ CREATE TYPE public.kyc_document_status AS ENUM (
     'approved',
     'rejected'
 );
-
-
 ALTER TYPE public.kyc_document_status OWNER TO postgres;
-
 --
 -- TOC entry 3179 (class 1247 OID 61308)
 
@@ -308,10 +248,7 @@ CREATE TYPE public.kyc_liveness_status AS ENUM (
     'failed',
     'expired'
 );
-
-
 ALTER TYPE public.kyc_liveness_status OWNER TO postgres;
-
 --
 -- TOC entry 3182 (class 1247 OID 61318)
 
@@ -323,10 +260,7 @@ CREATE TYPE public.kyc_role_required AS ENUM (
     'driver',
     'both'
 );
-
-
 ALTER TYPE public.kyc_role_required OWNER TO postgres;
-
 --
 -- TOC entry 2692 (class 1247 OID 39628)
 
@@ -339,10 +273,7 @@ CREATE TYPE public.kyc_status AS ENUM (
     'verified',
     'rejected'
 );
-
-
 ALTER TYPE public.kyc_status OWNER TO postgres;
-
 --
 -- TOC entry 3185 (class 1247 OID 61326)
 
@@ -357,10 +288,7 @@ CREATE TYPE public.kyc_submission_status AS ENUM (
     'rejected',
     'resubmit_required'
 );
-
-
 ALTER TYPE public.kyc_submission_status OWNER TO postgres;
-
 --
 -- TOC entry 3107 (class 1247 OID 63980)
 
@@ -371,10 +299,7 @@ CREATE TYPE public.live_activity_platform AS ENUM (
     'ios',
     'android'
 );
-
-
 ALTER TYPE public.live_activity_platform OWNER TO postgres;
-
 --
 -- TOC entry 3284 (class 1247 OID 64158)
 
@@ -387,10 +312,7 @@ CREATE TYPE public.membership_status AS ENUM (
     'expired',
     'paused'
 );
-
-
 ALTER TYPE public.membership_status OWNER TO postgres;
-
 --
 -- TOC entry 3188 (class 1247 OID 61340)
 
@@ -401,10 +323,7 @@ CREATE TYPE public.merchant_chat_auto_reply_mode AS ENUM (
     'smart',
     'always'
 );
-
-
 ALTER TYPE public.merchant_chat_auto_reply_mode OWNER TO postgres;
-
 --
 -- TOC entry 3191 (class 1247 OID 61346)
 
@@ -418,10 +337,7 @@ CREATE TYPE public.merchant_order_delivery_status AS ENUM (
     'delivered',
     'cancelled'
 );
-
-
 ALTER TYPE public.merchant_order_delivery_status OWNER TO postgres;
-
 --
 -- TOC entry 2982 (class 1247 OID 63078)
 
@@ -432,10 +348,7 @@ CREATE TYPE public.merchant_order_payment_method AS ENUM (
     'wallet',
     'cod'
 );
-
-
 ALTER TYPE public.merchant_order_payment_method OWNER TO postgres;
-
 --
 -- TOC entry 2985 (class 1247 OID 63084)
 
@@ -447,10 +360,7 @@ CREATE TYPE public.merchant_order_payment_status AS ENUM (
     'paid_wallet',
     'collected_cod'
 );
-
-
 ALTER TYPE public.merchant_order_payment_status OWNER TO postgres;
-
 --
 -- TOC entry 3194 (class 1247 OID 61358)
 
@@ -465,10 +375,7 @@ CREATE TYPE public.merchant_order_status AS ENUM (
     'fulfilled',
     'cancelled'
 );
-
-
 ALTER TYPE public.merchant_order_status OWNER TO postgres;
-
 --
 -- TOC entry 3197 (class 1247 OID 61372)
 
@@ -479,10 +386,7 @@ CREATE TYPE public.merchant_promotion_discount_type AS ENUM (
     'percent',
     'fixed_iqd'
 );
-
-
 ALTER TYPE public.merchant_promotion_discount_type OWNER TO postgres;
-
 --
 -- TOC entry 3200 (class 1247 OID 61378)
 
@@ -495,10 +399,7 @@ CREATE TYPE public.merchant_status AS ENUM (
     'approved',
     'suspended'
 );
-
-
 ALTER TYPE public.merchant_status OWNER TO postgres;
-
 --
 -- TOC entry 3203 (class 1247 OID 61388)
 
@@ -509,10 +410,7 @@ CREATE TYPE public.message_direction AS ENUM (
     'in',
     'out'
 );
-
-
 ALTER TYPE public.message_direction OWNER TO postgres;
-
 --
 -- TOC entry 3275 (class 1247 OID 64112)
 
@@ -526,10 +424,7 @@ CREATE TYPE public.order_bundle_status AS ENUM (
     'completed',
     'cancelled'
 );
-
-
 ALTER TYPE public.order_bundle_status OWNER TO postgres;
-
 --
 -- TOC entry 3206 (class 1247 OID 61394)
 
@@ -543,10 +438,7 @@ CREATE TYPE public.outbox_status AS ENUM (
     'failed',
     'skipped'
 );
-
-
 ALTER TYPE public.outbox_status OWNER TO postgres;
-
 --
 -- TOC entry 2695 (class 1247 OID 39638)
 
@@ -557,10 +449,7 @@ CREATE TYPE public.party_role AS ENUM (
     'rider',
     'driver'
 );
-
-
 ALTER TYPE public.party_role OWNER TO postgres;
-
 --
 -- TOC entry 2561 (class 1247 OID 64580)
 
@@ -571,10 +460,7 @@ CREATE TYPE public.passkey_status AS ENUM (
     'active',
     'revoked'
 );
-
-
 ALTER TYPE public.passkey_status OWNER TO postgres;
-
 --
 -- TOC entry 2558 (class 1247 OID 64575)
 
@@ -585,10 +471,7 @@ CREATE TYPE public.passkey_type AS ENUM (
     'platform',
     'cross_platform'
 );
-
-
 ALTER TYPE public.passkey_type OWNER TO postgres;
-
 --
 -- TOC entry 2698 (class 1247 OID 39644)
 
@@ -604,10 +487,7 @@ CREATE TYPE public.payment_intent_status AS ENUM (
     'canceled',
     'refunded'
 );
-
-
 ALTER TYPE public.payment_intent_status OWNER TO postgres;
-
 --
 -- TOC entry 2701 (class 1247 OID 39660)
 
@@ -620,10 +500,7 @@ CREATE TYPE public.payment_provider_kind AS ENUM (
     'qicard',
     'manual'
 );
-
-
 ALTER TYPE public.payment_provider_kind OWNER TO postgres;
-
 --
 -- TOC entry 3209 (class 1247 OID 61406)
 
@@ -637,10 +514,7 @@ CREATE TYPE public.payment_status AS ENUM (
     'canceled',
     'refunded'
 );
-
-
 ALTER TYPE public.payment_status OWNER TO postgres;
-
 --
 -- TOC entry 3010 (class 1247 OID 44445)
 
@@ -653,10 +527,7 @@ CREATE TYPE public.payout_attempt_status AS ENUM (
     'succeeded',
     'failed'
 );
-
-
 ALTER TYPE public.payout_attempt_status OWNER TO postgres;
-
 --
 -- TOC entry 3212 (class 1247 OID 61418)
 
@@ -669,10 +540,7 @@ CREATE TYPE public.payout_provider_job_attempt_status AS ENUM (
     'failed',
     'confirmed'
 );
-
-
 ALTER TYPE public.payout_provider_job_attempt_status OWNER TO postgres;
-
 --
 -- TOC entry 3215 (class 1247 OID 61428)
 
@@ -686,10 +554,7 @@ CREATE TYPE public.payout_provider_job_status AS ENUM (
     'failed',
     'canceled'
 );
-
-
 ALTER TYPE public.payout_provider_job_status OWNER TO postgres;
-
 --
 -- TOC entry 3218 (class 1247 OID 61440)
 
@@ -701,10 +566,7 @@ CREATE TYPE public.pin_verification_mode AS ENUM (
     'every_ride',
     'night_only'
 );
-
-
 ALTER TYPE public.pin_verification_mode OWNER TO postgres;
-
 --
 -- TOC entry 3221 (class 1247 OID 61448)
 
@@ -717,10 +579,7 @@ CREATE TYPE public.referral_invite_status AS ENUM (
     'rewarded',
     'canceled'
 );
-
-
 ALTER TYPE public.referral_invite_status OWNER TO postgres;
-
 --
 -- TOC entry 3224 (class 1247 OID 61458)
 
@@ -732,10 +591,7 @@ CREATE TYPE public.referral_redemption_status AS ENUM (
     'rewarded',
     'invalid'
 );
-
-
 ALTER TYPE public.referral_redemption_status OWNER TO postgres;
-
 --
 -- TOC entry 2704 (class 1247 OID 39670)
 
@@ -747,10 +603,7 @@ CREATE TYPE public.ride_actor_type AS ENUM (
     'driver',
     'system'
 );
-
-
 ALTER TYPE public.ride_actor_type OWNER TO postgres;
-
 --
 -- TOC entry 2658 (class 1247 OID 64898)
 
@@ -760,10 +613,7 @@ ALTER TYPE public.ride_actor_type OWNER TO postgres;
 CREATE TYPE public.ride_intent_source AS ENUM (
     'callcenter'
 );
-
-
 ALTER TYPE public.ride_intent_source OWNER TO postgres;
-
 --
 -- TOC entry 3227 (class 1247 OID 61472)
 
@@ -775,10 +625,7 @@ CREATE TYPE public.ride_intent_status AS ENUM (
     'converted',
     'closed'
 );
-
-
 ALTER TYPE public.ride_intent_status OWNER TO postgres;
-
 --
 -- TOC entry 2677 (class 1247 OID 62944)
 
@@ -789,10 +636,7 @@ CREATE TYPE public.ride_payment_method AS ENUM (
     'wallet',
     'cash'
 );
-
-
 ALTER TYPE public.ride_payment_method OWNER TO postgres;
-
 --
 -- TOC entry 2741 (class 1247 OID 62950)
 
@@ -806,10 +650,7 @@ CREATE TYPE public.ride_payment_status AS ENUM (
     'refunded',
     'collected_cash'
 );
-
-
 ALTER TYPE public.ride_payment_status OWNER TO postgres;
-
 --
 -- TOC entry 3230 (class 1247 OID 61480)
 
@@ -821,10 +662,7 @@ CREATE TYPE public.ride_receipt_status AS ENUM (
     'partially_refunded',
     'refunded'
 );
-
-
 ALTER TYPE public.ride_receipt_status OWNER TO postgres;
-
 --
 -- TOC entry 2707 (class 1247 OID 39678)
 
@@ -839,10 +677,7 @@ CREATE TYPE public.ride_request_status AS ENUM (
     'no_driver',
     'expired'
 );
-
-
 ALTER TYPE public.ride_request_status OWNER TO postgres;
-
 --
 -- TOC entry 2710 (class 1247 OID 39692)
 
@@ -856,10 +691,7 @@ CREATE TYPE public.ride_status AS ENUM (
     'completed',
     'canceled'
 );
-
-
 ALTER TYPE public.ride_status OWNER TO postgres;
-
 --
 -- TOC entry 3233 (class 1247 OID 61488)
 
@@ -871,10 +703,7 @@ CREATE TYPE public.ridecheck_event_status AS ENUM (
     'resolved',
     'escalated'
 );
-
-
 ALTER TYPE public.ridecheck_event_status OWNER TO postgres;
-
 --
 -- TOC entry 3236 (class 1247 OID 61496)
 
@@ -887,10 +716,7 @@ CREATE TYPE public.ridecheck_kind AS ENUM (
     'route_deviation',
     'generic'
 );
-
-
 ALTER TYPE public.ridecheck_kind OWNER TO postgres;
-
 --
 -- TOC entry 3239 (class 1247 OID 61506)
 
@@ -902,10 +728,7 @@ CREATE TYPE public.ridecheck_response AS ENUM (
     'false_alarm',
     'need_help'
 );
-
-
 ALTER TYPE public.ridecheck_response OWNER TO postgres;
-
 --
 -- TOC entry 2938 (class 1247 OID 43536)
 
@@ -918,10 +741,7 @@ CREATE TYPE public.scheduled_ride_status AS ENUM (
     'executed',
     'failed'
 );
-
-
 ALTER TYPE public.scheduled_ride_status OWNER TO postgres;
-
 --
 -- TOC entry 2753 (class 1247 OID 62970)
 
@@ -932,10 +752,7 @@ CREATE TYPE public.settlement_party_type AS ENUM (
     'driver',
     'merchant'
 );
-
-
 ALTER TYPE public.settlement_party_type OWNER TO postgres;
-
 --
 -- TOC entry 3078 (class 1247 OID 63138)
 
@@ -948,10 +765,7 @@ CREATE TYPE public.settlement_request_status AS ENUM (
     'rejected',
     'cancelled'
 );
-
-
 ALTER TYPE public.settlement_request_status OWNER TO postgres;
-
 --
 -- TOC entry 3350 (class 1247 OID 64442)
 
@@ -965,10 +779,7 @@ CREATE TYPE public.shift_status AS ENUM (
     'completed',
     'cancelled'
 );
-
-
 ALTER TYPE public.shift_status OWNER TO postgres;
-
 --
 -- TOC entry 3242 (class 1247 OID 61514)
 
@@ -979,10 +790,7 @@ CREATE TYPE public.sms_hook_status AS ENUM (
     'sent',
     'failed'
 );
-
-
 ALTER TYPE public.sms_hook_status OWNER TO postgres;
-
 --
 -- TOC entry 3245 (class 1247 OID 61520)
 
@@ -994,10 +802,7 @@ CREATE TYPE public.sos_event_status AS ENUM (
     'resolved',
     'canceled'
 );
-
-
 ALTER TYPE public.sos_event_status OWNER TO postgres;
-
 --
 -- TOC entry 3248 (class 1247 OID 61528)
 
@@ -1009,10 +814,7 @@ CREATE TYPE public.support_ticket_priority AS ENUM (
     'normal',
     'high'
 );
-
-
 ALTER TYPE public.support_ticket_priority OWNER TO postgres;
-
 --
 -- TOC entry 3251 (class 1247 OID 61536)
 
@@ -1025,10 +827,7 @@ CREATE TYPE public.support_ticket_status AS ENUM (
     'resolved',
     'closed'
 );
-
-
 ALTER TYPE public.support_ticket_status OWNER TO postgres;
-
 --
 -- TOC entry 2713 (class 1247 OID 39704)
 
@@ -1041,10 +840,7 @@ CREATE TYPE public.topup_status AS ENUM (
     'succeeded',
     'failed'
 );
-
-
 ALTER TYPE public.topup_status OWNER TO postgres;
-
 --
 -- TOC entry 3110 (class 1247 OID 63986)
 
@@ -1061,10 +857,7 @@ CREATE TYPE public.trip_live_status AS ENUM (
     'trip_completed',
     'trip_cancelled'
 );
-
-
 ALTER TYPE public.trip_live_status OWNER TO postgres;
-
 --
 -- TOC entry 3254 (class 1247 OID 61546)
 
@@ -1078,10 +871,7 @@ CREATE TYPE public.trusted_contact_event_status AS ENUM (
     'failed',
     'skipped'
 );
-
-
 ALTER TYPE public.trusted_contact_event_status OWNER TO postgres;
-
 --
 -- TOC entry 3257 (class 1247 OID 61558)
 
@@ -1093,10 +883,7 @@ CREATE TYPE public.user_gender AS ENUM (
     'female',
     'unknown'
 );
-
-
 ALTER TYPE public.user_gender OWNER TO postgres;
-
 --
 -- TOC entry 3260 (class 1247 OID 61566)
 
@@ -1109,10 +896,7 @@ CREATE TYPE public.user_interest_target_kind AS ENUM (
     'category',
     'keyword'
 );
-
-
 ALTER TYPE public.user_interest_target_kind OWNER TO postgres;
-
 --
 -- TOC entry 3263 (class 1247 OID 61576)
 
@@ -1124,10 +908,7 @@ CREATE TYPE public.user_role AS ENUM (
     'driver',
     'merchant'
 );
-
-
 ALTER TYPE public.user_role OWNER TO postgres;
-
 --
 -- TOC entry 3266 (class 1247 OID 61584)
 
@@ -1139,10 +920,7 @@ CREATE TYPE public.voice_call_participant_role AS ENUM (
     'driver',
     'business'
 );
-
-
 ALTER TYPE public.voice_call_participant_role OWNER TO postgres;
-
 --
 -- TOC entry 3131 (class 1247 OID 55179)
 
@@ -1153,10 +931,7 @@ CREATE TYPE public.voice_call_provider AS ENUM (
     'agora',
     'daily'
 );
-
-
 ALTER TYPE public.voice_call_provider OWNER TO postgres;
-
 --
 -- TOC entry 3134 (class 1247 OID 55184)
 
@@ -1172,10 +947,7 @@ CREATE TYPE public.voice_call_status AS ENUM (
     'canceled',
     'failed'
 );
-
-
 ALTER TYPE public.voice_call_status OWNER TO postgres;
-
 --
 -- TOC entry 2716 (class 1247 OID 39714)
 
@@ -1188,10 +960,7 @@ CREATE TYPE public.wallet_entry_kind AS ENUM (
     'withdrawal',
     'adjustment'
 );
-
-
 ALTER TYPE public.wallet_entry_kind OWNER TO postgres;
-
 --
 -- TOC entry 2719 (class 1247 OID 39724)
 
@@ -1202,10 +971,7 @@ CREATE TYPE public.wallet_hold_kind AS ENUM (
     'ride',
     'withdraw'
 );
-
-
 ALTER TYPE public.wallet_hold_kind OWNER TO postgres;
-
 --
 -- TOC entry 2722 (class 1247 OID 39730)
 
@@ -1218,10 +984,7 @@ CREATE TYPE public.wallet_hold_status AS ENUM (
     'released',
     'held'
 );
-
-
 ALTER TYPE public.wallet_hold_status OWNER TO postgres;
-
 --
 -- TOC entry 2549 (class 1247 OID 63517)
 
@@ -1234,10 +997,7 @@ CREATE TYPE public.webhook_job_status AS ENUM (
     'succeeded',
     'dead'
 );
-
-
 ALTER TYPE public.webhook_job_status OWNER TO postgres;
-
 --
 -- TOC entry 2725 (class 1247 OID 39738)
 
@@ -1249,10 +1009,7 @@ CREATE TYPE public.withdraw_payout_kind AS ENUM (
     'asiapay',
     'zaincash'
 );
-
-
 ALTER TYPE public.withdraw_payout_kind OWNER TO postgres;
-
 --
 -- TOC entry 2728 (class 1247 OID 39746)
 
@@ -1266,10 +1023,7 @@ CREATE TYPE public.withdraw_request_status AS ENUM (
     'paid',
     'cancelled'
 );
-
-
 ALTER TYPE public.withdraw_request_status OWNER TO postgres;
-
 --
 -- TOC entry 2567 (class 1247 OID 17122)
 
@@ -1298,10 +1052,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public._edge_webhook_post(p_function_name text, p_secret_name text, p_payload jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1786 (class 1255 OID 63757)
 
@@ -1318,10 +1069,7 @@ begin
   end if;
 end
 $$;
-
-
 ALTER FUNCTION public._fraud_require_service_role() OWNER TO postgres;
-
 --
 -- TOC entry 723 (class 1255 OID 56551)
 
@@ -1337,10 +1085,7 @@ CREATE FUNCTION public._vault_secret(p_name text) RETURNS text
   where ds.name = p_name
   limit 1
 $$;
-
-
 ALTER FUNCTION public._vault_secret(p_name text) OWNER TO postgres;
-
 --
 -- TOC entry 796 (class 1255 OID 40721)
 
@@ -1425,10 +1170,7 @@ begin
   return query select v_key, true, v_reward;
 end;
 $$;
-
-
 ALTER FUNCTION public.achievement_claim(p_key text) OWNER TO postgres;
-
 --
 -- TOC entry 700 (class 1255 OID 63361)
 
@@ -1466,10 +1208,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cash_agent_create_v1(p_code text, p_name text, p_location text) OWNER TO postgres;
-
 --
 -- TOC entry 1445 (class 1255 OID 63360)
 
@@ -1498,10 +1237,7 @@ begin
     order by ca.is_active desc, ca.code asc;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cash_agent_list_v1(p_active_only boolean) OWNER TO postgres;
-
 --
 -- TOC entry 1021 (class 1255 OID 63359)
 
@@ -1569,10 +1305,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cash_agent_next_doc_no_v1(p_agent_id uuid, p_kind text, p_day date) OWNER TO postgres;
-
 --
 -- TOC entry 676 (class 1255 OID 63362)
 
@@ -1606,10 +1339,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cash_agent_set_active_v1(p_agent_id uuid, p_is_active boolean) OWNER TO postgres;
-
 --
 -- TOC entry 1215 (class 1255 OID 63366)
 
@@ -1672,10 +1402,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cashbox_close_day_v1(p_agent_id uuid, p_day date, p_counted_cash_iqd integer, p_note text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1548 (class 1255 OID 63365)
 
@@ -1738,10 +1465,7 @@ begin
   order by d.day desc;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_cashbox_reconciliation_v1(p_agent_id uuid, p_date_from date, p_date_to date) OWNER TO postgres;
-
 --
 -- TOC entry 1731 (class 1255 OID 62323)
 
@@ -1805,14 +1529,9 @@ begin
   return v_new_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_clone_pricing_config_v1(p_source_id uuid, p_name text, p_effective_from timestamp with time zone, p_active boolean, p_set_default boolean) OWNER TO postgres;
-
 SET default_tablespace = '';
-
 SET default_table_access_method = heap;
-
 --
 -- TOC entry 414 (class 1259 OID 39757)
 
@@ -1830,10 +1549,7 @@ CREATE TABLE public.gift_codes (
     redeemed_entry_id bigint,
     CONSTRAINT gift_codes_amount_iqd_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.gift_codes OWNER TO postgres;
-
 --
 -- TOC entry 878 (class 1255 OID 39764)
 
@@ -1881,10 +1597,7 @@ BEGIN
   RETURN v_row;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_create_gift_code(p_amount_iqd bigint, p_code text, p_memo text) OWNER TO postgres;
-
 --
 -- TOC entry 1599 (class 1255 OID 43614)
 
@@ -1924,10 +1637,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_create_service_area_bbox(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1673 (class 1255 OID 43673)
 
@@ -1973,10 +1683,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_notes text) OWNER TO postgres;
-
 --
 -- TOC entry 784 (class 1255 OID 44210)
 
@@ -2022,10 +1729,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_notes text) OWNER TO postgres;
-
 --
 -- TOC entry 728 (class 1255 OID 62307)
 
@@ -2078,10 +1782,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_create_service_area_bbox_v3(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) OWNER TO postgres;
-
 --
 -- TOC entry 1321 (class 1255 OID 44423)
 
@@ -2110,10 +1811,7 @@ begin
   values ((select auth.uid()), 'grant_admin', p_user, p_note);
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_grant_user(p_user uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 816 (class 1255 OID 65018)
 
@@ -2134,10 +1832,7 @@ EXCEPTION
     RETURN jsonb_build_object('ok', false, 'error', SQLERRM);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_grant_user_v1(p_user uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 631 (class 1255 OID 66205)
 
@@ -2164,10 +1859,7 @@ BEGIN
   ORDER BY mc.provider_code, mc.capability;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_capability_list_v1() OWNER TO postgres;
-
 --
 -- TOC entry 906 (class 1255 OID 66206)
 
@@ -2192,7 +1884,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -2209,10 +1901,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_capability_set_v1(p_provider_code text, p_capability text, p_enabled boolean, p_unit_label text, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 787 (class 1255 OID 66262)
 
@@ -2247,10 +1936,7 @@ BEGIN
   ORDER BY h.provider_code, h.capability;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_health_list_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1692 (class 1255 OID 66263)
 
@@ -2273,7 +1959,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -2289,10 +1975,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_health_reset_v1(p_provider_code text, p_capability text) OWNER TO postgres;
-
 --
 -- TOC entry 1187 (class 1255 OID 66183)
 
@@ -2333,10 +2016,7 @@ BEGIN
   ORDER BY mp.priority DESC;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_list_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1132 (class 1255 OID 66244)
 
@@ -2379,10 +2059,7 @@ BEGIN
   ORDER BY mp.priority DESC;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_list_v2() OWNER TO postgres;
-
 --
 -- TOC entry 1263 (class 1255 OID 66184)
 
@@ -2408,7 +2085,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here') THEN
+  IF v_code NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 
@@ -2437,10 +2114,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_set_v1(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1540 (class 1255 OID 66245)
 
@@ -2468,7 +2142,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here') THEN
+  IF v_code NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 
@@ -2527,10 +2201,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_provider_set_v2(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_cache_enabled boolean, p_cache_ttl_seconds integer, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1356 (class 1255 OID 66241)
 
@@ -2577,10 +2248,7 @@ BEGIN
   LIMIT v_limit;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_requests_list_v1(p_limit integer, p_provider_code text, p_capability text) OWNER TO postgres;
-
 --
 -- TOC entry 734 (class 1255 OID 66269)
 
@@ -2631,10 +2299,7 @@ BEGIN
   LIMIT v_limit;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_requests_list_v2(p_limit integer, p_provider_code text, p_capability text) OWNER TO postgres;
-
 --
 -- TOC entry 820 (class 1255 OID 66271)
 
@@ -2680,10 +2345,7 @@ begin
   order by mc.provider_code, mc.capability;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_maps_requests_stats_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1352 (class 1255 OID 39765)
 
@@ -2717,10 +2379,7 @@ BEGIN
   RETURN v_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_mark_stale_drivers_offline(p_stale_after_seconds integer, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 1744 (class 1255 OID 63195)
 
@@ -2747,10 +2406,7 @@ BEGIN
     AND is_active = true;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_clear_v1(p_merchant_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 872 (class 1255 OID 63383)
 
@@ -2775,10 +2431,7 @@ BEGIN
   WHERE merchant_id = p_merchant_id AND is_active = true;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_clear_v2(p_merchant_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1646 (class 1255 OID 63193)
 
@@ -2837,10 +2490,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_list_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1642 (class 1255 OID 63381)
 
@@ -2907,10 +2557,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_list_v2(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1604 (class 1255 OID 63194)
 
@@ -2958,10 +2605,7 @@ BEGIN
   RETURN;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_set_v1(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 1380 (class 1255 OID 63382)
 
@@ -3036,10 +2680,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_merchant_commission_set_v2(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint, p_cod_handling_rate_bps integer, p_cod_handling_flat_fee_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 1697 (class 1255 OID 63411)
 
@@ -3068,10 +2709,7 @@ CREATE FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean DEFAULT 
     (c.service_area_id is null) desc,
     c.updated_at desc;
 $$;
-
-
 ALTER FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean) OWNER TO postgres;
-
 --
 -- TOC entry 918 (class 1255 OID 63412)
 
@@ -3138,10 +2776,7 @@ BEGIN
   return v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_platform_fee_set_v1(p_product_code text, p_service_area_id uuid, p_rate_bps integer, p_flat_fee_iqd integer, p_active boolean) OWNER TO postgres;
-
 --
 -- TOC entry 749 (class 1255 OID 63136)
 
@@ -3238,10 +2873,7 @@ begin
 
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_reconciliation_daily_v1(p_days integer) OWNER TO postgres;
-
 --
 -- TOC entry 1376 (class 1255 OID 39766)
 
@@ -3328,10 +2960,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_record_ride_refund(p_ride_id uuid, p_refund_amount_iqd integer, p_reason text) OWNER TO postgres;
-
 --
 -- TOC entry 1081 (class 1255 OID 45082)
 
@@ -3376,10 +3005,7 @@ BEGIN
   RETURN v_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_seconds integer, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 9765 (class 0 OID 0)
 -- Dependencies: 1081
@@ -3388,8 +3014,6 @@ ALTER FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_seconds
 --
 
 COMMENT ON FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_seconds integer, p_limit integer) IS 'Releases drivers stuck in reserved state (from failed matching) back to available. Should be run periodically by expire-rides job.';
-
-
 --
 -- TOC entry 663 (class 1255 OID 44424)
 
@@ -3434,10 +3058,7 @@ begin
   values ((select auth.uid()), 'revoke_admin', p_user, p_note);
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_revoke_user(p_user uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 603 (class 1255 OID 65019)
 
@@ -3456,10 +3077,7 @@ EXCEPTION
     RETURN jsonb_build_object('ok', false, 'error', SQLERRM);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_revoke_user_v1(p_user uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1054 (class 1255 OID 43882)
 
@@ -3505,10 +3123,7 @@ BEGIN
   RETURN v_incident_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_ridecheck_escalate(p_event_id uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1611 (class 1255 OID 43881)
 
@@ -3534,10 +3149,7 @@ BEGIN
   RETURN FOUND;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_ridecheck_resolve(p_event_id uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1401 (class 1255 OID 62322)
 
@@ -3565,10 +3177,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_set_default_pricing_config_v1(p_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 501 (class 1259 OID 44577)
 
@@ -3587,10 +3196,7 @@ CREATE TABLE public.merchants (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchants OWNER TO postgres;
-
 --
 -- TOC entry 1292 (class 1255 OID 62231)
 
@@ -3622,10 +3228,7 @@ begin
   return v_row;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_set_merchant_status(p_merchant_id uuid, p_status public.merchant_status, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1493 (class 1255 OID 63189)
 
@@ -3680,10 +3283,7 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_approve_payment_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) OWNER TO postgres;
-
 --
 -- TOC entry 1723 (class 1255 OID 63191)
 
@@ -3750,10 +3350,7 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_approve_payout_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) OWNER TO postgres;
-
 --
 -- TOC entry 1248 (class 1255 OID 63072)
 
@@ -3792,10 +3389,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_list_accounts_v1(p_party_type public.settlement_party_type, p_only_negative boolean, p_min_abs_balance_iqd bigint, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1170 (class 1255 OID 63073)
 
@@ -3823,10 +3417,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_list_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 785 (class 1255 OID 63187)
 
@@ -3853,10 +3444,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_list_payment_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1168 (class 1255 OID 63188)
 
@@ -3883,10 +3471,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_list_payout_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1460 (class 1255 OID 63135)
 
@@ -3915,10 +3500,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_record_payout_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 681 (class 1255 OID 63364)
 
@@ -3977,10 +3559,7 @@ begin
   return query select v_id, v_payout_no;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_record_payout_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1679 (class 1255 OID 63074)
 
@@ -4057,10 +3636,7 @@ BEGIN
   RETURN QUERY SELECT v_receipt.id, v_entry.id, coalesce(v_sa.balance_iqd, 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_record_receipt_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1636 (class 1255 OID 63363)
 
@@ -4119,10 +3695,7 @@ begin
   return query select v_id, v_receipt_no;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_record_receipt_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1772 (class 1255 OID 63190)
 
@@ -4159,10 +3732,7 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_reject_payment_request_v1(p_request_id uuid, p_admin_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1478 (class 1255 OID 63192)
 
@@ -4199,10 +3769,7 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_reject_payout_request_v1(p_request_id uuid, p_admin_note text) OWNER TO postgres;
-
 --
 -- TOC entry 1490 (class 1255 OID 63380)
 
@@ -4222,10 +3789,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_entries_v1(p_party_type, p_party_id, p_start, p_end, p_limit, p_offset);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1431 (class 1255 OID 63379)
 
@@ -4245,10 +3809,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_summary_v1(p_party_type, p_party_id, p_start, p_end);
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) OWNER TO postgres;
-
 --
 -- TOC entry 1491 (class 1255 OID 43672)
 
@@ -4270,10 +3831,7 @@ BEGIN
   WHERE id = p_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_update_pricing_config_caps(p_id uuid, p_max_surge_multiplier numeric) OWNER TO postgres;
-
 --
 -- TOC entry 880 (class 1255 OID 39767)
 
@@ -4302,10 +3860,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_update_ride_incident(p_incident_id uuid, p_status public.incident_status, p_assigned_to uuid, p_resolution_note text) OWNER TO postgres;
-
 --
 -- TOC entry 642 (class 1255 OID 62308)
 
@@ -4376,10 +3931,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_upsert_service_area_geojson_v1(p_name text, p_governorate text, p_geojson jsonb, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) OWNER TO postgres;
-
 --
 -- TOC entry 1135 (class 1255 OID 39768)
 
@@ -4606,10 +4158,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.admin_wallet_integrity_snapshot(p_limit integer, p_hold_age_seconds integer, p_topup_age_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 1720 (class 1255 OID 39770)
 
@@ -4670,10 +4219,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 9792 (class 0 OID 0)
 -- Dependencies: 1720
@@ -4682,8 +4228,6 @@ ALTER FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) OWN
 --
 
 COMMENT ON FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) IS 'Approves a withdrawal request. Now includes validation that an active hold exists and covers the requested amount.';
-
-
 --
 -- TOC entry 793 (class 1255 OID 39771)
 
@@ -4768,10 +4312,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_withdraw_mark_paid(p_request_id uuid, p_payout_reference text) OWNER TO postgres;
-
 --
 -- TOC entry 706 (class 1255 OID 39772)
 
@@ -4832,10 +4373,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.admin_withdraw_reject(p_request_id uuid, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 936 (class 1255 OID 39773)
 
@@ -4861,10 +4399,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.apply_rating_aggregate() OWNER TO postgres;
-
 --
 -- TOC entry 643 (class 1255 OID 40785)
 
@@ -4988,10 +4523,7 @@ begin
   perform public.notify_user(p_referred_id, 'referral_reward', 'Welcome reward', 'You completed your first ride. Reward added to your wallet.', jsonb_build_object('reward_iqd', v_new_reward, 'referrer_id', v_redemption.referrer_id));
 end;
 $$;
-
-
 ALTER FUNCTION public.apply_referral_rewards(p_referred_id uuid, p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1613 (class 1255 OID 55285)
 
@@ -5046,10 +4578,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'status', 'cancelled');
 END;
 $$;
-
-
 ALTER FUNCTION public.cancel_ride_request(p_request_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1774 (class 1255 OID 63975)
 
@@ -5070,10 +4599,7 @@ CREATE FUNCTION public.check_destination_lock(p_rider_id uuid) RETURNS boolean
     false
   )
 $$;
-
-
 ALTER FUNCTION public.check_destination_lock(p_rider_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1137 (class 1255 OID 39774)
 
@@ -5119,10 +4645,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.create_receipt_from_payment() OWNER TO postgres;
-
 --
 -- TOC entry 1700 (class 1255 OID 39775)
 
@@ -5159,10 +4682,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.create_ride_incident(p_ride_id uuid, p_category text, p_description text, p_severity public.incident_severity) OWNER TO postgres;
-
 --
 -- TOC entry 1524 (class 1255 OID 44769)
 
@@ -5183,10 +4703,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.customer_addresses_enforce_single_default() OWNER TO postgres;
-
 --
 -- TOC entry 1102 (class 1255 OID 41368)
 
@@ -5312,10 +4829,7 @@ BEGIN
     SELECT r.id, r.status, 'accepted'::public.ride_request_status, v_hold_id, r.rider_id, r.driver_id, r.started_at, r.completed_at, r.fare_amount_iqd, r.currency;
 END;
 $$;
-
-
 ALTER FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 9803 (class 0 OID 0)
 -- Dependencies: 1102
@@ -5324,8 +4838,6 @@ ALTER FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id uuid) 
 --
 
 COMMENT ON FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id uuid) IS 'Accepts a matched ride request. REFACTORED to use transition_driver for driver state changes.';
-
-
 --
 -- TOC entry 688 (class 1255 OID 64945)
 
@@ -5350,10 +4862,7 @@ BEGIN
     FROM public.dispatch_accept_ride(p_request_id, v_uid);
 END;
 $$;
-
-
 ALTER FUNCTION public.dispatch_accept_ride_user(p_request_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1577 (class 1255 OID 39777)
 
@@ -5579,10 +5088,7 @@ begin
   return query select rr.id, rr.status, rr.assigned_driver_id, rr.match_deadline, rr.match_attempts, rr.matched_at;
 end;
 $$;
-
-
 ALTER FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 9806 (class 0 OID 0)
 -- Dependencies: 1577
@@ -5591,8 +5097,6 @@ ALTER FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id uuid, p_
 --
 
 COMMENT ON FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) IS 'Matches a ride request to an available driver. Uses transition_driver for state changes.';
-
-
 --
 -- TOC entry 621 (class 1255 OID 64996)
 
@@ -5623,10 +5127,7 @@ BEGIN
     );
 END;
 $$;
-
-
 ALTER FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 9808 (class 0 OID 0)
 -- Dependencies: 621
@@ -5635,8 +5136,6 @@ ALTER FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m num
 --
 
 COMMENT ON FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) IS 'User-bound wrapper around dispatch_match_ride; binds rider_id to auth.uid().';
-
-
 --
 -- TOC entry 511 (class 1259 OID 44884)
 
@@ -5667,10 +5166,7 @@ CREATE TABLE public.merchant_order_deliveries (
     CONSTRAINT merchant_order_deliveries_cod_amounts_check CHECK (((cod_expected_amount_iqd >= 0) AND ((cod_collected_amount_iqd IS NULL) OR (cod_collected_amount_iqd >= 0)) AND (cod_change_given_iqd >= 0))),
     CONSTRAINT merchant_order_deliveries_fee_iqd_check CHECK ((fee_iqd >= 0))
 );
-
-
 ALTER TABLE public.merchant_order_deliveries OWNER TO postgres;
-
 --
 -- TOC entry 790 (class 1255 OID 44950)
 
@@ -5744,10 +5240,7 @@ begin
   return v_row;
 end;
 $$;
-
-
 ALTER FUNCTION public.driver_claim_order_delivery(p_delivery_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1184 (class 1255 OID 56460)
 
@@ -5821,10 +5314,7 @@ CREATE FUNCTION public.driver_hotspots_v1(p_hours integer DEFAULT 3, p_limit int
   ORDER BY score DESC, requests_count DESC, rides_count DESC
   LIMIT (SELECT lim FROM params);
 $$;
-
-
 ALTER FUNCTION public.driver_hotspots_v1(p_hours integer, p_limit integer, p_grid_m integer, p_service_area_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1695 (class 1255 OID 41844)
 
@@ -5869,10 +5359,7 @@ begin
         updated_at = now();
 end;
 $$;
-
-
 ALTER FUNCTION public.driver_leaderboard_refresh_day(p_day date) OWNER TO postgres;
-
 --
 -- TOC entry 1537 (class 1255 OID 64998)
 
@@ -5945,10 +5432,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_lng double precision, p_vehicle_type text, p_accuracy_m numeric, p_heading numeric, p_speed_mps numeric) OWNER TO postgres;
-
 --
 -- TOC entry 9814 (class 0 OID 0)
 -- Dependencies: 1537
@@ -5957,8 +5441,6 @@ ALTER FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_l
 --
 
 COMMENT ON FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_lng double precision, p_vehicle_type text, p_accuracy_m numeric, p_heading numeric, p_speed_mps numeric) IS 'User-bound driver location upsert. Binds driver_id to auth.uid() and upserts into driver_locations with basic validation.';
-
-
 --
 -- TOC entry 1574 (class 1255 OID 63070)
 
@@ -5992,10 +5474,7 @@ BEGIN
   RETURN QUERY SELECT v_sa.balance_iqd, v_sa.currency, v_sa.updated_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_get_my_account_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1268 (class 1255 OID 63071)
 
@@ -6025,10 +5504,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_list_entries_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1244 (class 1255 OID 63180)
 
@@ -6056,10 +5532,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1015 (class 1255 OID 63182)
 
@@ -6087,10 +5560,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 602 (class 1255 OID 63179)
 
@@ -6145,10 +5615,7 @@ BEGIN
   RETURN QUERY SELECT v_row.id, v_row.status::text, v_row.amount_iqd, v_row.method, v_row.reference, v_row.requested_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1075 (class 1255 OID 63181)
 
@@ -6215,10 +5682,7 @@ BEGIN
   RETURN QUERY SELECT v_row.id, v_row.status::text, v_row.amount_iqd, v_row.method, v_row.reference, v_row.requested_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 926 (class 1255 OID 63376)
 
@@ -6240,10 +5704,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_entries_v1('driver'::public.settlement_party_type, v_uid, p_start, p_end, p_limit, p_offset);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1393 (class 1255 OID 63375)
 
@@ -6265,10 +5726,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_summary_v1('driver'::public.settlement_party_type, v_uid, p_start, p_end);
 END;
 $$;
-
-
 ALTER FUNCTION public.driver_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) OWNER TO postgres;
-
 --
 -- TOC entry 1008 (class 1255 OID 41824)
 
@@ -6306,10 +5764,7 @@ begin
         updated_at = now();
 end;
 $$;
-
-
 ALTER FUNCTION public.driver_stats_rollup_day(p_day date) OWNER TO postgres;
-
 --
 -- TOC entry 674 (class 1255 OID 42211)
 
@@ -6327,10 +5782,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.drivers_force_id_from_auth_uid() OWNER TO postgres;
-
 --
 -- TOC entry 1443 (class 1255 OID 65017)
 
@@ -6437,10 +5889,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.drivers_nearby_user_v1(p_request_id uuid, p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m integer, p_limit_n integer, p_required_capacity integer, p_stale_after_s integer) OWNER TO postgres;
-
 --
 -- TOC entry 817 (class 1255 OID 55141)
 
@@ -6468,10 +5917,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.drivers_prevent_available_with_active_match() OWNER TO postgres;
-
 --
 -- TOC entry 716 (class 1255 OID 64979)
 
@@ -6513,10 +5959,7 @@ BEGIN
     o.attempts;
 END;
 $$;
-
-
 ALTER FUNCTION public.edge_webhook_outbox_claim(p_limit integer, p_lock_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1795 (class 1255 OID 64980)
 
@@ -6556,10 +5999,7 @@ BEGIN
     AND lock_id = p_lock_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.edge_webhook_outbox_mark(p_outbox_id bigint, p_lock_id uuid, p_status text, p_error text, p_http_status integer, p_retry_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 818 (class 1255 OID 64988)
 
@@ -6598,10 +6038,7 @@ BEGIN
   RETURN v_deleted;
 END;
 $$;
-
-
 ALTER FUNCTION public.edge_webhook_outbox_prune(p_max_age_days integer, p_batch integer) OWNER TO postgres;
-
 --
 -- TOC entry 792 (class 1255 OID 40629)
 
@@ -6638,10 +6075,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.enqueue_notification_outbox() OWNER TO postgres;
-
 --
 -- TOC entry 1003 (class 1255 OID 40783)
 
@@ -6682,10 +6116,7 @@ begin
   end loop;
 end;
 $$;
-
-
 ALTER FUNCTION public.ensure_referral_code(p_user_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1251 (class 1255 OID 39779)
 
@@ -6703,10 +6134,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.ensure_wallet_account() OWNER TO postgres;
-
 --
 -- TOC entry 1594 (class 1255 OID 55139)
 
@@ -6770,10 +6198,7 @@ BEGIN
   RETURN v_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.expire_matched_ride_requests_v1(p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 557 (class 1259 OID 63878)
 
@@ -6793,10 +6218,7 @@ CREATE TABLE public.family_members (
     invite_email text,
     joined_at timestamp with time zone
 );
-
-
 ALTER TABLE public.family_members OWNER TO postgres;
-
 --
 -- TOC entry 1637 (class 1255 OID 63972)
 
@@ -6844,10 +6266,7 @@ begin
   return v_member;
 end;
 $$;
-
-
 ALTER FUNCTION public.family_accept_invite(p_invite_token text) OWNER TO postgres;
-
 --
 -- TOC entry 556 (class 1259 OID 63862)
 
@@ -6861,10 +6280,7 @@ CREATE TABLE public.families (
     created_by_user_id uuid NOT NULL,
     name text
 );
-
-
 ALTER TABLE public.families OWNER TO postgres;
-
 --
 -- TOC entry 859 (class 1255 OID 63970)
 
@@ -6890,10 +6306,7 @@ begin
   return v_family;
 end;
 $$;
-
-
 ALTER FUNCTION public.family_create(p_name text) OWNER TO postgres;
-
 --
 -- TOC entry 1024 (class 1255 OID 63971)
 
@@ -6933,10 +6346,7 @@ begin
   return v_member;
 end;
 $$;
-
-
 ALTER FUNCTION public.family_invite_teen(p_family_id uuid, p_invite_email text, p_invite_token text) OWNER TO postgres;
-
 --
 -- TOC entry 558 (class 1259 OID 63903)
 
@@ -6955,10 +6365,7 @@ CREATE TABLE public.teen_policies (
     geofence_allowlist jsonb,
     spend_cap_daily numeric
 );
-
-
 ALTER TABLE public.teen_policies OWNER TO postgres;
-
 --
 -- TOC entry 1030 (class 1255 OID 63973)
 
@@ -7001,10 +6408,7 @@ begin
   return v_policy;
 end;
 $$;
-
-
 ALTER FUNCTION public.family_update_policy(p_family_id uuid, p_teen_user_id uuid, p_destination_lock_enabled boolean, p_pickup_pin_enabled boolean, p_allowed_hours jsonb, p_geofence_allowlist jsonb, p_spend_cap_daily numeric) OWNER TO postgres;
-
 --
 -- TOC entry 1416 (class 1255 OID 63760)
 
@@ -7023,10 +6427,7 @@ begin
   on conflict do nothing;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_attach_event_to_case(p_case_id uuid, p_event_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1083 (class 1255 OID 63766)
 
@@ -7049,10 +6450,7 @@ begin
   where id = p_case_id;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_close_case(p_case_id uuid, p_closed_by uuid, p_notes text) OWNER TO postgres;
-
 --
 -- TOC entry 552 (class 1259 OID 63733)
 
@@ -7076,10 +6474,7 @@ CREATE TABLE public.fraud_enforcement_actions (
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
     CONSTRAINT fraud_enforcement_actions_severity_check CHECK (((severity >= 1) AND (severity <= 5)))
 );
-
-
 ALTER TABLE public.fraud_enforcement_actions OWNER TO postgres;
-
 --
 -- TOC entry 1399 (class 1255 OID 63761)
 
@@ -7116,10 +6511,7 @@ begin
   return out;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_enforce_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_reason text, p_severity integer, p_expires_at timestamp with time zone, p_metadata jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 980 (class 1255 OID 63764)
 
@@ -7147,10 +6539,7 @@ begin
   return n;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_expire_actions() OWNER TO postgres;
-
 --
 -- TOC entry 1095 (class 1255 OID 63768)
 
@@ -7179,10 +6568,7 @@ CREATE FUNCTION public.fraud_find_collusion_candidates(p_since interval DEFAULT 
   where ride_count >= p_min_count
   order by ride_count desc, last_ride_at desc
 $$;
-
-
 ALTER FUNCTION public.fraud_find_collusion_candidates(p_since interval, p_min_count integer, p_max_trip_distance_m integer) OWNER TO postgres;
-
 --
 -- TOC entry 770 (class 1255 OID 63767)
 
@@ -7200,10 +6586,7 @@ CREATE FUNCTION public.fraud_find_route_deviation_candidates(p_min_streak intege
     and s.last_seen_at >= now() - p_seen_since
     and r.status in ('in_progress','arrived','assigned')
 $$;
-
-
 ALTER FUNCTION public.fraud_find_route_deviation_candidates(p_min_streak integer, p_seen_since interval) OWNER TO postgres;
-
 --
 -- TOC entry 1103 (class 1255 OID 63762)
 
@@ -7225,10 +6608,7 @@ CREATE FUNCTION public.fraud_get_active_action(p_action_type text, p_subject_kin
   order by a.severity desc, a.created_at desc
   limit 1
 $$;
-
-
 ALTER FUNCTION public.fraud_get_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) OWNER TO postgres;
-
 --
 -- TOC entry 624 (class 1255 OID 63763)
 
@@ -7258,10 +6638,7 @@ begin
   return v_exists;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_has_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) OWNER TO postgres;
-
 --
 -- TOC entry 549 (class 1259 OID 63689)
 
@@ -7282,10 +6659,7 @@ CREATE TABLE public.fraud_events (
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
     CONSTRAINT fraud_events_severity_check CHECK (((severity >= 1) AND (severity <= 5)))
 );
-
-
 ALTER TABLE public.fraud_events OWNER TO postgres;
-
 --
 -- TOC entry 1193 (class 1255 OID 63758)
 
@@ -7313,10 +6687,7 @@ begin
   return out;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_log_event(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_score integer, p_dedupe_key text, p_ip_prefix text, p_device_hash text, p_metadata jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 550 (class 1259 OID 63702)
 
@@ -7339,10 +6710,7 @@ CREATE TABLE public.fraud_cases (
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL,
     CONSTRAINT fraud_cases_severity_check CHECK (((severity >= 1) AND (severity <= 5)))
 );
-
-
 ALTER TABLE public.fraud_cases OWNER TO postgres;
-
 --
 -- TOC entry 1270 (class 1255 OID 63759)
 
@@ -7373,10 +6741,7 @@ begin
   return out;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_open_case(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_metadata jsonb, p_opened_by text) OWNER TO postgres;
-
 --
 -- TOC entry 1402 (class 1255 OID 63765)
 
@@ -7398,10 +6763,7 @@ begin
   where id = p_action_id;
 end
 $$;
-
-
 ALTER FUNCTION public.fraud_resolve_action(p_action_id uuid, p_resolved_by uuid, p_notes text) OWNER TO postgres;
-
 --
 -- TOC entry 937 (class 1255 OID 66239)
 
@@ -7425,10 +6787,7 @@ BEGIN
   RETURN v_json;
 END;
 $$;
-
-
 ALTER FUNCTION public.geo_cache_get_v1(p_cache_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1409 (class 1255 OID 66240)
 
@@ -7445,7 +6804,7 @@ DECLARE
   v_ttl int := greatest(1, least(coalesce(p_ttl_seconds, 300), 2592000)); -- max 30 days
   v_expires timestamptz := now() + make_interval(secs => v_ttl);
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('directions','geocode','distance_matrix') THEN
@@ -7463,10 +6822,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.geo_cache_put_v1(p_cache_key text, p_provider_code text, p_capability text, p_response jsonb, p_ttl_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 1162 (class 1255 OID 64568)
 
@@ -7494,10 +6850,7 @@ CREATE FUNCTION public.get_active_shift(p_driver_id uuid DEFAULT NULL::uuid) RET
   order by s.scheduled_start asc
   limit 1
 $$;
-
-
 ALTER FUNCTION public.get_active_shift(p_driver_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 606 (class 1255 OID 64246)
 
@@ -7547,10 +6900,7 @@ begin
   limit 5;
 end;
 $$;
-
-
 ALTER FUNCTION public.get_applicable_pricing_rules(p_subtotal_iqd bigint, p_region text, p_user_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1276 (class 1255 OID 40788)
 
@@ -7603,10 +6953,7 @@ begin
   where d.id = v_ride.driver_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.get_assigned_driver(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1373 (class 1255 OID 62232)
 
@@ -7644,10 +6991,7 @@ CREATE FUNCTION public.get_driver_leaderboard(p_period public.driver_rank_period
   order by s.rank
   limit (select lim from params);
 $$;
-
-
 ALTER FUNCTION public.get_driver_leaderboard(p_period public.driver_rank_period, p_period_start date, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 751 (class 1255 OID 63976)
 
@@ -7688,10 +7032,7 @@ begin
   where r.id = p_trip_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.get_guardian_trip_info(p_trip_id uuid, p_guardian_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1555 (class 1255 OID 64059)
 
@@ -7706,10 +7047,7 @@ CREATE FUNCTION public.get_live_activity_throttle_config(p_platform public.live_
   from public.live_activity_throttle_config c
   where c.platform = p_platform
 $$;
-
-
 ALTER FUNCTION public.get_live_activity_throttle_config(p_platform public.live_activity_platform) OWNER TO postgres;
-
 --
 -- TOC entry 1073 (class 1255 OID 62233)
 
@@ -7733,10 +7071,7 @@ CREATE FUNCTION public.get_my_app_context() RETURNS TABLE(user_id uuid, active_r
   from public.profiles p
   where p.id = auth.uid();
 $$;
-
-
 ALTER FUNCTION public.get_my_app_context() OWNER TO postgres;
-
 --
 -- TOC entry 1550 (class 1255 OID 64566)
 
@@ -7779,10 +7114,7 @@ CREATE FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng double 
   order by demand_level desc, dist_km asc
   limit 10
 $$;
-
-
 ALTER FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng double precision, p_radius_km integer) OWNER TO postgres;
-
 --
 -- TOC entry 726 (class 1255 OID 64567)
 
@@ -7803,10 +7135,7 @@ CREATE FUNCTION public.get_today_forecast(p_zone_id text DEFAULT NULL::text) RET
     and (p_zone_id is null or f.zone_id = p_zone_id)
   order by f.hour_of_day
 $$;
-
-
 ALTER FUNCTION public.get_today_forecast(p_zone_id text) OWNER TO postgres;
-
 --
 -- TOC entry 947 (class 1255 OID 64247)
 
@@ -7833,10 +7162,7 @@ CREATE FUNCTION public.get_user_membership(p_user_id uuid DEFAULT NULL::uuid) RE
   order by m.created_at desc
   limit 1
 $$;
-
-
 ALTER FUNCTION public.get_user_membership(p_user_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 983 (class 1255 OID 64676)
 
@@ -7860,10 +7186,7 @@ CREATE FUNCTION public.get_user_passkeys(p_user_id uuid DEFAULT NULL::uuid) RETU
     and p.status = 'active'
   order by p.last_used_at desc nulls last
 $$;
-
-
 ALTER FUNCTION public.get_user_passkeys(p_user_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1304 (class 1255 OID 44399)
 
@@ -7893,10 +7216,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.guard_profiles_sensitive_update() OWNER TO postgres;
-
 --
 -- TOC entry 791 (class 1255 OID 65026)
 
@@ -7945,10 +7265,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.guardian_trip_track_user_v1(p_trip_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1345 (class 1255 OID 39781)
 
@@ -7965,10 +7282,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.handle_new_user() OWNER TO postgres;
-
 --
 -- TOC entry 845 (class 1255 OID 39782)
 
@@ -8049,10 +7363,7 @@ begin
   return false;
 end;
 $_$;
-
-
 ALTER FUNCTION public.is_admin() OWNER TO postgres;
-
 --
 -- TOC entry 1245 (class 1255 OID 43965)
 
@@ -8074,10 +7385,7 @@ CREATE FUNCTION public.is_admin(p_user uuid) RETURNS boolean
       false
     );
 $$;
-
-
 ALTER FUNCTION public.is_admin(p_user uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1116 (class 1255 OID 43810)
 
@@ -8104,10 +7412,7 @@ CREATE FUNCTION public.is_pickup_pin_required_v1(p_rider_id uuid, p_driver_id uu
       ELSE false
     END;
 $$;
-
-
 ALTER FUNCTION public.is_pickup_pin_required_v1(p_rider_id uuid, p_driver_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1096 (class 1255 OID 66182)
 
@@ -8150,10 +7455,7 @@ BEGIN
   RETURN v_provider;
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_pick_provider_v1(p_capability text, p_exclude text[]) OWNER TO postgres;
-
 --
 -- TOC entry 1670 (class 1255 OID 66204)
 
@@ -8200,10 +7502,7 @@ BEGIN
   RETURN v_provider;
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_pick_provider_v2(p_capability text, p_exclude text[]) OWNER TO postgres;
-
 --
 -- TOC entry 1617 (class 1255 OID 66261)
 
@@ -8254,10 +7553,7 @@ BEGIN
   RETURN v_provider;
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_pick_provider_v3(p_capability text, p_exclude text[]) OWNER TO postgres;
-
 --
 -- TOC entry 943 (class 1255 OID 66270)
 
@@ -8306,10 +7602,7 @@ BEGIN
   RETURN v_provider;
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_pick_provider_v4(p_capability text, p_exclude text[]) OWNER TO postgres;
-
 --
 -- TOC entry 646 (class 1255 OID 66259)
 
@@ -8328,7 +7621,7 @@ DECLARE
   v_new_failures int;
   v_effective int;
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -8360,10 +7653,7 @@ BEGIN
   WHERE provider_code = v_provider AND capability = v_cap;
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_provider_health_on_failure_v1(p_provider_code text, p_capability text, p_http_status integer, p_error_code text, p_base_cooldown_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 1667 (class 1255 OID 66260)
 
@@ -8378,7 +7668,7 @@ DECLARE
   v_provider text := lower(btrim(p_provider_code));
   v_cap text := lower(btrim(p_capability));
 BEGIN
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest','ors') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN
@@ -8394,10 +7684,7 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_provider_health_on_success_v1(p_provider_code text, p_capability text) OWNER TO postgres;
-
 --
 -- TOC entry 729 (class 1255 OID 66181)
 
@@ -8431,10 +7718,7 @@ BEGIN
                 updated_at = now();
 END;
 $$;
-
-
 ALTER FUNCTION public.maps_usage_increment_v1(p_provider_code text, p_capability text, p_units integer) OWNER TO postgres;
-
 --
 -- TOC entry 1643 (class 1255 OID 44841)
 
@@ -8494,10 +7778,7 @@ begin
   return next;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_best_promo(p_merchant_id uuid, p_product_id uuid, p_price_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 1496 (class 1255 OID 44716)
 
@@ -8550,10 +7831,7 @@ begin
   return v_thread_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_chat_get_or_create_thread(p_merchant_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 948 (class 1255 OID 44742)
 
@@ -8588,10 +7866,7 @@ CREATE FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_before_cr
   order by m.created_at desc, m.id desc
   limit least(greatest(p_limit, 1), 200);
 $$;
-
-
 ALTER FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_before_created_at timestamp with time zone, p_before_id uuid, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 730 (class 1255 OID 44741)
 
@@ -8648,10 +7923,7 @@ begin
   raise exception 'Not permitted';
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_chat_mark_read(p_thread_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1267 (class 1255 OID 44960)
 
@@ -8718,10 +7990,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_chat_notify_new_message() OWNER TO postgres;
-
 --
 -- TOC entry 1787 (class 1255 OID 44714)
 
@@ -8739,10 +8008,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_chat_touch_thread() OWNER TO postgres;
-
 --
 -- TOC entry 1435 (class 1255 OID 63371)
 
@@ -8784,10 +8050,7 @@ BEGIN
   RETURN greatest(0, v_percent + v_flat);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_cod_handling_fee_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 1330 (class 1255 OID 63116)
 
@@ -8829,10 +8092,7 @@ BEGIN
   RETURN greatest(0, v_percent + v_flat);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_commission_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 1762 (class 1255 OID 63117)
 
@@ -8933,10 +8193,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_cod_settlement_after() OWNER TO postgres;
-
 --
 -- TOC entry 1676 (class 1255 OID 44842)
 
@@ -9102,10 +8359,7 @@ begin
   return order_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_create(p_merchant_id uuid, p_address_id uuid, p_customer_note text, p_items jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1747 (class 1255 OID 45078)
 
@@ -9255,10 +8509,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_delivery_audit_after() OWNER TO postgres;
-
 --
 -- TOC entry 1530 (class 1255 OID 44947)
 
@@ -9377,10 +8628,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_delivery_guard() OWNER TO postgres;
-
 --
 -- TOC entry 1053 (class 1255 OID 44959)
 
@@ -9442,10 +8690,7 @@ begin
   return v_thread_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_get_or_create_chat_thread(p_order_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1419 (class 1255 OID 44949)
 
@@ -9513,10 +8758,7 @@ begin
   return v_delivery_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_request_delivery(p_order_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1368 (class 1255 OID 62234)
 
@@ -9576,10 +8818,7 @@ begin
   raise exception 'Not allowed';
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_set_status(p_order_id uuid, p_status public.merchant_order_status, p_merchant_note text) OWNER TO postgres;
-
 --
 -- TOC entry 970 (class 1255 OID 44879)
 
@@ -9596,10 +8835,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_status_events_on_insert() OWNER TO postgres;
-
 --
 -- TOC entry 1593 (class 1255 OID 44881)
 
@@ -9640,10 +8876,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_order_status_events_on_status_change() OWNER TO postgres;
-
 --
 -- TOC entry 1034 (class 1255 OID 44844)
 
@@ -9718,10 +8951,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_orders_guard() OWNER TO postgres;
-
 --
 -- TOC entry 1589 (class 1255 OID 63119)
 
@@ -9766,10 +8996,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_get_my_account_v1() OWNER TO postgres;
-
 --
 -- TOC entry 653 (class 1255 OID 63120)
 
@@ -9820,10 +9047,7 @@ begin
   offset greatest(0, p_offset);
 end;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_list_entries_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 736 (class 1255 OID 63184)
 
@@ -9862,10 +9086,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 998 (class 1255 OID 63186)
 
@@ -9904,10 +9125,7 @@ BEGIN
     OFFSET greatest(coalesce(p_offset, 0), 0);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1291 (class 1255 OID 63183)
 
@@ -9973,10 +9191,7 @@ BEGIN
   RETURN QUERY SELECT v_row.id, v_row.status::text, v_row.amount_iqd, v_row.method, v_row.reference, v_row.requested_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1122 (class 1255 OID 63185)
 
@@ -10054,10 +9269,7 @@ BEGIN
   RETURN QUERY SELECT v_row.id, v_row.status::text, v_row.amount_iqd, v_row.method, v_row.reference, v_row.requested_at;
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 737 (class 1255 OID 63378)
 
@@ -10090,10 +9302,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_entries_v1('merchant'::public.settlement_party_type, v_mid, p_start, p_end, p_limit, p_offset);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1771 (class 1255 OID 63377)
 
@@ -10126,10 +9335,7 @@ BEGIN
     SELECT * FROM public.settlement_statement_summary_v1('merchant'::public.settlement_party_type, v_mid, p_start, p_end);
 END;
 $$;
-
-
 ALTER FUNCTION public.merchant_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) OWNER TO postgres;
-
 --
 -- TOC entry 1411 (class 1255 OID 44736)
 
@@ -10154,10 +9360,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchants_audit_status_change() OWNER TO postgres;
-
 --
 -- TOC entry 1708 (class 1255 OID 44601)
 
@@ -10187,10 +9390,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.merchants_guard_status() OWNER TO postgres;
-
 --
 -- TOC entry 1597 (class 1255 OID 45140)
 
@@ -10225,10 +9425,7 @@ CREATE FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double precision
   order by dl.loc <-> extensions.st_setsrid(extensions.st_makepoint(p_pickup_lng, p_pickup_lat), 4326)::extensions.geography
   limit p_limit;
 $$;
-
-
 ALTER FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 1014 (class 1255 OID 64946)
 
@@ -10342,10 +9539,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.nearby_available_drivers_v2(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer, p_required_capacity integer) OWNER TO postgres;
-
 --
 -- TOC entry 1665 (class 1255 OID 55165)
 
@@ -10390,10 +9584,7 @@ begin
   return '+' || p;
 end;
 $_$;
-
-
 ALTER FUNCTION public.normalize_iraq_phone_e164(p_phone text) OWNER TO postgres;
-
 --
 -- TOC entry 1061 (class 1255 OID 45071)
 
@@ -10425,10 +9616,7 @@ begin
   returning o.id, o.notification_id, o.user_id, o.device_token_id, o.payload, o.attempts;
 end;
 $$;
-
-
 ALTER FUNCTION public.notification_outbox_claim(p_limit integer, p_lock_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 802 (class 1255 OID 62235)
 
@@ -10487,10 +9675,7 @@ begin
   end if;
 end;
 $$;
-
-
 ALTER FUNCTION public.notification_outbox_mark(p_outbox_id bigint, p_status public.outbox_status, p_error text, p_retry_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 651 (class 1255 OID 44847)
 
@@ -10534,10 +9719,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.notify_merchant_order_created() OWNER TO postgres;
-
 --
 -- TOC entry 1533 (class 1255 OID 44849)
 
@@ -10585,10 +9767,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.notify_merchant_order_status_changed() OWNER TO postgres;
-
 --
 -- TOC entry 869 (class 1255 OID 39783)
 
@@ -10608,10 +9787,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.notify_user(p_user_id uuid, p_kind text, p_title text, p_body text, p_data jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1246 (class 1255 OID 43746)
 
@@ -10634,10 +9810,7 @@ BEGIN
   RETURN v_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.notify_users_bulk(p_user_ids uuid[], p_kind text, p_title text, p_body text, p_data jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1724 (class 1255 OID 40786)
 
@@ -10695,10 +9868,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.on_ride_completed_side_effects() OWNER TO postgres;
-
 --
 -- TOC entry 875 (class 1255 OID 41728)
 
@@ -10797,10 +9967,7 @@ BEGIN
 
 END;
 $$;
-
-
 ALTER FUNCTION public.on_ride_completed_v1(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1580 (class 1255 OID 63656)
 
@@ -10827,10 +9994,7 @@ CREATE FUNCTION public.ops_db_conn_stats() RETURNS TABLE(max_connections integer
     case when mc.max_connections > 0 then (cc.current_connections::numeric / mc.max_connections::numeric) else 0 end as pct_used
   from mc, cc;
 $$;
-
-
 ALTER FUNCTION public.ops_db_conn_stats() OWNER TO postgres;
-
 --
 -- TOC entry 962 (class 1255 OID 64687)
 
@@ -10878,10 +10042,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.passkey_register(p_user_id uuid, p_credential_id bytea, p_public_key bytea, p_passkey_type text, p_friendly_name text, p_backup_eligible boolean, p_device_type text, p_user_agent text, p_transports text[], p_webauthn_device_type text, p_backup_state boolean) OWNER TO postgres;
-
 --
 -- TOC entry 1424 (class 1255 OID 64677)
 
@@ -10916,10 +10077,7 @@ begin
   return true;
 end;
 $$;
-
-
 ALTER FUNCTION public.passkey_revoke(p_passkey_id uuid, p_reason text) OWNER TO postgres;
-
 --
 -- TOC entry 965 (class 1255 OID 64675)
 
@@ -10958,10 +10116,7 @@ begin
   return true;
 end;
 $$;
-
-
 ALTER FUNCTION public.passkey_update_sign_count(p_credential_id bytea, p_new_sign_count bigint) OWNER TO postgres;
-
 --
 -- TOC entry 499 (class 1259 OID 44492)
 
@@ -10994,10 +10149,7 @@ CREATE TABLE public.payout_provider_jobs (
     provider_idempotency_key text,
     CONSTRAINT payout_provider_jobs_amount_iqd_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.payout_provider_jobs OWNER TO postgres;
-
 --
 -- TOC entry 1347 (class 1255 OID 44546)
 
@@ -11035,10 +10187,7 @@ begin
   returning j.*;
 end;
 $$;
-
-
 ALTER FUNCTION public.payout_claim_jobs(p_limit integer, p_lock_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 1666 (class 1255 OID 44525)
 
@@ -11056,10 +10205,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.payout_provider_jobs_set_idem() OWNER TO postgres;
-
 --
 -- TOC entry 1651 (class 1255 OID 44515)
 
@@ -11075,10 +10221,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.payout_provider_jobs_touch() OWNER TO postgres;
-
 --
 -- TOC entry 1662 (class 1255 OID 63000)
 
@@ -11115,10 +10258,7 @@ BEGIN
   RETURN LEAST(v_fee, 2147483647)::integer;
 END;
 $$;
-
-
 ALTER FUNCTION public.platform_fee_compute_iqd(p_product_code text, p_service_area_id uuid, p_fare_iqd integer) OWNER TO postgres;
-
 --
 -- TOC entry 1231 (class 1255 OID 39784)
 
@@ -11136,10 +10276,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.profile_kyc_init() OWNER TO postgres;
-
 --
 -- TOC entry 841 (class 1255 OID 44855)
 
@@ -11167,10 +10304,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.profiles_guard_active_role() OWNER TO postgres;
-
 --
 -- TOC entry 1736 (class 1255 OID 39785)
 
@@ -11211,10 +10345,7 @@ BEGIN
   RETURN NEXT;
 END;
 $$;
-
-
 ALTER FUNCTION public.rate_limit_consume(p_key text, p_window_seconds integer, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 1767 (class 1255 OID 64689)
 
@@ -11236,10 +10367,7 @@ BEGIN
   RETURN deleted_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.rate_limit_prune(p_grace_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 1286 (class 1255 OID 39786)
 
@@ -11313,10 +10441,7 @@ BEGIN
   RETURN v_gift;
 END;
 $$;
-
-
 ALTER FUNCTION public.redeem_gift_code(p_code text) OWNER TO postgres;
-
 --
 -- TOC entry 1362 (class 1255 OID 40784)
 
@@ -11370,10 +10495,7 @@ begin
   return query select true, v_referrer, v_campaign.key;
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_apply_code(p_code text) OWNER TO postgres;
-
 --
 -- TOC entry 1223 (class 1255 OID 41819)
 
@@ -11462,10 +10584,7 @@ begin
   perform public.notify_user(inv.referrer_id, 'referral_reward', 'Reward unlocked', 'Your referral reward has been added to your wallet', jsonb_build_object('amount_iqd', cfg.reward_referrer_iqd, 'invite_id', inv.id));
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_apply_rewards_for_ride(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 836 (class 1255 OID 41817)
 
@@ -11515,10 +10634,7 @@ begin
   return jsonb_build_object('ok', true, 'referrer_id', v_referrer);
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_claim(p_code text) OWNER TO postgres;
-
 --
 -- TOC entry 1531 (class 1255 OID 41815)
 
@@ -11536,10 +10652,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_code_init() OWNER TO postgres;
-
 --
 -- TOC entry 1272 (class 1255 OID 41814)
 
@@ -11561,10 +10674,7 @@ begin
   return v;
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_generate_code() OWNER TO postgres;
-
 --
 -- TOC entry 1045 (class 1255 OID 41820)
 
@@ -11582,10 +10692,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_on_ride_completed() OWNER TO postgres;
-
 --
 -- TOC entry 905 (class 1255 OID 41818)
 
@@ -11632,10 +10739,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.referral_status() OWNER TO postgres;
-
 --
 -- TOC entry 721 (class 1255 OID 62236)
 
@@ -11691,10 +10795,7 @@ begin
 
 end;
 $$;
-
-
 ALTER FUNCTION public.refresh_driver_rank_snapshots(p_period public.driver_rank_period, p_period_start date, p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 1076 (class 1255 OID 43608)
 
@@ -11712,10 +10813,7 @@ CREATE FUNCTION public.resolve_service_area(p_lat double precision, p_lng double
   ORDER BY sa.priority DESC, sa.created_at DESC
   LIMIT 1;
 $$;
-
-
 ALTER FUNCTION public.resolve_service_area(p_lat double precision, p_lng double precision) OWNER TO postgres;
-
 --
 -- TOC entry 1290 (class 1255 OID 40987)
 
@@ -11736,10 +10834,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.revoke_trip_share_tokens_on_ride_end() OWNER TO postgres;
-
 --
 -- TOC entry 1545 (class 1255 OID 41774)
 
@@ -11778,10 +10873,7 @@ begin
   return v_thread;
 end;
 $$;
-
-
 ALTER FUNCTION public.ride_chat_get_or_create_thread(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1505 (class 1255 OID 65025)
 
@@ -11842,10 +10934,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_chat_list_user_v1(p_ride_id uuid, p_limit integer, p_before timestamp with time zone) OWNER TO postgres;
-
 --
 -- TOC entry 1295 (class 1255 OID 64987)
 
@@ -11927,10 +11016,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_chat_mark_read(p_ride_id uuid, p_last_read_at timestamp with time zone, p_last_read_message_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1327 (class 1255 OID 41775)
 
@@ -11970,10 +11056,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.ride_chat_notify_on_message() OWNER TO postgres;
-
 --
 -- TOC entry 1179 (class 1255 OID 64986)
 
@@ -12090,10 +11173,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_chat_send_message(p_ride_id uuid, p_kind public.chat_message_type, p_text text, p_attachment_bucket text, p_attachment_key text, p_metadata jsonb, p_message_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1583 (class 1255 OID 64997)
 
@@ -12217,10 +11297,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_source public.ride_intent_source, p_preferences jsonb, p_intent_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 9950 (class 0 OID 0)
 -- Dependencies: 1583
@@ -12229,8 +11306,6 @@ ALTER FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, 
 --
 
 COMMENT ON FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_source public.ride_intent_source, p_preferences jsonb, p_intent_id uuid) IS 'Creates a ride intent for auth.uid() with server-side service-area resolution; optional p_intent_id supports idempotent retries.';
-
-
 --
 -- TOC entry 1464 (class 1255 OID 64983)
 
@@ -12296,10 +11371,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'required', true, 'verified', true, 'verified_at', v_now);
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_pickup_pin_mark_verified(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 911 (class 1255 OID 64982)
 
@@ -12362,10 +11434,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_pickup_pin_record_failure(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1631 (class 1255 OID 39787)
 
@@ -12386,10 +11455,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.ride_requests_clear_match_fields() OWNER TO postgres;
-
 --
 -- TOC entry 1319 (class 1255 OID 39788)
 
@@ -12414,10 +11480,7 @@ begin
   return null;
 end;
 $$;
-
-
 ALTER FUNCTION public.ride_requests_release_driver_on_unmatch() OWNER TO postgres;
-
 --
 -- TOC entry 1591 (class 1255 OID 39789)
 
@@ -12473,10 +11536,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_requests_set_quote() OWNER TO postgres;
-
 --
 -- TOC entry 974 (class 1255 OID 39790)
 
@@ -12504,10 +11564,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.ride_requests_set_status_timestamps() OWNER TO postgres;
-
 --
 -- TOC entry 1612 (class 1255 OID 64981)
 
@@ -12643,10 +11700,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.ride_verify_pickup_pin(p_ride_id uuid, p_pin text) OWNER TO postgres;
-
 --
 -- TOC entry 931 (class 1255 OID 62237)
 
@@ -12671,10 +11725,7 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.ridecheck_open_event_v1(p_ride_id uuid, p_kind public.ridecheck_kind, p_metadata jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 658 (class 1255 OID 64952)
 
@@ -12762,10 +11813,7 @@ begin
   return next;
 end;
 $$;
-
-
 ALTER FUNCTION public.ridecheck_respond_user(p_event_id uuid, p_response public.ridecheck_response, p_note text) OWNER TO postgres;
-
 --
 -- TOC entry 769 (class 1255 OID 43880)
 
@@ -12873,10 +11921,7 @@ BEGIN
   END LOOP;
 END;
 $$;
-
-
 ALTER FUNCTION public.ridecheck_run_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1115 (class 1255 OID 63830)
 
@@ -12897,10 +11942,7 @@ begin
   return new;
 end
 $$;
-
-
 ALTER FUNCTION public.safety_preferences_before_upsert() OWNER TO postgres;
-
 --
 -- TOC entry 1199 (class 1255 OID 65005)
 
@@ -12956,10 +11998,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 9963 (class 0 OID 0)
 -- Dependencies: 1199
@@ -12968,8 +12007,6 @@ ALTER FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) OWNER TO postgres
 --
 
 COMMENT ON FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) IS 'Cancels a pending scheduled ride belonging to auth.uid(); idempotent if already cancelled.';
-
-
 --
 -- TOC entry 1453 (class 1255 OID 64999)
 
@@ -13146,10 +12183,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_preferences jsonb, p_payment_method public.ride_payment_method, p_fare_quote_id uuid, p_scheduled_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 9965 (class 0 OID 0)
 -- Dependencies: 1453
@@ -13158,8 +12192,6 @@ ALTER FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precisio
 --
 
 COMMENT ON FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_preferences jsonb, p_payment_method public.ride_payment_method, p_fare_quote_id uuid, p_scheduled_ride_id uuid) IS 'Creates a scheduled ride for auth.uid() with server-side validation and fare-quote ownership enforcement.';
-
-
 --
 -- TOC entry 741 (class 1255 OID 65016)
 
@@ -13195,10 +12227,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'scheduled_rides', v_rows);
 END;
 $$;
-
-
 ALTER FUNCTION public.scheduled_ride_list_user_v1(p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 822 (class 1255 OID 43575)
 
@@ -13284,10 +12313,7 @@ BEGIN
   RETURN v_count;
 END;
 $$;
-
-
 ALTER FUNCTION public.scheduled_rides_execute_due(p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 1601 (class 1255 OID 56458)
 
@@ -13362,10 +12388,7 @@ CREATE FUNCTION public.search_catalog_v1(p_query text, p_limit integer DEFAULT 1
   ORDER BY score DESC, merchant_name ASC NULLS LAST
   LIMIT (SELECT lim FROM params);
 $$;
-
-
 ALTER FUNCTION public.search_catalog_v1(p_query text, p_limit integer, p_merchant_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1713 (class 1255 OID 62238)
 
@@ -13397,10 +12420,7 @@ begin
   where id = uid;
 end;
 $$;
-
-
 ALTER FUNCTION public.set_my_active_role(p_role public.user_role) OWNER TO postgres;
-
 --
 -- TOC entry 1093 (class 1255 OID 43609)
 
@@ -13421,10 +12441,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.set_service_area_id_from_pickup() OWNER TO postgres;
-
 --
 -- TOC entry 830 (class 1255 OID 39791)
 
@@ -13440,10 +12457,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.set_updated_at() OWNER TO postgres;
-
 --
 -- TOC entry 656 (class 1255 OID 44474)
 
@@ -13459,10 +12473,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.set_updated_at_wallet_payout_attempts() OWNER TO postgres;
-
 --
 -- TOC entry 532 (class 1259 OID 63016)
 
@@ -13479,10 +12490,7 @@ CREATE TABLE public.settlement_entries (
     idempotency_key text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.settlement_entries OWNER TO postgres;
-
 --
 -- TOC entry 1756 (class 1255 OID 63031)
 
@@ -13533,10 +12541,7 @@ BEGIN
   RETURN ent;
 END;
 $$;
-
-
 ALTER FUNCTION public.settlement_post_entry(p_party_type public.settlement_party_type, p_party_id uuid, p_delta_iqd bigint, p_reason text, p_ref_type text, p_ref_id uuid, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1377 (class 1255 OID 63374)
 
@@ -13578,10 +12583,7 @@ SELECT
   (o.bal + sum(p.delta_iqd) OVER (ORDER BY p.created_at, p.id ROWS UNBOUNDED PRECEDING))::bigint AS running_balance_iqd
 FROM period p CROSS JOIN opening o
 $$;
-
-
 ALTER FUNCTION public.settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 672 (class 1255 OID 63373)
 
@@ -13617,10 +12619,7 @@ SELECT
   coalesce((SELECT -sum(delta_iqd) FROM period WHERE delta_iqd < 0), 0)::bigint AS debits_iqd,
   coalesce((SELECT count(*) FROM period), 0)::bigint AS entry_count
 $$;
-
-
 ALTER FUNCTION public.settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) OWNER TO postgres;
-
 --
 -- TOC entry 1220 (class 1255 OID 39792)
 
@@ -13633,10 +12632,7 @@ CREATE FUNCTION public.st_dwithin(extensions.geography, extensions.geography, nu
     AS $_$
   SELECT extensions.st_dwithin($1, $2, $3::double precision);
 $_$;
-
-
 ALTER FUNCTION public.st_dwithin(extensions.geography, extensions.geography, numeric) OWNER TO postgres;
-
 --
 -- TOC entry 1037 (class 1255 OID 39793)
 
@@ -13691,10 +12687,7 @@ begin
   return v_rating_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.submit_ride_rating(p_ride_id uuid, p_rating smallint, p_comment text) OWNER TO postgres;
-
 --
 -- TOC entry 954 (class 1255 OID 65015)
 
@@ -13727,10 +12720,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'article', v_article);
 END;
 $$;
-
-
 ALTER FUNCTION public.support_article_get_public_v1(p_slug text) OWNER TO postgres;
-
 --
 -- TOC entry 990 (class 1255 OID 65014)
 
@@ -13788,10 +12778,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'sections', v_sections, 'articles', v_articles);
 END;
 $$;
-
-
 ALTER FUNCTION public.support_articles_list_public_v1() OWNER TO postgres;
-
 --
 -- TOC entry 1661 (class 1255 OID 65020)
 
@@ -13827,10 +12814,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.support_categories_list_user_v1() OWNER TO postgres;
-
 --
 -- TOC entry 909 (class 1255 OID 65023)
 
@@ -13947,10 +12931,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'ticket_id', v_ticket_id);
 END;
 $$;
-
-
 ALTER FUNCTION public.support_ticket_create_user_v1(p_role_context public.user_role, p_subject text, p_message text, p_category_key text, p_category_code text, p_ride_id uuid, p_priority public.support_ticket_priority) OWNER TO postgres;
-
 --
 -- TOC entry 650 (class 1255 OID 65022)
 
@@ -13998,10 +12979,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.support_ticket_get_user_v1(p_ticket_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 678 (class 1255 OID 65021)
 
@@ -14073,10 +13051,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.support_ticket_list_user_v1(p_status text, p_limit integer, p_offset integer) OWNER TO postgres;
-
 --
 -- TOC entry 1600 (class 1255 OID 65024)
 
@@ -14126,10 +13101,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true);
 END;
 $$;
-
-
 ALTER FUNCTION public.support_ticket_post_message_user_v1(p_ticket_id uuid, p_message text, p_attachments jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 888 (class 1255 OID 40888)
 
@@ -14147,10 +13119,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.support_ticket_touch_updated_at() OWNER TO postgres;
-
 --
 -- TOC entry 979 (class 1255 OID 41428)
 
@@ -14186,10 +13155,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.sync_profile_kyc_from_submission() OWNER TO postgres;
-
 --
 -- TOC entry 1182 (class 1255 OID 40579)
 
@@ -14219,10 +13185,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.sync_public_profile() OWNER TO postgres;
-
 --
 -- TOC entry 1698 (class 1255 OID 44519)
 
@@ -14267,10 +13230,7 @@ begin
 
 end;
 $$;
-
-
 ALTER FUNCTION public.system_withdraw_mark_failed(p_request_id uuid, p_error_message text, p_provider_payload jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1768 (class 1255 OID 44518)
 
@@ -14348,10 +13308,7 @@ begin
         updated_at = now();
 end;
 $$;
-
-
 ALTER FUNCTION public.system_withdraw_mark_paid(p_request_id uuid, p_payout_reference text, p_provider_payload jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 761 (class 1255 OID 43923)
 
@@ -14367,10 +13324,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.tg__set_updated_at() OWNER TO postgres;
-
 --
 -- TOC entry 1232 (class 1255 OID 55169)
 
@@ -14389,10 +13343,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.tg_profiles_normalize_iraq_phone() OWNER TO postgres;
-
 --
 -- TOC entry 1348 (class 1255 OID 55174)
 
@@ -14411,10 +13362,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.tg_trusted_contacts_normalize_iraq_phone() OWNER TO postgres;
-
 --
 -- TOC entry 1572 (class 1255 OID 44575)
 
@@ -14432,10 +13380,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.touch_updated_at() OWNER TO postgres;
-
 --
 -- TOC entry 422 (class 1259 OID 39876)
 
@@ -14455,10 +13400,7 @@ CREATE TABLE public.drivers (
     cash_enabled boolean DEFAULT true NOT NULL,
     cash_exposure_limit_iqd integer DEFAULT 50000 NOT NULL
 );
-
-
 ALTER TABLE public.drivers OWNER TO postgres;
-
 --
 -- TOC entry 9996 (class 0 OID 0)
 -- Dependencies: 422
@@ -14467,8 +13409,6 @@ ALTER TABLE public.drivers OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public.drivers.cash_enabled IS 'Whether driver can accept cash rides (Iraq cash-first support).';
-
-
 --
 -- TOC entry 9997 (class 0 OID 0)
 -- Dependencies: 422
@@ -14477,8 +13417,6 @@ COMMENT ON COLUMN public.drivers.cash_enabled IS 'Whether driver can accept cash
 --
 
 COMMENT ON COLUMN public.drivers.cash_exposure_limit_iqd IS 'Maximum outstanding amount (negative settlement balance) allowed before blocking new cash rides.';
-
-
 --
 -- TOC entry 1140 (class 1255 OID 45083)
 
@@ -14570,10 +13508,7 @@ BEGIN
   RETURN d;
 END;
 $$;
-
-
 ALTER FUNCTION public.transition_driver(p_driver_id uuid, p_to_status public.driver_status, p_actor_id uuid, p_reason text) OWNER TO postgres;
-
 --
 -- TOC entry 9999 (class 0 OID 0)
 -- Dependencies: 1140
@@ -14582,8 +13517,6 @@ ALTER FUNCTION public.transition_driver(p_driver_id uuid, p_to_status public.dri
 --
 
 COMMENT ON FUNCTION public.transition_driver(p_driver_id uuid, p_to_status public.driver_status, p_actor_id uuid, p_reason text) IS 'Centralized driver status transition function. Enforces state machine rules and provides audit logging.';
-
-
 --
 -- TOC entry 415 (class 1259 OID 39794)
 
@@ -14620,12 +13553,8 @@ CREATE TABLE public.rides (
     cash_collected_at timestamp with time zone,
     platform_fee_iqd integer
 );
-
 ALTER TABLE ONLY public.rides REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.rides OWNER TO postgres;
-
 --
 -- TOC entry 713 (class 1255 OID 64993)
 
@@ -14695,10 +13624,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.transition_ride_user_v1(p_ride_id uuid, p_to_status public.ride_status, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) OWNER TO postgres;
-
 --
 -- TOC entry 634 (class 1255 OID 39806)
 
@@ -14820,10 +13746,7 @@ BEGIN
   RETURN r;
 END;
 $$;
-
-
 ALTER FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer) OWNER TO postgres;
-
 --
 -- TOC entry 10003 (class 0 OID 0)
 -- Dependencies: 634
@@ -14832,8 +13755,6 @@ ALTER FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status public.ride
 --
 
 COMMENT ON FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer) IS 'Transitions a ride to a new status with version checking. REFACTORED to use transition_driver for driver state changes.';
-
-
 --
 -- TOC entry 899 (class 1255 OID 64989)
 
@@ -15011,10 +13932,7 @@ BEGIN
   RETURN r;
 END;
 $$;
-
-
 ALTER FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) OWNER TO postgres;
-
 --
 -- TOC entry 10005 (class 0 OID 0)
 -- Dependencies: 899
@@ -15023,8 +13941,6 @@ ALTER FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status public.ride
 --
 
 COMMENT ON FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) IS 'Transitions a ride to a new status with version checking; for cash completions it can record a cash collection atomically when provided.';
-
-
 --
 -- TOC entry 1473 (class 1255 OID 56563)
 
@@ -15089,10 +14005,7 @@ begin
   return new;
 end;
 $_$;
-
-
 ALTER FUNCTION public.trg_mct_set_last_preview() OWNER TO postgres;
-
 --
 -- TOC entry 1262 (class 1255 OID 56557)
 
@@ -15135,10 +14048,7 @@ begin
 
   return new;
 end $$;
-
-
 ALTER FUNCTION public.trg_wh_interest_seed() OWNER TO postgres;
-
 --
 -- TOC entry 704 (class 1255 OID 56553)
 
@@ -15173,10 +14083,7 @@ begin
 
   return new;
 end $$;
-
-
 ALTER FUNCTION public.trg_wh_merchant_chat_autoreply() OWNER TO postgres;
-
 --
 -- TOC entry 1058 (class 1255 OID 56559)
 
@@ -15206,10 +14113,7 @@ begin
 
   return new;
 end $$;
-
-
 ALTER FUNCTION public.trg_wh_notifications_dispatch() OWNER TO postgres;
-
 --
 -- TOC entry 1735 (class 1255 OID 56555)
 
@@ -15239,10 +14143,7 @@ begin
 
   return case when tg_op = 'DELETE' then old else new end;
 end $$;
-
-
 ALTER FUNCTION public.trg_wh_promotion_notify() OWNER TO postgres;
-
 --
 -- TOC entry 625 (class 1255 OID 64994)
 
@@ -15301,10 +14202,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.trg_wh_trip_share_auto() OWNER TO postgres;
-
 --
 -- TOC entry 813 (class 1255 OID 64044)
 
@@ -15332,10 +14230,7 @@ begin
   returning c.id as transition_id, c.trip_id, c.new_status, c.eta_minutes, c.distance_remaining_m;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_claim_pending_broadcasts(p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 559 (class 1259 OID 63928)
 
@@ -15350,10 +14245,7 @@ CREATE TABLE public.trip_guardian_links (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     guardian_live_tracking_enabled boolean DEFAULT true NOT NULL
 );
-
-
 ALTER TABLE public.trip_guardian_links OWNER TO postgres;
-
 --
 -- TOC entry 1656 (class 1255 OID 63974)
 
@@ -15386,10 +14278,7 @@ begin
   return query select * from public.trip_guardian_links where trip_id = p_trip_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_guardian_link_create(p_trip_id uuid, p_teen_user_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1301 (class 1255 OID 64041)
 
@@ -15405,10 +14294,7 @@ CREATE FUNCTION public.trip_live_activity_get_tokens(p_trip_id uuid) RETURNS TAB
   where a.trip_id = p_trip_id
     and a.revoked_at is null
 $$;
-
-
 ALTER FUNCTION public.trip_live_activity_get_tokens(p_trip_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1253 (class 1255 OID 64042)
 
@@ -15427,10 +14313,7 @@ begin
   where id = p_activity_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_live_activity_record_push(p_activity_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 560 (class 1259 OID 64003)
 
@@ -15450,10 +14333,7 @@ CREATE TABLE public.trip_live_activities (
     push_count integer DEFAULT 0 NOT NULL,
     show_full_addresses boolean DEFAULT false NOT NULL
 );
-
-
 ALTER TABLE public.trip_live_activities OWNER TO postgres;
-
 --
 -- TOC entry 1514 (class 1255 OID 64039)
 
@@ -15482,10 +14362,7 @@ begin
   return v_activity;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_live_activity_register(p_trip_id uuid, p_platform public.live_activity_platform, p_token text, p_show_full_addresses boolean) OWNER TO postgres;
-
 --
 -- TOC entry 1790 (class 1255 OID 64040)
 
@@ -15504,10 +14381,7 @@ begin
     and revoked_at is null;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_live_activity_revoke(p_trip_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 561 (class 1259 OID 64026)
 
@@ -15525,10 +14399,7 @@ CREATE TABLE public.trip_status_transitions (
     broadcast_sent boolean DEFAULT false NOT NULL,
     broadcast_at timestamp with time zone
 );
-
-
 ALTER TABLE public.trip_status_transitions OWNER TO postgres;
-
 --
 -- TOC entry 1028 (class 1255 OID 64043)
 
@@ -15552,10 +14423,7 @@ begin
   return v_transition;
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_record_status_transition(p_trip_id uuid, p_old_status text, p_new_status text, p_eta_minutes integer, p_distance_remaining_m integer) OWNER TO postgres;
-
 --
 -- TOC entry 1147 (class 1255 OID 65008)
 
@@ -15730,10 +14598,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_id uuid, p_ttl_minutes integer) OWNER TO postgres;
-
 --
 -- TOC entry 10023 (class 0 OID 0)
 -- Dependencies: 1147
@@ -15742,8 +14607,6 @@ ALTER FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_id uuid,
 --
 
 COMMENT ON FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_id uuid, p_ttl_minutes integer) IS 'Service-role only: idempotently create a trip share token for the rider when a ride enters in_progress and auto-share is enabled; emits a user notification.';
-
-
 --
 -- TOC entry 927 (class 1255 OID 65006)
 
@@ -15804,10 +14667,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes integer) OWNER TO postgres;
-
 --
 -- TOC entry 10025 (class 0 OID 0)
 -- Dependencies: 927
@@ -15816,8 +14676,6 @@ ALTER FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes in
 --
 
 COMMENT ON FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes integer) IS 'Create a trip share token for a ride the caller participates in; stores token_hash only and returns plaintext token.';
-
-
 --
 -- TOC entry 1437 (class 1255 OID 65007)
 
@@ -15981,10 +14839,7 @@ begin
   );
 end;
 $$;
-
-
 ALTER FUNCTION public.trip_share_view_public_v1(p_token text) OWNER TO postgres;
-
 --
 -- TOC entry 10027 (class 0 OID 0)
 -- Dependencies: 1437
@@ -15993,8 +14848,6 @@ ALTER FUNCTION public.trip_share_view_public_v1(p_token text) OWNER TO postgres;
 --
 
 COMMENT ON FUNCTION public.trip_share_view_public_v1(p_token text) IS 'Token-gated public view of ride/request status with minimal driver location and vehicle info.';
-
-
 --
 -- TOC entry 1680 (class 1255 OID 64932)
 
@@ -16028,10 +14881,7 @@ CREATE FUNCTION public.trusted_contact_outbox_claim(p_limit integer DEFAULT 50) 
       RETURNING o.id, o.user_id, o.contact_id, o.sos_event_id, o.ride_id, o.channel, o.to_phone, o.payload, o.attempts;
     END;
     $$;
-
-
 ALTER FUNCTION public.trusted_contact_outbox_claim(p_limit integer) OWNER TO postgres;
-
 --
 -- TOC entry 945 (class 1255 OID 62240)
 
@@ -16056,10 +14906,7 @@ BEGIN
   WHERE id = p_outbox_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.trusted_contact_outbox_mark(p_outbox_id uuid, p_status public.outbox_status, p_error text) OWNER TO postgres;
-
 --
 -- TOC entry 629 (class 1255 OID 44011)
 
@@ -16132,10 +14979,7 @@ BEGIN
   WHERE id = p_outbox_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.trusted_contact_outbox_mark_v2(p_outbox_id uuid, p_result text, p_error text, p_retry_in_seconds integer, p_http_status integer, p_provider_message_id text, p_response text) OWNER TO postgres;
-
 --
 -- TOC entry 701 (class 1255 OID 43796)
 
@@ -16164,10 +15008,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.trusted_contacts_enforce_active_limit() OWNER TO postgres;
-
 --
 -- TOC entry 1763 (class 1255 OID 39807)
 
@@ -16190,10 +15031,7 @@ begin
   return v;
 end;
 $$;
-
-
 ALTER FUNCTION public.try_get_vault_secret(p_name text) OWNER TO postgres;
-
 --
 -- TOC entry 759 (class 1255 OID 40720)
 
@@ -16241,10 +15079,7 @@ begin
   end loop;
 end;
 $$;
-
-
 ALTER FUNCTION public.update_driver_achievements(p_driver_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1568 (class 1255 OID 39808)
 
@@ -16288,10 +15123,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.update_receipt_on_refund() OWNER TO postgres;
-
 --
 -- TOC entry 1109 (class 1255 OID 62241)
 
@@ -16328,10 +15160,7 @@ begin
   return v_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.upsert_device_token(p_token text, p_platform public.device_platform) OWNER TO postgres;
-
 --
 -- TOC entry 1329 (class 1255 OID 39809)
 
@@ -16355,10 +15184,7 @@ BEGIN
   WHERE user_id = v_uid AND read_at IS NULL;
 END;
 $$;
-
-
 ALTER FUNCTION public.user_notifications_mark_all_read() OWNER TO postgres;
-
 --
 -- TOC entry 748 (class 1255 OID 39810)
 
@@ -16382,10 +15208,7 @@ BEGIN
   WHERE id = p_notification_id AND user_id = v_uid;
 END;
 $$;
-
-
 ALTER FUNCTION public.user_notifications_mark_read(p_notification_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1390 (class 1255 OID 39811)
 
@@ -16449,10 +15272,7 @@ BEGIN
   );
 END;
 $$;
-
-
 ALTER FUNCTION public.wallet_cancel_withdraw(p_request_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1430 (class 1255 OID 39812)
 
@@ -16575,10 +15395,7 @@ begin
   where id = r.id;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_capture_ride_hold(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 416 (class 1259 OID 39813)
 
@@ -16603,12 +15420,8 @@ CREATE TABLE public.topup_intents (
     CONSTRAINT topup_intents_amount_iqd_check CHECK ((amount_iqd > 0)),
     CONSTRAINT topup_intents_bonus_iqd_check CHECK ((bonus_iqd >= 0))
 );
-
 ALTER TABLE ONLY public.topup_intents REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.topup_intents OWNER TO postgres;
-
 --
 -- TOC entry 1092 (class 1255 OID 39826)
 
@@ -16647,10 +15460,7 @@ BEGIN
   RETURN (SELECT ti FROM public.topup_intents ti WHERE ti.id = p_intent_id);
 END;
 $$;
-
-
 ALTER FUNCTION public.wallet_fail_topup(p_intent_id uuid, p_failure_reason text, p_provider_payload jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 1275 (class 1255 OID 39827)
 
@@ -16724,10 +15534,7 @@ begin
   return (select ti from public.topup_intents ti where ti.id = p_intent_id);
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_finalize_topup(p_intent_id uuid, p_provider_tx_id text, p_provider_payload jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 417 (class 1259 OID 39828)
 
@@ -16743,10 +15550,7 @@ CREATE TABLE public.wallet_accounts (
     CONSTRAINT wallet_accounts_balance_iqd_check CHECK ((balance_iqd >= 0)),
     CONSTRAINT wallet_accounts_held_iqd_check CHECK ((held_iqd >= 0))
 );
-
-
 ALTER TABLE public.wallet_accounts OWNER TO postgres;
-
 --
 -- TOC entry 1145 (class 1255 OID 39837)
 
@@ -16779,10 +15583,7 @@ begin
   return r;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_get_my_account() OWNER TO postgres;
-
 --
 -- TOC entry 1065 (class 1255 OID 39838)
 
@@ -16857,10 +15658,7 @@ begin
   return v_hold_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_hold_upsert_for_ride(p_user_id uuid, p_ride_id uuid, p_amount_iqd bigint) OWNER TO postgres;
-
 --
 -- TOC entry 873 (class 1255 OID 44233)
 
@@ -16879,10 +15677,7 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
-
 ALTER FUNCTION public.wallet_holds_normalize_status() OWNER TO postgres;
-
 --
 -- TOC entry 1539 (class 1255 OID 44476)
 
@@ -16919,10 +15714,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_payout_attempts_autolog_paid() OWNER TO postgres;
-
 --
 -- TOC entry 1038 (class 1255 OID 39839)
 
@@ -16955,10 +15747,7 @@ begin
   where user_id = h.user_id;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_release_ride_hold(p_ride_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1527 (class 1255 OID 39840)
 
@@ -17102,10 +15891,7 @@ BEGIN
   RETURN v_req_id;
 END;
 $$;
-
-
 ALTER FUNCTION public.wallet_request_withdraw(p_amount_iqd bigint, p_payout_kind public.withdraw_payout_kind, p_destination jsonb, p_idempotency_key text) OWNER TO postgres;
-
 --
 -- TOC entry 1064 (class 1255 OID 39842)
 
@@ -17152,10 +15938,7 @@ BEGIN
   END IF;
 END;
 $_$;
-
-
 ALTER FUNCTION public.wallet_validate_withdraw_destination(p_payout_kind public.withdraw_payout_kind, p_destination jsonb) OWNER TO postgres;
-
 --
 -- TOC entry 883 (class 1255 OID 44442)
 
@@ -17208,10 +15991,7 @@ begin
   return new;
 end;
 $$;
-
-
 ALTER FUNCTION public.wallet_withdraw_audit_log_trigger() OWNER TO postgres;
-
 --
 -- TOC entry 1564 (class 1255 OID 64673)
 
@@ -17235,10 +16015,7 @@ begin
   return coalesce(v_found, false);
 end;
 $$;
-
-
 ALTER FUNCTION public.webauthn_consume_challenge(p_challenge_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1259 (class 1255 OID 64686)
 
@@ -17259,10 +16036,7 @@ begin
   returning webauthn_challenges.challenge, webauthn_challenges.user_id, webauthn_challenges.challenge_type;
 end;
 $$;
-
-
 ALTER FUNCTION public.webauthn_consume_challenge_details(p_challenge_id uuid) OWNER TO postgres;
-
 --
 -- TOC entry 1138 (class 1255 OID 64685)
 
@@ -17284,10 +16058,7 @@ begin
   into challenge_id, challenge, expires_at;
 end;
 $$;
-
-
 ALTER FUNCTION public.webauthn_create_challenge(p_challenge_type text, p_user_id uuid, p_session_id text, p_user_agent text, p_challenge bytea) OWNER TO postgres;
-
 --
 -- TOC entry 544 (class 1259 OID 63525)
 
@@ -17315,10 +16086,7 @@ CREATE TABLE public.webhook_jobs (
     CONSTRAINT webhook_jobs_attempt_count_check CHECK ((attempt_count >= 0)),
     CONSTRAINT webhook_jobs_max_attempts_check CHECK ((max_attempts > 0))
 );
-
-
 ALTER TABLE public.webhook_jobs OWNER TO postgres;
-
 --
 -- TOC entry 1029 (class 1255 OID 63564)
 
@@ -17351,10 +16119,7 @@ BEGIN
   RETURNING j.*;
 END;
 $$;
-
-
 ALTER FUNCTION public.webhook_claim_jobs(p_limit integer, p_lock_seconds integer) OWNER TO postgres;
-
 --
 -- TOC entry 635 (class 1255 OID 17157)
 
@@ -17371,10 +16136,7 @@ CREATE TABLE public.achievement_progress (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.achievement_progress OWNER TO postgres;
-
 --
 -- TOC entry 453 (class 1259 OID 40681)
 
@@ -17395,10 +16157,7 @@ CREATE TABLE public.achievements (
     active boolean DEFAULT true NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.achievements OWNER TO postgres;
-
 --
 -- TOC entry 566 (class 1259 OID 64142)
 
@@ -17415,10 +16174,7 @@ CREATE TABLE public.addon_offers (
     converted_at timestamp with time zone,
     dismissed_at timestamp with time zone
 );
-
-
 ALTER TABLE public.addon_offers OWNER TO postgres;
-
 --
 -- TOC entry 494 (class 1259 OID 44402)
 
@@ -17434,10 +16190,7 @@ CREATE TABLE public.admin_audit_log (
     note text,
     details jsonb
 );
-
-
 ALTER TABLE public.admin_audit_log OWNER TO postgres;
-
 --
 -- TOC entry 493 (class 1259 OID 44401)
 
@@ -17450,10 +16203,7 @@ CREATE SEQUENCE public.admin_audit_log_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.admin_audit_log_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10148 (class 0 OID 0)
 -- Dependencies: 493
@@ -17462,8 +16212,6 @@ ALTER SEQUENCE public.admin_audit_log_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.admin_audit_log_id_seq OWNED BY public.admin_audit_log.id;
-
-
 --
 -- TOC entry 489 (class 1259 OID 44343)
 
@@ -17487,10 +16235,7 @@ CREATE VIEW public.admin_security_audit_functions_v1 WITH (security_invoker='tru
    FROM (pg_proc p
      JOIN pg_namespace ns ON ((ns.oid = p.pronamespace)))
   WHERE (ns.nspname = 'public'::name);
-
-
 ALTER VIEW public.admin_security_audit_functions_v1 OWNER TO postgres;
-
 --
 -- TOC entry 491 (class 1259 OID 44352)
 
@@ -17514,10 +16259,7 @@ CREATE VIEW public.admin_security_audit_policies_v1 WITH (security_invoker='true
      JOIN pg_class pc ON ((pc.oid = pol.polrelid)))
      JOIN pg_namespace pn ON ((pn.oid = pc.relnamespace)))
   WHERE (pn.nspname = 'public'::name);
-
-
 ALTER VIEW public.admin_security_audit_policies_v1 OWNER TO postgres;
-
 --
 -- TOC entry 490 (class 1259 OID 44348)
 
@@ -17532,10 +16274,7 @@ CREATE VIEW public.admin_security_audit_schema_v1 WITH (security_invoker='true')
     has_schema_privilege('service_role'::name, oid, 'CREATE'::text) AS service_role_can_create
    FROM pg_namespace n
   WHERE (nspname = 'public'::name);
-
-
 ALTER VIEW public.admin_security_audit_schema_v1 OWNER TO postgres;
-
 --
 -- TOC entry 492 (class 1259 OID 44376)
 
@@ -17548,10 +16287,7 @@ CREATE TABLE public.admin_users (
     created_by uuid,
     note text
 );
-
-
 ALTER TABLE public.admin_users OWNER TO postgres;
-
 --
 -- TOC entry 540 (class 1259 OID 63309)
 
@@ -17567,10 +16303,7 @@ CREATE TABLE public.agent_daily_counters (
     CONSTRAINT agent_daily_counters_payout_check CHECK ((next_payout_seq >= 1)),
     CONSTRAINT agent_daily_counters_receipt_check CHECK ((next_receipt_seq >= 1))
 );
-
-
 ALTER TABLE public.agent_daily_counters OWNER TO postgres;
-
 --
 -- TOC entry 418 (class 1259 OID 39843)
 
@@ -17583,10 +16316,7 @@ CREATE TABLE public.api_rate_limits (
     window_seconds integer NOT NULL,
     count integer DEFAULT 0 NOT NULL
 );
-
-
 ALTER TABLE public.api_rate_limits OWNER TO postgres;
-
 --
 -- TOC entry 419 (class 1259 OID 39849)
 
@@ -17605,10 +16335,7 @@ CREATE TABLE public.app_events (
     payment_intent_id uuid,
     payload jsonb DEFAULT '{}'::jsonb NOT NULL
 );
-
-
 ALTER TABLE public.app_events OWNER TO postgres;
-
 --
 -- TOC entry 515 (class 1259 OID 55154)
 
@@ -17625,10 +16352,7 @@ CREATE TABLE public.auth_sms_hook_events (
     status public.sms_hook_status NOT NULL,
     error text
 );
-
-
 ALTER TABLE public.auth_sms_hook_events OWNER TO postgres;
-
 --
 -- TOC entry 539 (class 1259 OID 63297)
 
@@ -17643,10 +16367,7 @@ CREATE TABLE public.cash_agents (
     is_active boolean DEFAULT true NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.cash_agents OWNER TO postgres;
-
 --
 -- TOC entry 533 (class 1259 OID 63032)
 
@@ -17666,10 +16387,7 @@ CREATE TABLE public.cash_collections (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT cash_collections_amounts_check CHECK (((expected_amount_iqd >= 0) AND (collected_amount_iqd >= 0) AND (change_given_iqd >= 0)))
 );
-
-
 ALTER TABLE public.cash_collections OWNER TO postgres;
-
 --
 -- TOC entry 541 (class 1259 OID 63338)
 
@@ -17690,10 +16408,7 @@ CREATE TABLE public.cashbox_daily_closings (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT cashbox_daily_closings_amount_check CHECK ((counted_cash_iqd >= 0))
 );
-
-
 ALTER TABLE public.cashbox_daily_closings OWNER TO postgres;
-
 --
 -- TOC entry 564 (class 1259 OID 64087)
 
@@ -17711,10 +16426,7 @@ CREATE TABLE public.concierge_feedback (
     CONSTRAINT concierge_feedback_feedback_type_check CHECK ((feedback_type = ANY (ARRAY['bad_suggestion'::text, 'helpful'::text, 'too_slow'::text, 'other'::text]))),
     CONSTRAINT concierge_feedback_rating_check CHECK (((rating >= 1) AND (rating <= 5)))
 );
-
-
 ALTER TABLE public.concierge_feedback OWNER TO postgres;
-
 --
 -- TOC entry 563 (class 1259 OID 64061)
 
@@ -17736,10 +16448,7 @@ CREATE TABLE public.concierge_sessions (
     CONSTRAINT concierge_sessions_mode_check CHECK ((mode = ANY (ARRAY['chat'::text, 'voice'::text]))),
     CONSTRAINT concierge_sessions_status_check CHECK ((status = ANY (ARRAY['active'::text, 'completed'::text, 'expired'::text, 'cancelled'::text])))
 );
-
-
 ALTER TABLE public.concierge_sessions OWNER TO postgres;
-
 --
 -- TOC entry 507 (class 1259 OID 44746)
 
@@ -17762,10 +16471,7 @@ CREATE TABLE public.customer_addresses (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.customer_addresses OWNER TO postgres;
-
 --
 -- TOC entry 573 (class 1259 OID 64495)
 
@@ -17788,10 +16494,7 @@ CREATE TABLE public.demand_hotspots (
     trips_last_hour integer,
     CONSTRAINT demand_hotspots_demand_level_check CHECK (((demand_level >= 1) AND (demand_level <= 5)))
 );
-
-
 ALTER TABLE public.demand_hotspots OWNER TO postgres;
-
 --
 -- TOC entry 447 (class 1259 OID 40583)
 
@@ -17808,10 +16511,7 @@ CREATE TABLE public.device_tokens (
     disabled_at timestamp with time zone,
     enabled boolean DEFAULT true NOT NULL
 );
-
-
 ALTER TABLE public.device_tokens OWNER TO postgres;
-
 --
 -- TOC entry 446 (class 1259 OID 40582)
 
@@ -17824,10 +16524,7 @@ CREATE SEQUENCE public.device_tokens_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.device_tokens_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10166 (class 0 OID 0)
 -- Dependencies: 446
@@ -17836,8 +16533,6 @@ ALTER SEQUENCE public.device_tokens_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.device_tokens_id_seq OWNED BY public.device_tokens.id;
-
-
 --
 -- TOC entry 575 (class 1259 OID 64526)
 
@@ -17859,10 +16554,7 @@ CREATE TABLE public.driver_coaching_tips (
     priority integer DEFAULT 0 NOT NULL,
     variant text
 );
-
-
 ALTER TABLE public.driver_coaching_tips OWNER TO postgres;
-
 --
 -- TOC entry 450 (class 1259 OID 40633)
 
@@ -17875,10 +16567,7 @@ CREATE TABLE public.driver_counters (
     earnings_iqd bigint DEFAULT 0 NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.driver_counters OWNER TO postgres;
-
 --
 -- TOC entry 476 (class 1259 OID 41825)
 
@@ -17895,10 +16584,7 @@ CREATE TABLE public.driver_leaderboard_daily (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.driver_leaderboard_daily OWNER TO postgres;
-
 --
 -- TOC entry 420 (class 1259 OID 39858)
 
@@ -17918,12 +16604,8 @@ CREATE TABLE public.driver_locations (
     CONSTRAINT driver_locations_lat_check CHECK (((lat >= ('-90'::integer)::double precision) AND (lat <= (90)::double precision))),
     CONSTRAINT driver_locations_lng_check CHECK (((lng >= ('-180'::integer)::double precision) AND (lng <= (180)::double precision)))
 );
-
 ALTER TABLE ONLY public.driver_locations REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.driver_locations OWNER TO postgres;
-
 --
 -- TOC entry 452 (class 1259 OID 40660)
 
@@ -17943,10 +16625,7 @@ CREATE TABLE public.driver_rank_snapshots (
     score numeric(12,2),
     earnings_iqd bigint
 );
-
-
 ALTER TABLE public.driver_rank_snapshots OWNER TO postgres;
-
 --
 -- TOC entry 571 (class 1259 OID 64453)
 
@@ -17971,10 +16650,7 @@ CREATE TABLE public.driver_shifts (
     notes text,
     CONSTRAINT driver_shifts_valid_schedule CHECK ((scheduled_end > scheduled_start))
 );
-
-
 ALTER TABLE public.driver_shifts OWNER TO postgres;
-
 --
 -- TOC entry 428 (class 1259 OID 39940)
 
@@ -17997,10 +16673,7 @@ CREATE TABLE public.profiles (
     role_onboarding_completed boolean DEFAULT false NOT NULL,
     phone_e164 text
 );
-
-
 ALTER TABLE public.profiles OWNER TO postgres;
-
 --
 -- TOC entry 581 (class 1259 OID 64794)
 
@@ -18017,10 +16690,7 @@ CREATE VIEW public.driver_stats WITH (security_invoker='true') AS
     d.created_at
    FROM (public.drivers d
      JOIN public.profiles p ON ((d.id = p.id)));
-
-
 ALTER VIEW public.driver_stats OWNER TO postgres;
-
 --
 -- TOC entry 451 (class 1259 OID 40646)
 
@@ -18036,12 +16706,8 @@ CREATE TABLE public.driver_stats_daily (
     trips_count integer,
     created_at timestamp with time zone
 );
-
 ALTER TABLE ONLY public.driver_stats_daily REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.driver_stats_daily OWNER TO postgres;
-
 --
 -- TOC entry 514 (class 1259 OID 45085)
 
@@ -18057,10 +16723,7 @@ CREATE TABLE public.driver_status_events (
     reason text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.driver_status_events OWNER TO postgres;
-
 --
 -- TOC entry 10186 (class 0 OID 0)
 -- Dependencies: 514
@@ -18069,8 +16732,6 @@ ALTER TABLE public.driver_status_events OWNER TO postgres;
 --
 
 COMMENT ON TABLE public.driver_status_events IS 'Audit log for driver status transitions. Created by Phase 1 Logic Consolidation.';
-
-
 --
 -- TOC entry 513 (class 1259 OID 45084)
 
@@ -18085,8 +16746,6 @@ ALTER TABLE public.driver_status_events ALTER COLUMN id ADD GENERATED ALWAYS AS 
     NO MAXVALUE
     CACHE 1
 );
-
-
 --
 -- TOC entry 421 (class 1259 OID 39868)
 
@@ -18106,10 +16765,7 @@ CREATE TABLE public.driver_vehicles (
     capacity integer,
     is_active boolean DEFAULT true NOT NULL
 );
-
-
 ALTER TABLE public.driver_vehicles OWNER TO postgres;
-
 --
 -- TOC entry 576 (class 1259 OID 64545)
 
@@ -18126,10 +16782,7 @@ CREATE TABLE public.earnings_coach_sessions (
     earnings_context jsonb,
     CONSTRAINT earnings_coach_sessions_status_check CHECK ((status = ANY (ARRAY['active'::text, 'completed'::text])))
 );
-
-
 ALTER TABLE public.earnings_coach_sessions OWNER TO postgres;
-
 --
 -- TOC entry 574 (class 1259 OID 64510)
 
@@ -18149,10 +16802,7 @@ CREATE TABLE public.earnings_forecasts (
     CONSTRAINT earnings_forecasts_confidence_pct_check CHECK (((confidence_pct >= (0)::numeric) AND (confidence_pct <= (100)::numeric))),
     CONSTRAINT earnings_forecasts_hour_of_day_check CHECK (((hour_of_day >= 0) AND (hour_of_day <= 23)))
 );
-
-
 ALTER TABLE public.earnings_forecasts OWNER TO postgres;
-
 --
 -- TOC entry 592 (class 1259 OID 64962)
 
@@ -18176,10 +16826,7 @@ CREATE TABLE public.edge_webhook_outbox (
     last_error text,
     CONSTRAINT edge_webhook_outbox_status_check CHECK ((status = ANY (ARRAY['pending'::text, 'processing'::text, 'sent'::text, 'failed'::text])))
 );
-
-
 ALTER TABLE public.edge_webhook_outbox OWNER TO postgres;
-
 --
 -- TOC entry 591 (class 1259 OID 64961)
 
@@ -18194,8 +16841,6 @@ ALTER TABLE public.edge_webhook_outbox ALTER COLUMN id ADD GENERATED BY DEFAULT 
     NO MAXVALUE
     CACHE 1
 );
-
-
 --
 -- TOC entry 527 (class 1259 OID 62271)
 
@@ -18230,10 +16875,7 @@ CREATE TABLE public.fare_quotes (
     route_fetched_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT fare_quotes_cash_rounding_step_check CHECK (((cash_rounding_step_iqd IS NULL) OR (cash_rounding_step_iqd >= 1)))
 );
-
-
 ALTER TABLE public.fare_quotes OWNER TO postgres;
-
 --
 -- TOC entry 570 (class 1259 OID 64228)
 
@@ -18247,10 +16889,7 @@ CREATE TABLE public.fee_disclosures (
     title text NOT NULL,
     explanation text NOT NULL
 );
-
-
 ALTER TABLE public.fee_disclosures OWNER TO postgres;
-
 --
 -- TOC entry 551 (class 1259 OID 63717)
 
@@ -18262,10 +16901,7 @@ CREATE TABLE public.fraud_case_events (
     event_id uuid NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.fraud_case_events OWNER TO postgres;
-
 --
 -- TOC entry 599 (class 1259 OID 66226)
 
@@ -18281,12 +16917,9 @@ CREATE TABLE public.geo_cache (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT geo_cache_cap_chk CHECK ((capability = ANY (ARRAY['directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT geo_cache_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
+    CONSTRAINT geo_cache_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
 );
-
-
 ALTER TABLE public.geo_cache OWNER TO postgres;
-
 --
 -- TOC entry 469 (class 1259 OID 41373)
 
@@ -18306,10 +16939,7 @@ CREATE TABLE public.kyc_document_types (
     allowed_mime text[] DEFAULT ARRAY['image/jpeg'::text, 'image/png'::text, 'application/pdf'::text] NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.kyc_document_types OWNER TO postgres;
-
 --
 -- TOC entry 467 (class 1259 OID 41012)
 
@@ -18333,10 +16963,7 @@ CREATE TABLE public.kyc_documents (
     rejection_reason text,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.kyc_documents OWNER TO postgres;
-
 --
 -- TOC entry 470 (class 1259 OID 41392)
 
@@ -18353,10 +16980,7 @@ CREATE TABLE public.kyc_liveness_sessions (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.kyc_liveness_sessions OWNER TO postgres;
-
 --
 -- TOC entry 466 (class 1259 OID 40989)
 
@@ -18380,10 +17004,7 @@ CREATE TABLE public.kyc_submissions (
     notes text,
     reviewer_note text
 );
-
-
 ALTER TABLE public.kyc_submissions OWNER TO postgres;
-
 --
 -- TOC entry 562 (class 1259 OID 64045)
 
@@ -18399,10 +17020,7 @@ CREATE TABLE public.live_activity_throttle_config (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.live_activity_throttle_config OWNER TO postgres;
-
 --
 -- TOC entry 596 (class 1259 OID 66186)
 
@@ -18419,10 +17037,7 @@ CREATE TABLE public.maps_provider_capabilities (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT maps_provider_capability_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text])))
 );
-
-
 ALTER TABLE public.maps_provider_capabilities OWNER TO postgres;
-
 --
 -- TOC entry 600 (class 1259 OID 66247)
 
@@ -18439,12 +17054,9 @@ CREATE TABLE public.maps_provider_health (
     last_failure_at timestamp with time zone,
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT mph_cap_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT mph_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
+    CONSTRAINT mph_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
 );
-
-
 ALTER TABLE public.maps_provider_health OWNER TO postgres;
-
 --
 -- TOC entry 594 (class 1259 OID 66150)
 
@@ -18464,12 +17076,9 @@ CREATE TABLE public.maps_providers (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     cache_enabled boolean DEFAULT false NOT NULL,
     cache_ttl_seconds integer,
-    CONSTRAINT maps_providers_provider_code_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
+    CONSTRAINT maps_providers_provider_code_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
 );
-
-
 ALTER TABLE public.maps_providers OWNER TO postgres;
-
 --
 -- TOC entry 598 (class 1259 OID 66209)
 
@@ -18498,12 +17107,9 @@ CREATE TABLE public.maps_requests_log (
     fallback_reason text,
     CONSTRAINT maps_requests_log_action_chk CHECK ((action = ANY (ARRAY['route'::text, 'geocode'::text, 'reverse'::text, 'matrix'::text, 'directions'::text, 'reverse_geocode'::text, 'render'::text]))),
     CONSTRAINT maps_requests_log_cap_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text]))),
-    CONSTRAINT maps_requests_log_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text])))
+    CONSTRAINT maps_requests_log_provider_chk CHECK ((provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text, 'thunderforest'::text, 'ors'::text])))
 );
-
-
 ALTER TABLE public.maps_requests_log OWNER TO postgres;
-
 --
 -- TOC entry 597 (class 1259 OID 66208)
 
@@ -18516,10 +17122,7 @@ CREATE SEQUENCE public.maps_requests_log_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.maps_requests_log_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10207 (class 0 OID 0)
 -- Dependencies: 597
@@ -18528,8 +17131,6 @@ ALTER SEQUENCE public.maps_requests_log_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.maps_requests_log_id_seq OWNED BY public.maps_requests_log.id;
-
-
 --
 -- TOC entry 595 (class 1259 OID 66163)
 
@@ -18545,10 +17146,7 @@ CREATE TABLE public.maps_usage_daily (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT maps_usage_capability_chk CHECK ((capability = ANY (ARRAY['render'::text, 'directions'::text, 'geocode'::text, 'distance_matrix'::text])))
 );
-
-
 ALTER TABLE public.maps_usage_daily OWNER TO postgres;
-
 --
 -- TOC entry 567 (class 1259 OID 64167)
 
@@ -18572,10 +17170,7 @@ CREATE TABLE public.membership_plans (
     available_regions text[],
     CONSTRAINT membership_plans_billing_interval_check CHECK ((billing_interval = ANY (ARRAY['monthly'::text, 'annual'::text])))
 );
-
-
 ALTER TABLE public.membership_plans OWNER TO postgres;
-
 --
 -- TOC entry 568 (class 1259 OID 64183)
 
@@ -18598,10 +17193,7 @@ CREATE TABLE public.memberships (
     shared_from_membership_id uuid,
     is_primary boolean DEFAULT true NOT NULL
 );
-
-
 ALTER TABLE public.memberships OWNER TO postgres;
-
 --
 -- TOC entry 521 (class 1259 OID 56492)
 
@@ -18613,10 +17205,7 @@ CREATE TABLE public.merchant_chat_ai_receipts (
     thread_id uuid NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchant_chat_ai_receipts OWNER TO postgres;
-
 --
 -- TOC entry 520 (class 1259 OID 56463)
 
@@ -18632,10 +17221,7 @@ CREATE TABLE public.merchant_chat_ai_settings (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT merchant_chat_ai_settings_min_gap_seconds_check CHECK (((min_gap_seconds >= 0) AND (min_gap_seconds <= 300)))
 );
-
-
 ALTER TABLE public.merchant_chat_ai_settings OWNER TO postgres;
-
 --
 -- TOC entry 505 (class 1259 OID 44688)
 
@@ -18651,10 +17237,7 @@ CREATE TABLE public.merchant_chat_messages (
     attachments jsonb DEFAULT '[]'::jsonb NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchant_chat_messages OWNER TO postgres;
-
 --
 -- TOC entry 504 (class 1259 OID 44662)
 
@@ -18672,10 +17255,7 @@ CREATE TABLE public.merchant_chat_threads (
     merchant_last_read_at timestamp with time zone,
     last_message_preview text
 );
-
-
 ALTER TABLE public.merchant_chat_threads OWNER TO postgres;
-
 --
 -- TOC entry 535 (class 1259 OID 63096)
 
@@ -18697,10 +17277,7 @@ CREATE TABLE public.merchant_commission_configs (
     CONSTRAINT merchant_commission_configs_flat_fee_check CHECK ((flat_fee_iqd >= 0)),
     CONSTRAINT merchant_commission_configs_rate_check CHECK (((rate_bps >= 0) AND (rate_bps <= 10000)))
 );
-
-
 ALTER TABLE public.merchant_commission_configs OWNER TO postgres;
-
 --
 -- TOC entry 10216 (class 0 OID 0)
 -- Dependencies: 535
@@ -18709,8 +17286,6 @@ ALTER TABLE public.merchant_commission_configs OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public.merchant_commission_configs.cod_handling_rate_bps IS 'Optional COD handling fee rate (bps) deducted from COD remittance.';
-
-
 --
 -- TOC entry 10217 (class 0 OID 0)
 -- Dependencies: 535
@@ -18719,8 +17294,6 @@ COMMENT ON COLUMN public.merchant_commission_configs.cod_handling_rate_bps IS 'O
 --
 
 COMMENT ON COLUMN public.merchant_commission_configs.cod_handling_flat_fee_iqd IS 'Optional COD handling flat fee deducted from COD remittance.';
-
-
 --
 -- TOC entry 512 (class 1259 OID 44930)
 
@@ -18737,10 +17310,7 @@ CREATE TABLE public.merchant_order_delivery_events (
     note text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchant_order_delivery_events OWNER TO postgres;
-
 --
 -- TOC entry 509 (class 1259 OID 44815)
 
@@ -18761,10 +17331,7 @@ CREATE TABLE public.merchant_order_items (
     CONSTRAINT merchant_order_items_qty_check CHECK ((qty > 0)),
     CONSTRAINT merchant_order_items_unit_price_iqd_check CHECK ((unit_price_iqd >= 0))
 );
-
-
 ALTER TABLE public.merchant_order_items OWNER TO postgres;
-
 --
 -- TOC entry 510 (class 1259 OID 44857)
 
@@ -18780,10 +17347,7 @@ CREATE TABLE public.merchant_order_status_events (
     note text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchant_order_status_events OWNER TO postgres;
-
 --
 -- TOC entry 508 (class 1259 OID 44771)
 
@@ -18816,10 +17380,7 @@ CREATE TABLE public.merchant_orders (
     CONSTRAINT merchant_orders_subtotal_iqd_check CHECK ((subtotal_iqd >= 0)),
     CONSTRAINT merchant_orders_total_iqd_check CHECK ((total_iqd >= 0))
 );
-
-
 ALTER TABLE public.merchant_orders OWNER TO postgres;
-
 --
 -- TOC entry 10222 (class 0 OID 0)
 -- Dependencies: 508
@@ -18828,8 +17389,6 @@ ALTER TABLE public.merchant_orders OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public.merchant_orders.payment_method IS 'How the customer pays this merchant order (wallet or cash on delivery).';
-
-
 --
 -- TOC entry 10223 (class 0 OID 0)
 -- Dependencies: 508
@@ -18838,8 +17397,6 @@ COMMENT ON COLUMN public.merchant_orders.payment_method IS 'How the customer pay
 --
 
 COMMENT ON COLUMN public.merchant_orders.payment_status IS 'Payment lifecycle for merchant orders.';
-
-
 --
 -- TOC entry 502 (class 1259 OID 44604)
 
@@ -18864,10 +17421,7 @@ CREATE TABLE public.merchant_products (
     CONSTRAINT merchant_products_compare_at_price_iqd_check CHECK (((compare_at_price_iqd IS NULL) OR (compare_at_price_iqd >= 0))),
     CONSTRAINT merchant_products_price_iqd_check CHECK ((price_iqd >= 0))
 );
-
-
 ALTER TABLE public.merchant_products OWNER TO postgres;
-
 --
 -- TOC entry 503 (class 1259 OID 44632)
 
@@ -18889,10 +17443,7 @@ CREATE TABLE public.merchant_promotions (
     CONSTRAINT merchant_promotions_scope_check CHECK (((NOT ((product_id IS NOT NULL) AND (category IS NOT NULL))) AND ((category IS NULL) OR (length(btrim(category)) > 0)))),
     CONSTRAINT merchant_promotions_value_check CHECK ((value > (0)::numeric))
 );
-
-
 ALTER TABLE public.merchant_promotions OWNER TO postgres;
-
 --
 -- TOC entry 506 (class 1259 OID 44719)
 
@@ -18908,10 +17459,7 @@ CREATE TABLE public.merchant_status_audit_log (
     actor_id uuid,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.merchant_status_audit_log OWNER TO postgres;
-
 --
 -- TOC entry 449 (class 1259 OID 40608)
 
@@ -18934,10 +17482,7 @@ CREATE TABLE public.notification_outbox (
     locked_at timestamp with time zone,
     sent_at timestamp with time zone
 );
-
-
 ALTER TABLE public.notification_outbox OWNER TO postgres;
-
 --
 -- TOC entry 448 (class 1259 OID 40607)
 
@@ -18950,10 +17495,7 @@ CREATE SEQUENCE public.notification_outbox_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.notification_outbox_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10229 (class 0 OID 0)
 -- Dependencies: 448
@@ -18962,8 +17504,6 @@ ALTER SEQUENCE public.notification_outbox_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.notification_outbox_id_seq OWNED BY public.notification_outbox.id;
-
-
 --
 -- TOC entry 548 (class 1259 OID 63607)
 
@@ -18979,10 +17519,7 @@ CREATE TABLE public.ops_alert_events (
     message text,
     CONSTRAINT ops_alert_events_type_ck CHECK ((event_type = ANY (ARRAY['triggered'::text, 'resolved'::text, 'note'::text])))
 );
-
-
 ALTER TABLE public.ops_alert_events OWNER TO postgres;
-
 --
 -- TOC entry 546 (class 1259 OID 63572)
 
@@ -19004,10 +17541,7 @@ CREATE TABLE public.ops_alert_rules (
     CONSTRAINT ops_alert_rules_severity_ck CHECK ((severity = ANY (ARRAY['page'::text, 'ticket'::text]))),
     CONSTRAINT ops_alert_rules_window_ck CHECK (((window_minutes >= 1) AND (window_minutes <= 1440)))
 );
-
-
 ALTER TABLE public.ops_alert_rules OWNER TO postgres;
-
 --
 -- TOC entry 547 (class 1259 OID 63592)
 
@@ -19025,10 +17559,7 @@ CREATE TABLE public.ops_alert_state (
     last_resolved_at timestamp with time zone,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ops_alert_state OWNER TO postgres;
-
 --
 -- TOC entry 436 (class 1259 OID 39995)
 
@@ -19072,12 +17603,8 @@ CREATE TABLE public.ride_requests (
     CONSTRAINT ride_requests_pickup_lat_check CHECK (((pickup_lat >= ('-90'::integer)::double precision) AND (pickup_lat <= (90)::double precision))),
     CONSTRAINT ride_requests_pickup_lng_check CHECK (((pickup_lng >= ('-180'::integer)::double precision) AND (pickup_lng <= (180)::double precision)))
 );
-
 ALTER TABLE ONLY public.ride_requests REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.ride_requests OWNER TO postgres;
-
 --
 -- TOC entry 587 (class 1259 OID 64820)
 
@@ -19090,10 +17617,7 @@ CREATE VIEW public.ops_dispatch_metrics_15m WITH (security_invoker='true') AS
     count(*) AS request_count
    FROM public.ride_requests rr
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision)))))), status;
-
-
 ALTER VIEW public.ops_dispatch_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 553 (class 1259 OID 63769)
 
@@ -19111,10 +17635,7 @@ CREATE VIEW public.ops_fraud_metrics_15m AS
     ( SELECT count(*) AS count
            FROM public.fraud_enforcement_actions a
           WHERE ((a.expired_at IS NULL) AND (a.resolved_at IS NULL) AND ((a.expires_at IS NULL) OR (a.expires_at > now())))) AS active_actions;
-
-
 ALTER VIEW public.ops_fraud_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 586 (class 1259 OID 64816)
 
@@ -19128,10 +17649,7 @@ CREATE VIEW public.ops_job_queue_summary WITH (security_invoker='true') AS
     max(created_at) AS newest_job
    FROM public.webhook_jobs
   GROUP BY status;
-
-
 ALTER VIEW public.ops_job_queue_summary OWNER TO postgres;
-
 --
 -- TOC entry 584 (class 1259 OID 64808)
 
@@ -19145,10 +17663,7 @@ CREATE VIEW public.ops_job_worker_metrics_15m WITH (security_invoker='true') AS
     avg(attempt_count) AS avg_attempts
    FROM public.webhook_jobs w
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision)))))), status;
-
-
 ALTER VIEW public.ops_job_worker_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 585 (class 1259 OID 64812)
 
@@ -19161,10 +17676,7 @@ CREATE VIEW public.ops_maps_metrics_15m WITH (security_invoker='true') AS
     count(*) FILTER (WHERE (status = 'completed'::public.ride_status)) AS completed_rides
    FROM public.rides r
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision))))));
-
-
 ALTER VIEW public.ops_maps_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 423 (class 1259 OID 39887)
 
@@ -19188,10 +17700,7 @@ CREATE TABLE public.payment_intents (
     last_error text,
     provider_charge_id text
 );
-
-
 ALTER TABLE public.payment_intents OWNER TO postgres;
-
 --
 -- TOC entry 583 (class 1259 OID 64804)
 
@@ -19206,10 +17715,7 @@ CREATE VIEW public.ops_payment_metrics_15m WITH (security_invoker='true') AS
     sum(amount_iqd) AS total_amount
    FROM public.payment_intents pi
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision)))))), provider, status;
-
-
 ALTER VIEW public.ops_payment_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 588 (class 1259 OID 64825)
 
@@ -19222,10 +17728,7 @@ CREATE VIEW public.ops_safety_metrics_15m WITH (security_invoker='true') AS
     count(*) AS event_count
    FROM public.fraud_events fe
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision)))))), reason;
-
-
 ALTER VIEW public.ops_safety_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 582 (class 1259 OID 64799)
 
@@ -19241,10 +17744,7 @@ CREATE VIEW public.ops_webhook_metrics_15m WITH (security_invoker='true') AS
     avg(EXTRACT(epoch FROM (updated_at - created_at))) AS avg_latency_sec
    FROM public.webhook_jobs w
   GROUP BY (date_trunc('minute'::text, (created_at - ('00:01:00'::interval * floor((date_part('minute'::text, created_at) / (15)::double precision)))))), job_kind;
-
-
 ALTER VIEW public.ops_webhook_metrics_15m OWNER TO postgres;
-
 --
 -- TOC entry 565 (class 1259 OID 64123)
 
@@ -19263,10 +17763,7 @@ CREATE TABLE public.order_bundles (
     additional_fee_iqd bigint DEFAULT 0 NOT NULL,
     fee_waived boolean DEFAULT false NOT NULL
 );
-
-
 ALTER TABLE public.order_bundles OWNER TO postgres;
-
 --
 -- TOC entry 580 (class 1259 OID 64650)
 
@@ -19285,10 +17782,7 @@ CREATE TABLE public.passkey_auth_log (
     user_agent text,
     device_info jsonb
 );
-
-
 ALTER TABLE public.passkey_auth_log OWNER TO postgres;
-
 --
 -- TOC entry 424 (class 1259 OID 39899)
 
@@ -19305,10 +17799,7 @@ CREATE TABLE public.payment_providers (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.payment_providers OWNER TO postgres;
-
 --
 -- TOC entry 425 (class 1259 OID 39909)
 
@@ -19336,12 +17827,8 @@ CREATE TABLE public.payments (
     refund_amount_iqd integer,
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL
 );
-
 ALTER TABLE ONLY public.payments REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.payments OWNER TO postgres;
-
 --
 -- TOC entry 498 (class 1259 OID 44481)
 
@@ -19353,12 +17840,8 @@ CREATE TABLE public.payout_idempotency (
     key text NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
 ALTER TABLE ONLY public.payout_idempotency FORCE ROW LEVEL SECURITY;
-
-
 ALTER TABLE public.payout_idempotency OWNER TO postgres;
-
 --
 -- TOC entry 497 (class 1259 OID 44480)
 
@@ -19371,10 +17854,7 @@ CREATE SEQUENCE public.payout_idempotency_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.payout_idempotency_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10249 (class 0 OID 0)
 -- Dependencies: 497
@@ -19383,8 +17863,6 @@ ALTER SEQUENCE public.payout_idempotency_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.payout_idempotency_id_seq OWNED BY public.payout_idempotency.id;
-
-
 --
 -- TOC entry 500 (class 1259 OID 44527)
 
@@ -19401,10 +17879,7 @@ CREATE TABLE public.payout_provider_job_attempts (
     error_message text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.payout_provider_job_attempts OWNER TO postgres;
-
 --
 -- TOC entry 530 (class 1259 OID 62984)
 
@@ -19423,10 +17898,7 @@ CREATE TABLE public.platform_fee_configs (
     CONSTRAINT platform_fee_configs_flat_fee_iqd_check CHECK ((flat_fee_iqd >= 0)),
     CONSTRAINT platform_fee_configs_rate_bps_check CHECK (((rate_bps >= 0) AND (rate_bps <= 5000)))
 );
-
-
 ALTER TABLE public.platform_fee_configs OWNER TO postgres;
-
 --
 -- TOC entry 426 (class 1259 OID 39919)
 
@@ -19452,10 +17924,7 @@ CREATE TABLE public.pricing_configs (
     CONSTRAINT pricing_configs_effective_window_check CHECK (((effective_to IS NULL) OR (effective_to > effective_from))),
     CONSTRAINT pricing_configs_version_check CHECK ((version >= 1))
 );
-
-
 ALTER TABLE public.pricing_configs OWNER TO postgres;
-
 --
 -- TOC entry 10253 (class 0 OID 0)
 -- Dependencies: 426
@@ -19464,8 +17933,6 @@ ALTER TABLE public.pricing_configs OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public.pricing_configs.max_surge_multiplier IS 'Maximum allowed surge multiplier (demand-based). Does not cap product multipliers.';
-
-
 --
 -- TOC entry 569 (class 1259 OID 64211)
 
@@ -19494,10 +17961,7 @@ CREATE TABLE public.pricing_rules (
     valid_from timestamp with time zone,
     valid_until timestamp with time zone
 );
-
-
 ALTER TABLE public.pricing_rules OWNER TO postgres;
-
 --
 -- TOC entry 427 (class 1259 OID 39933)
 
@@ -19511,10 +17975,7 @@ CREATE TABLE public.profile_kyc (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_by uuid
 );
-
-
 ALTER TABLE public.profile_kyc OWNER TO postgres;
-
 --
 -- TOC entry 519 (class 1259 OID 56435)
 
@@ -19527,10 +17988,7 @@ CREATE TABLE public.promotion_notification_receipts (
     notification_id uuid,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.promotion_notification_receipts OWNER TO postgres;
-
 --
 -- TOC entry 429 (class 1259 OID 39950)
 
@@ -19544,10 +18002,7 @@ CREATE TABLE public.provider_events (
     payload jsonb DEFAULT '{}'::jsonb NOT NULL,
     received_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.provider_events OWNER TO postgres;
-
 --
 -- TOC entry 430 (class 1259 OID 39957)
 
@@ -19560,10 +18015,7 @@ CREATE SEQUENCE public.provider_events_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.provider_events_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10259 (class 0 OID 0)
 -- Dependencies: 430
@@ -19572,8 +18024,6 @@ ALTER SEQUENCE public.provider_events_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.provider_events_id_seq OWNED BY public.provider_events.id;
-
-
 --
 -- TOC entry 445 (class 1259 OID 40563)
 
@@ -19588,12 +18038,8 @@ CREATE TABLE public.public_profiles (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
 ALTER TABLE ONLY public.public_profiles REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.public_profiles OWNER TO postgres;
-
 --
 -- TOC entry 579 (class 1259 OID 64632)
 
@@ -19608,10 +18054,7 @@ CREATE TABLE public.recovery_codes (
     used_at timestamp with time zone,
     batch_id uuid NOT NULL
 );
-
-
 ALTER TABLE public.recovery_codes OWNER TO postgres;
-
 --
 -- TOC entry 455 (class 1259 OID 40722)
 
@@ -19626,10 +18069,7 @@ CREATE TABLE public.referral_campaigns (
     active boolean DEFAULT true NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.referral_campaigns OWNER TO postgres;
-
 --
 -- TOC entry 456 (class 1259 OID 40736)
 
@@ -19641,10 +18081,7 @@ CREATE TABLE public.referral_codes (
     user_id uuid NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.referral_codes OWNER TO postgres;
-
 --
 -- TOC entry 475 (class 1259 OID 41788)
 
@@ -19661,10 +18098,7 @@ CREATE TABLE public.referral_invites (
     qualified_at timestamp with time zone,
     rewarded_at timestamp with time zone
 );
-
-
 ALTER TABLE public.referral_invites OWNER TO postgres;
-
 --
 -- TOC entry 457 (class 1259 OID 40752)
 
@@ -19683,10 +18117,7 @@ CREATE TABLE public.referral_redemptions (
     rewarded_at timestamp with time zone,
     ride_id uuid
 );
-
-
 ALTER TABLE public.referral_redemptions OWNER TO postgres;
-
 --
 -- TOC entry 474 (class 1259 OID 41777)
 
@@ -19701,10 +18132,7 @@ CREATE TABLE public.referral_settings (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.referral_settings OWNER TO postgres;
-
 --
 -- TOC entry 462 (class 1259 OID 40890)
 
@@ -19728,10 +18156,7 @@ CREATE TABLE public.ride_chat_messages (
     attachment_key text,
     metadata jsonb
 );
-
-
 ALTER TABLE public.ride_chat_messages OWNER TO postgres;
-
 --
 -- TOC entry 463 (class 1259 OID 40914)
 
@@ -19750,10 +18175,7 @@ CREATE TABLE public.ride_chat_read_receipts (
     last_read_message_id uuid,
     updated_at timestamp with time zone
 );
-
-
 ALTER TABLE public.ride_chat_read_receipts OWNER TO postgres;
-
 --
 -- TOC entry 473 (class 1259 OID 41740)
 
@@ -19768,10 +18190,7 @@ CREATE TABLE public.ride_chat_threads (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ride_chat_threads OWNER TO postgres;
-
 --
 -- TOC entry 464 (class 1259 OID 40939)
 
@@ -19784,10 +18203,7 @@ CREATE TABLE public.ride_chat_typing (
     is_typing boolean DEFAULT true NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ride_chat_typing OWNER TO postgres;
-
 --
 -- TOC entry 472 (class 1259 OID 41717)
 
@@ -19798,10 +18214,7 @@ CREATE TABLE public.ride_completion_log (
     ride_id uuid NOT NULL,
     processed_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ride_completion_log OWNER TO postgres;
-
 --
 -- TOC entry 431 (class 1259 OID 39958)
 
@@ -19817,10 +18230,7 @@ CREATE TABLE public.ride_events (
     payload jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ride_events OWNER TO postgres;
-
 --
 -- TOC entry 432 (class 1259 OID 39965)
 
@@ -19833,10 +18243,7 @@ CREATE SEQUENCE public.ride_events_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.ride_events_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10274 (class 0 OID 0)
 -- Dependencies: 432
@@ -19845,8 +18252,6 @@ ALTER SEQUENCE public.ride_events_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.ride_events_id_seq OWNED BY public.ride_events.id;
-
-
 --
 -- TOC entry 433 (class 1259 OID 39966)
 
@@ -19872,10 +18277,7 @@ CREATE TABLE public.ride_incidents (
     loc extensions.geography(Point,4326) GENERATED ALWAYS AS ((extensions.st_setsrid(extensions.st_makepoint(lng, lat), 4326))::extensions.geography) STORED,
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL
 );
-
-
 ALTER TABLE public.ride_incidents OWNER TO postgres;
-
 --
 -- TOC entry 479 (class 1259 OID 43615)
 
@@ -19908,10 +18310,7 @@ CREATE TABLE public.ride_intents (
     CONSTRAINT ride_intents_pickup_lat_check CHECK (((pickup_lat >= ('-90'::integer)::double precision) AND (pickup_lat <= (90)::double precision))),
     CONSTRAINT ride_intents_pickup_lng_check CHECK (((pickup_lng >= ('-180'::integer)::double precision) AND (pickup_lng <= (180)::double precision)))
 );
-
-
 ALTER TABLE public.ride_intents OWNER TO postgres;
-
 --
 -- TOC entry 468 (class 1259 OID 41198)
 
@@ -19929,10 +18328,7 @@ CREATE TABLE public.ride_products (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ride_products OWNER TO postgres;
-
 --
 -- TOC entry 434 (class 1259 OID 39976)
 
@@ -19951,10 +18347,7 @@ CREATE TABLE public.ride_ratings (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT ride_ratings_rating_check CHECK (((rating >= 1) AND (rating <= 5)))
 );
-
-
 ALTER TABLE public.ride_ratings OWNER TO postgres;
-
 --
 -- TOC entry 435 (class 1259 OID 39984)
 
@@ -19973,10 +18366,7 @@ CREATE TABLE public.ride_receipts (
     refunded_at timestamp with time zone,
     receipt_status public.ride_receipt_status DEFAULT 'paid'::public.ride_receipt_status NOT NULL
 );
-
-
 ALTER TABLE public.ride_receipts OWNER TO postgres;
-
 --
 -- TOC entry 486 (class 1259 OID 43827)
 
@@ -19993,12 +18383,8 @@ CREATE TABLE public.ridecheck_events (
     resolved_at timestamp with time zone,
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL
 );
-
 ALTER TABLE ONLY public.ridecheck_events REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.ridecheck_events OWNER TO postgres;
-
 --
 -- TOC entry 487 (class 1259 OID 43847)
 
@@ -20015,12 +18401,8 @@ CREATE TABLE public.ridecheck_responses (
     note text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
 ALTER TABLE ONLY public.ridecheck_responses REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.ridecheck_responses OWNER TO postgres;
-
 --
 -- TOC entry 485 (class 1259 OID 43811)
 
@@ -20036,10 +18418,7 @@ CREATE TABLE public.ridecheck_state (
     last_move_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.ridecheck_state OWNER TO postgres;
-
 --
 -- TOC entry 555 (class 1259 OID 63837)
 
@@ -20061,10 +18440,7 @@ CREATE TABLE public.safety_mismatch_reports (
     review_notes text,
     CONSTRAINT safety_mismatch_reports_report_type_check CHECK ((report_type = ANY (ARRAY['mismatch'::text, 'harassment'::text, 'safety_concern'::text, 'other'::text])))
 );
-
-
 ALTER TABLE public.safety_mismatch_reports OWNER TO postgres;
-
 --
 -- TOC entry 554 (class 1259 OID 63811)
 
@@ -20082,10 +18458,7 @@ CREATE TABLE public.safety_preferences (
     women_preferences_eligible boolean DEFAULT false NOT NULL,
     is_teen boolean DEFAULT false NOT NULL
 );
-
-
 ALTER TABLE public.safety_preferences OWNER TO postgres;
-
 --
 -- TOC entry 477 (class 1259 OID 43545)
 
@@ -20118,10 +18491,7 @@ CREATE TABLE public.scheduled_rides (
     payment_method public.ride_payment_method DEFAULT 'wallet'::public.ride_payment_method NOT NULL,
     payment_status public.ride_payment_status DEFAULT 'unpaid'::public.ride_payment_status NOT NULL
 );
-
-
 ALTER TABLE public.scheduled_rides OWNER TO postgres;
-
 --
 -- TOC entry 478 (class 1259 OID 43576)
 
@@ -20147,10 +18517,7 @@ CREATE TABLE public.service_areas (
     CONSTRAINT service_areas_cash_rounding_step_check CHECK ((cash_rounding_step_iqd >= 1)),
     CONSTRAINT service_areas_surge_multiplier_check CHECK ((surge_multiplier >= 1.0))
 );
-
-
 ALTER TABLE public.service_areas OWNER TO postgres;
-
 --
 -- TOC entry 10287 (class 0 OID 0)
 -- Dependencies: 478
@@ -20159,8 +18526,6 @@ ALTER TABLE public.service_areas OWNER TO postgres;
 --
 
 COMMENT ON COLUMN public.service_areas.min_base_fare_iqd IS 'Optional minimum base fare override (IQD) for rides in this service area.';
-
-
 --
 -- TOC entry 10288 (class 0 OID 0)
 -- Dependencies: 478
@@ -20169,8 +18534,6 @@ COMMENT ON COLUMN public.service_areas.min_base_fare_iqd IS 'Optional minimum ba
 --
 
 COMMENT ON COLUMN public.service_areas.surge_multiplier IS 'Ops-controlled raw surge multiplier for this service area (>= 1.0). Capped by pricing_configs.max_surge_multiplier.';
-
-
 --
 -- TOC entry 10289 (class 0 OID 0)
 -- Dependencies: 478
@@ -20179,8 +18542,6 @@ COMMENT ON COLUMN public.service_areas.surge_multiplier IS 'Ops-controlled raw s
 --
 
 COMMENT ON COLUMN public.service_areas.match_radius_m IS 'Default match radius in meters for dispatch in this service area.';
-
-
 --
 -- TOC entry 10290 (class 0 OID 0)
 -- Dependencies: 478
@@ -20189,8 +18550,6 @@ COMMENT ON COLUMN public.service_areas.match_radius_m IS 'Default match radius i
 --
 
 COMMENT ON COLUMN public.service_areas.driver_loc_stale_after_seconds IS 'Driver location freshness window (seconds) used for dispatch in this service area.';
-
-
 --
 -- TOC entry 531 (class 1259 OID 63001)
 
@@ -20207,10 +18566,7 @@ CREATE TABLE public.settlement_accounts (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT settlement_accounts_balance_check CHECK (((balance_iqd >= '-9223372036854775807'::bigint) AND (balance_iqd <= '9223372036854775807'::bigint)))
 );
-
-
 ALTER TABLE public.settlement_accounts OWNER TO postgres;
-
 --
 -- TOC entry 537 (class 1259 OID 63147)
 
@@ -20235,10 +18591,7 @@ CREATE TABLE public.settlement_payment_requests (
     CONSTRAINT settlement_payment_requests_amount_check CHECK ((amount_iqd > 0)),
     CONSTRAINT settlement_payment_requests_party_check CHECK ((party_type = ANY (ARRAY['driver'::public.settlement_party_type, 'merchant'::public.settlement_party_type])))
 );
-
-
 ALTER TABLE public.settlement_payment_requests OWNER TO postgres;
-
 --
 -- TOC entry 538 (class 1259 OID 63163)
 
@@ -20263,10 +18616,7 @@ CREATE TABLE public.settlement_payout_requests (
     CONSTRAINT settlement_payout_requests_amount_check CHECK ((amount_iqd > 0)),
     CONSTRAINT settlement_payout_requests_party_check CHECK ((party_type = ANY (ARRAY['driver'::public.settlement_party_type, 'merchant'::public.settlement_party_type])))
 );
-
-
 ALTER TABLE public.settlement_payout_requests OWNER TO postgres;
-
 --
 -- TOC entry 536 (class 1259 OID 63121)
 
@@ -20288,10 +18638,7 @@ CREATE TABLE public.settlement_payouts (
     payout_no text,
     CONSTRAINT settlement_payouts_amount_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.settlement_payouts OWNER TO postgres;
-
 --
 -- TOC entry 534 (class 1259 OID 63056)
 
@@ -20313,10 +18660,7 @@ CREATE TABLE public.settlement_receipts (
     receipt_no text,
     CONSTRAINT settlement_receipts_amount_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.settlement_receipts OWNER TO postgres;
-
 --
 -- TOC entry 572 (class 1259 OID 64476)
 
@@ -20332,10 +18676,7 @@ CREATE TABLE public.shift_progress (
     online_minutes integer DEFAULT 0 NOT NULL,
     avg_rating numeric
 );
-
-
 ALTER TABLE public.shift_progress OWNER TO postgres;
-
 --
 -- TOC entry 480 (class 1259 OID 43676)
 
@@ -20353,10 +18694,7 @@ CREATE TABLE public.sos_events (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     resolved_at timestamp with time zone
 );
-
-
 ALTER TABLE public.sos_events OWNER TO postgres;
-
 --
 -- TOC entry 482 (class 1259 OID 43717)
 
@@ -20375,10 +18713,7 @@ CREATE TABLE public.support_articles (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.support_articles OWNER TO postgres;
-
 --
 -- TOC entry 459 (class 1259 OID 40824)
 
@@ -20396,10 +18731,7 @@ CREATE TABLE public.support_categories (
     key text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.support_categories OWNER TO postgres;
-
 --
 -- TOC entry 461 (class 1259 OID 40861)
 
@@ -20416,10 +18748,7 @@ CREATE TABLE public.support_messages (
     body text,
     attachments jsonb DEFAULT '[]'::jsonb NOT NULL
 );
-
-
 ALTER TABLE public.support_messages OWNER TO postgres;
-
 --
 -- TOC entry 481 (class 1259 OID 43703)
 
@@ -20435,10 +18764,7 @@ CREATE TABLE public.support_sections (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.support_sections OWNER TO postgres;
-
 --
 -- TOC entry 460 (class 1259 OID 40833)
 
@@ -20461,10 +18787,7 @@ CREATE TABLE public.support_tickets (
     assigned_to uuid,
     resolved_at timestamp with time zone
 );
-
-
 ALTER TABLE public.support_tickets OWNER TO postgres;
-
 --
 -- TOC entry 526 (class 1259 OID 62073)
 
@@ -20495,10 +18818,7 @@ CREATE VIEW public.support_ticket_summaries WITH (security_invoker='on') AS
            FROM public.support_messages m
           WHERE (m.ticket_id = t.id)) AS messages_count
    FROM public.support_tickets t;
-
-
 ALTER VIEW public.support_ticket_summaries OWNER TO postgres;
-
 --
 -- TOC entry 437 (class 1259 OID 40013)
 
@@ -20517,10 +18837,7 @@ CREATE TABLE public.topup_packages (
     CONSTRAINT topup_packages_amount_iqd_check CHECK ((amount_iqd > 0)),
     CONSTRAINT topup_packages_bonus_iqd_check CHECK ((bonus_iqd >= 0))
 );
-
-
 ALTER TABLE public.topup_packages OWNER TO postgres;
-
 --
 -- TOC entry 465 (class 1259 OID 40961)
 
@@ -20538,10 +18855,7 @@ CREATE TABLE public.trip_share_tokens (
     token_hash text,
     CONSTRAINT trip_share_tokens_token_or_hash_chk CHECK (((token_hash IS NOT NULL) OR (token IS NOT NULL)))
 );
-
-
 ALTER TABLE public.trip_share_tokens OWNER TO postgres;
-
 --
 -- TOC entry 484 (class 1259 OID 43767)
 
@@ -20558,10 +18872,7 @@ CREATE TABLE public.trusted_contact_events (
     payload jsonb DEFAULT '{}'::jsonb NOT NULL,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.trusted_contact_events OWNER TO postgres;
-
 --
 -- TOC entry 488 (class 1259 OID 43966)
 
@@ -20588,10 +18899,7 @@ CREATE TABLE public.trusted_contact_outbox (
     last_http_status integer,
     last_response text
 );
-
-
 ALTER TABLE public.trusted_contact_outbox OWNER TO postgres;
-
 --
 -- TOC entry 458 (class 1259 OID 40790)
 
@@ -20608,10 +18916,7 @@ CREATE TABLE public.trusted_contacts (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     phone_e164 text
 );
-
-
 ALTER TABLE public.trusted_contacts OWNER TO postgres;
-
 --
 -- TOC entry 471 (class 1259 OID 41699)
 
@@ -20628,10 +18933,7 @@ CREATE TABLE public.user_device_tokens (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     last_seen_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.user_device_tokens OWNER TO postgres;
-
 --
 -- TOC entry 518 (class 1259 OID 56390)
 
@@ -20654,10 +18956,7 @@ CREATE TABLE public.user_interest_targets (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT user_interest_targets_max_per_week_check CHECK ((max_per_week >= 0))
 );
-
-
 ALTER TABLE public.user_interest_targets OWNER TO postgres;
-
 --
 -- TOC entry 438 (class 1259 OID 40026)
 
@@ -20674,10 +18973,7 @@ CREATE TABLE public.user_notifications (
     created_at timestamp with time zone DEFAULT now() NOT NULL,
     read_at timestamp with time zone
 );
-
-
 ALTER TABLE public.user_notifications OWNER TO postgres;
-
 --
 -- TOC entry 577 (class 1259 OID 64585)
 
@@ -20708,10 +19004,7 @@ CREATE TABLE public.user_passkeys (
     webauthn_device_type text,
     CONSTRAINT user_passkeys_webauthn_device_type_check CHECK (((webauthn_device_type IS NULL) OR (webauthn_device_type = ANY (ARRAY['singleDevice'::text, 'multiDevice'::text]))))
 );
-
-
 ALTER TABLE public.user_passkeys OWNER TO postgres;
-
 --
 -- TOC entry 483 (class 1259 OID 43747)
 
@@ -20728,10 +19021,7 @@ CREATE TABLE public.user_safety_settings (
     pin_verification_mode public.pin_verification_mode DEFAULT 'off'::public.pin_verification_mode NOT NULL,
     CONSTRAINT user_safety_settings_ttl_ck CHECK (((default_share_ttl_minutes >= 5) AND (default_share_ttl_minutes <= 1440)))
 );
-
-
 ALTER TABLE public.user_safety_settings OWNER TO postgres;
-
 --
 -- TOC entry 517 (class 1259 OID 55226)
 
@@ -20746,12 +19036,8 @@ CREATE TABLE public.voice_call_participants (
     joined_at timestamp with time zone,
     left_at timestamp with time zone
 );
-
 ALTER TABLE ONLY public.voice_call_participants REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.voice_call_participants OWNER TO postgres;
-
 --
 -- TOC entry 516 (class 1259 OID 55199)
 
@@ -20775,12 +19061,8 @@ CREATE TABLE public.voice_calls (
     ended_at timestamp with time zone,
     metadata jsonb DEFAULT '{}'::jsonb NOT NULL
 );
-
 ALTER TABLE ONLY public.voice_calls REPLICA IDENTITY FULL;
-
-
 ALTER TABLE public.voice_calls OWNER TO postgres;
-
 --
 -- TOC entry 439 (class 1259 OID 40034)
 
@@ -20799,10 +19081,7 @@ CREATE TABLE public.wallet_entries (
     idempotency_key text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.wallet_entries OWNER TO postgres;
-
 --
 -- TOC entry 440 (class 1259 OID 40041)
 
@@ -20815,10 +19094,7 @@ CREATE SEQUENCE public.wallet_entries_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
-
-
 ALTER SEQUENCE public.wallet_entries_id_seq OWNER TO postgres;
-
 --
 -- TOC entry 10318 (class 0 OID 0)
 -- Dependencies: 440
@@ -20827,8 +19103,6 @@ ALTER SEQUENCE public.wallet_entries_id_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE public.wallet_entries_id_seq OWNED BY public.wallet_entries.id;
-
-
 --
 -- TOC entry 441 (class 1259 OID 40042)
 
@@ -20850,10 +19124,7 @@ CREATE TABLE public.wallet_holds (
     withdraw_request_id uuid,
     CONSTRAINT wallet_holds_amount_iqd_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.wallet_holds OWNER TO postgres;
-
 --
 -- TOC entry 496 (class 1259 OID 44453)
 
@@ -20877,10 +19148,7 @@ CREATE TABLE public.wallet_payout_attempts (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     CONSTRAINT wallet_payout_attempts_amount_iqd_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.wallet_payout_attempts OWNER TO postgres;
-
 --
 -- TOC entry 495 (class 1259 OID 44425)
 
@@ -20898,10 +19166,7 @@ CREATE TABLE public.wallet_withdraw_audit_log (
     note text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.wallet_withdraw_audit_log OWNER TO postgres;
-
 --
 -- TOC entry 442 (class 1259 OID 40053)
 
@@ -20915,10 +19180,7 @@ CREATE TABLE public.wallet_withdraw_payout_methods (
     updated_at timestamp with time zone DEFAULT now() NOT NULL,
     updated_by uuid
 );
-
-
 ALTER TABLE public.wallet_withdraw_payout_methods OWNER TO postgres;
-
 --
 -- TOC entry 443 (class 1259 OID 40059)
 
@@ -20943,10 +19205,7 @@ CREATE TABLE public.wallet_withdraw_requests (
     rejected_at timestamp with time zone,
     CONSTRAINT wallet_withdraw_requests_amount_iqd_check CHECK ((amount_iqd > 0))
 );
-
-
 ALTER TABLE public.wallet_withdraw_requests OWNER TO postgres;
-
 --
 -- TOC entry 444 (class 1259 OID 40070)
 
@@ -20967,10 +19226,7 @@ CREATE TABLE public.wallet_withdrawal_policy (
     updated_by uuid,
     CONSTRAINT wallet_withdrawal_policy_id_check CHECK ((id = 1))
 );
-
-
 ALTER TABLE public.wallet_withdrawal_policy OWNER TO postgres;
-
 --
 -- TOC entry 578 (class 1259 OID 64611)
 
@@ -20989,10 +19245,7 @@ CREATE TABLE public.webauthn_challenges (
     used_at timestamp with time zone,
     CONSTRAINT webauthn_challenges_challenge_type_check CHECK ((challenge_type = ANY (ARRAY['registration'::text, 'authentication'::text])))
 );
-
-
 ALTER TABLE public.webauthn_challenges OWNER TO postgres;
-
 --
 -- TOC entry 545 (class 1259 OID 63549)
 
@@ -21007,10 +19260,7 @@ CREATE TABLE public.webhook_job_attempts (
     error_message text,
     created_at timestamp with time zone DEFAULT now() NOT NULL
 );
-
-
 ALTER TABLE public.webhook_job_attempts OWNER TO postgres;
-
 --
 -- TOC entry 390 (class 1259 OID 17239)
 
@@ -21018,8 +19268,6 @@ ALTER TABLE public.webhook_job_attempts OWNER TO postgres;
 --
 
 ALTER TABLE ONLY public.admin_audit_log ALTER COLUMN id SET DEFAULT nextval('public.admin_audit_log_id_seq'::regclass);
-
-
 --
 -- TOC entry 6162 (class 2604 OID 40586)
 
@@ -21027,8 +19275,6 @@ ALTER TABLE ONLY public.admin_audit_log ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.device_tokens ALTER COLUMN id SET DEFAULT nextval('public.device_tokens_id_seq'::regclass);
-
-
 --
 -- TOC entry 6723 (class 2604 OID 66212)
 
@@ -21036,8 +19282,6 @@ ALTER TABLE ONLY public.device_tokens ALTER COLUMN id SET DEFAULT nextval('publi
 --
 
 ALTER TABLE ONLY public.maps_requests_log ALTER COLUMN id SET DEFAULT nextval('public.maps_requests_log_id_seq'::regclass);
-
-
 --
 -- TOC entry 6167 (class 2604 OID 40611)
 
@@ -21045,8 +19289,6 @@ ALTER TABLE ONLY public.maps_requests_log ALTER COLUMN id SET DEFAULT nextval('p
 --
 
 ALTER TABLE ONLY public.notification_outbox ALTER COLUMN id SET DEFAULT nextval('public.notification_outbox_id_seq'::regclass);
-
-
 --
 -- TOC entry 6359 (class 2604 OID 44484)
 
@@ -21054,8 +19296,6 @@ ALTER TABLE ONLY public.notification_outbox ALTER COLUMN id SET DEFAULT nextval(
 --
 
 ALTER TABLE ONLY public.payout_idempotency ALTER COLUMN id SET DEFAULT nextval('public.payout_idempotency_id_seq'::regclass);
-
-
 --
 -- TOC entry 6086 (class 2604 OID 40084)
 
@@ -21063,8 +19303,6 @@ ALTER TABLE ONLY public.payout_idempotency ALTER COLUMN id SET DEFAULT nextval('
 --
 
 ALTER TABLE ONLY public.provider_events ALTER COLUMN id SET DEFAULT nextval('public.provider_events_id_seq'::regclass);
-
-
 --
 -- TOC entry 6089 (class 2604 OID 40085)
 
@@ -21072,8 +19310,6 @@ ALTER TABLE ONLY public.provider_events ALTER COLUMN id SET DEFAULT nextval('pub
 --
 
 ALTER TABLE ONLY public.ride_events ALTER COLUMN id SET DEFAULT nextval('public.ride_events_id_seq'::regclass);
-
-
 --
 -- TOC entry 6132 (class 2604 OID 40086)
 
@@ -21081,8 +19317,6 @@ ALTER TABLE ONLY public.ride_events ALTER COLUMN id SET DEFAULT nextval('public.
 --
 
 ALTER TABLE ONLY public.wallet_entries ALTER COLUMN id SET DEFAULT nextval('public.wallet_entries_id_seq'::regclass);
-
-
 --
 -- TOC entry 6451 (class 2604 OID 56541)
 
@@ -21091,8 +19325,6 @@ ALTER TABLE ONLY public.wallet_entries ALTER COLUMN id SET DEFAULT nextval('publ
 
 ALTER TABLE ONLY public.achievement_progress
     ADD CONSTRAINT achievement_progress_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7214 (class 2606 OID 40706)
 
@@ -21101,8 +19333,6 @@ ALTER TABLE ONLY public.achievement_progress
 
 ALTER TABLE ONLY public.achievement_progress
     ADD CONSTRAINT achievement_progress_user_id_achievement_id_key UNIQUE (user_id, achievement_id);
-
-
 --
 -- TOC entry 7207 (class 2606 OID 41850)
 
@@ -21111,8 +19341,6 @@ ALTER TABLE ONLY public.achievement_progress
 
 ALTER TABLE ONLY public.achievements
     ADD CONSTRAINT achievements_key_unique UNIQUE (key);
-
-
 --
 -- TOC entry 7209 (class 2606 OID 40693)
 
@@ -21121,8 +19349,6 @@ ALTER TABLE ONLY public.achievements
 
 ALTER TABLE ONLY public.achievements
     ADD CONSTRAINT achievements_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7682 (class 2606 OID 64151)
 
@@ -21131,8 +19357,6 @@ ALTER TABLE ONLY public.achievements
 
 ALTER TABLE ONLY public.addon_offers
     ADD CONSTRAINT addon_offers_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7395 (class 2606 OID 44411)
 
@@ -21141,8 +19365,6 @@ ALTER TABLE ONLY public.addon_offers
 
 ALTER TABLE ONLY public.admin_audit_log
     ADD CONSTRAINT admin_audit_log_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7392 (class 2606 OID 44383)
 
@@ -21151,8 +19373,6 @@ ALTER TABLE ONLY public.admin_audit_log
 
 ALTER TABLE ONLY public.admin_users
     ADD CONSTRAINT admin_users_pkey PRIMARY KEY (user_id);
-
-
 --
 -- TOC entry 7581 (class 2606 OID 63318)
 
@@ -21161,8 +19381,6 @@ ALTER TABLE ONLY public.admin_users
 
 ALTER TABLE ONLY public.agent_daily_counters
     ADD CONSTRAINT agent_daily_counters_pkey PRIMARY KEY (agent_id, day);
-
-
 --
 -- TOC entry 7050 (class 2606 OID 40088)
 
@@ -21171,8 +19389,6 @@ ALTER TABLE ONLY public.agent_daily_counters
 
 ALTER TABLE ONLY public.api_rate_limits
     ADD CONSTRAINT api_rate_limits_pkey PRIMARY KEY (key, window_start, window_seconds);
-
-
 --
 -- TOC entry 7052 (class 2606 OID 40090)
 
@@ -21181,8 +19397,6 @@ ALTER TABLE ONLY public.api_rate_limits
 
 ALTER TABLE ONLY public.app_events
     ADD CONSTRAINT app_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7488 (class 2606 OID 55162)
 
@@ -21191,8 +19405,6 @@ ALTER TABLE ONLY public.app_events
 
 ALTER TABLE ONLY public.auth_sms_hook_events
     ADD CONSTRAINT auth_sms_hook_events_pkey PRIMARY KEY (webhook_id);
-
-
 --
 -- TOC entry 7577 (class 2606 OID 63308)
 
@@ -21201,8 +19413,6 @@ ALTER TABLE ONLY public.auth_sms_hook_events
 
 ALTER TABLE ONLY public.cash_agents
     ADD CONSTRAINT cash_agents_code_uq UNIQUE (code);
-
-
 --
 -- TOC entry 7579 (class 2606 OID 63306)
 
@@ -21211,8 +19421,6 @@ ALTER TABLE ONLY public.cash_agents
 
 ALTER TABLE ONLY public.cash_agents
     ADD CONSTRAINT cash_agents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7552 (class 2606 OID 63042)
 
@@ -21221,8 +19429,6 @@ ALTER TABLE ONLY public.cash_agents
 
 ALTER TABLE ONLY public.cash_collections
     ADD CONSTRAINT cash_collections_pkey PRIMARY KEY (ride_id);
-
-
 --
 -- TOC entry 7583 (class 2606 OID 63353)
 
@@ -21231,8 +19437,6 @@ ALTER TABLE ONLY public.cash_collections
 
 ALTER TABLE ONLY public.cashbox_daily_closings
     ADD CONSTRAINT cashbox_daily_closings_idem_uq UNIQUE (idempotency_key);
-
-
 --
 -- TOC entry 7585 (class 2606 OID 63349)
 
@@ -21241,8 +19445,6 @@ ALTER TABLE ONLY public.cashbox_daily_closings
 
 ALTER TABLE ONLY public.cashbox_daily_closings
     ADD CONSTRAINT cashbox_daily_closings_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7587 (class 2606 OID 63351)
 
@@ -21251,8 +19453,6 @@ ALTER TABLE ONLY public.cashbox_daily_closings
 
 ALTER TABLE ONLY public.cashbox_daily_closings
     ADD CONSTRAINT cashbox_daily_closings_uq UNIQUE (agent_id, day);
-
-
 --
 -- TOC entry 7674 (class 2606 OID 64097)
 
@@ -21261,8 +19461,6 @@ ALTER TABLE ONLY public.cashbox_daily_closings
 
 ALTER TABLE ONLY public.concierge_feedback
     ADD CONSTRAINT concierge_feedback_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7670 (class 2606 OID 64077)
 
@@ -21271,8 +19469,6 @@ ALTER TABLE ONLY public.concierge_feedback
 
 ALTER TABLE ONLY public.concierge_sessions
     ADD CONSTRAINT concierge_sessions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7454 (class 2606 OID 44756)
 
@@ -21281,8 +19477,6 @@ ALTER TABLE ONLY public.concierge_sessions
 
 ALTER TABLE ONLY public.customer_addresses
     ADD CONSTRAINT customer_addresses_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7714 (class 2606 OID 64505)
 
@@ -21291,8 +19485,6 @@ ALTER TABLE ONLY public.customer_addresses
 
 ALTER TABLE ONLY public.demand_hotspots
     ADD CONSTRAINT demand_hotspots_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7179 (class 2606 OID 40593)
 
@@ -21301,8 +19493,6 @@ ALTER TABLE ONLY public.demand_hotspots
 
 ALTER TABLE ONLY public.device_tokens
     ADD CONSTRAINT device_tokens_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7181 (class 2606 OID 40595)
 
@@ -21311,8 +19501,6 @@ ALTER TABLE ONLY public.device_tokens
 
 ALTER TABLE ONLY public.device_tokens
     ADD CONSTRAINT device_tokens_token_key UNIQUE (token);
-
-
 --
 -- TOC entry 7723 (class 2606 OID 64535)
 
@@ -21321,8 +19509,6 @@ ALTER TABLE ONLY public.device_tokens
 
 ALTER TABLE ONLY public.driver_coaching_tips
     ADD CONSTRAINT driver_coaching_tips_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7194 (class 2606 OID 40640)
 
@@ -21331,8 +19517,6 @@ ALTER TABLE ONLY public.driver_coaching_tips
 
 ALTER TABLE ONLY public.driver_counters
     ADD CONSTRAINT driver_counters_pkey PRIMARY KEY (driver_id);
-
-
 --
 -- TOC entry 7324 (class 2606 OID 41836)
 
@@ -21341,8 +19525,6 @@ ALTER TABLE ONLY public.driver_counters
 
 ALTER TABLE ONLY public.driver_leaderboard_daily
     ADD CONSTRAINT driver_leaderboard_daily_pkey PRIMARY KEY (day, driver_id);
-
-
 --
 -- TOC entry 7061 (class 2606 OID 40092)
 
@@ -21351,8 +19533,6 @@ ALTER TABLE ONLY public.driver_leaderboard_daily
 
 ALTER TABLE ONLY public.driver_locations
     ADD CONSTRAINT driver_locations_pkey PRIMARY KEY (driver_id);
-
-
 --
 -- TOC entry 7200 (class 2606 OID 61686)
 
@@ -21361,8 +19541,6 @@ ALTER TABLE ONLY public.driver_locations
 
 ALTER TABLE ONLY public.driver_rank_snapshots
     ADD CONSTRAINT driver_rank_snapshots_period_period_start_driver_id_key UNIQUE (period, period_start, driver_id);
-
-
 --
 -- TOC entry 7202 (class 2606 OID 40669)
 
@@ -21371,8 +19549,6 @@ ALTER TABLE ONLY public.driver_rank_snapshots
 
 ALTER TABLE ONLY public.driver_rank_snapshots
     ADD CONSTRAINT driver_rank_snapshots_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7706 (class 2606 OID 64465)
 
@@ -21381,8 +19557,6 @@ ALTER TABLE ONLY public.driver_rank_snapshots
 
 ALTER TABLE ONLY public.driver_shifts
     ADD CONSTRAINT driver_shifts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7196 (class 2606 OID 40653)
 
@@ -21391,8 +19565,6 @@ ALTER TABLE ONLY public.driver_shifts
 
 ALTER TABLE ONLY public.driver_stats_daily
     ADD CONSTRAINT driver_stats_daily_pkey PRIMARY KEY (driver_id, day);
-
-
 --
 -- TOC entry 7484 (class 2606 OID 45092)
 
@@ -21401,8 +19573,6 @@ ALTER TABLE ONLY public.driver_stats_daily
 
 ALTER TABLE ONLY public.driver_status_events
     ADD CONSTRAINT driver_status_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7066 (class 2606 OID 40094)
 
@@ -21411,8 +19581,6 @@ ALTER TABLE ONLY public.driver_status_events
 
 ALTER TABLE ONLY public.driver_vehicles
     ADD CONSTRAINT driver_vehicles_driver_id_key UNIQUE (driver_id);
-
-
 --
 -- TOC entry 7068 (class 2606 OID 40096)
 
@@ -21421,8 +19589,6 @@ ALTER TABLE ONLY public.driver_vehicles
 
 ALTER TABLE ONLY public.driver_vehicles
     ADD CONSTRAINT driver_vehicles_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7071 (class 2606 OID 40098)
 
@@ -21431,8 +19597,6 @@ ALTER TABLE ONLY public.driver_vehicles
 
 ALTER TABLE ONLY public.drivers
     ADD CONSTRAINT drivers_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7727 (class 2606 OID 64557)
 
@@ -21441,8 +19605,6 @@ ALTER TABLE ONLY public.drivers
 
 ALTER TABLE ONLY public.earnings_coach_sessions
     ADD CONSTRAINT earnings_coach_sessions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7718 (class 2606 OID 64520)
 
@@ -21451,8 +19613,6 @@ ALTER TABLE ONLY public.earnings_coach_sessions
 
 ALTER TABLE ONLY public.earnings_forecasts
     ADD CONSTRAINT earnings_forecasts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7720 (class 2606 OID 64522)
 
@@ -21461,8 +19621,6 @@ ALTER TABLE ONLY public.earnings_forecasts
 
 ALTER TABLE ONLY public.earnings_forecasts
     ADD CONSTRAINT earnings_forecasts_unique UNIQUE (forecast_date, hour_of_day, zone_id);
-
-
 --
 -- TOC entry 7757 (class 2606 OID 64974)
 
@@ -21471,8 +19629,6 @@ ALTER TABLE ONLY public.earnings_forecasts
 
 ALTER TABLE ONLY public.edge_webhook_outbox
     ADD CONSTRAINT edge_webhook_outbox_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7635 (class 2606 OID 63871)
 
@@ -21481,8 +19637,6 @@ ALTER TABLE ONLY public.edge_webhook_outbox
 
 ALTER TABLE ONLY public.families
     ADD CONSTRAINT families_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7638 (class 2606 OID 63888)
 
@@ -21491,8 +19645,6 @@ ALTER TABLE ONLY public.families
 
 ALTER TABLE ONLY public.family_members
     ADD CONSTRAINT family_members_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7531 (class 2606 OID 62284)
 
@@ -21501,8 +19653,6 @@ ALTER TABLE ONLY public.family_members
 
 ALTER TABLE ONLY public.fare_quotes
     ADD CONSTRAINT fare_quotes_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7702 (class 2606 OID 64236)
 
@@ -21511,8 +19661,6 @@ ALTER TABLE ONLY public.fare_quotes
 
 ALTER TABLE ONLY public.fee_disclosures
     ADD CONSTRAINT fee_disclosures_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7704 (class 2606 OID 64238)
 
@@ -21521,8 +19669,6 @@ ALTER TABLE ONLY public.fee_disclosures
 
 ALTER TABLE ONLY public.fee_disclosures
     ADD CONSTRAINT fee_disclosures_unique UNIQUE (fee_type, locale);
-
-
 --
 -- TOC entry 7621 (class 2606 OID 63722)
 
@@ -21531,8 +19677,6 @@ ALTER TABLE ONLY public.fee_disclosures
 
 ALTER TABLE ONLY public.fraud_case_events
     ADD CONSTRAINT fraud_case_events_pkey PRIMARY KEY (case_id, event_id);
-
-
 --
 -- TOC entry 7619 (class 2606 OID 63716)
 
@@ -21541,8 +19685,6 @@ ALTER TABLE ONLY public.fraud_case_events
 
 ALTER TABLE ONLY public.fraud_cases
     ADD CONSTRAINT fraud_cases_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7626 (class 2606 OID 63745)
 
@@ -21551,8 +19693,6 @@ ALTER TABLE ONLY public.fraud_cases
 
 ALTER TABLE ONLY public.fraud_enforcement_actions
     ADD CONSTRAINT fraud_enforcement_actions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7615 (class 2606 OID 63701)
 
@@ -21561,8 +19701,6 @@ ALTER TABLE ONLY public.fraud_enforcement_actions
 
 ALTER TABLE ONLY public.fraud_events
     ADD CONSTRAINT fraud_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7777 (class 2606 OID 66236)
 
@@ -21571,8 +19709,6 @@ ALTER TABLE ONLY public.fraud_events
 
 ALTER TABLE ONLY public.geo_cache
     ADD CONSTRAINT geo_cache_pkey PRIMARY KEY (cache_key);
-
-
 --
 -- TOC entry 7014 (class 2606 OID 40100)
 
@@ -21581,8 +19717,6 @@ ALTER TABLE ONLY public.geo_cache
 
 ALTER TABLE ONLY public.gift_codes
     ADD CONSTRAINT gift_codes_pkey PRIMARY KEY (code);
-
-
 --
 -- TOC entry 7296 (class 2606 OID 41388)
 
@@ -21591,8 +19725,6 @@ ALTER TABLE ONLY public.gift_codes
 
 ALTER TABLE ONLY public.kyc_document_types
     ADD CONSTRAINT kyc_document_types_key_key UNIQUE (key);
-
-
 --
 -- TOC entry 7298 (class 2606 OID 41386)
 
@@ -21601,8 +19733,6 @@ ALTER TABLE ONLY public.kyc_document_types
 
 ALTER TABLE ONLY public.kyc_document_types
     ADD CONSTRAINT kyc_document_types_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7292 (class 2606 OID 41022)
 
@@ -21611,8 +19741,6 @@ ALTER TABLE ONLY public.kyc_document_types
 
 ALTER TABLE ONLY public.kyc_documents
     ADD CONSTRAINT kyc_documents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7302 (class 2606 OID 41404)
 
@@ -21621,8 +19749,6 @@ ALTER TABLE ONLY public.kyc_documents
 
 ALTER TABLE ONLY public.kyc_liveness_sessions
     ADD CONSTRAINT kyc_liveness_sessions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7285 (class 2606 OID 41000)
 
@@ -21631,8 +19757,6 @@ ALTER TABLE ONLY public.kyc_liveness_sessions
 
 ALTER TABLE ONLY public.kyc_submissions
     ADD CONSTRAINT kyc_submissions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7666 (class 2606 OID 64055)
 
@@ -21641,8 +19765,6 @@ ALTER TABLE ONLY public.kyc_submissions
 
 ALTER TABLE ONLY public.live_activity_throttle_config
     ADD CONSTRAINT live_activity_throttle_config_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7668 (class 2606 OID 64057)
 
@@ -21651,8 +19773,6 @@ ALTER TABLE ONLY public.live_activity_throttle_config
 
 ALTER TABLE ONLY public.live_activity_throttle_config
     ADD CONSTRAINT live_activity_throttle_config_platform_key UNIQUE (platform);
-
-
 --
 -- TOC entry 7769 (class 2606 OID 66197)
 
@@ -21661,8 +19781,6 @@ ALTER TABLE ONLY public.live_activity_throttle_config
 
 ALTER TABLE ONLY public.maps_provider_capabilities
     ADD CONSTRAINT maps_provider_capabilities_pkey PRIMARY KEY (provider_code, capability);
-
-
 --
 -- TOC entry 7781 (class 2606 OID 66257)
 
@@ -21671,8 +19789,6 @@ ALTER TABLE ONLY public.maps_provider_capabilities
 
 ALTER TABLE ONLY public.maps_provider_health
     ADD CONSTRAINT maps_provider_health_pkey PRIMARY KEY (provider_code, capability);
-
-
 --
 -- TOC entry 7764 (class 2606 OID 66162)
 
@@ -21681,8 +19797,6 @@ ALTER TABLE ONLY public.maps_provider_health
 
 ALTER TABLE ONLY public.maps_providers
     ADD CONSTRAINT maps_providers_pkey PRIMARY KEY (provider_code);
-
-
 --
 -- TOC entry 7775 (class 2606 OID 66222)
 
@@ -21691,8 +19805,6 @@ ALTER TABLE ONLY public.maps_providers
 
 ALTER TABLE ONLY public.maps_requests_log
     ADD CONSTRAINT maps_requests_log_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7767 (class 2606 OID 66173)
 
@@ -21701,8 +19813,6 @@ ALTER TABLE ONLY public.maps_requests_log
 
 ALTER TABLE ONLY public.maps_usage_daily
     ADD CONSTRAINT maps_usage_daily_pkey PRIMARY KEY (day, provider_code, capability);
-
-
 --
 -- TOC entry 7687 (class 2606 OID 64181)
 
@@ -21711,8 +19821,6 @@ ALTER TABLE ONLY public.maps_usage_daily
 
 ALTER TABLE ONLY public.membership_plans
     ADD CONSTRAINT membership_plans_code_key UNIQUE (code);
-
-
 --
 -- TOC entry 7689 (class 2606 OID 64179)
 
@@ -21721,8 +19829,6 @@ ALTER TABLE ONLY public.membership_plans
 
 ALTER TABLE ONLY public.membership_plans
     ADD CONSTRAINT membership_plans_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7695 (class 2606 OID 64193)
 
@@ -21731,8 +19837,6 @@ ALTER TABLE ONLY public.membership_plans
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7519 (class 2606 OID 56497)
 
@@ -21741,8 +19845,6 @@ ALTER TABLE ONLY public.memberships
 
 ALTER TABLE ONLY public.merchant_chat_ai_receipts
     ADD CONSTRAINT merchant_chat_ai_receipts_pkey PRIMARY KEY (message_id);
-
-
 --
 -- TOC entry 7517 (class 2606 OID 56476)
 
@@ -21751,8 +19853,6 @@ ALTER TABLE ONLY public.merchant_chat_ai_receipts
 
 ALTER TABLE ONLY public.merchant_chat_ai_settings
     ADD CONSTRAINT merchant_chat_ai_settings_pkey PRIMARY KEY (thread_id);
-
-
 --
 -- TOC entry 7449 (class 2606 OID 44698)
 
@@ -21761,8 +19861,6 @@ ALTER TABLE ONLY public.merchant_chat_ai_settings
 
 ALTER TABLE ONLY public.merchant_chat_messages
     ADD CONSTRAINT merchant_chat_messages_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7442 (class 2606 OID 44671)
 
@@ -21771,8 +19869,6 @@ ALTER TABLE ONLY public.merchant_chat_messages
 
 ALTER TABLE ONLY public.merchant_chat_threads
     ADD CONSTRAINT merchant_chat_threads_merchant_id_customer_id_key UNIQUE (merchant_id, customer_id);
-
-
 --
 -- TOC entry 7444 (class 2606 OID 44669)
 
@@ -21781,8 +19877,6 @@ ALTER TABLE ONLY public.merchant_chat_threads
 
 ALTER TABLE ONLY public.merchant_chat_threads
     ADD CONSTRAINT merchant_chat_threads_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7561 (class 2606 OID 63108)
 
@@ -21791,8 +19885,6 @@ ALTER TABLE ONLY public.merchant_chat_threads
 
 ALTER TABLE ONLY public.merchant_commission_configs
     ADD CONSTRAINT merchant_commission_configs_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7477 (class 2606 OID 44901)
 
@@ -21801,8 +19893,6 @@ ALTER TABLE ONLY public.merchant_commission_configs
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_order_id_key UNIQUE (order_id);
-
-
 --
 -- TOC entry 7479 (class 2606 OID 44899)
 
@@ -21811,8 +19901,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7482 (class 2606 OID 44938)
 
@@ -21821,8 +19909,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_delivery_events
     ADD CONSTRAINT merchant_order_delivery_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7467 (class 2606 OID 44827)
 
@@ -21831,8 +19917,6 @@ ALTER TABLE ONLY public.merchant_order_delivery_events
 
 ALTER TABLE ONLY public.merchant_order_items
     ADD CONSTRAINT merchant_order_items_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7471 (class 2606 OID 44865)
 
@@ -21841,8 +19925,6 @@ ALTER TABLE ONLY public.merchant_order_items
 
 ALTER TABLE ONLY public.merchant_order_status_events
     ADD CONSTRAINT merchant_order_status_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7463 (class 2606 OID 44793)
 
@@ -21851,8 +19933,6 @@ ALTER TABLE ONLY public.merchant_order_status_events
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7433 (class 2606 OID 44618)
 
@@ -21861,8 +19941,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_products
     ADD CONSTRAINT merchant_products_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7438 (class 2606 OID 44644)
 
@@ -21871,8 +19949,6 @@ ALTER TABLE ONLY public.merchant_products
 
 ALTER TABLE ONLY public.merchant_promotions
     ADD CONSTRAINT merchant_promotions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7452 (class 2606 OID 44727)
 
@@ -21881,8 +19957,6 @@ ALTER TABLE ONLY public.merchant_promotions
 
 ALTER TABLE ONLY public.merchant_status_audit_log
     ADD CONSTRAINT merchant_status_audit_log_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7422 (class 2606 OID 45063)
 
@@ -21891,8 +19965,6 @@ ALTER TABLE ONLY public.merchant_status_audit_log
 
 ALTER TABLE ONLY public.merchants
     ADD CONSTRAINT merchants_owner_profile_id_key UNIQUE (owner_profile_id);
-
-
 --
 -- TOC entry 7424 (class 2606 OID 44589)
 
@@ -21901,8 +19973,6 @@ ALTER TABLE ONLY public.merchants
 
 ALTER TABLE ONLY public.merchants
     ADD CONSTRAINT merchants_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7190 (class 2606 OID 45068)
 
@@ -21911,8 +19981,6 @@ ALTER TABLE ONLY public.merchants
 
 ALTER TABLE ONLY public.notification_outbox
     ADD CONSTRAINT notification_outbox_notification_device_key UNIQUE (notification_id, device_token_id);
-
-
 --
 -- TOC entry 7192 (class 2606 OID 40619)
 
@@ -21921,8 +19989,6 @@ ALTER TABLE ONLY public.notification_outbox
 
 ALTER TABLE ONLY public.notification_outbox
     ADD CONSTRAINT notification_outbox_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7612 (class 2606 OID 63617)
 
@@ -21931,8 +19997,6 @@ ALTER TABLE ONLY public.notification_outbox
 
 ALTER TABLE ONLY public.ops_alert_events
     ADD CONSTRAINT ops_alert_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7605 (class 2606 OID 63591)
 
@@ -21941,8 +20005,6 @@ ALTER TABLE ONLY public.ops_alert_events
 
 ALTER TABLE ONLY public.ops_alert_rules
     ADD CONSTRAINT ops_alert_rules_name_key UNIQUE (name);
-
-
 --
 -- TOC entry 7607 (class 2606 OID 63589)
 
@@ -21951,8 +20013,6 @@ ALTER TABLE ONLY public.ops_alert_rules
 
 ALTER TABLE ONLY public.ops_alert_rules
     ADD CONSTRAINT ops_alert_rules_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7609 (class 2606 OID 63601)
 
@@ -21961,8 +20021,6 @@ ALTER TABLE ONLY public.ops_alert_rules
 
 ALTER TABLE ONLY public.ops_alert_state
     ADD CONSTRAINT ops_alert_state_pkey PRIMARY KEY (rule_id);
-
-
 --
 -- TOC entry 7680 (class 2606 OID 64134)
 
@@ -21971,8 +20029,6 @@ ALTER TABLE ONLY public.ops_alert_state
 
 ALTER TABLE ONLY public.order_bundles
     ADD CONSTRAINT order_bundles_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7749 (class 2606 OID 64658)
 
@@ -21981,8 +20037,6 @@ ALTER TABLE ONLY public.order_bundles
 
 ALTER TABLE ONLY public.passkey_auth_log
     ADD CONSTRAINT passkey_auth_log_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7080 (class 2606 OID 40102)
 
@@ -21991,8 +20045,6 @@ ALTER TABLE ONLY public.passkey_auth_log
 
 ALTER TABLE ONLY public.payment_intents
     ADD CONSTRAINT payment_intents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7083 (class 2606 OID 40104)
 
@@ -22001,8 +20053,6 @@ ALTER TABLE ONLY public.payment_intents
 
 ALTER TABLE ONLY public.payment_providers
     ADD CONSTRAINT payment_providers_pkey PRIMARY KEY (code);
-
-
 --
 -- TOC entry 7088 (class 2606 OID 40106)
 
@@ -22011,8 +20061,6 @@ ALTER TABLE ONLY public.payment_providers
 
 ALTER TABLE ONLY public.payments
     ADD CONSTRAINT payments_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7406 (class 2606 OID 44491)
 
@@ -22021,8 +20069,6 @@ ALTER TABLE ONLY public.payments
 
 ALTER TABLE ONLY public.payout_idempotency
     ADD CONSTRAINT payout_idempotency_key_key UNIQUE (key);
-
-
 --
 -- TOC entry 7408 (class 2606 OID 44489)
 
@@ -22031,8 +20077,6 @@ ALTER TABLE ONLY public.payout_idempotency
 
 ALTER TABLE ONLY public.payout_idempotency
     ADD CONSTRAINT payout_idempotency_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7416 (class 2606 OID 44536)
 
@@ -22041,8 +20085,6 @@ ALTER TABLE ONLY public.payout_idempotency
 
 ALTER TABLE ONLY public.payout_provider_job_attempts
     ADD CONSTRAINT payout_provider_job_attempts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7412 (class 2606 OID 44504)
 
@@ -22051,8 +20093,6 @@ ALTER TABLE ONLY public.payout_provider_job_attempts
 
 ALTER TABLE ONLY public.payout_provider_jobs
     ADD CONSTRAINT payout_provider_jobs_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7543 (class 2606 OID 62998)
 
@@ -22061,8 +20101,6 @@ ALTER TABLE ONLY public.payout_provider_jobs
 
 ALTER TABLE ONLY public.platform_fee_configs
     ADD CONSTRAINT platform_fee_configs_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7093 (class 2606 OID 40108)
 
@@ -22071,8 +20109,6 @@ ALTER TABLE ONLY public.platform_fee_configs
 
 ALTER TABLE ONLY public.pricing_configs
     ADD CONSTRAINT pricing_configs_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7698 (class 2606 OID 64226)
 
@@ -22081,8 +20117,6 @@ ALTER TABLE ONLY public.pricing_configs
 
 ALTER TABLE ONLY public.pricing_rules
     ADD CONSTRAINT pricing_rules_code_key UNIQUE (code);
-
-
 --
 -- TOC entry 7700 (class 2606 OID 64224)
 
@@ -22091,8 +20125,6 @@ ALTER TABLE ONLY public.pricing_rules
 
 ALTER TABLE ONLY public.pricing_rules
     ADD CONSTRAINT pricing_rules_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7098 (class 2606 OID 40110)
 
@@ -22101,8 +20133,6 @@ ALTER TABLE ONLY public.pricing_rules
 
 ALTER TABLE ONLY public.profile_kyc
     ADD CONSTRAINT profile_kyc_pkey PRIMARY KEY (user_id);
-
-
 --
 -- TOC entry 6768 (class 2606 OID 55168)
 
@@ -22111,8 +20141,6 @@ ALTER TABLE ONLY public.profile_kyc
 
 ALTER TABLE public.profiles
     ADD CONSTRAINT profiles_phone_e164_iraq_chk CHECK (((phone_e164 IS NULL) OR (phone_e164 ~ '^\+9647[0-9]{9}$'::text))) NOT VALID;
-
-
 --
 -- TOC entry 6769 (class 2606 OID 55167)
 
@@ -22121,8 +20149,6 @@ ALTER TABLE public.profiles
 
 ALTER TABLE public.profiles
     ADD CONSTRAINT profiles_phone_iraq_chk CHECK (((phone IS NULL) OR (phone ~ '^\+9647[0-9]{9}$'::text))) NOT VALID;
-
-
 --
 -- TOC entry 7102 (class 2606 OID 40112)
 
@@ -22131,8 +20157,6 @@ ALTER TABLE public.profiles
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7514 (class 2606 OID 56440)
 
@@ -22141,8 +20165,6 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.promotion_notification_receipts
     ADD CONSTRAINT promotion_notification_receipts_pkey PRIMARY KEY (promotion_id, user_id);
-
-
 --
 -- TOC entry 7106 (class 2606 OID 40114)
 
@@ -22151,8 +20173,6 @@ ALTER TABLE ONLY public.promotion_notification_receipts
 
 ALTER TABLE ONLY public.provider_events
     ADD CONSTRAINT provider_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7177 (class 2606 OID 40573)
 
@@ -22161,8 +20181,6 @@ ALTER TABLE ONLY public.provider_events
 
 ALTER TABLE ONLY public.public_profiles
     ADD CONSTRAINT public_profiles_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7743 (class 2606 OID 64640)
 
@@ -22171,8 +20189,6 @@ ALTER TABLE ONLY public.public_profiles
 
 ALTER TABLE ONLY public.recovery_codes
     ADD CONSTRAINT recovery_codes_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7745 (class 2606 OID 64642)
 
@@ -22181,8 +20197,6 @@ ALTER TABLE ONLY public.recovery_codes
 
 ALTER TABLE ONLY public.recovery_codes
     ADD CONSTRAINT recovery_codes_unique UNIQUE (user_id, code_hash);
-
-
 --
 -- TOC entry 7218 (class 2606 OID 40735)
 
@@ -22191,8 +20205,6 @@ ALTER TABLE ONLY public.recovery_codes
 
 ALTER TABLE ONLY public.referral_campaigns
     ADD CONSTRAINT referral_campaigns_key_key UNIQUE (key);
-
-
 --
 -- TOC entry 7220 (class 2606 OID 40733)
 
@@ -22201,8 +20213,6 @@ ALTER TABLE ONLY public.referral_campaigns
 
 ALTER TABLE ONLY public.referral_campaigns
     ADD CONSTRAINT referral_campaigns_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7223 (class 2606 OID 40743)
 
@@ -22211,8 +20221,6 @@ ALTER TABLE ONLY public.referral_campaigns
 
 ALTER TABLE ONLY public.referral_codes
     ADD CONSTRAINT referral_codes_pkey PRIMARY KEY (code);
-
-
 --
 -- TOC entry 7225 (class 2606 OID 40745)
 
@@ -22221,8 +20229,6 @@ ALTER TABLE ONLY public.referral_codes
 
 ALTER TABLE ONLY public.referral_codes
     ADD CONSTRAINT referral_codes_user_id_key UNIQUE (user_id);
-
-
 --
 -- TOC entry 7320 (class 2606 OID 41798)
 
@@ -22231,8 +20237,6 @@ ALTER TABLE ONLY public.referral_codes
 
 ALTER TABLE ONLY public.referral_invites
     ADD CONSTRAINT referral_invites_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7322 (class 2606 OID 41800)
 
@@ -22241,8 +20245,6 @@ ALTER TABLE ONLY public.referral_invites
 
 ALTER TABLE ONLY public.referral_invites
     ADD CONSTRAINT referral_invites_referred_user_id_key UNIQUE (referred_user_id);
-
-
 --
 -- TOC entry 7229 (class 2606 OID 40762)
 
@@ -22251,8 +20253,6 @@ ALTER TABLE ONLY public.referral_invites
 
 ALTER TABLE ONLY public.referral_redemptions
     ADD CONSTRAINT referral_redemptions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7231 (class 2606 OID 40764)
 
@@ -22261,8 +20261,6 @@ ALTER TABLE ONLY public.referral_redemptions
 
 ALTER TABLE ONLY public.referral_redemptions
     ADD CONSTRAINT referral_redemptions_referred_id_key UNIQUE (referred_id);
-
-
 --
 -- TOC entry 7317 (class 2606 OID 41787)
 
@@ -22271,8 +20269,6 @@ ALTER TABLE ONLY public.referral_redemptions
 
 ALTER TABLE ONLY public.referral_settings
     ADD CONSTRAINT referral_settings_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7258 (class 2606 OID 40899)
 
@@ -22281,8 +20277,6 @@ ALTER TABLE ONLY public.referral_settings
 
 ALTER TABLE ONLY public.ride_chat_messages
     ADD CONSTRAINT ride_chat_messages_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7262 (class 2606 OID 40922)
 
@@ -22291,8 +20285,6 @@ ALTER TABLE ONLY public.ride_chat_messages
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_message_id_reader_id_key UNIQUE (message_id, reader_id);
-
-
 --
 -- TOC entry 7264 (class 2606 OID 40920)
 
@@ -22301,8 +20293,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7266 (class 2606 OID 64985)
 
@@ -22311,8 +20301,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_thread_user_key UNIQUE (thread_id, user_id);
-
-
 --
 -- TOC entry 7313 (class 2606 OID 41747)
 
@@ -22321,8 +20309,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_threads
     ADD CONSTRAINT ride_chat_threads_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7315 (class 2606 OID 41749)
 
@@ -22331,8 +20317,6 @@ ALTER TABLE ONLY public.ride_chat_threads
 
 ALTER TABLE ONLY public.ride_chat_threads
     ADD CONSTRAINT ride_chat_threads_ride_id_key UNIQUE (ride_id);
-
-
 --
 -- TOC entry 7270 (class 2606 OID 40945)
 
@@ -22341,8 +20325,6 @@ ALTER TABLE ONLY public.ride_chat_threads
 
 ALTER TABLE ONLY public.ride_chat_typing
     ADD CONSTRAINT ride_chat_typing_pkey PRIMARY KEY (ride_id, profile_id);
-
-
 --
 -- TOC entry 7309 (class 2606 OID 41722)
 
@@ -22351,8 +20333,6 @@ ALTER TABLE ONLY public.ride_chat_typing
 
 ALTER TABLE ONLY public.ride_completion_log
     ADD CONSTRAINT ride_completion_log_pkey PRIMARY KEY (ride_id);
-
-
 --
 -- TOC entry 7112 (class 2606 OID 40116)
 
@@ -22361,8 +20341,6 @@ ALTER TABLE ONLY public.ride_completion_log
 
 ALTER TABLE ONLY public.ride_events
     ADD CONSTRAINT ride_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7122 (class 2606 OID 40118)
 
@@ -22371,8 +20349,6 @@ ALTER TABLE ONLY public.ride_events
 
 ALTER TABLE ONLY public.ride_incidents
     ADD CONSTRAINT ride_incidents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7348 (class 2606 OID 43634)
 
@@ -22381,8 +20357,6 @@ ALTER TABLE ONLY public.ride_incidents
 
 ALTER TABLE ONLY public.ride_intents
     ADD CONSTRAINT ride_intents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7294 (class 2606 OID 41210)
 
@@ -22391,8 +20365,6 @@ ALTER TABLE ONLY public.ride_intents
 
 ALTER TABLE ONLY public.ride_products
     ADD CONSTRAINT ride_products_pkey PRIMARY KEY (code);
-
-
 --
 -- TOC entry 7127 (class 2606 OID 40120)
 
@@ -22401,8 +20373,6 @@ ALTER TABLE ONLY public.ride_products
 
 ALTER TABLE ONLY public.ride_ratings
     ADD CONSTRAINT ride_ratings_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7132 (class 2606 OID 40122)
 
@@ -22411,8 +20381,6 @@ ALTER TABLE ONLY public.ride_ratings
 
 ALTER TABLE ONLY public.ride_receipts
     ADD CONSTRAINT ride_receipts_pkey PRIMARY KEY (ride_id);
-
-
 --
 -- TOC entry 7142 (class 2606 OID 40124)
 
@@ -22421,8 +20389,6 @@ ALTER TABLE ONLY public.ride_receipts
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7375 (class 2606 OID 43838)
 
@@ -22431,8 +20397,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ridecheck_events
     ADD CONSTRAINT ridecheck_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7381 (class 2606 OID 43855)
 
@@ -22441,8 +20405,6 @@ ALTER TABLE ONLY public.ridecheck_events
 
 ALTER TABLE ONLY public.ridecheck_responses
     ADD CONSTRAINT ridecheck_responses_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7372 (class 2606 OID 43821)
 
@@ -22451,8 +20413,6 @@ ALTER TABLE ONLY public.ridecheck_responses
 
 ALTER TABLE ONLY public.ridecheck_state
     ADD CONSTRAINT ridecheck_state_pkey PRIMARY KEY (ride_id);
-
-
 --
 -- TOC entry 7034 (class 2606 OID 40126)
 
@@ -22461,8 +20421,6 @@ ALTER TABLE ONLY public.ridecheck_state
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7036 (class 2606 OID 40128)
 
@@ -22471,8 +20429,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_request_id_key UNIQUE (request_id);
-
-
 --
 -- TOC entry 7633 (class 2606 OID 63846)
 
@@ -22481,8 +20437,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.safety_mismatch_reports
     ADD CONSTRAINT safety_mismatch_reports_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7629 (class 2606 OID 63823)
 
@@ -22491,8 +20445,6 @@ ALTER TABLE ONLY public.safety_mismatch_reports
 
 ALTER TABLE ONLY public.safety_preferences
     ADD CONSTRAINT safety_preferences_pkey PRIMARY KEY (user_id);
-
-
 --
 -- TOC entry 7334 (class 2606 OID 43556)
 
@@ -22501,8 +20453,6 @@ ALTER TABLE ONLY public.safety_preferences
 
 ALTER TABLE ONLY public.scheduled_rides
     ADD CONSTRAINT scheduled_rides_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7339 (class 2606 OID 43589)
 
@@ -22511,8 +20461,6 @@ ALTER TABLE ONLY public.scheduled_rides
 
 ALTER TABLE ONLY public.service_areas
     ADD CONSTRAINT service_areas_name_governorate_key UNIQUE (name, governorate);
-
-
 --
 -- TOC entry 7341 (class 2606 OID 43587)
 
@@ -22521,8 +20469,6 @@ ALTER TABLE ONLY public.service_areas
 
 ALTER TABLE ONLY public.service_areas
     ADD CONSTRAINT service_areas_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7545 (class 2606 OID 63013)
 
@@ -22531,8 +20477,6 @@ ALTER TABLE ONLY public.service_areas
 
 ALTER TABLE ONLY public.settlement_accounts
     ADD CONSTRAINT settlement_accounts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7550 (class 2606 OID 63024)
 
@@ -22541,8 +20485,6 @@ ALTER TABLE ONLY public.settlement_accounts
 
 ALTER TABLE ONLY public.settlement_entries
     ADD CONSTRAINT settlement_entries_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7569 (class 2606 OID 63162)
 
@@ -22551,8 +20493,6 @@ ALTER TABLE ONLY public.settlement_entries
 
 ALTER TABLE ONLY public.settlement_payment_requests
     ADD CONSTRAINT settlement_payment_requests_idem_uq UNIQUE (idempotency_key);
-
-
 --
 -- TOC entry 7571 (class 2606 OID 63160)
 
@@ -22561,8 +20501,6 @@ ALTER TABLE ONLY public.settlement_payment_requests
 
 ALTER TABLE ONLY public.settlement_payment_requests
     ADD CONSTRAINT settlement_payment_requests_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7573 (class 2606 OID 63178)
 
@@ -22571,8 +20509,6 @@ ALTER TABLE ONLY public.settlement_payment_requests
 
 ALTER TABLE ONLY public.settlement_payout_requests
     ADD CONSTRAINT settlement_payout_requests_idem_uq UNIQUE (idempotency_key);
-
-
 --
 -- TOC entry 7575 (class 2606 OID 63176)
 
@@ -22581,8 +20517,6 @@ ALTER TABLE ONLY public.settlement_payout_requests
 
 ALTER TABLE ONLY public.settlement_payout_requests
     ADD CONSTRAINT settlement_payout_requests_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7564 (class 2606 OID 63134)
 
@@ -22591,8 +20525,6 @@ ALTER TABLE ONLY public.settlement_payout_requests
 
 ALTER TABLE ONLY public.settlement_payouts
     ADD CONSTRAINT settlement_payouts_idem_uq UNIQUE (idempotency_key);
-
-
 --
 -- TOC entry 7567 (class 2606 OID 63132)
 
@@ -22601,8 +20533,6 @@ ALTER TABLE ONLY public.settlement_payouts
 
 ALTER TABLE ONLY public.settlement_payouts
     ADD CONSTRAINT settlement_payouts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7555 (class 2606 OID 63069)
 
@@ -22611,8 +20541,6 @@ ALTER TABLE ONLY public.settlement_payouts
 
 ALTER TABLE ONLY public.settlement_receipts
     ADD CONSTRAINT settlement_receipts_idem_uq UNIQUE (idempotency_key);
-
-
 --
 -- TOC entry 7557 (class 2606 OID 63067)
 
@@ -22621,8 +20549,6 @@ ALTER TABLE ONLY public.settlement_receipts
 
 ALTER TABLE ONLY public.settlement_receipts
     ADD CONSTRAINT settlement_receipts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7712 (class 2606 OID 64487)
 
@@ -22631,8 +20557,6 @@ ALTER TABLE ONLY public.settlement_receipts
 
 ALTER TABLE ONLY public.shift_progress
     ADD CONSTRAINT shift_progress_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7352 (class 2606 OID 43686)
 
@@ -22641,8 +20565,6 @@ ALTER TABLE ONLY public.shift_progress
 
 ALTER TABLE ONLY public.sos_events
     ADD CONSTRAINT sos_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7361 (class 2606 OID 43729)
 
@@ -22651,8 +20573,6 @@ ALTER TABLE ONLY public.sos_events
 
 ALTER TABLE ONLY public.support_articles
     ADD CONSTRAINT support_articles_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7363 (class 2606 OID 43731)
 
@@ -22661,8 +20581,6 @@ ALTER TABLE ONLY public.support_articles
 
 ALTER TABLE ONLY public.support_articles
     ADD CONSTRAINT support_articles_slug_key UNIQUE (slug);
-
-
 --
 -- TOC entry 7237 (class 2606 OID 41329)
 
@@ -22671,8 +20589,6 @@ ALTER TABLE ONLY public.support_articles
 
 ALTER TABLE ONLY public.support_categories
     ADD CONSTRAINT support_categories_id_unique UNIQUE (id);
-
-
 --
 -- TOC entry 7239 (class 2606 OID 41331)
 
@@ -22681,8 +20597,6 @@ ALTER TABLE ONLY public.support_categories
 
 ALTER TABLE ONLY public.support_categories
     ADD CONSTRAINT support_categories_key_unique UNIQUE (key);
-
-
 --
 -- TOC entry 7241 (class 2606 OID 40832)
 
@@ -22691,8 +20605,6 @@ ALTER TABLE ONLY public.support_categories
 
 ALTER TABLE ONLY public.support_categories
     ADD CONSTRAINT support_categories_pkey PRIMARY KEY (code);
-
-
 --
 -- TOC entry 7253 (class 2606 OID 40869)
 
@@ -22701,8 +20613,6 @@ ALTER TABLE ONLY public.support_categories
 
 ALTER TABLE ONLY public.support_messages
     ADD CONSTRAINT support_messages_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7355 (class 2606 OID 43716)
 
@@ -22711,8 +20621,6 @@ ALTER TABLE ONLY public.support_messages
 
 ALTER TABLE ONLY public.support_sections
     ADD CONSTRAINT support_sections_key_key UNIQUE (key);
-
-
 --
 -- TOC entry 7357 (class 2606 OID 43714)
 
@@ -22721,8 +20629,6 @@ ALTER TABLE ONLY public.support_sections
 
 ALTER TABLE ONLY public.support_sections
     ADD CONSTRAINT support_sections_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7248 (class 2606 OID 40844)
 
@@ -22731,8 +20637,6 @@ ALTER TABLE ONLY public.support_sections
 
 ALTER TABLE ONLY public.support_tickets
     ADD CONSTRAINT support_tickets_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7645 (class 2606 OID 63916)
 
@@ -22741,8 +20645,6 @@ ALTER TABLE ONLY public.support_tickets
 
 ALTER TABLE ONLY public.teen_policies
     ADD CONSTRAINT teen_policies_family_teen_unique UNIQUE (family_id, teen_user_id);
-
-
 --
 -- TOC entry 7647 (class 2606 OID 63914)
 
@@ -22751,8 +20653,6 @@ ALTER TABLE ONLY public.teen_policies
 
 ALTER TABLE ONLY public.teen_policies
     ADD CONSTRAINT teen_policies_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7044 (class 2606 OID 40130)
 
@@ -22761,8 +20661,6 @@ ALTER TABLE ONLY public.teen_policies
 
 ALTER TABLE ONLY public.topup_intents
     ADD CONSTRAINT topup_intents_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7145 (class 2606 OID 40132)
 
@@ -22771,8 +20669,6 @@ ALTER TABLE ONLY public.topup_intents
 
 ALTER TABLE ONLY public.topup_packages
     ADD CONSTRAINT topup_packages_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7652 (class 2606 OID 63935)
 
@@ -22781,8 +20677,6 @@ ALTER TABLE ONLY public.topup_packages
 
 ALTER TABLE ONLY public.trip_guardian_links
     ADD CONSTRAINT trip_guardian_links_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7654 (class 2606 OID 63937)
 
@@ -22791,8 +20685,6 @@ ALTER TABLE ONLY public.trip_guardian_links
 
 ALTER TABLE ONLY public.trip_guardian_links
     ADD CONSTRAINT trip_guardian_links_unique UNIQUE (trip_id, guardian_user_id);
-
-
 --
 -- TOC entry 7658 (class 2606 OID 64014)
 
@@ -22801,8 +20693,6 @@ ALTER TABLE ONLY public.trip_guardian_links
 
 ALTER TABLE ONLY public.trip_live_activities
     ADD CONSTRAINT trip_live_activities_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7660 (class 2606 OID 64016)
 
@@ -22811,8 +20701,6 @@ ALTER TABLE ONLY public.trip_live_activities
 
 ALTER TABLE ONLY public.trip_live_activities
     ADD CONSTRAINT trip_live_activities_trip_platform_unique UNIQUE (trip_id, platform, user_id);
-
-
 --
 -- TOC entry 7276 (class 2606 OID 40969)
 
@@ -22821,8 +20709,6 @@ ALTER TABLE ONLY public.trip_live_activities
 
 ALTER TABLE ONLY public.trip_share_tokens
     ADD CONSTRAINT trip_share_tokens_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7278 (class 2606 OID 40971)
 
@@ -22831,8 +20717,6 @@ ALTER TABLE ONLY public.trip_share_tokens
 
 ALTER TABLE ONLY public.trip_share_tokens
     ADD CONSTRAINT trip_share_tokens_token_key UNIQUE (token);
-
-
 --
 -- TOC entry 7664 (class 2606 OID 64035)
 
@@ -22841,8 +20725,6 @@ ALTER TABLE ONLY public.trip_share_tokens
 
 ALTER TABLE ONLY public.trip_status_transitions
     ADD CONSTRAINT trip_status_transitions_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7370 (class 2606 OID 43777)
 
@@ -22851,8 +20733,6 @@ ALTER TABLE ONLY public.trip_status_transitions
 
 ALTER TABLE ONLY public.trusted_contact_events
     ADD CONSTRAINT trusted_contact_events_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7389 (class 2606 OID 43981)
 
@@ -22861,8 +20741,6 @@ ALTER TABLE ONLY public.trusted_contact_events
 
 ALTER TABLE ONLY public.trusted_contact_outbox
     ADD CONSTRAINT trusted_contact_outbox_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 6780 (class 2606 OID 55173)
 
@@ -22871,8 +20749,6 @@ ALTER TABLE ONLY public.trusted_contact_outbox
 
 ALTER TABLE public.trusted_contacts
     ADD CONSTRAINT trusted_contacts_phone_e164_iraq_chk CHECK (((phone_e164 IS NULL) OR (phone_e164 ~ '^\+9647[0-9]{9}$'::text))) NOT VALID;
-
-
 --
 -- TOC entry 6781 (class 2606 OID 55172)
 
@@ -22881,8 +20757,6 @@ ALTER TABLE public.trusted_contacts
 
 ALTER TABLE public.trusted_contacts
     ADD CONSTRAINT trusted_contacts_phone_iraq_chk CHECK (((phone IS NULL) OR (phone ~ '^\+9647[0-9]{9}$'::text))) NOT VALID;
-
-
 --
 -- TOC entry 7235 (class 2606 OID 40799)
 
@@ -22891,8 +20765,6 @@ ALTER TABLE public.trusted_contacts
 
 ALTER TABLE ONLY public.trusted_contacts
     ADD CONSTRAINT trusted_contacts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7305 (class 2606 OID 41709)
 
@@ -22901,8 +20773,6 @@ ALTER TABLE ONLY public.trusted_contacts
 
 ALTER TABLE ONLY public.user_device_tokens
     ADD CONSTRAINT user_device_tokens_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7307 (class 2606 OID 41711)
 
@@ -22911,8 +20781,6 @@ ALTER TABLE ONLY public.user_device_tokens
 
 ALTER TABLE ONLY public.user_device_tokens
     ADD CONSTRAINT user_device_tokens_user_id_device_id_key UNIQUE (user_id, device_id);
-
-
 --
 -- TOC entry 7507 (class 2606 OID 56405)
 
@@ -22921,8 +20789,6 @@ ALTER TABLE ONLY public.user_device_tokens
 
 ALTER TABLE ONLY public.user_interest_targets
     ADD CONSTRAINT user_interest_targets_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7150 (class 2606 OID 40134)
 
@@ -22931,8 +20797,6 @@ ALTER TABLE ONLY public.user_interest_targets
 
 ALTER TABLE ONLY public.user_notifications
     ADD CONSTRAINT user_notifications_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7731 (class 2606 OID 64601)
 
@@ -22941,8 +20805,6 @@ ALTER TABLE ONLY public.user_notifications
 
 ALTER TABLE ONLY public.user_passkeys
     ADD CONSTRAINT user_passkeys_credential_id_key UNIQUE (credential_id);
-
-
 --
 -- TOC entry 7733 (class 2606 OID 64599)
 
@@ -22951,8 +20813,6 @@ ALTER TABLE ONLY public.user_passkeys
 
 ALTER TABLE ONLY public.user_passkeys
     ADD CONSTRAINT user_passkeys_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7365 (class 2606 OID 43757)
 
@@ -22961,8 +20821,6 @@ ALTER TABLE ONLY public.user_passkeys
 
 ALTER TABLE ONLY public.user_safety_settings
     ADD CONSTRAINT user_safety_settings_pkey PRIMARY KEY (user_id);
-
-
 --
 -- TOC entry 7499 (class 2606 OID 55234)
 
@@ -22971,8 +20829,6 @@ ALTER TABLE ONLY public.user_safety_settings
 
 ALTER TABLE ONLY public.voice_call_participants
     ADD CONSTRAINT voice_call_participants_pkey PRIMARY KEY (call_id, profile_id);
-
-
 --
 -- TOC entry 7496 (class 2606 OID 55210)
 
@@ -22981,8 +20837,6 @@ ALTER TABLE ONLY public.voice_call_participants
 
 ALTER TABLE ONLY public.voice_calls
     ADD CONSTRAINT voice_calls_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7048 (class 2606 OID 40136)
 
@@ -22991,8 +20845,6 @@ ALTER TABLE ONLY public.voice_calls
 
 ALTER TABLE ONLY public.wallet_accounts
     ADD CONSTRAINT wallet_accounts_pkey PRIMARY KEY (user_id);
-
-
 --
 -- TOC entry 7155 (class 2606 OID 40138)
 
@@ -23001,8 +20853,6 @@ ALTER TABLE ONLY public.wallet_accounts
 
 ALTER TABLE ONLY public.wallet_entries
     ADD CONSTRAINT wallet_entries_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7163 (class 2606 OID 40140)
 
@@ -23011,8 +20861,6 @@ ALTER TABLE ONLY public.wallet_entries
 
 ALTER TABLE ONLY public.wallet_holds
     ADD CONSTRAINT wallet_holds_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7404 (class 2606 OID 44465)
 
@@ -23021,8 +20869,6 @@ ALTER TABLE ONLY public.wallet_holds
 
 ALTER TABLE ONLY public.wallet_payout_attempts
     ADD CONSTRAINT wallet_payout_attempts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7400 (class 2606 OID 44434)
 
@@ -23031,8 +20877,6 @@ ALTER TABLE ONLY public.wallet_payout_attempts
 
 ALTER TABLE ONLY public.wallet_withdraw_audit_log
     ADD CONSTRAINT wallet_withdraw_audit_log_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7166 (class 2606 OID 40142)
 
@@ -23041,8 +20885,6 @@ ALTER TABLE ONLY public.wallet_withdraw_audit_log
 
 ALTER TABLE ONLY public.wallet_withdraw_payout_methods
     ADD CONSTRAINT wallet_withdraw_payout_methods_pkey PRIMARY KEY (payout_kind);
-
-
 --
 -- TOC entry 7172 (class 2606 OID 40144)
 
@@ -23051,8 +20893,6 @@ ALTER TABLE ONLY public.wallet_withdraw_payout_methods
 
 ALTER TABLE ONLY public.wallet_withdraw_requests
     ADD CONSTRAINT wallet_withdraw_requests_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7175 (class 2606 OID 40146)
 
@@ -23061,8 +20901,6 @@ ALTER TABLE ONLY public.wallet_withdraw_requests
 
 ALTER TABLE ONLY public.wallet_withdrawal_policy
     ADD CONSTRAINT wallet_withdrawal_policy_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7738 (class 2606 OID 64623)
 
@@ -23071,8 +20909,6 @@ ALTER TABLE ONLY public.wallet_withdrawal_policy
 
 ALTER TABLE ONLY public.webauthn_challenges
     ADD CONSTRAINT webauthn_challenges_challenge_key UNIQUE (challenge);
-
-
 --
 -- TOC entry 7740 (class 2606 OID 64621)
 
@@ -23081,8 +20917,6 @@ ALTER TABLE ONLY public.webauthn_challenges
 
 ALTER TABLE ONLY public.webauthn_challenges
     ADD CONSTRAINT webauthn_challenges_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7603 (class 2606 OID 63557)
 
@@ -23091,8 +20925,6 @@ ALTER TABLE ONLY public.webauthn_challenges
 
 ALTER TABLE ONLY public.webhook_job_attempts
     ADD CONSTRAINT webhook_job_attempts_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 7598 (class 2606 OID 63540)
 
@@ -23101,8 +20933,6 @@ ALTER TABLE ONLY public.webhook_job_attempts
 
 ALTER TABLE ONLY public.webhook_jobs
     ADD CONSTRAINT webhook_jobs_pkey PRIMARY KEY (id);
-
-
 --
 -- TOC entry 6973 (class 2606 OID 17253)
 
@@ -23110,8 +20940,6 @@ ALTER TABLE ONLY public.webhook_jobs
 --
 
 CREATE UNIQUE INDEX achievements_unique_active_scope ON public.achievements USING btree (role, metric, target) WHERE (active = true);
-
-
 --
 -- TOC entry 7532 (class 1259 OID 62318)
 
@@ -23119,8 +20947,6 @@ CREATE UNIQUE INDEX achievements_unique_active_scope ON public.achievements USIN
 --
 
 CREATE INDEX fare_quotes_pricing_config_idx ON public.fare_quotes USING btree (pricing_config_id, created_at DESC);
-
-
 --
 -- TOC entry 7533 (class 1259 OID 62295)
 
@@ -23128,8 +20954,6 @@ CREATE INDEX fare_quotes_pricing_config_idx ON public.fare_quotes USING btree (p
 --
 
 CREATE INDEX fare_quotes_rider_created_idx ON public.fare_quotes USING btree (rider_id, created_at DESC);
-
-
 --
 -- TOC entry 7534 (class 1259 OID 62319)
 
@@ -23137,8 +20961,6 @@ CREATE INDEX fare_quotes_rider_created_idx ON public.fare_quotes USING btree (ri
 --
 
 CREATE INDEX fare_quotes_route_provider_idx ON public.fare_quotes USING btree (route_provider, created_at DESC);
-
-
 --
 -- TOC entry 7535 (class 1259 OID 62296)
 
@@ -23146,8 +20968,6 @@ CREATE INDEX fare_quotes_route_provider_idx ON public.fare_quotes USING btree (r
 --
 
 CREATE INDEX fare_quotes_service_area_created_idx ON public.fare_quotes USING btree (service_area_id, created_at DESC);
-
-
 --
 -- TOC entry 7623 (class 1259 OID 63748)
 
@@ -23155,8 +20975,6 @@ CREATE INDEX fare_quotes_service_area_created_idx ON public.fare_quotes USING bt
 --
 
 CREATE UNIQUE INDEX fraud_actions_one_active_per_subject_type ON public.fraud_enforcement_actions USING btree (subject_kind, subject_key, action_type) WHERE ((expired_at IS NULL) AND (resolved_at IS NULL));
-
-
 --
 -- TOC entry 7624 (class 1259 OID 63750)
 
@@ -23164,8 +20982,6 @@ CREATE UNIQUE INDEX fraud_actions_one_active_per_subject_type ON public.fraud_en
 --
 
 CREATE INDEX fraud_actions_subject_expires ON public.fraud_enforcement_actions USING btree (subject_kind, subject_key, expires_at);
-
-
 --
 -- TOC entry 7617 (class 1259 OID 63747)
 
@@ -23173,8 +20989,6 @@ CREATE INDEX fraud_actions_subject_expires ON public.fraud_enforcement_actions U
 --
 
 CREATE UNIQUE INDEX fraud_cases_one_open_per_subject_reason ON public.fraud_cases USING btree (subject_kind, subject_key, reason) WHERE (status = 'open'::public.fraud_case_status);
-
-
 --
 -- TOC entry 7613 (class 1259 OID 63746)
 
@@ -23182,8 +20996,6 @@ CREATE UNIQUE INDEX fraud_cases_one_open_per_subject_reason ON public.fraud_case
 --
 
 CREATE UNIQUE INDEX fraud_events_dedupe_key_unique ON public.fraud_events USING btree (dedupe_key) WHERE (dedupe_key IS NOT NULL);
-
-
 --
 -- TOC entry 7616 (class 1259 OID 63749)
 
@@ -23191,8 +21003,6 @@ CREATE UNIQUE INDEX fraud_events_dedupe_key_unique ON public.fraud_events USING 
 --
 
 CREATE INDEX fraud_events_subject_created_at ON public.fraud_events USING btree (subject_kind, subject_key, created_at DESC);
-
-
 --
 -- TOC entry 7485 (class 1259 OID 45099)
 
@@ -23200,8 +21010,6 @@ CREATE INDEX fraud_events_subject_created_at ON public.fraud_events USING btree 
 --
 
 CREATE INDEX idx_driver_status_events_created_at ON public.driver_status_events USING btree (created_at);
-
-
 --
 -- TOC entry 7486 (class 1259 OID 45098)
 
@@ -23209,8 +21017,6 @@ CREATE INDEX idx_driver_status_events_created_at ON public.driver_status_events 
 --
 
 CREATE INDEX idx_driver_status_events_driver_id ON public.driver_status_events USING btree (driver_id);
-
-
 --
 -- TOC entry 7778 (class 1259 OID 66237)
 
@@ -23218,8 +21024,6 @@ CREATE INDEX idx_driver_status_events_driver_id ON public.driver_status_events U
 --
 
 CREATE INDEX idx_geo_cache_expires_at ON public.geo_cache USING btree (expires_at);
-
-
 --
 -- TOC entry 7779 (class 1259 OID 66258)
 
@@ -23227,8 +21031,6 @@ CREATE INDEX idx_geo_cache_expires_at ON public.geo_cache USING btree (expires_a
 --
 
 CREATE INDEX idx_maps_provider_health_disabled_until ON public.maps_provider_health USING btree (disabled_until);
-
-
 --
 -- TOC entry 7770 (class 1259 OID 66268)
 
@@ -23236,8 +21038,6 @@ CREATE INDEX idx_maps_provider_health_disabled_until ON public.maps_provider_hea
 --
 
 CREATE INDEX idx_maps_requests_log_cache_hit ON public.maps_requests_log USING btree (cache_hit, created_at DESC);
-
-
 --
 -- TOC entry 7771 (class 1259 OID 66225)
 
@@ -23245,8 +21045,6 @@ CREATE INDEX idx_maps_requests_log_cache_hit ON public.maps_requests_log USING b
 --
 
 CREATE INDEX idx_maps_requests_log_capability ON public.maps_requests_log USING btree (capability, created_at DESC);
-
-
 --
 -- TOC entry 7772 (class 1259 OID 66223)
 
@@ -23254,8 +21052,6 @@ CREATE INDEX idx_maps_requests_log_capability ON public.maps_requests_log USING 
 --
 
 CREATE INDEX idx_maps_requests_log_created_at ON public.maps_requests_log USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7773 (class 1259 OID 66224)
 
@@ -23263,8 +21059,6 @@ CREATE INDEX idx_maps_requests_log_created_at ON public.maps_requests_log USING 
 --
 
 CREATE INDEX idx_maps_requests_log_provider ON public.maps_requests_log USING btree (provider_code, created_at DESC);
-
-
 --
 -- TOC entry 7765 (class 1259 OID 66325)
 
@@ -23272,8 +21066,6 @@ CREATE INDEX idx_maps_requests_log_provider ON public.maps_requests_log USING bt
 --
 
 CREATE INDEX idx_maps_usage_daily_provider_code ON public.maps_usage_daily USING btree (provider_code);
-
-
 --
 -- TOC entry 7091 (class 1259 OID 62306)
 
@@ -23281,8 +21073,6 @@ CREATE INDEX idx_maps_usage_daily_provider_code ON public.maps_usage_daily USING
 --
 
 CREATE INDEX idx_pricing_configs_default_active ON public.pricing_configs USING btree (is_default, active, effective_from DESC);
-
-
 --
 -- TOC entry 7342 (class 1259 OID 43649)
 
@@ -23290,8 +21080,6 @@ CREATE INDEX idx_pricing_configs_default_active ON public.pricing_configs USING 
 --
 
 CREATE INDEX idx_ride_intents_pickup_loc_gist ON public.ride_intents USING gist (pickup_loc);
-
-
 --
 -- TOC entry 7343 (class 1259 OID 43646)
 
@@ -23299,8 +21087,6 @@ CREATE INDEX idx_ride_intents_pickup_loc_gist ON public.ride_intents USING gist 
 --
 
 CREATE INDEX idx_ride_intents_rider_created_at ON public.ride_intents USING btree (rider_id, created_at DESC);
-
-
 --
 -- TOC entry 7344 (class 1259 OID 43648)
 
@@ -23308,8 +21094,6 @@ CREATE INDEX idx_ride_intents_rider_created_at ON public.ride_intents USING btre
 --
 
 CREATE INDEX idx_ride_intents_service_area ON public.ride_intents USING btree (service_area_id);
-
-
 --
 -- TOC entry 7345 (class 1259 OID 61972)
 
@@ -23317,8 +21101,6 @@ CREATE INDEX idx_ride_intents_service_area ON public.ride_intents USING btree (s
 --
 
 CREATE INDEX idx_ride_intents_status_created_at ON public.ride_intents USING btree (status, created_at DESC);
-
-
 --
 -- TOC entry 7327 (class 1259 OID 43568)
 
@@ -23326,8 +21108,6 @@ CREATE INDEX idx_ride_intents_status_created_at ON public.ride_intents USING btr
 --
 
 CREATE INDEX idx_scheduled_rides_due ON public.scheduled_rides USING btree (scheduled_at) WHERE (status = 'pending'::public.scheduled_ride_status);
-
-
 --
 -- TOC entry 7328 (class 1259 OID 43569)
 
@@ -23335,8 +21115,6 @@ CREATE INDEX idx_scheduled_rides_due ON public.scheduled_rides USING btree (sche
 --
 
 CREATE UNIQUE INDEX idx_scheduled_rides_request_id ON public.scheduled_rides USING btree (ride_request_id) WHERE (ride_request_id IS NOT NULL);
-
-
 --
 -- TOC entry 7329 (class 1259 OID 43567)
 
@@ -23344,8 +21122,6 @@ CREATE UNIQUE INDEX idx_scheduled_rides_request_id ON public.scheduled_rides USI
 --
 
 CREATE INDEX idx_scheduled_rides_rider_time ON public.scheduled_rides USING btree (rider_id, scheduled_at DESC);
-
-
 --
 -- TOC entry 7330 (class 1259 OID 43674)
 
@@ -23353,8 +21129,6 @@ CREATE INDEX idx_scheduled_rides_rider_time ON public.scheduled_rides USING btre
 --
 
 CREATE INDEX idx_scheduled_rides_status_time ON public.scheduled_rides USING btree (status, scheduled_at DESC);
-
-
 --
 -- TOC entry 7335 (class 1259 OID 43596)
 
@@ -23362,8 +21136,6 @@ CREATE INDEX idx_scheduled_rides_status_time ON public.scheduled_rides USING btr
 --
 
 CREATE INDEX idx_service_areas_active_priority ON public.service_areas USING btree (is_active, priority DESC);
-
-
 --
 -- TOC entry 7336 (class 1259 OID 43597)
 
@@ -23371,8 +21143,6 @@ CREATE INDEX idx_service_areas_active_priority ON public.service_areas USING btr
 --
 
 CREATE INDEX idx_service_areas_geom_gist ON public.service_areas USING gist (geom);
-
-
 --
 -- TOC entry 7383 (class 1259 OID 62101)
 
@@ -23380,8 +21150,6 @@ CREATE INDEX idx_service_areas_geom_gist ON public.service_areas USING gist (geo
 --
 
 CREATE INDEX idx_trusted_contact_outbox_pending ON public.trusted_contact_outbox USING btree (status, next_attempt_at, created_at);
-
-
 --
 -- TOC entry 7384 (class 1259 OID 62102)
 
@@ -23389,8 +21157,6 @@ CREATE INDEX idx_trusted_contact_outbox_pending ON public.trusted_contact_outbox
 --
 
 CREATE INDEX idx_trusted_contact_outbox_status_next ON public.trusted_contact_outbox USING btree (status, next_attempt_at);
-
-
 --
 -- TOC entry 7385 (class 1259 OID 44004)
 
@@ -23398,8 +21164,6 @@ CREATE INDEX idx_trusted_contact_outbox_status_next ON public.trusted_contact_ou
 --
 
 CREATE INDEX idx_trusted_contact_outbox_user ON public.trusted_contact_outbox USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7215 (class 1259 OID 42071)
 
@@ -23407,8 +21171,6 @@ CREATE INDEX idx_trusted_contact_outbox_user ON public.trusted_contact_outbox US
 --
 
 CREATE INDEX ix_achievement_progress_achievement_id ON public.achievement_progress USING btree (achievement_id);
-
-
 --
 -- TOC entry 7216 (class 1259 OID 40717)
 
@@ -23416,8 +21178,6 @@ CREATE INDEX ix_achievement_progress_achievement_id ON public.achievement_progre
 --
 
 CREATE INDEX ix_achievement_progress_user ON public.achievement_progress USING btree (user_id);
-
-
 --
 -- TOC entry 7683 (class 1259 OID 64152)
 
@@ -23425,8 +21185,6 @@ CREATE INDEX ix_achievement_progress_user ON public.achievement_progress USING b
 --
 
 CREATE INDEX ix_addon_offers_order ON public.addon_offers USING btree (order_id);
-
-
 --
 -- TOC entry 7684 (class 1259 OID 64153)
 
@@ -23434,8 +21192,6 @@ CREATE INDEX ix_addon_offers_order ON public.addon_offers USING btree (order_id)
 --
 
 CREATE INDEX ix_addon_offers_pending ON public.addon_offers USING btree (expires_at) WHERE ((converted_at IS NULL) AND (dismissed_at IS NULL));
-
-
 --
 -- TOC entry 7396 (class 1259 OID 45055)
 
@@ -23443,8 +21199,6 @@ CREATE INDEX ix_addon_offers_pending ON public.addon_offers USING btree (expires
 --
 
 CREATE INDEX ix_admin_audit_log_admin_audit_log_actor_id ON public.admin_audit_log USING btree (actor_id);
-
-
 --
 -- TOC entry 7397 (class 1259 OID 45056)
 
@@ -23452,8 +21206,6 @@ CREATE INDEX ix_admin_audit_log_admin_audit_log_actor_id ON public.admin_audit_l
 --
 
 CREATE INDEX ix_admin_audit_log_admin_audit_log_target_user_id ON public.admin_audit_log USING btree (target_user_id);
-
-
 --
 -- TOC entry 7393 (class 1259 OID 45054)
 
@@ -23461,8 +21213,6 @@ CREATE INDEX ix_admin_audit_log_admin_audit_log_target_user_id ON public.admin_a
 --
 
 CREATE INDEX ix_admin_users_admin_users_created_by ON public.admin_users USING btree (created_by);
-
-
 --
 -- TOC entry 7053 (class 1259 OID 40147)
 
@@ -23470,8 +21220,6 @@ CREATE INDEX ix_admin_users_admin_users_created_by ON public.admin_users USING b
 --
 
 CREATE INDEX ix_app_events_actor_id ON public.app_events USING btree (actor_id);
-
-
 --
 -- TOC entry 7054 (class 1259 OID 40148)
 
@@ -23479,8 +21227,6 @@ CREATE INDEX ix_app_events_actor_id ON public.app_events USING btree (actor_id);
 --
 
 CREATE INDEX ix_app_events_created_at ON public.app_events USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7055 (class 1259 OID 40149)
 
@@ -23488,8 +21234,6 @@ CREATE INDEX ix_app_events_created_at ON public.app_events USING btree (created_
 --
 
 CREATE INDEX ix_app_events_event_type ON public.app_events USING btree (event_type);
-
-
 --
 -- TOC entry 7056 (class 1259 OID 61651)
 
@@ -23497,8 +21241,6 @@ CREATE INDEX ix_app_events_event_type ON public.app_events USING btree (event_ty
 --
 
 CREATE INDEX ix_app_events_level ON public.app_events USING btree (level);
-
-
 --
 -- TOC entry 7057 (class 1259 OID 40151)
 
@@ -23506,8 +21248,6 @@ CREATE INDEX ix_app_events_level ON public.app_events USING btree (level);
 --
 
 CREATE INDEX ix_app_events_payment_intent_id ON public.app_events USING btree (payment_intent_id);
-
-
 --
 -- TOC entry 7058 (class 1259 OID 40152)
 
@@ -23515,8 +21255,6 @@ CREATE INDEX ix_app_events_payment_intent_id ON public.app_events USING btree (p
 --
 
 CREATE INDEX ix_app_events_request_id ON public.app_events USING btree (request_id);
-
-
 --
 -- TOC entry 7059 (class 1259 OID 40153)
 
@@ -23524,8 +21262,6 @@ CREATE INDEX ix_app_events_request_id ON public.app_events USING btree (request_
 --
 
 CREATE INDEX ix_app_events_ride_id ON public.app_events USING btree (ride_id);
-
-
 --
 -- TOC entry 7489 (class 1259 OID 55164)
 
@@ -23533,8 +21269,6 @@ CREATE INDEX ix_app_events_ride_id ON public.app_events USING btree (ride_id);
 --
 
 CREATE INDEX ix_auth_sms_hook_events_created_at ON public.auth_sms_hook_events USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7490 (class 1259 OID 55163)
 
@@ -23542,8 +21276,6 @@ CREATE INDEX ix_auth_sms_hook_events_created_at ON public.auth_sms_hook_events U
 --
 
 CREATE INDEX ix_auth_sms_hook_events_phone ON public.auth_sms_hook_events USING btree (phone_e164);
-
-
 --
 -- TOC entry 7675 (class 1259 OID 64108)
 
@@ -23551,8 +21283,6 @@ CREATE INDEX ix_auth_sms_hook_events_phone ON public.auth_sms_hook_events USING 
 --
 
 CREATE INDEX ix_concierge_feedback_session ON public.concierge_feedback USING btree (session_id);
-
-
 --
 -- TOC entry 7676 (class 1259 OID 64703)
 
@@ -23560,8 +21290,6 @@ CREATE INDEX ix_concierge_feedback_session ON public.concierge_feedback USING bt
 --
 
 CREATE INDEX ix_concierge_feedback_user_id ON public.concierge_feedback USING btree (user_id);
-
-
 --
 -- TOC entry 7671 (class 1259 OID 64084)
 
@@ -23569,8 +21297,6 @@ CREATE INDEX ix_concierge_feedback_user_id ON public.concierge_feedback USING bt
 --
 
 CREATE INDEX ix_concierge_sessions_active ON public.concierge_sessions USING btree (user_id, status) WHERE (status = 'active'::text);
-
-
 --
 -- TOC entry 7672 (class 1259 OID 64083)
 
@@ -23578,8 +21304,6 @@ CREATE INDEX ix_concierge_sessions_active ON public.concierge_sessions USING btr
 --
 
 CREATE INDEX ix_concierge_sessions_user ON public.concierge_sessions USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7455 (class 1259 OID 44762)
 
@@ -23587,8 +21311,6 @@ CREATE INDEX ix_concierge_sessions_user ON public.concierge_sessions USING btree
 --
 
 CREATE INDEX ix_customer_addresses_user ON public.customer_addresses USING btree (user_id);
-
-
 --
 -- TOC entry 7456 (class 1259 OID 44763)
 
@@ -23596,8 +21318,6 @@ CREATE INDEX ix_customer_addresses_user ON public.customer_addresses USING btree
 --
 
 CREATE INDEX ix_customer_addresses_user_default ON public.customer_addresses USING btree (user_id) WHERE (is_default = true);
-
-
 --
 -- TOC entry 7715 (class 1259 OID 64506)
 
@@ -23605,8 +21325,6 @@ CREATE INDEX ix_customer_addresses_user_default ON public.customer_addresses USI
 --
 
 CREATE INDEX ix_demand_hotspots_active ON public.demand_hotspots USING btree (valid_until);
-
-
 --
 -- TOC entry 7716 (class 1259 OID 64507)
 
@@ -23614,8 +21332,6 @@ CREATE INDEX ix_demand_hotspots_active ON public.demand_hotspots USING btree (va
 --
 
 CREATE INDEX ix_demand_hotspots_zone ON public.demand_hotspots USING btree (zone_id, valid_until DESC);
-
-
 --
 -- TOC entry 7182 (class 1259 OID 41735)
 
@@ -23623,8 +21339,6 @@ CREATE INDEX ix_demand_hotspots_zone ON public.demand_hotspots USING btree (zone
 --
 
 CREATE INDEX ix_device_tokens_user_enabled ON public.device_tokens USING btree (user_id, enabled) WHERE (enabled = true);
-
-
 --
 -- TOC entry 7183 (class 1259 OID 40601)
 
@@ -23632,8 +21346,6 @@ CREATE INDEX ix_device_tokens_user_enabled ON public.device_tokens USING btree (
 --
 
 CREATE INDEX ix_device_tokens_user_id ON public.device_tokens USING btree (user_id);
-
-
 --
 -- TOC entry 7724 (class 1259 OID 64542)
 
@@ -23641,8 +21353,6 @@ CREATE INDEX ix_device_tokens_user_id ON public.device_tokens USING btree (user_
 --
 
 CREATE INDEX ix_driver_coaching_tips_active ON public.driver_coaching_tips USING btree (driver_id) WHERE ((viewed_at IS NULL) AND (dismissed_at IS NULL));
-
-
 --
 -- TOC entry 7725 (class 1259 OID 64541)
 
@@ -23650,8 +21360,6 @@ CREATE INDEX ix_driver_coaching_tips_active ON public.driver_coaching_tips USING
 --
 
 CREATE INDEX ix_driver_coaching_tips_driver ON public.driver_coaching_tips USING btree (driver_id, created_at DESC);
-
-
 --
 -- TOC entry 7325 (class 1259 OID 41842)
 
@@ -23659,8 +21367,6 @@ CREATE INDEX ix_driver_coaching_tips_driver ON public.driver_coaching_tips USING
 --
 
 CREATE INDEX ix_driver_leaderboard_daily_day_rank ON public.driver_leaderboard_daily USING btree (day DESC, rank);
-
-
 --
 -- TOC entry 7326 (class 1259 OID 42072)
 
@@ -23668,8 +21374,6 @@ CREATE INDEX ix_driver_leaderboard_daily_day_rank ON public.driver_leaderboard_d
 --
 
 CREATE INDEX ix_driver_leaderboard_daily_driver_id ON public.driver_leaderboard_daily USING btree (driver_id);
-
-
 --
 -- TOC entry 7062 (class 1259 OID 40154)
 
@@ -23677,8 +21381,6 @@ CREATE INDEX ix_driver_leaderboard_daily_driver_id ON public.driver_leaderboard_
 --
 
 CREATE INDEX ix_driver_locations_driver_locations_driver_id_fkey_fkey ON public.driver_locations USING btree (driver_id);
-
-
 --
 -- TOC entry 7063 (class 1259 OID 40155)
 
@@ -23686,8 +21388,6 @@ CREATE INDEX ix_driver_locations_driver_locations_driver_id_fkey_fkey ON public.
 --
 
 CREATE INDEX ix_driver_locations_loc_gist ON public.driver_locations USING gist (loc);
-
-
 --
 -- TOC entry 7064 (class 1259 OID 40156)
 
@@ -23695,8 +21395,6 @@ CREATE INDEX ix_driver_locations_loc_gist ON public.driver_locations USING gist 
 --
 
 CREATE INDEX ix_driver_locations_updated_at ON public.driver_locations USING btree (updated_at DESC);
-
-
 --
 -- TOC entry 7203 (class 1259 OID 42073)
 
@@ -23704,8 +21402,6 @@ CREATE INDEX ix_driver_locations_updated_at ON public.driver_locations USING btr
 --
 
 CREATE INDEX ix_driver_rank_snapshots_driver_id ON public.driver_rank_snapshots USING btree (driver_id);
-
-
 --
 -- TOC entry 7204 (class 1259 OID 61687)
 
@@ -23713,8 +21409,6 @@ CREATE INDEX ix_driver_rank_snapshots_driver_id ON public.driver_rank_snapshots 
 --
 
 CREATE INDEX ix_driver_rank_snapshots_period ON public.driver_rank_snapshots USING btree (period, period_start, rank);
-
-
 --
 -- TOC entry 7205 (class 1259 OID 61688)
 
@@ -23722,8 +21416,6 @@ CREATE INDEX ix_driver_rank_snapshots_period ON public.driver_rank_snapshots USI
 --
 
 CREATE INDEX ix_driver_rank_snapshots_period_start ON public.driver_rank_snapshots USING btree (period, period_start, score DESC);
-
-
 --
 -- TOC entry 7707 (class 1259 OID 64472)
 
@@ -23731,8 +21423,6 @@ CREATE INDEX ix_driver_rank_snapshots_period_start ON public.driver_rank_snapsho
 --
 
 CREATE INDEX ix_driver_shifts_active ON public.driver_shifts USING btree (driver_id, status) WHERE (status = 'active'::public.shift_status);
-
-
 --
 -- TOC entry 7708 (class 1259 OID 64471)
 
@@ -23740,8 +21430,6 @@ CREATE INDEX ix_driver_shifts_active ON public.driver_shifts USING btree (driver
 --
 
 CREATE INDEX ix_driver_shifts_driver ON public.driver_shifts USING btree (driver_id, scheduled_start DESC);
-
-
 --
 -- TOC entry 7709 (class 1259 OID 64473)
 
@@ -23749,8 +21437,6 @@ CREATE INDEX ix_driver_shifts_driver ON public.driver_shifts USING btree (driver
 --
 
 CREATE INDEX ix_driver_shifts_reminders ON public.driver_shifts USING btree (scheduled_start, reminder_sent_at) WHERE ((status = 'scheduled'::public.shift_status) AND (reminder_sent_at IS NULL));
-
-
 --
 -- TOC entry 7197 (class 1259 OID 40659)
 
@@ -23758,8 +21444,6 @@ CREATE INDEX ix_driver_shifts_reminders ON public.driver_shifts USING btree (sch
 --
 
 CREATE INDEX ix_driver_stats_daily_day ON public.driver_stats_daily USING btree (day);
-
-
 --
 -- TOC entry 7198 (class 1259 OID 41822)
 
@@ -23767,8 +21451,6 @@ CREATE INDEX ix_driver_stats_daily_day ON public.driver_stats_daily USING btree 
 --
 
 CREATE INDEX ix_driver_stats_daily_driver_day ON public.driver_stats_daily USING btree (driver_id, day DESC);
-
-
 --
 -- TOC entry 7069 (class 1259 OID 40157)
 
@@ -23776,8 +21458,6 @@ CREATE INDEX ix_driver_stats_daily_driver_day ON public.driver_stats_daily USING
 --
 
 CREATE INDEX ix_driver_vehicles_driver_id ON public.driver_vehicles USING btree (driver_id);
-
-
 --
 -- TOC entry 7072 (class 1259 OID 40158)
 
@@ -23785,8 +21465,6 @@ CREATE INDEX ix_driver_vehicles_driver_id ON public.driver_vehicles USING btree 
 --
 
 CREATE INDEX ix_drivers_drivers_id_fkey_fkey ON public.drivers USING btree (id);
-
-
 --
 -- TOC entry 7073 (class 1259 OID 40159)
 
@@ -23794,8 +21472,6 @@ CREATE INDEX ix_drivers_drivers_id_fkey_fkey ON public.drivers USING btree (id);
 --
 
 CREATE INDEX ix_drivers_rating_avg ON public.drivers USING btree (rating_avg DESC);
-
-
 --
 -- TOC entry 7074 (class 1259 OID 63659)
 
@@ -23803,8 +21479,6 @@ CREATE INDEX ix_drivers_rating_avg ON public.drivers USING btree (rating_avg DES
 --
 
 CREATE INDEX ix_drivers_status_available ON public.drivers USING btree (id) WHERE (status = 'available'::public.driver_status);
-
-
 --
 -- TOC entry 7728 (class 1259 OID 64563)
 
@@ -23812,8 +21486,6 @@ CREATE INDEX ix_drivers_status_available ON public.drivers USING btree (id) WHER
 --
 
 CREATE INDEX ix_earnings_coach_sessions_driver ON public.earnings_coach_sessions USING btree (driver_id, created_at DESC);
-
-
 --
 -- TOC entry 7721 (class 1259 OID 64523)
 
@@ -23821,8 +21493,6 @@ CREATE INDEX ix_earnings_coach_sessions_driver ON public.earnings_coach_sessions
 --
 
 CREATE INDEX ix_earnings_forecasts_date ON public.earnings_forecasts USING btree (forecast_date, zone_id);
-
-
 --
 -- TOC entry 7758 (class 1259 OID 64977)
 
@@ -23830,8 +21500,6 @@ CREATE INDEX ix_earnings_forecasts_date ON public.earnings_forecasts USING btree
 --
 
 CREATE INDEX ix_edge_webhook_outbox_due ON public.edge_webhook_outbox USING btree (status, next_attempt_at, id);
-
-
 --
 -- TOC entry 7759 (class 1259 OID 64978)
 
@@ -23839,8 +21507,6 @@ CREATE INDEX ix_edge_webhook_outbox_due ON public.edge_webhook_outbox USING btre
 --
 
 CREATE INDEX ix_edge_webhook_outbox_lock ON public.edge_webhook_outbox USING btree (lock_id, locked_at);
-
-
 --
 -- TOC entry 7636 (class 1259 OID 63877)
 
@@ -23848,8 +21514,6 @@ CREATE INDEX ix_edge_webhook_outbox_lock ON public.edge_webhook_outbox USING btr
 --
 
 CREATE INDEX ix_families_created_by ON public.families USING btree (created_by_user_id);
-
-
 --
 -- TOC entry 7639 (class 1259 OID 63900)
 
@@ -23857,8 +21521,6 @@ CREATE INDEX ix_families_created_by ON public.families USING btree (created_by_u
 --
 
 CREATE INDEX ix_family_members_family ON public.family_members USING btree (family_id);
-
-
 --
 -- TOC entry 7640 (class 1259 OID 63902)
 
@@ -23866,8 +21528,6 @@ CREATE INDEX ix_family_members_family ON public.family_members USING btree (fami
 --
 
 CREATE INDEX ix_family_members_invite_token ON public.family_members USING btree (invite_token_hash) WHERE (invite_token_hash IS NOT NULL);
-
-
 --
 -- TOC entry 7641 (class 1259 OID 63901)
 
@@ -23875,8 +21535,6 @@ CREATE INDEX ix_family_members_invite_token ON public.family_members USING btree
 --
 
 CREATE INDEX ix_family_members_user ON public.family_members USING btree (user_id) WHERE (user_id IS NOT NULL);
-
-
 --
 -- TOC entry 7642 (class 1259 OID 63899)
 
@@ -23884,8 +21542,6 @@ CREATE INDEX ix_family_members_user ON public.family_members USING btree (user_i
 --
 
 CREATE UNIQUE INDEX ix_family_members_user_family ON public.family_members USING btree (family_id, user_id) WHERE (user_id IS NOT NULL);
-
-
 --
 -- TOC entry 7622 (class 1259 OID 64704)
 
@@ -23893,8 +21549,6 @@ CREATE UNIQUE INDEX ix_family_members_user_family ON public.family_members USING
 --
 
 CREATE INDEX ix_fraud_case_events_event_id ON public.fraud_case_events USING btree (event_id);
-
-
 --
 -- TOC entry 7015 (class 1259 OID 40160)
 
@@ -23902,8 +21556,6 @@ CREATE INDEX ix_fraud_case_events_event_id ON public.fraud_case_events USING btr
 --
 
 CREATE INDEX ix_gift_codes_created_at ON public.gift_codes USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7016 (class 1259 OID 40161)
 
@@ -23911,8 +21563,6 @@ CREATE INDEX ix_gift_codes_created_at ON public.gift_codes USING btree (created_
 --
 
 CREATE INDEX ix_gift_codes_created_by ON public.gift_codes USING btree (created_by);
-
-
 --
 -- TOC entry 7017 (class 1259 OID 40162)
 
@@ -23920,8 +21570,6 @@ CREATE INDEX ix_gift_codes_created_by ON public.gift_codes USING btree (created_
 --
 
 CREATE INDEX ix_gift_codes_gift_codes_redeemed_by_fkey_fkey ON public.gift_codes USING btree (redeemed_by);
-
-
 --
 -- TOC entry 7018 (class 1259 OID 40163)
 
@@ -23929,8 +21577,6 @@ CREATE INDEX ix_gift_codes_gift_codes_redeemed_by_fkey_fkey ON public.gift_codes
 --
 
 CREATE INDEX ix_gift_codes_redeemed_by ON public.gift_codes USING btree (redeemed_by, redeemed_at DESC);
-
-
 --
 -- TOC entry 7019 (class 1259 OID 40164)
 
@@ -23938,8 +21584,6 @@ CREATE INDEX ix_gift_codes_redeemed_by ON public.gift_codes USING btree (redeeme
 --
 
 CREATE INDEX ix_gift_codes_redeemed_entry_id ON public.gift_codes USING btree (redeemed_entry_id);
-
-
 --
 -- TOC entry 7286 (class 1259 OID 41427)
 
@@ -23947,8 +21591,6 @@ CREATE INDEX ix_gift_codes_redeemed_entry_id ON public.gift_codes USING btree (r
 --
 
 CREATE INDEX ix_kyc_documents_document_type_id ON public.kyc_documents USING btree (document_type_id);
-
-
 --
 -- TOC entry 7287 (class 1259 OID 41391)
 
@@ -23956,8 +21598,6 @@ CREATE INDEX ix_kyc_documents_document_type_id ON public.kyc_documents USING btr
 --
 
 CREATE INDEX ix_kyc_documents_profile_id ON public.kyc_documents USING btree (profile_id);
-
-
 --
 -- TOC entry 7288 (class 1259 OID 41390)
 
@@ -23965,8 +21605,6 @@ CREATE INDEX ix_kyc_documents_profile_id ON public.kyc_documents USING btree (pr
 --
 
 CREATE INDEX ix_kyc_documents_submission_id ON public.kyc_documents USING btree (submission_id);
-
-
 --
 -- TOC entry 7289 (class 1259 OID 41033)
 
@@ -23974,8 +21612,6 @@ CREATE INDEX ix_kyc_documents_submission_id ON public.kyc_documents USING btree 
 --
 
 CREATE INDEX ix_kyc_documents_submission_id_created_at ON public.kyc_documents USING btree (submission_id, created_at);
-
-
 --
 -- TOC entry 7290 (class 1259 OID 41034)
 
@@ -23983,8 +21619,6 @@ CREATE INDEX ix_kyc_documents_submission_id_created_at ON public.kyc_documents U
 --
 
 CREATE INDEX ix_kyc_documents_user_id_doc_type ON public.kyc_documents USING btree (user_id, doc_type);
-
-
 --
 -- TOC entry 7299 (class 1259 OID 41410)
 
@@ -23992,8 +21626,6 @@ CREATE INDEX ix_kyc_documents_user_id_doc_type ON public.kyc_documents USING btr
 --
 
 CREATE INDEX ix_kyc_liveness_profile_id ON public.kyc_liveness_sessions USING btree (profile_id);
-
-
 --
 -- TOC entry 7300 (class 1259 OID 42074)
 
@@ -24001,8 +21633,6 @@ CREATE INDEX ix_kyc_liveness_profile_id ON public.kyc_liveness_sessions USING bt
 --
 
 CREATE INDEX ix_kyc_liveness_sessions_submission_id ON public.kyc_liveness_sessions USING btree (submission_id);
-
-
 --
 -- TOC entry 7280 (class 1259 OID 41389)
 
@@ -24010,8 +21640,6 @@ CREATE INDEX ix_kyc_liveness_sessions_submission_id ON public.kyc_liveness_sessi
 --
 
 CREATE INDEX ix_kyc_submissions_profile_id ON public.kyc_submissions USING btree (profile_id);
-
-
 --
 -- TOC entry 7281 (class 1259 OID 42075)
 
@@ -24019,8 +21647,6 @@ CREATE INDEX ix_kyc_submissions_profile_id ON public.kyc_submissions USING btree
 --
 
 CREATE INDEX ix_kyc_submissions_reviewer_id ON public.kyc_submissions USING btree (reviewer_id);
-
-
 --
 -- TOC entry 7282 (class 1259 OID 61725)
 
@@ -24028,8 +21654,6 @@ CREATE INDEX ix_kyc_submissions_reviewer_id ON public.kyc_submissions USING btre
 --
 
 CREATE INDEX ix_kyc_submissions_role_context ON public.kyc_submissions USING btree (role_context);
-
-
 --
 -- TOC entry 7283 (class 1259 OID 41011)
 
@@ -24037,8 +21661,6 @@ CREATE INDEX ix_kyc_submissions_role_context ON public.kyc_submissions USING btr
 --
 
 CREATE INDEX ix_kyc_submissions_user_id_created_at ON public.kyc_submissions USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7445 (class 1259 OID 44710)
 
@@ -24046,8 +21668,6 @@ CREATE INDEX ix_kyc_submissions_user_id_created_at ON public.kyc_submissions USI
 --
 
 CREATE INDEX ix_mcm_sender_created ON public.merchant_chat_messages USING btree (sender_id, created_at DESC);
-
-
 --
 -- TOC entry 7446 (class 1259 OID 44709)
 
@@ -24055,8 +21675,6 @@ CREATE INDEX ix_mcm_sender_created ON public.merchant_chat_messages USING btree 
 --
 
 CREATE INDEX ix_mcm_thread_created ON public.merchant_chat_messages USING btree (thread_id, created_at DESC);
-
-
 --
 -- TOC entry 7447 (class 1259 OID 44740)
 
@@ -24064,8 +21682,6 @@ CREATE INDEX ix_mcm_thread_created ON public.merchant_chat_messages USING btree 
 --
 
 CREATE INDEX ix_mcm_thread_created_id_desc ON public.merchant_chat_messages USING btree (thread_id, created_at DESC, id DESC);
-
-
 --
 -- TOC entry 7439 (class 1259 OID 44683)
 
@@ -24073,8 +21689,6 @@ CREATE INDEX ix_mcm_thread_created_id_desc ON public.merchant_chat_messages USIN
 --
 
 CREATE INDEX ix_mct_customer_last_message ON public.merchant_chat_threads USING btree (customer_id, last_message_at DESC);
-
-
 --
 -- TOC entry 7440 (class 1259 OID 44682)
 
@@ -24082,8 +21696,6 @@ CREATE INDEX ix_mct_customer_last_message ON public.merchant_chat_threads USING 
 --
 
 CREATE INDEX ix_mct_merchant_last_message ON public.merchant_chat_threads USING btree (merchant_id, last_message_at DESC);
-
-
 --
 -- TOC entry 7685 (class 1259 OID 64182)
 
@@ -24091,8 +21703,6 @@ CREATE INDEX ix_mct_merchant_last_message ON public.merchant_chat_threads USING 
 --
 
 CREATE INDEX ix_membership_plans_active ON public.membership_plans USING btree (is_active, code) WHERE (is_active = true);
-
-
 --
 -- TOC entry 7690 (class 1259 OID 64705)
 
@@ -24100,8 +21710,6 @@ CREATE INDEX ix_membership_plans_active ON public.membership_plans USING btree (
 --
 
 CREATE INDEX ix_memberships_plan_id ON public.memberships USING btree (plan_id);
-
-
 --
 -- TOC entry 7691 (class 1259 OID 64210)
 
@@ -24109,8 +21717,6 @@ CREATE INDEX ix_memberships_plan_id ON public.memberships USING btree (plan_id);
 --
 
 CREATE INDEX ix_memberships_renew ON public.memberships USING btree (next_bill_at) WHERE (status = 'active'::public.membership_status);
-
-
 --
 -- TOC entry 7692 (class 1259 OID 64706)
 
@@ -24118,8 +21724,6 @@ CREATE INDEX ix_memberships_renew ON public.memberships USING btree (next_bill_a
 --
 
 CREATE INDEX ix_memberships_shared_from_membership_id ON public.memberships USING btree (shared_from_membership_id);
-
-
 --
 -- TOC entry 7693 (class 1259 OID 64209)
 
@@ -24127,8 +21731,6 @@ CREATE INDEX ix_memberships_shared_from_membership_id ON public.memberships USIN
 --
 
 CREATE UNIQUE INDEX ix_memberships_user_active ON public.memberships USING btree (user_id, plan_id) WHERE (status = 'active'::public.membership_status);
-
-
 --
 -- TOC entry 7464 (class 1259 OID 45058)
 
@@ -24136,8 +21738,6 @@ CREATE UNIQUE INDEX ix_memberships_user_active ON public.memberships USING btree
 --
 
 CREATE INDEX ix_merchant_order_items_merchant_order_items_product_id ON public.merchant_order_items USING btree (product_id);
-
-
 --
 -- TOC entry 7465 (class 1259 OID 44838)
 
@@ -24145,8 +21745,6 @@ CREATE INDEX ix_merchant_order_items_merchant_order_items_product_id ON public.m
 --
 
 CREATE INDEX ix_merchant_order_items_order ON public.merchant_order_items USING btree (order_id);
-
-
 --
 -- TOC entry 7468 (class 1259 OID 45059)
 
@@ -24154,8 +21752,6 @@ CREATE INDEX ix_merchant_order_items_order ON public.merchant_order_items USING 
 --
 
 CREATE INDEX ix_merchant_order_status_events_merchant_order_status_events_ac ON public.merchant_order_status_events USING btree (actor_id);
-
-
 --
 -- TOC entry 7457 (class 1259 OID 44958)
 
@@ -24163,8 +21759,6 @@ CREATE INDEX ix_merchant_order_status_events_merchant_order_status_events_ac ON 
 --
 
 CREATE INDEX ix_merchant_orders_chat_thread_id ON public.merchant_orders USING btree (chat_thread_id);
-
-
 --
 -- TOC entry 7458 (class 1259 OID 44810)
 
@@ -24172,8 +21766,6 @@ CREATE INDEX ix_merchant_orders_chat_thread_id ON public.merchant_orders USING b
 --
 
 CREATE INDEX ix_merchant_orders_customer_created ON public.merchant_orders USING btree (customer_id, created_at DESC);
-
-
 --
 -- TOC entry 7459 (class 1259 OID 44809)
 
@@ -24181,8 +21773,6 @@ CREATE INDEX ix_merchant_orders_customer_created ON public.merchant_orders USING
 --
 
 CREATE INDEX ix_merchant_orders_merchant_created ON public.merchant_orders USING btree (merchant_id, created_at DESC);
-
-
 --
 -- TOC entry 7460 (class 1259 OID 45057)
 
@@ -24190,8 +21780,6 @@ CREATE INDEX ix_merchant_orders_merchant_created ON public.merchant_orders USING
 --
 
 CREATE INDEX ix_merchant_orders_merchant_orders_address_id ON public.merchant_orders USING btree (address_id);
-
-
 --
 -- TOC entry 7461 (class 1259 OID 61813)
 
@@ -24199,8 +21787,6 @@ CREATE INDEX ix_merchant_orders_merchant_orders_address_id ON public.merchant_or
 --
 
 CREATE INDEX ix_merchant_orders_status ON public.merchant_orders USING btree (status);
-
-
 --
 -- TOC entry 7425 (class 1259 OID 45050)
 
@@ -24208,8 +21794,6 @@ CREATE INDEX ix_merchant_orders_status ON public.merchant_orders USING btree (st
 --
 
 CREATE INDEX ix_merchant_products_description_trgm ON public.merchant_products USING gin (description extensions.gin_trgm_ops);
-
-
 --
 -- TOC entry 7426 (class 1259 OID 44624)
 
@@ -24217,8 +21801,6 @@ CREATE INDEX ix_merchant_products_description_trgm ON public.merchant_products U
 --
 
 CREATE INDEX ix_merchant_products_merchant_active ON public.merchant_products USING btree (merchant_id, is_active);
-
-
 --
 -- TOC entry 7427 (class 1259 OID 44966)
 
@@ -24226,8 +21808,6 @@ CREATE INDEX ix_merchant_products_merchant_active ON public.merchant_products US
 --
 
 CREATE INDEX ix_merchant_products_merchant_active_created_id_desc ON public.merchant_products USING btree (merchant_id, is_active, created_at DESC, id DESC);
-
-
 --
 -- TOC entry 7428 (class 1259 OID 44967)
 
@@ -24235,8 +21815,6 @@ CREATE INDEX ix_merchant_products_merchant_active_created_id_desc ON public.merc
 --
 
 CREATE INDEX ix_merchant_products_merchant_active_price_id ON public.merchant_products USING btree (merchant_id, is_active, price_iqd, id);
-
-
 --
 -- TOC entry 7429 (class 1259 OID 44625)
 
@@ -24244,8 +21822,6 @@ CREATE INDEX ix_merchant_products_merchant_active_price_id ON public.merchant_pr
 --
 
 CREATE INDEX ix_merchant_products_merchant_created ON public.merchant_products USING btree (merchant_id, created_at DESC);
-
-
 --
 -- TOC entry 7430 (class 1259 OID 44965)
 
@@ -24253,8 +21829,6 @@ CREATE INDEX ix_merchant_products_merchant_created ON public.merchant_products U
 --
 
 CREATE INDEX ix_merchant_products_merchant_featured ON public.merchant_products USING btree (merchant_id, is_featured) WHERE (is_featured = true);
-
-
 --
 -- TOC entry 7431 (class 1259 OID 45049)
 
@@ -24262,8 +21836,6 @@ CREATE INDEX ix_merchant_products_merchant_featured ON public.merchant_products 
 --
 
 CREATE INDEX ix_merchant_products_name_trgm ON public.merchant_products USING gin (name extensions.gin_trgm_ops);
-
-
 --
 -- TOC entry 7434 (class 1259 OID 45052)
 
@@ -24271,8 +21843,6 @@ CREATE INDEX ix_merchant_products_name_trgm ON public.merchant_products USING gi
 --
 
 CREATE INDEX ix_merchant_promotions_category_active ON public.merchant_promotions USING btree (merchant_id, category, is_active) WHERE (category IS NOT NULL);
-
-
 --
 -- TOC entry 7435 (class 1259 OID 44655)
 
@@ -24280,8 +21850,6 @@ CREATE INDEX ix_merchant_promotions_category_active ON public.merchant_promotion
 --
 
 CREATE INDEX ix_merchant_promotions_merchant_active ON public.merchant_promotions USING btree (merchant_id, is_active);
-
-
 --
 -- TOC entry 7436 (class 1259 OID 44656)
 
@@ -24289,8 +21857,6 @@ CREATE INDEX ix_merchant_promotions_merchant_active ON public.merchant_promotion
 --
 
 CREATE INDEX ix_merchant_promotions_product_active ON public.merchant_promotions USING btree (product_id, is_active);
-
-
 --
 -- TOC entry 7450 (class 1259 OID 44733)
 
@@ -24298,8 +21864,6 @@ CREATE INDEX ix_merchant_promotions_product_active ON public.merchant_promotions
 --
 
 CREATE INDEX ix_merchant_status_audit_merchant_created ON public.merchant_status_audit_log USING btree (merchant_id, created_at DESC);
-
-
 --
 -- TOC entry 7418 (class 1259 OID 56459)
 
@@ -24307,8 +21871,6 @@ CREATE INDEX ix_merchant_status_audit_merchant_created ON public.merchant_status
 --
 
 CREATE INDEX ix_merchants_business_name_trgm ON public.merchants USING gin (business_name extensions.gin_trgm_ops);
-
-
 --
 -- TOC entry 7419 (class 1259 OID 44595)
 
@@ -24316,8 +21878,6 @@ CREATE INDEX ix_merchants_business_name_trgm ON public.merchants USING gin (busi
 --
 
 CREATE INDEX ix_merchants_owner_profile_id ON public.merchants USING btree (owner_profile_id);
-
-
 --
 -- TOC entry 7420 (class 1259 OID 61849)
 
@@ -24325,8 +21885,6 @@ CREATE INDEX ix_merchants_owner_profile_id ON public.merchants USING btree (owne
 --
 
 CREATE INDEX ix_merchants_status ON public.merchants USING btree (status);
-
-
 --
 -- TOC entry 7472 (class 1259 OID 44925)
 
@@ -24334,8 +21892,6 @@ CREATE INDEX ix_merchants_status ON public.merchants USING btree (status);
 --
 
 CREATE INDEX ix_mod_customer_created ON public.merchant_order_deliveries USING btree (customer_id, created_at DESC);
-
-
 --
 -- TOC entry 7473 (class 1259 OID 61763)
 
@@ -24343,8 +21899,6 @@ CREATE INDEX ix_mod_customer_created ON public.merchant_order_deliveries USING b
 --
 
 CREATE INDEX ix_mod_driver_active ON public.merchant_order_deliveries USING btree (driver_id, status) WHERE (driver_id IS NOT NULL);
-
-
 --
 -- TOC entry 7474 (class 1259 OID 44924)
 
@@ -24352,8 +21906,6 @@ CREATE INDEX ix_mod_driver_active ON public.merchant_order_deliveries USING btre
 --
 
 CREATE INDEX ix_mod_merchant_created ON public.merchant_order_deliveries USING btree (merchant_id, created_at DESC);
-
-
 --
 -- TOC entry 7475 (class 1259 OID 61762)
 
@@ -24361,8 +21913,6 @@ CREATE INDEX ix_mod_merchant_created ON public.merchant_order_deliveries USING b
 --
 
 CREATE INDEX ix_mod_status_created ON public.merchant_order_deliveries USING btree (status, created_at DESC);
-
-
 --
 -- TOC entry 7480 (class 1259 OID 44944)
 
@@ -24370,8 +21920,6 @@ CREATE INDEX ix_mod_status_created ON public.merchant_order_deliveries USING btr
 --
 
 CREATE INDEX ix_mode_delivery_created ON public.merchant_order_delivery_events USING btree (delivery_id, created_at);
-
-
 --
 -- TOC entry 7185 (class 1259 OID 45070)
 
@@ -24379,8 +21927,6 @@ CREATE INDEX ix_mode_delivery_created ON public.merchant_order_delivery_events U
 --
 
 CREATE INDEX ix_notification_outbox_device_token_id ON public.notification_outbox USING btree (device_token_id);
-
-
 --
 -- TOC entry 7186 (class 1259 OID 61862)
 
@@ -24388,8 +21934,6 @@ CREATE INDEX ix_notification_outbox_device_token_id ON public.notification_outbo
 --
 
 CREATE INDEX ix_notification_outbox_pending_next_attempt ON public.notification_outbox USING btree (status, next_attempt_at, id);
-
-
 --
 -- TOC entry 7187 (class 1259 OID 61861)
 
@@ -24397,8 +21941,6 @@ CREATE INDEX ix_notification_outbox_pending_next_attempt ON public.notification_
 --
 
 CREATE INDEX ix_notification_outbox_status ON public.notification_outbox USING btree (status, id);
-
-
 --
 -- TOC entry 7188 (class 1259 OID 40628)
 
@@ -24406,8 +21948,6 @@ CREATE INDEX ix_notification_outbox_status ON public.notification_outbox USING b
 --
 
 CREATE INDEX ix_notification_outbox_user_id ON public.notification_outbox USING btree (user_id);
-
-
 --
 -- TOC entry 7610 (class 1259 OID 63623)
 
@@ -24415,8 +21955,6 @@ CREATE INDEX ix_notification_outbox_user_id ON public.notification_outbox USING 
 --
 
 CREATE INDEX ix_ops_alert_events_rule_occurred ON public.ops_alert_events USING btree (rule_id, occurred_at DESC);
-
-
 --
 -- TOC entry 7677 (class 1259 OID 64141)
 
@@ -24424,8 +21962,6 @@ CREATE INDEX ix_ops_alert_events_rule_occurred ON public.ops_alert_events USING 
 --
 
 CREATE INDEX ix_order_bundles_primary ON public.order_bundles USING btree (primary_order_id);
-
-
 --
 -- TOC entry 7678 (class 1259 OID 64140)
 
@@ -24433,8 +21969,6 @@ CREATE INDEX ix_order_bundles_primary ON public.order_bundles USING btree (prima
 --
 
 CREATE INDEX ix_order_bundles_user ON public.order_bundles USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7469 (class 1259 OID 44876)
 
@@ -24442,8 +21976,6 @@ CREATE INDEX ix_order_bundles_user ON public.order_bundles USING btree (user_id,
 --
 
 CREATE INDEX ix_order_status_events_order_created ON public.merchant_order_status_events USING btree (order_id, created_at DESC);
-
-
 --
 -- TOC entry 7746 (class 1259 OID 64707)
 
@@ -24451,8 +21983,6 @@ CREATE INDEX ix_order_status_events_order_created ON public.merchant_order_statu
 --
 
 CREATE INDEX ix_passkey_auth_log_passkey_id ON public.passkey_auth_log USING btree (passkey_id);
-
-
 --
 -- TOC entry 7747 (class 1259 OID 64669)
 
@@ -24460,8 +21990,6 @@ CREATE INDEX ix_passkey_auth_log_passkey_id ON public.passkey_auth_log USING btr
 --
 
 CREATE INDEX ix_passkey_auth_log_user ON public.passkey_auth_log USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7075 (class 1259 OID 40165)
 
@@ -24469,8 +21997,6 @@ CREATE INDEX ix_passkey_auth_log_user ON public.passkey_auth_log USING btree (us
 --
 
 CREATE INDEX ix_payment_intents_provider_charge_id ON public.payment_intents USING btree (provider_charge_id);
-
-
 --
 -- TOC entry 7076 (class 1259 OID 40166)
 
@@ -24478,8 +22004,6 @@ CREATE INDEX ix_payment_intents_provider_charge_id ON public.payment_intents USI
 --
 
 CREATE INDEX ix_payment_intents_provider_payment_intent_id ON public.payment_intents USING btree (provider_payment_intent_id);
-
-
 --
 -- TOC entry 7077 (class 1259 OID 40167)
 
@@ -24487,8 +22011,6 @@ CREATE INDEX ix_payment_intents_provider_payment_intent_id ON public.payment_int
 --
 
 CREATE INDEX ix_payment_intents_provider_session_id ON public.payment_intents USING btree (provider_session_id);
-
-
 --
 -- TOC entry 7078 (class 1259 OID 40168)
 
@@ -24496,8 +22018,6 @@ CREATE INDEX ix_payment_intents_provider_session_id ON public.payment_intents US
 --
 
 CREATE INDEX ix_payment_intents_ride_id ON public.payment_intents USING btree (ride_id);
-
-
 --
 -- TOC entry 7084 (class 1259 OID 40169)
 
@@ -24505,8 +22025,6 @@ CREATE INDEX ix_payment_intents_ride_id ON public.payment_intents USING btree (r
 --
 
 CREATE INDEX ix_payments_payment_intent_id ON public.payments USING btree (payment_intent_id);
-
-
 --
 -- TOC entry 7085 (class 1259 OID 40170)
 
@@ -24514,8 +22032,6 @@ CREATE INDEX ix_payments_payment_intent_id ON public.payments USING btree (payme
 --
 
 CREATE INDEX ix_payments_provider_payment_intent_id ON public.payments USING btree (provider_payment_intent_id);
-
-
 --
 -- TOC entry 7086 (class 1259 OID 40171)
 
@@ -24523,8 +22039,6 @@ CREATE INDEX ix_payments_provider_payment_intent_id ON public.payments USING btr
 --
 
 CREATE INDEX ix_payments_ride_id ON public.payments USING btree (ride_id);
-
-
 --
 -- TOC entry 7414 (class 1259 OID 44543)
 
@@ -24532,8 +22046,6 @@ CREATE INDEX ix_payments_ride_id ON public.payments USING btree (ride_id);
 --
 
 CREATE INDEX ix_payout_provider_job_attempts_job_created ON public.payout_provider_job_attempts USING btree (job_id, created_at DESC);
-
-
 --
 -- TOC entry 7409 (class 1259 OID 44524)
 
@@ -24541,8 +22053,6 @@ CREATE INDEX ix_payout_provider_job_attempts_job_created ON public.payout_provid
 --
 
 CREATE INDEX ix_payout_provider_jobs_locked_at ON public.payout_provider_jobs USING btree (locked_at);
-
-
 --
 -- TOC entry 7410 (class 1259 OID 61893)
 
@@ -24550,8 +22060,6 @@ CREATE INDEX ix_payout_provider_jobs_locked_at ON public.payout_provider_jobs US
 --
 
 CREATE INDEX ix_payout_provider_jobs_status_next ON public.payout_provider_jobs USING btree (status, next_attempt_at);
-
-
 --
 -- TOC entry 7696 (class 1259 OID 64227)
 
@@ -24559,8 +22067,6 @@ CREATE INDEX ix_payout_provider_jobs_status_next ON public.payout_provider_jobs 
 --
 
 CREATE INDEX ix_pricing_rules_active ON public.pricing_rules USING btree (priority DESC, is_active) WHERE (is_active = true);
-
-
 --
 -- TOC entry 7095 (class 1259 OID 40172)
 
@@ -24568,8 +22074,6 @@ CREATE INDEX ix_pricing_rules_active ON public.pricing_rules USING btree (priori
 --
 
 CREATE INDEX ix_profile_kyc_profile_kyc_user_id_fkey_fkey ON public.profile_kyc USING btree (user_id);
-
-
 --
 -- TOC entry 7096 (class 1259 OID 40173)
 
@@ -24577,8 +22081,6 @@ CREATE INDEX ix_profile_kyc_profile_kyc_user_id_fkey_fkey ON public.profile_kyc 
 --
 
 CREATE INDEX ix_profile_kyc_updated_by ON public.profile_kyc USING btree (updated_by);
-
-
 --
 -- TOC entry 7099 (class 1259 OID 40174)
 
@@ -24586,8 +22088,6 @@ CREATE INDEX ix_profile_kyc_updated_by ON public.profile_kyc USING btree (update
 --
 
 CREATE INDEX ix_profiles_profiles_id_fkey_fkey ON public.profiles USING btree (id);
-
-
 --
 -- TOC entry 7100 (class 1259 OID 40175)
 
@@ -24595,8 +22095,6 @@ CREATE INDEX ix_profiles_profiles_id_fkey_fkey ON public.profiles USING btree (i
 --
 
 CREATE INDEX ix_profiles_rating_avg ON public.profiles USING btree (rating_avg DESC);
-
-
 --
 -- TOC entry 7104 (class 1259 OID 40176)
 
@@ -24604,8 +22102,6 @@ CREATE INDEX ix_profiles_rating_avg ON public.profiles USING btree (rating_avg D
 --
 
 CREATE INDEX ix_provider_events_provider_events_provider_code_fkey_fkey ON public.provider_events USING btree (provider_code);
-
-
 --
 -- TOC entry 7741 (class 1259 OID 64648)
 
@@ -24613,8 +22109,6 @@ CREATE INDEX ix_provider_events_provider_events_provider_code_fkey_fkey ON publi
 --
 
 CREATE INDEX ix_recovery_codes_user ON public.recovery_codes USING btree (user_id, batch_id);
-
-
 --
 -- TOC entry 7221 (class 1259 OID 40751)
 
@@ -24622,8 +22116,6 @@ CREATE INDEX ix_recovery_codes_user ON public.recovery_codes USING btree (user_i
 --
 
 CREATE INDEX ix_referral_codes_user_id ON public.referral_codes USING btree (user_id);
-
-
 --
 -- TOC entry 7318 (class 1259 OID 41811)
 
@@ -24631,8 +22123,6 @@ CREATE INDEX ix_referral_codes_user_id ON public.referral_codes USING btree (use
 --
 
 CREATE INDEX ix_referral_invites_referrer_created ON public.referral_invites USING btree (referrer_id, created_at DESC);
-
-
 --
 -- TOC entry 7226 (class 1259 OID 42076)
 
@@ -24640,8 +22130,6 @@ CREATE INDEX ix_referral_invites_referrer_created ON public.referral_invites USI
 --
 
 CREATE INDEX ix_referral_redemptions_campaign_id ON public.referral_redemptions USING btree (campaign_id);
-
-
 --
 -- TOC entry 7227 (class 1259 OID 40780)
 
@@ -24649,8 +22137,6 @@ CREATE INDEX ix_referral_redemptions_campaign_id ON public.referral_redemptions 
 --
 
 CREATE INDEX ix_referral_redemptions_referrer ON public.referral_redemptions USING btree (referrer_id);
-
-
 --
 -- TOC entry 7254 (class 1259 OID 40910)
 
@@ -24658,8 +22144,6 @@ CREATE INDEX ix_referral_redemptions_referrer ON public.referral_redemptions USI
 --
 
 CREATE INDEX ix_ride_chat_messages_ride_id_created_at ON public.ride_chat_messages USING btree (ride_id, created_at DESC);
-
-
 --
 -- TOC entry 7255 (class 1259 OID 40911)
 
@@ -24667,8 +22151,6 @@ CREATE INDEX ix_ride_chat_messages_ride_id_created_at ON public.ride_chat_messag
 --
 
 CREATE INDEX ix_ride_chat_messages_sender_id ON public.ride_chat_messages USING btree (sender_id);
-
-
 --
 -- TOC entry 7256 (class 1259 OID 41766)
 
@@ -24676,8 +22158,6 @@ CREATE INDEX ix_ride_chat_messages_sender_id ON public.ride_chat_messages USING 
 --
 
 CREATE INDEX ix_ride_chat_messages_thread_created ON public.ride_chat_messages USING btree (thread_id, created_at DESC);
-
-
 --
 -- TOC entry 7259 (class 1259 OID 42077)
 
@@ -24685,8 +22165,6 @@ CREATE INDEX ix_ride_chat_messages_thread_created ON public.ride_chat_messages U
 --
 
 CREATE INDEX ix_ride_chat_read_receipts_reader_id ON public.ride_chat_read_receipts USING btree (reader_id);
-
-
 --
 -- TOC entry 7260 (class 1259 OID 40938)
 
@@ -24694,8 +22172,6 @@ CREATE INDEX ix_ride_chat_read_receipts_reader_id ON public.ride_chat_read_recei
 --
 
 CREATE INDEX ix_ride_chat_read_receipts_ride_id_reader_id ON public.ride_chat_read_receipts USING btree (ride_id, reader_id);
-
-
 --
 -- TOC entry 7310 (class 1259 OID 42078)
 
@@ -24703,8 +22179,6 @@ CREATE INDEX ix_ride_chat_read_receipts_ride_id_reader_id ON public.ride_chat_re
 --
 
 CREATE INDEX ix_ride_chat_threads_driver_id ON public.ride_chat_threads USING btree (driver_id);
-
-
 --
 -- TOC entry 7311 (class 1259 OID 42079)
 
@@ -24712,8 +22186,6 @@ CREATE INDEX ix_ride_chat_threads_driver_id ON public.ride_chat_threads USING bt
 --
 
 CREATE INDEX ix_ride_chat_threads_rider_id ON public.ride_chat_threads USING btree (rider_id);
-
-
 --
 -- TOC entry 7267 (class 1259 OID 42080)
 
@@ -24721,8 +22193,6 @@ CREATE INDEX ix_ride_chat_threads_rider_id ON public.ride_chat_threads USING btr
 --
 
 CREATE INDEX ix_ride_chat_typing_profile_id ON public.ride_chat_typing USING btree (profile_id);
-
-
 --
 -- TOC entry 7268 (class 1259 OID 40956)
 
@@ -24730,8 +22200,6 @@ CREATE INDEX ix_ride_chat_typing_profile_id ON public.ride_chat_typing USING btr
 --
 
 CREATE INDEX ix_ride_chat_typing_ride_id_updated_at ON public.ride_chat_typing USING btree (ride_id, updated_at DESC);
-
-
 --
 -- TOC entry 7109 (class 1259 OID 40177)
 
@@ -24739,8 +22207,6 @@ CREATE INDEX ix_ride_chat_typing_ride_id_updated_at ON public.ride_chat_typing U
 --
 
 CREATE INDEX ix_ride_events_created_at ON public.ride_events USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7110 (class 1259 OID 40178)
 
@@ -24748,8 +22214,6 @@ CREATE INDEX ix_ride_events_created_at ON public.ride_events USING btree (create
 --
 
 CREATE INDEX ix_ride_events_ride_id ON public.ride_events USING btree (ride_id);
-
-
 --
 -- TOC entry 7113 (class 1259 OID 40179)
 
@@ -24757,8 +22221,6 @@ CREATE INDEX ix_ride_events_ride_id ON public.ride_events USING btree (ride_id);
 --
 
 CREATE INDEX ix_ride_incidents_assigned_to ON public.ride_incidents USING btree (assigned_to);
-
-
 --
 -- TOC entry 7114 (class 1259 OID 40180)
 
@@ -24766,8 +22228,6 @@ CREATE INDEX ix_ride_incidents_assigned_to ON public.ride_incidents USING btree 
 --
 
 CREATE INDEX ix_ride_incidents_created_at ON public.ride_incidents USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7115 (class 1259 OID 40823)
 
@@ -24775,8 +22235,6 @@ CREATE INDEX ix_ride_incidents_created_at ON public.ride_incidents USING btree (
 --
 
 CREATE INDEX ix_ride_incidents_loc ON public.ride_incidents USING gist (loc);
-
-
 --
 -- TOC entry 7116 (class 1259 OID 40181)
 
@@ -24784,8 +22242,6 @@ CREATE INDEX ix_ride_incidents_loc ON public.ride_incidents USING gist (loc);
 --
 
 CREATE INDEX ix_ride_incidents_reporter_id ON public.ride_incidents USING btree (reporter_id);
-
-
 --
 -- TOC entry 7117 (class 1259 OID 40182)
 
@@ -24793,8 +22249,6 @@ CREATE INDEX ix_ride_incidents_reporter_id ON public.ride_incidents USING btree 
 --
 
 CREATE INDEX ix_ride_incidents_ride_id ON public.ride_incidents USING btree (ride_id);
-
-
 --
 -- TOC entry 7118 (class 1259 OID 40822)
 
@@ -24802,8 +22256,6 @@ CREATE INDEX ix_ride_incidents_ride_id ON public.ride_incidents USING btree (rid
 --
 
 CREATE INDEX ix_ride_incidents_ride_id_created_at ON public.ride_incidents USING btree (ride_id, created_at DESC);
-
-
 --
 -- TOC entry 7119 (class 1259 OID 40183)
 
@@ -24811,8 +22263,6 @@ CREATE INDEX ix_ride_incidents_ride_id_created_at ON public.ride_incidents USING
 --
 
 CREATE INDEX ix_ride_incidents_severity ON public.ride_incidents USING btree (severity);
-
-
 --
 -- TOC entry 7120 (class 1259 OID 40184)
 
@@ -24820,8 +22270,6 @@ CREATE INDEX ix_ride_incidents_severity ON public.ride_incidents USING btree (se
 --
 
 CREATE INDEX ix_ride_incidents_status ON public.ride_incidents USING btree (status);
-
-
 --
 -- TOC entry 7346 (class 1259 OID 44169)
 
@@ -24829,8 +22277,6 @@ CREATE INDEX ix_ride_incidents_status ON public.ride_incidents USING btree (stat
 --
 
 CREATE INDEX ix_ride_intents_converted_request_id_fkey ON public.ride_intents USING btree (converted_request_id);
-
-
 --
 -- TOC entry 7123 (class 1259 OID 40185)
 
@@ -24838,8 +22284,6 @@ CREATE INDEX ix_ride_intents_converted_request_id_fkey ON public.ride_intents US
 --
 
 CREATE INDEX ix_ride_ratings_ratee_id ON public.ride_ratings USING btree (ratee_id);
-
-
 --
 -- TOC entry 7124 (class 1259 OID 40186)
 
@@ -24847,8 +22291,6 @@ CREATE INDEX ix_ride_ratings_ratee_id ON public.ride_ratings USING btree (ratee_
 --
 
 CREATE INDEX ix_ride_ratings_rater_id ON public.ride_ratings USING btree (rater_id);
-
-
 --
 -- TOC entry 7125 (class 1259 OID 40187)
 
@@ -24856,8 +22298,6 @@ CREATE INDEX ix_ride_ratings_rater_id ON public.ride_ratings USING btree (rater_
 --
 
 CREATE INDEX ix_ride_ratings_ride_id ON public.ride_ratings USING btree (ride_id);
-
-
 --
 -- TOC entry 7129 (class 1259 OID 40188)
 
@@ -24865,8 +22305,6 @@ CREATE INDEX ix_ride_ratings_ride_id ON public.ride_ratings USING btree (ride_id
 --
 
 CREATE INDEX ix_ride_receipts_generated_at ON public.ride_receipts USING btree (generated_at DESC);
-
-
 --
 -- TOC entry 7130 (class 1259 OID 40189)
 
@@ -24874,8 +22312,6 @@ CREATE INDEX ix_ride_receipts_generated_at ON public.ride_receipts USING btree (
 --
 
 CREATE INDEX ix_ride_receipts_ride_receipts_ride_id_fkey_fkey ON public.ride_receipts USING btree (ride_id);
-
-
 --
 -- TOC entry 7133 (class 1259 OID 40190)
 
@@ -24883,8 +22319,6 @@ CREATE INDEX ix_ride_receipts_ride_receipts_ride_id_fkey_fkey ON public.ride_rec
 --
 
 CREATE INDEX ix_ride_requests_assigned_driver_id ON public.ride_requests USING btree (assigned_driver_id);
-
-
 --
 -- TOC entry 7134 (class 1259 OID 40191)
 
@@ -24892,8 +22326,6 @@ CREATE INDEX ix_ride_requests_assigned_driver_id ON public.ride_requests USING b
 --
 
 CREATE INDEX ix_ride_requests_created_at ON public.ride_requests USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7135 (class 1259 OID 62337)
 
@@ -24901,8 +22333,6 @@ CREATE INDEX ix_ride_requests_created_at ON public.ride_requests USING btree (cr
 --
 
 CREATE INDEX ix_ride_requests_fare_quote_id ON public.ride_requests USING btree (fare_quote_id);
-
-
 --
 -- TOC entry 7136 (class 1259 OID 42081)
 
@@ -24910,8 +22340,6 @@ CREATE INDEX ix_ride_requests_fare_quote_id ON public.ride_requests USING btree 
 --
 
 CREATE INDEX ix_ride_requests_product_code ON public.ride_requests USING btree (product_code);
-
-
 --
 -- TOC entry 7137 (class 1259 OID 40192)
 
@@ -24919,8 +22347,6 @@ CREATE INDEX ix_ride_requests_product_code ON public.ride_requests USING btree (
 --
 
 CREATE INDEX ix_ride_requests_rider_id ON public.ride_requests USING btree (rider_id);
-
-
 --
 -- TOC entry 7138 (class 1259 OID 44170)
 
@@ -24928,8 +22354,6 @@ CREATE INDEX ix_ride_requests_rider_id ON public.ride_requests USING btree (ride
 --
 
 CREATE INDEX ix_ride_requests_service_area_id_fkey ON public.ride_requests USING btree (service_area_id);
-
-
 --
 -- TOC entry 7139 (class 1259 OID 40193)
 
@@ -24937,8 +22361,6 @@ CREATE INDEX ix_ride_requests_service_area_id_fkey ON public.ride_requests USING
 --
 
 CREATE INDEX ix_ride_requests_status ON public.ride_requests USING btree (status);
-
-
 --
 -- TOC entry 7373 (class 1259 OID 62001)
 
@@ -24946,8 +22368,6 @@ CREATE INDEX ix_ride_requests_status ON public.ride_requests USING btree (status
 --
 
 CREATE INDEX ix_ridecheck_events_ride_status_time ON public.ridecheck_events USING btree (ride_id, status, created_at DESC);
-
-
 --
 -- TOC entry 7377 (class 1259 OID 43873)
 
@@ -24955,8 +22375,6 @@ CREATE INDEX ix_ridecheck_events_ride_status_time ON public.ridecheck_events USI
 --
 
 CREATE INDEX ix_ridecheck_responses_event_created ON public.ridecheck_responses USING btree (event_id, created_at DESC);
-
-
 --
 -- TOC entry 7378 (class 1259 OID 44171)
 
@@ -24964,8 +22382,6 @@ CREATE INDEX ix_ridecheck_responses_event_created ON public.ridecheck_responses 
 --
 
 CREATE INDEX ix_ridecheck_responses_ride_id_fkey ON public.ridecheck_responses USING btree (ride_id);
-
-
 --
 -- TOC entry 7379 (class 1259 OID 44172)
 
@@ -24973,8 +22389,6 @@ CREATE INDEX ix_ridecheck_responses_ride_id_fkey ON public.ridecheck_responses U
 --
 
 CREATE INDEX ix_ridecheck_responses_user_id_fkey ON public.ridecheck_responses USING btree (user_id);
-
-
 --
 -- TOC entry 7020 (class 1259 OID 40194)
 
@@ -24982,8 +22396,6 @@ CREATE INDEX ix_ridecheck_responses_user_id_fkey ON public.ridecheck_responses U
 --
 
 CREATE INDEX ix_rides_created_at ON public.rides USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7021 (class 1259 OID 40195)
 
@@ -24991,8 +22403,6 @@ CREATE INDEX ix_rides_created_at ON public.rides USING btree (created_at DESC);
 --
 
 CREATE INDEX ix_rides_driver_created_at ON public.rides USING btree (driver_id, created_at DESC);
-
-
 --
 -- TOC entry 7022 (class 1259 OID 40196)
 
@@ -25000,8 +22410,6 @@ CREATE INDEX ix_rides_driver_created_at ON public.rides USING btree (driver_id, 
 --
 
 CREATE INDEX ix_rides_driver_id ON public.rides USING btree (driver_id);
-
-
 --
 -- TOC entry 7023 (class 1259 OID 40197)
 
@@ -25009,8 +22417,6 @@ CREATE INDEX ix_rides_driver_id ON public.rides USING btree (driver_id);
 --
 
 CREATE INDEX ix_rides_paid_at ON public.rides USING btree (paid_at DESC);
-
-
 --
 -- TOC entry 7024 (class 1259 OID 40198)
 
@@ -25018,8 +22424,6 @@ CREATE INDEX ix_rides_paid_at ON public.rides USING btree (paid_at DESC);
 --
 
 CREATE INDEX ix_rides_payment_intent_id ON public.rides USING btree (payment_intent_id);
-
-
 --
 -- TOC entry 7025 (class 1259 OID 43809)
 
@@ -25027,8 +22431,6 @@ CREATE INDEX ix_rides_payment_intent_id ON public.rides USING btree (payment_int
 --
 
 CREATE INDEX ix_rides_pickup_pin_required_status ON public.rides USING btree (pickup_pin_required, status);
-
-
 --
 -- TOC entry 7026 (class 1259 OID 42082)
 
@@ -25036,8 +22438,6 @@ CREATE INDEX ix_rides_pickup_pin_required_status ON public.rides USING btree (pi
 --
 
 CREATE INDEX ix_rides_product_code ON public.rides USING btree (product_code);
-
-
 --
 -- TOC entry 7027 (class 1259 OID 40199)
 
@@ -25045,8 +22445,6 @@ CREATE INDEX ix_rides_product_code ON public.rides USING btree (product_code);
 --
 
 CREATE INDEX ix_rides_rider_created_at ON public.rides USING btree (rider_id, created_at DESC);
-
-
 --
 -- TOC entry 7028 (class 1259 OID 40200)
 
@@ -25054,8 +22452,6 @@ CREATE INDEX ix_rides_rider_created_at ON public.rides USING btree (rider_id, cr
 --
 
 CREATE INDEX ix_rides_rider_id ON public.rides USING btree (rider_id);
-
-
 --
 -- TOC entry 7029 (class 1259 OID 40201)
 
@@ -25063,8 +22459,6 @@ CREATE INDEX ix_rides_rider_id ON public.rides USING btree (rider_id);
 --
 
 CREATE INDEX ix_rides_rides_request_id_fkey_fkey ON public.rides USING btree (request_id);
-
-
 --
 -- TOC entry 7030 (class 1259 OID 40202)
 
@@ -25072,8 +22466,6 @@ CREATE INDEX ix_rides_rides_request_id_fkey_fkey ON public.rides USING btree (re
 --
 
 CREATE INDEX ix_rides_status ON public.rides USING btree (status);
-
-
 --
 -- TOC entry 7031 (class 1259 OID 40203)
 
@@ -25081,8 +22473,6 @@ CREATE INDEX ix_rides_status ON public.rides USING btree (status);
 --
 
 CREATE INDEX ix_rides_wallet_hold_id ON public.rides USING btree (wallet_hold_id);
-
-
 --
 -- TOC entry 7630 (class 1259 OID 63858)
 
@@ -25090,8 +22480,6 @@ CREATE INDEX ix_rides_wallet_hold_id ON public.rides USING btree (wallet_hold_id
 --
 
 CREATE INDEX ix_safety_mismatch_reports_reported ON public.safety_mismatch_reports USING btree (reported_user_id, created_at DESC);
-
-
 --
 -- TOC entry 7631 (class 1259 OID 63857)
 
@@ -25099,8 +22487,6 @@ CREATE INDEX ix_safety_mismatch_reports_reported ON public.safety_mismatch_repor
 --
 
 CREATE INDEX ix_safety_mismatch_reports_reporter ON public.safety_mismatch_reports USING btree (reporter_id, created_at DESC);
-
-
 --
 -- TOC entry 7627 (class 1259 OID 63829)
 
@@ -25108,8 +22494,6 @@ CREATE INDEX ix_safety_mismatch_reports_reporter ON public.safety_mismatch_repor
 --
 
 CREATE INDEX ix_safety_prefs_driver_opt_in ON public.safety_preferences USING btree (user_id) WHERE ((women_preferences_driver_opt_in = true) AND (women_preferences_eligible = true));
-
-
 --
 -- TOC entry 7331 (class 1259 OID 62338)
 
@@ -25117,8 +22501,6 @@ CREATE INDEX ix_safety_prefs_driver_opt_in ON public.safety_preferences USING bt
 --
 
 CREATE INDEX ix_scheduled_rides_fare_quote_id ON public.scheduled_rides USING btree (fare_quote_id);
-
-
 --
 -- TOC entry 7332 (class 1259 OID 44173)
 
@@ -25126,8 +22508,6 @@ CREATE INDEX ix_scheduled_rides_fare_quote_id ON public.scheduled_rides USING bt
 --
 
 CREATE INDEX ix_scheduled_rides_service_area_id_fkey ON public.scheduled_rides USING btree (service_area_id);
-
-
 --
 -- TOC entry 7337 (class 1259 OID 44174)
 
@@ -25135,8 +22515,6 @@ CREATE INDEX ix_scheduled_rides_service_area_id_fkey ON public.scheduled_rides U
 --
 
 CREATE INDEX ix_service_areas_pricing_config_id_fkey ON public.service_areas USING btree (pricing_config_id);
-
-
 --
 -- TOC entry 7710 (class 1259 OID 64493)
 
@@ -25144,8 +22522,6 @@ CREATE INDEX ix_service_areas_pricing_config_id_fkey ON public.service_areas USI
 --
 
 CREATE UNIQUE INDEX ix_shift_progress_shift ON public.shift_progress USING btree (shift_id);
-
-
 --
 -- TOC entry 7349 (class 1259 OID 43698)
 
@@ -25153,8 +22529,6 @@ CREATE UNIQUE INDEX ix_shift_progress_shift ON public.shift_progress USING btree
 --
 
 CREATE INDEX ix_sos_events_ride_created ON public.sos_events USING btree (ride_id, created_at DESC);
-
-
 --
 -- TOC entry 7350 (class 1259 OID 43697)
 
@@ -25162,8 +22536,6 @@ CREATE INDEX ix_sos_events_ride_created ON public.sos_events USING btree (ride_i
 --
 
 CREATE INDEX ix_sos_events_user_created ON public.sos_events USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7358 (class 1259 OID 43738)
 
@@ -25171,8 +22543,6 @@ CREATE INDEX ix_sos_events_user_created ON public.sos_events USING btree (user_i
 --
 
 CREATE INDEX ix_support_articles_enabled_updated ON public.support_articles USING btree (enabled, updated_at DESC);
-
-
 --
 -- TOC entry 7359 (class 1259 OID 43739)
 
@@ -25180,8 +22550,6 @@ CREATE INDEX ix_support_articles_enabled_updated ON public.support_articles USIN
 --
 
 CREATE INDEX ix_support_articles_section ON public.support_articles USING btree (section_id, enabled, updated_at DESC);
-
-
 --
 -- TOC entry 7249 (class 1259 OID 41432)
 
@@ -25189,8 +22557,6 @@ CREATE INDEX ix_support_articles_section ON public.support_articles USING btree 
 --
 
 CREATE INDEX ix_support_messages_sender_id ON public.support_messages USING btree (sender_id);
-
-
 --
 -- TOC entry 7250 (class 1259 OID 41431)
 
@@ -25198,8 +22564,6 @@ CREATE INDEX ix_support_messages_sender_id ON public.support_messages USING btre
 --
 
 CREATE INDEX ix_support_messages_ticket_id ON public.support_messages USING btree (ticket_id);
-
-
 --
 -- TOC entry 7251 (class 1259 OID 40880)
 
@@ -25207,8 +22571,6 @@ CREATE INDEX ix_support_messages_ticket_id ON public.support_messages USING btre
 --
 
 CREATE INDEX ix_support_messages_ticket_id_created_at ON public.support_messages USING btree (ticket_id, created_at);
-
-
 --
 -- TOC entry 7353 (class 1259 OID 43737)
 
@@ -25216,8 +22578,6 @@ CREATE INDEX ix_support_messages_ticket_id_created_at ON public.support_messages
 --
 
 CREATE INDEX ix_support_sections_sort ON public.support_sections USING btree (enabled, sort_order, key);
-
-
 --
 -- TOC entry 7242 (class 1259 OID 42083)
 
@@ -25225,8 +22585,6 @@ CREATE INDEX ix_support_sections_sort ON public.support_sections USING btree (en
 --
 
 CREATE INDEX ix_support_tickets_category_code ON public.support_tickets USING btree (category_code);
-
-
 --
 -- TOC entry 7243 (class 1259 OID 42084)
 
@@ -25234,8 +22592,6 @@ CREATE INDEX ix_support_tickets_category_code ON public.support_tickets USING bt
 --
 
 CREATE INDEX ix_support_tickets_category_id ON public.support_tickets USING btree (category_id);
-
-
 --
 -- TOC entry 7244 (class 1259 OID 41430)
 
@@ -25243,8 +22599,6 @@ CREATE INDEX ix_support_tickets_category_id ON public.support_tickets USING btre
 --
 
 CREATE INDEX ix_support_tickets_created_by ON public.support_tickets USING btree (created_by);
-
-
 --
 -- TOC entry 7245 (class 1259 OID 62060)
 
@@ -25252,8 +22606,6 @@ CREATE INDEX ix_support_tickets_created_by ON public.support_tickets USING btree
 --
 
 CREATE INDEX ix_support_tickets_created_by_status_updated_at ON public.support_tickets USING btree (created_by, status, updated_at DESC);
-
-
 --
 -- TOC entry 7246 (class 1259 OID 42085)
 
@@ -25261,8 +22613,6 @@ CREATE INDEX ix_support_tickets_created_by_status_updated_at ON public.support_t
 --
 
 CREATE INDEX ix_support_tickets_ride_id ON public.support_tickets USING btree (ride_id);
-
-
 --
 -- TOC entry 7643 (class 1259 OID 63927)
 
@@ -25270,8 +22620,6 @@ CREATE INDEX ix_support_tickets_ride_id ON public.support_tickets USING btree (r
 --
 
 CREATE INDEX ix_teen_policies_teen ON public.teen_policies USING btree (teen_user_id);
-
-
 --
 -- TOC entry 7038 (class 1259 OID 40204)
 
@@ -25279,8 +22627,6 @@ CREATE INDEX ix_teen_policies_teen ON public.teen_policies USING btree (teen_use
 --
 
 CREATE INDEX ix_topup_intents_package_id ON public.topup_intents USING btree (package_id);
-
-
 --
 -- TOC entry 7039 (class 1259 OID 40205)
 
@@ -25288,8 +22634,6 @@ CREATE INDEX ix_topup_intents_package_id ON public.topup_intents USING btree (pa
 --
 
 CREATE INDEX ix_topup_intents_provider_code ON public.topup_intents USING btree (provider_code);
-
-
 --
 -- TOC entry 7040 (class 1259 OID 40206)
 
@@ -25297,8 +22641,6 @@ CREATE INDEX ix_topup_intents_provider_code ON public.topup_intents USING btree 
 --
 
 CREATE INDEX ix_topup_intents_status ON public.topup_intents USING btree (status);
-
-
 --
 -- TOC entry 7041 (class 1259 OID 40207)
 
@@ -25306,8 +22648,6 @@ CREATE INDEX ix_topup_intents_status ON public.topup_intents USING btree (status
 --
 
 CREATE INDEX ix_topup_intents_topup_intents_user_id_fkey_fkey ON public.topup_intents USING btree (user_id);
-
-
 --
 -- TOC entry 7042 (class 1259 OID 40208)
 
@@ -25315,8 +22655,6 @@ CREATE INDEX ix_topup_intents_topup_intents_user_id_fkey_fkey ON public.topup_in
 --
 
 CREATE INDEX ix_topup_intents_user_created ON public.topup_intents USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7648 (class 1259 OID 63949)
 
@@ -25324,8 +22662,6 @@ CREATE INDEX ix_topup_intents_user_created ON public.topup_intents USING btree (
 --
 
 CREATE INDEX ix_trip_guardian_links_guardian ON public.trip_guardian_links USING btree (guardian_user_id);
-
-
 --
 -- TOC entry 7649 (class 1259 OID 64708)
 
@@ -25333,8 +22669,6 @@ CREATE INDEX ix_trip_guardian_links_guardian ON public.trip_guardian_links USING
 --
 
 CREATE INDEX ix_trip_guardian_links_teen_user_id ON public.trip_guardian_links USING btree (teen_user_id);
-
-
 --
 -- TOC entry 7650 (class 1259 OID 63948)
 
@@ -25342,8 +22676,6 @@ CREATE INDEX ix_trip_guardian_links_teen_user_id ON public.trip_guardian_links U
 --
 
 CREATE INDEX ix_trip_guardian_links_trip ON public.trip_guardian_links USING btree (trip_id);
-
-
 --
 -- TOC entry 7655 (class 1259 OID 64022)
 
@@ -25351,8 +22683,6 @@ CREATE INDEX ix_trip_guardian_links_trip ON public.trip_guardian_links USING btr
 --
 
 CREATE INDEX ix_trip_live_activities_trip ON public.trip_live_activities USING btree (trip_id) WHERE (revoked_at IS NULL);
-
-
 --
 -- TOC entry 7656 (class 1259 OID 64023)
 
@@ -25360,8 +22690,6 @@ CREATE INDEX ix_trip_live_activities_trip ON public.trip_live_activities USING b
 --
 
 CREATE INDEX ix_trip_live_activities_user ON public.trip_live_activities USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7271 (class 1259 OID 42086)
 
@@ -25369,8 +22697,6 @@ CREATE INDEX ix_trip_live_activities_user ON public.trip_live_activities USING b
 --
 
 CREATE INDEX ix_trip_share_tokens_created_by ON public.trip_share_tokens USING btree (created_by);
-
-
 --
 -- TOC entry 7272 (class 1259 OID 41372)
 
@@ -25378,8 +22704,6 @@ CREATE INDEX ix_trip_share_tokens_created_by ON public.trip_share_tokens USING b
 --
 
 CREATE INDEX ix_trip_share_tokens_ride_id ON public.trip_share_tokens USING btree (ride_id);
-
-
 --
 -- TOC entry 7273 (class 1259 OID 40983)
 
@@ -25387,8 +22711,6 @@ CREATE INDEX ix_trip_share_tokens_ride_id ON public.trip_share_tokens USING btre
 --
 
 CREATE INDEX ix_trip_share_tokens_ride_id_active ON public.trip_share_tokens USING btree (ride_id, expires_at) WHERE (revoked_at IS NULL);
-
-
 --
 -- TOC entry 7274 (class 1259 OID 40982)
 
@@ -25396,8 +22718,6 @@ CREATE INDEX ix_trip_share_tokens_ride_id_active ON public.trip_share_tokens USI
 --
 
 CREATE INDEX ix_trip_share_tokens_token ON public.trip_share_tokens USING btree (token);
-
-
 --
 -- TOC entry 7661 (class 1259 OID 64037)
 
@@ -25405,8 +22725,6 @@ CREATE INDEX ix_trip_share_tokens_token ON public.trip_share_tokens USING btree 
 --
 
 CREATE INDEX ix_trip_status_transitions_pending ON public.trip_status_transitions USING btree (created_at) WHERE (broadcast_sent = false);
-
-
 --
 -- TOC entry 7662 (class 1259 OID 64036)
 
@@ -25414,8 +22732,6 @@ CREATE INDEX ix_trip_status_transitions_pending ON public.trip_status_transition
 --
 
 CREATE INDEX ix_trip_status_transitions_trip ON public.trip_status_transitions USING btree (trip_id, created_at DESC);
-
-
 --
 -- TOC entry 7366 (class 1259 OID 44175)
 
@@ -25423,8 +22739,6 @@ CREATE INDEX ix_trip_status_transitions_trip ON public.trip_status_transitions U
 --
 
 CREATE INDEX ix_trusted_contact_events_contact_id_fkey ON public.trusted_contact_events USING btree (contact_id);
-
-
 --
 -- TOC entry 7367 (class 1259 OID 43794)
 
@@ -25432,8 +22746,6 @@ CREATE INDEX ix_trusted_contact_events_contact_id_fkey ON public.trusted_contact
 --
 
 CREATE INDEX ix_trusted_contact_events_ride_id_created_at ON public.trusted_contact_events USING btree (ride_id, created_at DESC);
-
-
 --
 -- TOC entry 7368 (class 1259 OID 43793)
 
@@ -25441,8 +22753,6 @@ CREATE INDEX ix_trusted_contact_events_ride_id_created_at ON public.trusted_cont
 --
 
 CREATE INDEX ix_trusted_contact_events_user_id_created_at ON public.trusted_contact_events USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7386 (class 1259 OID 44176)
 
@@ -25450,8 +22760,6 @@ CREATE INDEX ix_trusted_contact_events_user_id_created_at ON public.trusted_cont
 --
 
 CREATE INDEX ix_trusted_contact_outbox_ride_id_fkey ON public.trusted_contact_outbox USING btree (ride_id);
-
-
 --
 -- TOC entry 7387 (class 1259 OID 44177)
 
@@ -25459,8 +22767,6 @@ CREATE INDEX ix_trusted_contact_outbox_ride_id_fkey ON public.trusted_contact_ou
 --
 
 CREATE INDEX ix_trusted_contact_outbox_sos_event_id_fkey ON public.trusted_contact_outbox USING btree (sos_event_id);
-
-
 --
 -- TOC entry 7232 (class 1259 OID 55171)
 
@@ -25468,8 +22774,6 @@ CREATE INDEX ix_trusted_contact_outbox_sos_event_id_fkey ON public.trusted_conta
 --
 
 CREATE INDEX ix_trusted_contacts_phone_e164 ON public.trusted_contacts USING btree (phone_e164);
-
-
 --
 -- TOC entry 7233 (class 1259 OID 40805)
 
@@ -25477,8 +22781,6 @@ CREATE INDEX ix_trusted_contacts_phone_e164 ON public.trusted_contacts USING btr
 --
 
 CREATE INDEX ix_trusted_contacts_user_id_active ON public.trusted_contacts USING btree (user_id, is_active);
-
-
 --
 -- TOC entry 7303 (class 1259 OID 41712)
 
@@ -25486,8 +22788,6 @@ CREATE INDEX ix_trusted_contacts_user_id_active ON public.trusted_contacts USING
 --
 
 CREATE INDEX ix_user_device_tokens_user_id ON public.user_device_tokens USING btree (user_id);
-
-
 --
 -- TOC entry 7500 (class 1259 OID 62204)
 
@@ -25495,8 +22795,6 @@ CREATE INDEX ix_user_device_tokens_user_id ON public.user_device_tokens USING bt
 --
 
 CREATE INDEX ix_user_interest_targets_category ON public.user_interest_targets USING btree (category) WHERE (kind = 'category'::public.user_interest_target_kind);
-
-
 --
 -- TOC entry 7501 (class 1259 OID 62205)
 
@@ -25504,8 +22802,6 @@ CREATE INDEX ix_user_interest_targets_category ON public.user_interest_targets U
 --
 
 CREATE INDEX ix_user_interest_targets_keyword ON public.user_interest_targets USING btree (keyword) WHERE (kind = 'keyword'::public.user_interest_target_kind);
-
-
 --
 -- TOC entry 7502 (class 1259 OID 62124)
 
@@ -25513,8 +22809,6 @@ CREATE INDEX ix_user_interest_targets_keyword ON public.user_interest_targets US
 --
 
 CREATE INDEX ix_user_interest_targets_kind_enabled ON public.user_interest_targets USING btree (kind, enabled);
-
-
 --
 -- TOC entry 7503 (class 1259 OID 62206)
 
@@ -25522,8 +22816,6 @@ CREATE INDEX ix_user_interest_targets_kind_enabled ON public.user_interest_targe
 --
 
 CREATE INDEX ix_user_interest_targets_merchant ON public.user_interest_targets USING btree (merchant_id) WHERE (kind = 'merchant'::public.user_interest_target_kind);
-
-
 --
 -- TOC entry 7504 (class 1259 OID 62207)
 
@@ -25531,8 +22823,6 @@ CREATE INDEX ix_user_interest_targets_merchant ON public.user_interest_targets U
 --
 
 CREATE INDEX ix_user_interest_targets_product ON public.user_interest_targets USING btree (product_id) WHERE (kind = 'product'::public.user_interest_target_kind);
-
-
 --
 -- TOC entry 7505 (class 1259 OID 56425)
 
@@ -25540,8 +22830,6 @@ CREATE INDEX ix_user_interest_targets_product ON public.user_interest_targets US
 --
 
 CREATE INDEX ix_user_interest_targets_user_enabled ON public.user_interest_targets USING btree (user_id, enabled);
-
-
 --
 -- TOC entry 7147 (class 1259 OID 43666)
 
@@ -25549,8 +22837,6 @@ CREATE INDEX ix_user_interest_targets_user_enabled ON public.user_interest_targe
 --
 
 CREATE INDEX ix_user_notifications_unread ON public.user_notifications USING btree (user_id) WHERE (read_at IS NULL);
-
-
 --
 -- TOC entry 7148 (class 1259 OID 40209)
 
@@ -25558,8 +22844,6 @@ CREATE INDEX ix_user_notifications_unread ON public.user_notifications USING btr
 --
 
 CREATE INDEX ix_user_notifications_user_created ON public.user_notifications USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7729 (class 1259 OID 64607)
 
@@ -25567,8 +22851,6 @@ CREATE INDEX ix_user_notifications_user_created ON public.user_notifications USI
 --
 
 CREATE INDEX ix_user_passkeys_user ON public.user_passkeys USING btree (user_id) WHERE (status = 'active'::public.passkey_status);
-
-
 --
 -- TOC entry 7497 (class 1259 OID 55245)
 
@@ -25576,8 +22858,6 @@ CREATE INDEX ix_user_passkeys_user ON public.user_passkeys USING btree (user_id)
 --
 
 CREATE INDEX ix_voice_call_participants_profile_id ON public.voice_call_participants USING btree (profile_id);
-
-
 --
 -- TOC entry 7491 (class 1259 OID 55221)
 
@@ -25585,8 +22865,6 @@ CREATE INDEX ix_voice_call_participants_profile_id ON public.voice_call_particip
 --
 
 CREATE INDEX ix_voice_calls_created_at ON public.voice_calls USING btree (created_at DESC);
-
-
 --
 -- TOC entry 7492 (class 1259 OID 55223)
 
@@ -25594,8 +22872,6 @@ CREATE INDEX ix_voice_calls_created_at ON public.voice_calls USING btree (create
 --
 
 CREATE INDEX ix_voice_calls_created_by ON public.voice_calls USING btree (created_by);
-
-
 --
 -- TOC entry 7493 (class 1259 OID 55222)
 
@@ -25603,8 +22879,6 @@ CREATE INDEX ix_voice_calls_created_by ON public.voice_calls USING btree (create
 --
 
 CREATE INDEX ix_voice_calls_ride_id ON public.voice_calls USING btree (ride_id);
-
-
 --
 -- TOC entry 7494 (class 1259 OID 55224)
 
@@ -25612,8 +22886,6 @@ CREATE INDEX ix_voice_calls_ride_id ON public.voice_calls USING btree (ride_id);
 --
 
 CREATE INDEX ix_voice_calls_status ON public.voice_calls USING btree (status);
-
-
 --
 -- TOC entry 7046 (class 1259 OID 40211)
 
@@ -25621,8 +22893,6 @@ CREATE INDEX ix_voice_calls_status ON public.voice_calls USING btree (status);
 --
 
 CREATE INDEX ix_wallet_accounts_wallet_accounts_user_id_fkey_fkey ON public.wallet_accounts USING btree (user_id);
-
-
 --
 -- TOC entry 7151 (class 1259 OID 40212)
 
@@ -25630,8 +22900,6 @@ CREATE INDEX ix_wallet_accounts_wallet_accounts_user_id_fkey_fkey ON public.wall
 --
 
 CREATE INDEX ix_wallet_entries_user_created ON public.wallet_entries USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7152 (class 1259 OID 40213)
 
@@ -25639,8 +22907,6 @@ CREATE INDEX ix_wallet_entries_user_created ON public.wallet_entries USING btree
 --
 
 CREATE INDEX ix_wallet_entries_wallet_entries_user_id_fkey_fkey ON public.wallet_entries USING btree (user_id);
-
-
 --
 -- TOC entry 7156 (class 1259 OID 40214)
 
@@ -25648,8 +22914,6 @@ CREATE INDEX ix_wallet_entries_wallet_entries_user_id_fkey_fkey ON public.wallet
 --
 
 CREATE INDEX ix_wallet_holds_ride_id ON public.wallet_holds USING btree (ride_id);
-
-
 --
 -- TOC entry 7157 (class 1259 OID 40215)
 
@@ -25657,8 +22921,6 @@ CREATE INDEX ix_wallet_holds_ride_id ON public.wallet_holds USING btree (ride_id
 --
 
 CREATE INDEX ix_wallet_holds_user_created ON public.wallet_holds USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7158 (class 1259 OID 40216)
 
@@ -25666,8 +22928,6 @@ CREATE INDEX ix_wallet_holds_user_created ON public.wallet_holds USING btree (us
 --
 
 CREATE INDEX ix_wallet_holds_wallet_holds_user_id_fkey_fkey ON public.wallet_holds USING btree (user_id);
-
-
 --
 -- TOC entry 7159 (class 1259 OID 40217)
 
@@ -25675,8 +22935,6 @@ CREATE INDEX ix_wallet_holds_wallet_holds_user_id_fkey_fkey ON public.wallet_hol
 --
 
 CREATE INDEX ix_wallet_holds_withdraw_request ON public.wallet_holds USING btree (withdraw_request_id);
-
-
 --
 -- TOC entry 7401 (class 1259 OID 44472)
 
@@ -25684,8 +22942,6 @@ CREATE INDEX ix_wallet_holds_withdraw_request ON public.wallet_holds USING btree
 --
 
 CREATE INDEX ix_wallet_payout_attempts_status_created ON public.wallet_payout_attempts USING btree (status, created_at DESC);
-
-
 --
 -- TOC entry 7398 (class 1259 OID 44441)
 
@@ -25693,8 +22949,6 @@ CREATE INDEX ix_wallet_payout_attempts_status_created ON public.wallet_payout_at
 --
 
 CREATE INDEX ix_wallet_withdraw_audit_request_created ON public.wallet_withdraw_audit_log USING btree (request_id, created_at DESC);
-
-
 --
 -- TOC entry 7164 (class 1259 OID 40218)
 
@@ -25702,8 +22956,6 @@ CREATE INDEX ix_wallet_withdraw_audit_request_created ON public.wallet_withdraw_
 --
 
 CREATE INDEX ix_wallet_withdraw_payout_methods_updated_by ON public.wallet_withdraw_payout_methods USING btree (updated_by);
-
-
 --
 -- TOC entry 7167 (class 1259 OID 40219)
 
@@ -25711,8 +22963,6 @@ CREATE INDEX ix_wallet_withdraw_payout_methods_updated_by ON public.wallet_withd
 --
 
 CREATE INDEX ix_wallet_withdraw_requ_67e67264c160fa61_fkey ON public.wallet_withdraw_requests USING btree (user_id);
-
-
 --
 -- TOC entry 7168 (class 1259 OID 40220)
 
@@ -25720,8 +22970,6 @@ CREATE INDEX ix_wallet_withdraw_requ_67e67264c160fa61_fkey ON public.wallet_with
 --
 
 CREATE INDEX ix_wallet_withdraw_requests_status_created ON public.wallet_withdraw_requests USING btree (status, created_at DESC);
-
-
 --
 -- TOC entry 7169 (class 1259 OID 40221)
 
@@ -25729,8 +22977,6 @@ CREATE INDEX ix_wallet_withdraw_requests_status_created ON public.wallet_withdra
 --
 
 CREATE INDEX ix_wallet_withdraw_requests_user_created ON public.wallet_withdraw_requests USING btree (user_id, created_at DESC);
-
-
 --
 -- TOC entry 7173 (class 1259 OID 40222)
 
@@ -25738,8 +22984,6 @@ CREATE INDEX ix_wallet_withdraw_requests_user_created ON public.wallet_withdraw_
 --
 
 CREATE INDEX ix_wallet_withdrawal_policy_updated_by ON public.wallet_withdrawal_policy USING btree (updated_by);
-
-
 --
 -- TOC entry 7734 (class 1259 OID 64629)
 
@@ -25747,8 +22991,6 @@ CREATE INDEX ix_wallet_withdrawal_policy_updated_by ON public.wallet_withdrawal_
 --
 
 CREATE INDEX ix_webauthn_challenges_active ON public.webauthn_challenges USING btree (expires_at) WHERE (used_at IS NULL);
-
-
 --
 -- TOC entry 7735 (class 1259 OID 64630)
 
@@ -25756,8 +22998,6 @@ CREATE INDEX ix_webauthn_challenges_active ON public.webauthn_challenges USING b
 --
 
 CREATE INDEX ix_webauthn_challenges_cleanup ON public.webauthn_challenges USING btree (expires_at);
-
-
 --
 -- TOC entry 7736 (class 1259 OID 64709)
 
@@ -25765,8 +23005,6 @@ CREATE INDEX ix_webauthn_challenges_cleanup ON public.webauthn_challenges USING 
 --
 
 CREATE INDEX ix_webauthn_challenges_user_id ON public.webauthn_challenges USING btree (user_id);
-
-
 --
 -- TOC entry 7595 (class 1259 OID 64710)
 
@@ -25774,8 +23012,6 @@ CREATE INDEX ix_webauthn_challenges_user_id ON public.webauthn_challenges USING 
 --
 
 CREATE INDEX ix_webhook_jobs_provider_event_pk ON public.webhook_jobs USING btree (provider_event_pk);
-
-
 --
 -- TOC entry 7520 (class 1259 OID 56508)
 
@@ -25783,8 +23019,6 @@ CREATE INDEX ix_webhook_jobs_provider_event_pk ON public.webhook_jobs USING btre
 --
 
 CREATE INDEX merchant_chat_ai_receipts_thread_id_idx ON public.merchant_chat_ai_receipts USING btree (thread_id);
-
-
 --
 -- TOC entry 7559 (class 1259 OID 63114)
 
@@ -25792,8 +23026,6 @@ CREATE INDEX merchant_chat_ai_receipts_thread_id_idx ON public.merchant_chat_ai_
 --
 
 CREATE UNIQUE INDEX merchant_commission_configs_merchant_uq ON public.merchant_commission_configs USING btree (merchant_id) WHERE (merchant_id IS NOT NULL);
-
-
 --
 -- TOC entry 7512 (class 1259 OID 56518)
 
@@ -25801,8 +23033,6 @@ CREATE UNIQUE INDEX merchant_commission_configs_merchant_uq ON public.merchant_c
 --
 
 CREATE INDEX promotion_notification_receipts_notification_id_idx ON public.promotion_notification_receipts USING btree (notification_id);
-
-
 --
 -- TOC entry 7515 (class 1259 OID 56517)
 
@@ -25810,8 +23040,6 @@ CREATE INDEX promotion_notification_receipts_notification_id_idx ON public.promo
 --
 
 CREATE INDEX promotion_notification_receipts_user_id_idx ON public.promotion_notification_receipts USING btree (user_id);
-
-
 --
 -- TOC entry 7107 (class 1259 OID 40223)
 
@@ -25819,8 +23047,6 @@ CREATE INDEX promotion_notification_receipts_user_id_idx ON public.promotion_not
 --
 
 CREATE UNIQUE INDEX provider_events_provider_code_provider_event_id_key ON public.provider_events USING btree (provider_code, provider_event_id);
-
-
 --
 -- TOC entry 7108 (class 1259 OID 40224)
 
@@ -25828,8 +23054,6 @@ CREATE UNIQUE INDEX provider_events_provider_code_provider_event_id_key ON publi
 --
 
 CREATE INDEX provider_events_provider_code_received_at_idx ON public.provider_events USING btree (provider_code, received_at DESC);
-
-
 --
 -- TOC entry 7140 (class 1259 OID 62982)
 
@@ -25837,8 +23061,6 @@ CREATE INDEX provider_events_provider_code_received_at_idx ON public.provider_ev
 --
 
 CREATE INDEX ride_requests_payment_method_idx ON public.ride_requests USING btree (payment_method);
-
-
 --
 -- TOC entry 7032 (class 1259 OID 62983)
 
@@ -25846,8 +23068,6 @@ CREATE INDEX ride_requests_payment_method_idx ON public.ride_requests USING btre
 --
 
 CREATE INDEX rides_payment_method_idx ON public.rides USING btree (payment_method);
-
-
 --
 -- TOC entry 7546 (class 1259 OID 63014)
 
@@ -25855,8 +23075,6 @@ CREATE INDEX rides_payment_method_idx ON public.rides USING btree (payment_metho
 --
 
 CREATE UNIQUE INDEX settlement_accounts_unique_party ON public.settlement_accounts USING btree (party_type, party_id, currency);
-
-
 --
 -- TOC entry 7547 (class 1259 OID 63372)
 
@@ -25864,8 +23082,6 @@ CREATE UNIQUE INDEX settlement_accounts_unique_party ON public.settlement_accoun
 --
 
 CREATE INDEX settlement_entries_account_created_idx ON public.settlement_entries USING btree (account_id, created_at);
-
-
 --
 -- TOC entry 7548 (class 1259 OID 63030)
 
@@ -25873,8 +23089,6 @@ CREATE INDEX settlement_entries_account_created_idx ON public.settlement_entries
 --
 
 CREATE UNIQUE INDEX settlement_entries_idem_uq ON public.settlement_entries USING btree (idempotency_key) WHERE (idempotency_key IS NOT NULL);
-
-
 --
 -- TOC entry 7562 (class 1259 OID 63337)
 
@@ -25882,8 +23096,6 @@ CREATE UNIQUE INDEX settlement_entries_idem_uq ON public.settlement_entries USIN
 --
 
 CREATE INDEX settlement_payouts_agent_day_idx ON public.settlement_payouts USING btree (agent_id, (((paid_at AT TIME ZONE 'UTC'::text))::date));
-
-
 --
 -- TOC entry 7565 (class 1259 OID 63336)
 
@@ -25891,8 +23103,6 @@ CREATE INDEX settlement_payouts_agent_day_idx ON public.settlement_payouts USING
 --
 
 CREATE UNIQUE INDEX settlement_payouts_payout_no_uq ON public.settlement_payouts USING btree (payout_no) WHERE (payout_no IS NOT NULL);
-
-
 --
 -- TOC entry 7553 (class 1259 OID 63330)
 
@@ -25900,8 +23110,6 @@ CREATE UNIQUE INDEX settlement_payouts_payout_no_uq ON public.settlement_payouts
 --
 
 CREATE INDEX settlement_receipts_agent_day_idx ON public.settlement_receipts USING btree (agent_id, (((received_at AT TIME ZONE 'UTC'::text))::date));
-
-
 --
 -- TOC entry 7558 (class 1259 OID 63329)
 
@@ -25909,8 +23117,6 @@ CREATE INDEX settlement_receipts_agent_day_idx ON public.settlement_receipts USI
 --
 
 CREATE UNIQUE INDEX settlement_receipts_receipt_no_uq ON public.settlement_receipts USING btree (receipt_no) WHERE (receipt_no IS NOT NULL);
-
-
 --
 -- TOC entry 7094 (class 1259 OID 62321)
 
@@ -25918,8 +23124,6 @@ CREATE UNIQUE INDEX settlement_receipts_receipt_no_uq ON public.settlement_recei
 --
 
 CREATE UNIQUE INDEX uniq_pricing_configs_default_true ON public.pricing_configs USING btree (is_default) WHERE is_default;
-
-
 --
 -- TOC entry 7184 (class 1259 OID 41734)
 
@@ -25927,8 +23131,6 @@ CREATE UNIQUE INDEX uniq_pricing_configs_default_true ON public.pricing_configs 
 --
 
 CREATE UNIQUE INDEX ux_device_tokens_user_token ON public.device_tokens USING btree (user_id, token);
-
-
 --
 -- TOC entry 7508 (class 1259 OID 62208)
 
@@ -25936,8 +23138,6 @@ CREATE UNIQUE INDEX ux_device_tokens_user_token ON public.device_tokens USING bt
 --
 
 CREATE UNIQUE INDEX ux_interest_category ON public.user_interest_targets USING btree (user_id, lower(category)) WHERE ((kind = 'category'::public.user_interest_target_kind) AND (category IS NOT NULL));
-
-
 --
 -- TOC entry 7509 (class 1259 OID 62209)
 
@@ -25945,8 +23145,6 @@ CREATE UNIQUE INDEX ux_interest_category ON public.user_interest_targets USING b
 --
 
 CREATE UNIQUE INDEX ux_interest_keyword ON public.user_interest_targets USING btree (user_id, lower(keyword)) WHERE ((kind = 'keyword'::public.user_interest_target_kind) AND (keyword IS NOT NULL));
-
-
 --
 -- TOC entry 7510 (class 1259 OID 62210)
 
@@ -25954,8 +23152,6 @@ CREATE UNIQUE INDEX ux_interest_keyword ON public.user_interest_targets USING bt
 --
 
 CREATE UNIQUE INDEX ux_interest_merchant ON public.user_interest_targets USING btree (user_id, merchant_id) WHERE ((kind = 'merchant'::public.user_interest_target_kind) AND (merchant_id IS NOT NULL));
-
-
 --
 -- TOC entry 7511 (class 1259 OID 62211)
 
@@ -25963,8 +23159,6 @@ CREATE UNIQUE INDEX ux_interest_merchant ON public.user_interest_targets USING b
 --
 
 CREATE UNIQUE INDEX ux_interest_product ON public.user_interest_targets USING btree (user_id, product_id) WHERE ((kind = 'product'::public.user_interest_target_kind) AND (product_id IS NOT NULL));
-
-
 --
 -- TOC entry 7081 (class 1259 OID 40225)
 
@@ -25972,8 +23166,6 @@ CREATE UNIQUE INDEX ux_interest_product ON public.user_interest_targets USING bt
 --
 
 CREATE UNIQUE INDEX ux_payment_intents_ride_active ON public.payment_intents USING btree (ride_id) WHERE (status = ANY (ARRAY['requires_payment_method'::public.payment_intent_status, 'requires_confirmation'::public.payment_intent_status, 'requires_capture'::public.payment_intent_status]));
-
-
 --
 -- TOC entry 7089 (class 1259 OID 40226)
 
@@ -25981,8 +23173,6 @@ CREATE UNIQUE INDEX ux_payment_intents_ride_active ON public.payment_intents USI
 --
 
 CREATE UNIQUE INDEX ux_payments_provider_refund_id ON public.payments USING btree (provider_refund_id) WHERE (provider_refund_id IS NOT NULL);
-
-
 --
 -- TOC entry 7090 (class 1259 OID 62212)
 
@@ -25990,8 +23180,6 @@ CREATE UNIQUE INDEX ux_payments_provider_refund_id ON public.payments USING btre
 --
 
 CREATE UNIQUE INDEX ux_payments_ride_succeeded ON public.payments USING btree (ride_id) WHERE (status = 'succeeded'::public.payment_status);
-
-
 --
 -- TOC entry 7417 (class 1259 OID 44542)
 
@@ -25999,8 +23187,6 @@ CREATE UNIQUE INDEX ux_payments_ride_succeeded ON public.payments USING btree (r
 --
 
 CREATE UNIQUE INDEX ux_payout_provider_job_attempts_job_attempt ON public.payout_provider_job_attempts USING btree (job_id, attempt_no);
-
-
 --
 -- TOC entry 7413 (class 1259 OID 62213)
 
@@ -26008,8 +23194,6 @@ CREATE UNIQUE INDEX ux_payout_provider_job_attempts_job_attempt ON public.payout
 --
 
 CREATE UNIQUE INDEX ux_payout_provider_jobs_active_per_withdraw ON public.payout_provider_jobs USING btree (withdraw_request_id) WHERE (status = ANY (ARRAY['queued'::public.payout_provider_job_status, 'sent'::public.payout_provider_job_status]));
-
-
 --
 -- TOC entry 7103 (class 1259 OID 55166)
 
@@ -26017,8 +23201,6 @@ CREATE UNIQUE INDEX ux_payout_provider_jobs_active_per_withdraw ON public.payout
 --
 
 CREATE UNIQUE INDEX ux_profiles_phone_e164 ON public.profiles USING btree (phone_e164) WHERE (phone_e164 IS NOT NULL);
-
-
 --
 -- TOC entry 7128 (class 1259 OID 40228)
 
@@ -26026,8 +23208,6 @@ CREATE UNIQUE INDEX ux_profiles_phone_e164 ON public.profiles USING btree (phone
 --
 
 CREATE UNIQUE INDEX ux_ride_ratings_ride_rater ON public.ride_ratings USING btree (ride_id, rater_id);
-
-
 --
 -- TOC entry 7143 (class 1259 OID 40229)
 
@@ -26035,8 +23215,6 @@ CREATE UNIQUE INDEX ux_ride_ratings_ride_rater ON public.ride_ratings USING btre
 --
 
 CREATE UNIQUE INDEX ux_ride_requests_driver_matched ON public.ride_requests USING btree (assigned_driver_id) WHERE ((status = 'matched'::public.ride_request_status) AND (assigned_driver_id IS NOT NULL));
-
-
 --
 -- TOC entry 7376 (class 1259 OID 62214)
 
@@ -26044,8 +23222,6 @@ CREATE UNIQUE INDEX ux_ride_requests_driver_matched ON public.ride_requests USIN
 --
 
 CREATE UNIQUE INDEX ux_ridecheck_events_open_kind ON public.ridecheck_events USING btree (ride_id, kind) WHERE (status = 'open'::public.ridecheck_event_status);
-
-
 --
 -- TOC entry 7382 (class 1259 OID 64951)
 
@@ -26053,8 +23229,6 @@ CREATE UNIQUE INDEX ux_ridecheck_events_open_kind ON public.ridecheck_events USI
 --
 
 CREATE UNIQUE INDEX ux_ridecheck_responses_event_user ON public.ridecheck_responses USING btree (event_id, user_id);
-
-
 --
 -- TOC entry 7037 (class 1259 OID 40230)
 
@@ -26062,8 +23236,6 @@ CREATE UNIQUE INDEX ux_ridecheck_responses_event_user ON public.ridecheck_respon
 --
 
 CREATE UNIQUE INDEX ux_rides_driver_active ON public.rides USING btree (driver_id) WHERE (status = ANY (ARRAY['assigned'::public.ride_status, 'arrived'::public.ride_status, 'in_progress'::public.ride_status]));
-
-
 --
 -- TOC entry 7045 (class 1259 OID 40231)
 
@@ -26071,8 +23243,6 @@ CREATE UNIQUE INDEX ux_rides_driver_active ON public.rides USING btree (driver_i
 --
 
 CREATE UNIQUE INDEX ux_topup_intents_user_idempotency ON public.topup_intents USING btree (user_id, idempotency_key) WHERE (idempotency_key IS NOT NULL);
-
-
 --
 -- TOC entry 7146 (class 1259 OID 40232)
 
@@ -26080,8 +23250,6 @@ CREATE UNIQUE INDEX ux_topup_intents_user_idempotency ON public.topup_intents US
 --
 
 CREATE UNIQUE INDEX ux_topup_packages_label ON public.topup_packages USING btree (label);
-
-
 --
 -- TOC entry 7279 (class 1259 OID 41371)
 
@@ -26089,8 +23257,6 @@ CREATE UNIQUE INDEX ux_topup_packages_label ON public.topup_packages USING btree
 --
 
 CREATE UNIQUE INDEX ux_trip_share_tokens_token_hash ON public.trip_share_tokens USING btree (token_hash) WHERE (token_hash IS NOT NULL);
-
-
 --
 -- TOC entry 7390 (class 1259 OID 44002)
 
@@ -26098,8 +23264,6 @@ CREATE UNIQUE INDEX ux_trip_share_tokens_token_hash ON public.trip_share_tokens 
 --
 
 CREATE UNIQUE INDEX ux_trusted_contact_outbox_contact_sos ON public.trusted_contact_outbox USING btree (contact_id, sos_event_id);
-
-
 --
 -- TOC entry 7153 (class 1259 OID 40233)
 
@@ -26107,8 +23271,6 @@ CREATE UNIQUE INDEX ux_trusted_contact_outbox_contact_sos ON public.trusted_cont
 --
 
 CREATE UNIQUE INDEX ux_wallet_entries_user_idempotency ON public.wallet_entries USING btree (user_id, idempotency_key) WHERE (idempotency_key IS NOT NULL);
-
-
 --
 -- TOC entry 7160 (class 1259 OID 40234)
 
@@ -26116,8 +23278,6 @@ CREATE UNIQUE INDEX ux_wallet_entries_user_idempotency ON public.wallet_entries 
 --
 
 CREATE UNIQUE INDEX ux_wallet_holds_active_per_ride ON public.wallet_holds USING btree (ride_id) WHERE ((ride_id IS NOT NULL) AND (status = 'active'::public.wallet_hold_status));
-
-
 --
 -- TOC entry 7161 (class 1259 OID 40235)
 
@@ -26125,8 +23285,6 @@ CREATE UNIQUE INDEX ux_wallet_holds_active_per_ride ON public.wallet_holds USING
 --
 
 CREATE UNIQUE INDEX ux_wallet_holds_active_per_withdraw ON public.wallet_holds USING btree (withdraw_request_id) WHERE ((withdraw_request_id IS NOT NULL) AND (status = 'active'::public.wallet_hold_status));
-
-
 --
 -- TOC entry 7402 (class 1259 OID 44471)
 
@@ -26134,8 +23292,6 @@ CREATE UNIQUE INDEX ux_wallet_holds_active_per_withdraw ON public.wallet_holds U
 --
 
 CREATE UNIQUE INDEX ux_wallet_payout_attempts_withdraw_request ON public.wallet_payout_attempts USING btree (withdraw_request_id);
-
-
 --
 -- TOC entry 7170 (class 1259 OID 40236)
 
@@ -26143,8 +23299,6 @@ CREATE UNIQUE INDEX ux_wallet_payout_attempts_withdraw_request ON public.wallet_
 --
 
 CREATE UNIQUE INDEX ux_wallet_withdraw_requests_user_idempotency ON public.wallet_withdraw_requests USING btree (user_id, idempotency_key) WHERE (idempotency_key IS NOT NULL);
-
-
 --
 -- TOC entry 7601 (class 1259 OID 63563)
 
@@ -26152,8 +23306,6 @@ CREATE UNIQUE INDEX ux_wallet_withdraw_requests_user_idempotency ON public.walle
 --
 
 CREATE INDEX webhook_job_attempts_job_id_idx ON public.webhook_job_attempts USING btree (job_id, attempt_no);
-
-
 --
 -- TOC entry 7596 (class 1259 OID 63546)
 
@@ -26161,8 +23313,6 @@ CREATE INDEX webhook_job_attempts_job_id_idx ON public.webhook_job_attempts USIN
 --
 
 CREATE UNIQUE INDEX webhook_jobs_dedupe_key_key ON public.webhook_jobs USING btree (dedupe_key);
-
-
 --
 -- TOC entry 7599 (class 1259 OID 63548)
 
@@ -26170,8 +23320,6 @@ CREATE UNIQUE INDEX webhook_jobs_dedupe_key_key ON public.webhook_jobs USING btr
 --
 
 CREATE INDEX webhook_jobs_provider_event_idx ON public.webhook_jobs USING btree (provider_code, provider_event_id);
-
-
 --
 -- TOC entry 7600 (class 1259 OID 63547)
 
@@ -26179,8 +23327,6 @@ CREATE INDEX webhook_jobs_provider_event_idx ON public.webhook_jobs USING btree 
 --
 
 CREATE INDEX webhook_jobs_status_next_attempt_idx ON public.webhook_jobs USING btree (status, next_attempt_at);
-
-
 --
 -- TOC entry 6967 (class 1259 OID 17254)
 
@@ -26188,8 +23334,6 @@ CREATE INDEX webhook_jobs_status_next_attempt_idx ON public.webhook_jobs USING b
 --
 
 CREATE TRIGGER cash_collections_set_updated_at BEFORE UPDATE ON public.cash_collections FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8032 (class 2620 OID 40237)
 
@@ -26197,8 +23341,6 @@ CREATE TRIGGER cash_collections_set_updated_at BEFORE UPDATE ON public.cash_coll
 --
 
 CREATE TRIGGER driver_locations_set_updated_at BEFORE UPDATE ON public.driver_locations FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8033 (class 2620 OID 40238)
 
@@ -26206,8 +23348,6 @@ CREATE TRIGGER driver_locations_set_updated_at BEFORE UPDATE ON public.driver_lo
 --
 
 CREATE TRIGGER driver_vehicles_set_updated_at BEFORE UPDATE ON public.driver_vehicles FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8034 (class 2620 OID 40239)
 
@@ -26215,8 +23355,6 @@ CREATE TRIGGER driver_vehicles_set_updated_at BEFORE UPDATE ON public.driver_veh
 --
 
 CREATE TRIGGER drivers_set_updated_at BEFORE UPDATE ON public.drivers FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8126 (class 2620 OID 64976)
 
@@ -26224,8 +23362,6 @@ CREATE TRIGGER drivers_set_updated_at BEFORE UPDATE ON public.drivers FOR EACH R
 --
 
 CREATE TRIGGER edge_webhook_outbox_set_updated_at BEFORE UPDATE ON public.edge_webhook_outbox FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8123 (class 2620 OID 63964)
 
@@ -26233,8 +23369,6 @@ CREATE TRIGGER edge_webhook_outbox_set_updated_at BEFORE UPDATE ON public.edge_w
 --
 
 CREATE TRIGGER families_set_updated_at BEFORE UPDATE ON public.families FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8124 (class 2620 OID 63965)
 
@@ -26242,8 +23376,6 @@ CREATE TRIGGER families_set_updated_at BEFORE UPDATE ON public.families FOR EACH
 --
 
 CREATE TRIGGER family_members_set_updated_at BEFORE UPDATE ON public.family_members FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8121 (class 2620 OID 63756)
 
@@ -26251,8 +23383,6 @@ CREATE TRIGGER family_members_set_updated_at BEFORE UPDATE ON public.family_memb
 --
 
 CREATE TRIGGER fraud_actions_set_updated_at BEFORE UPDATE ON public.fraud_enforcement_actions FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8120 (class 2620 OID 63755)
 
@@ -26260,8 +23390,6 @@ CREATE TRIGGER fraud_actions_set_updated_at BEFORE UPDATE ON public.fraud_enforc
 --
 
 CREATE TRIGGER fraud_cases_set_updated_at BEFORE UPDATE ON public.fraud_cases FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8096 (class 2620 OID 56564)
 
@@ -26269,8 +23397,6 @@ CREATE TRIGGER fraud_cases_set_updated_at BEFORE UPDATE ON public.fraud_cases FO
 --
 
 CREATE TRIGGER mct_set_last_preview AFTER INSERT ON public.merchant_chat_messages FOR EACH ROW EXECUTE FUNCTION public.trg_mct_set_last_preview();
-
-
 --
 -- TOC entry 8037 (class 2620 OID 40240)
 
@@ -26278,8 +23404,6 @@ CREATE TRIGGER mct_set_last_preview AFTER INSERT ON public.merchant_chat_message
 --
 
 CREATE TRIGGER payment_intents_set_updated_at BEFORE UPDATE ON public.payment_intents FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8038 (class 2620 OID 40241)
 
@@ -26287,8 +23411,6 @@ CREATE TRIGGER payment_intents_set_updated_at BEFORE UPDATE ON public.payment_in
 --
 
 CREATE TRIGGER payment_providers_set_updated_at BEFORE UPDATE ON public.payment_providers FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8039 (class 2620 OID 40242)
 
@@ -26296,8 +23418,6 @@ CREATE TRIGGER payment_providers_set_updated_at BEFORE UPDATE ON public.payment_
 --
 
 CREATE TRIGGER payments_generate_receipt AFTER INSERT ON public.payments FOR EACH ROW EXECUTE FUNCTION public.create_receipt_from_payment();
-
-
 --
 -- TOC entry 8040 (class 2620 OID 40243)
 
@@ -26305,8 +23425,6 @@ CREATE TRIGGER payments_generate_receipt AFTER INSERT ON public.payments FOR EAC
 --
 
 CREATE TRIGGER payments_set_updated_at BEFORE UPDATE ON public.payments FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8041 (class 2620 OID 40244)
 
@@ -26314,8 +23432,6 @@ CREATE TRIGGER payments_set_updated_at BEFORE UPDATE ON public.payments FOR EACH
 --
 
 CREATE TRIGGER payments_update_receipt_on_refund AFTER UPDATE ON public.payments FOR EACH ROW EXECUTE FUNCTION public.update_receipt_on_refund();
-
-
 --
 -- TOC entry 8115 (class 2620 OID 62999)
 
@@ -26323,8 +23439,6 @@ CREATE TRIGGER payments_update_receipt_on_refund AFTER UPDATE ON public.payments
 --
 
 CREATE TRIGGER platform_fee_configs_set_updated_at BEFORE UPDATE ON public.platform_fee_configs FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8042 (class 2620 OID 40245)
 
@@ -26332,8 +23446,6 @@ CREATE TRIGGER platform_fee_configs_set_updated_at BEFORE UPDATE ON public.platf
 --
 
 CREATE TRIGGER pricing_configs_set_updated_at BEFORE UPDATE ON public.pricing_configs FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8043 (class 2620 OID 40246)
 
@@ -26341,8 +23453,6 @@ CREATE TRIGGER pricing_configs_set_updated_at BEFORE UPDATE ON public.pricing_co
 --
 
 CREATE TRIGGER profile_kyc_set_updated_at BEFORE UPDATE ON public.profile_kyc FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8044 (class 2620 OID 40247)
 
@@ -26350,8 +23460,6 @@ CREATE TRIGGER profile_kyc_set_updated_at BEFORE UPDATE ON public.profile_kyc FO
 --
 
 CREATE TRIGGER profiles_after_insert_profile_kyc AFTER INSERT ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.profile_kyc_init();
-
-
 --
 -- TOC entry 8045 (class 2620 OID 41816)
 
@@ -26359,8 +23467,6 @@ CREATE TRIGGER profiles_after_insert_profile_kyc AFTER INSERT ON public.profiles
 --
 
 CREATE TRIGGER profiles_after_insert_referral_code AFTER INSERT ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.referral_code_init();
-
-
 --
 -- TOC entry 8046 (class 2620 OID 40248)
 
@@ -26368,8 +23474,6 @@ CREATE TRIGGER profiles_after_insert_referral_code AFTER INSERT ON public.profil
 --
 
 CREATE TRIGGER profiles_ensure_wallet_account AFTER INSERT ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.ensure_wallet_account();
-
-
 --
 -- TOC entry 8047 (class 2620 OID 40249)
 
@@ -26377,8 +23481,6 @@ CREATE TRIGGER profiles_ensure_wallet_account AFTER INSERT ON public.profiles FO
 --
 
 CREATE TRIGGER profiles_set_updated_at BEFORE UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8078 (class 2620 OID 41765)
 
@@ -26386,8 +23488,6 @@ CREATE TRIGGER profiles_set_updated_at BEFORE UPDATE ON public.profiles FOR EACH
 --
 
 CREATE TRIGGER ride_chat_threads_set_updated_at BEFORE UPDATE ON public.ride_chat_threads FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8052 (class 2620 OID 40250)
 
@@ -26395,8 +23495,6 @@ CREATE TRIGGER ride_chat_threads_set_updated_at BEFORE UPDATE ON public.ride_cha
 --
 
 CREATE TRIGGER ride_incidents_set_updated_at BEFORE UPDATE ON public.ride_incidents FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8053 (class 2620 OID 40251)
 
@@ -26404,8 +23502,6 @@ CREATE TRIGGER ride_incidents_set_updated_at BEFORE UPDATE ON public.ride_incide
 --
 
 CREATE TRIGGER ride_ratings_apply_aggregate AFTER INSERT ON public.ride_ratings FOR EACH ROW EXECUTE FUNCTION public.apply_rating_aggregate();
-
-
 --
 -- TOC entry 8054 (class 2620 OID 40252)
 
@@ -26413,8 +23509,6 @@ CREATE TRIGGER ride_ratings_apply_aggregate AFTER INSERT ON public.ride_ratings 
 --
 
 CREATE TRIGGER ride_requests_clear_match_fields BEFORE UPDATE ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.ride_requests_clear_match_fields();
-
-
 --
 -- TOC entry 8055 (class 2620 OID 40253)
 
@@ -26422,8 +23516,6 @@ CREATE TRIGGER ride_requests_clear_match_fields BEFORE UPDATE ON public.ride_req
 --
 
 CREATE TRIGGER ride_requests_release_driver_on_unmatch AFTER UPDATE ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.ride_requests_release_driver_on_unmatch();
-
-
 --
 -- TOC entry 8056 (class 2620 OID 40254)
 
@@ -26431,8 +23523,6 @@ CREATE TRIGGER ride_requests_release_driver_on_unmatch AFTER UPDATE ON public.ri
 --
 
 CREATE TRIGGER ride_requests_set_quote BEFORE INSERT ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.ride_requests_set_quote();
-
-
 --
 -- TOC entry 8057 (class 2620 OID 40255)
 
@@ -26440,8 +23530,6 @@ CREATE TRIGGER ride_requests_set_quote BEFORE INSERT ON public.ride_requests FOR
 --
 
 CREATE TRIGGER ride_requests_set_updated_at BEFORE UPDATE ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8058 (class 2620 OID 40256)
 
@@ -26449,8 +23537,6 @@ CREATE TRIGGER ride_requests_set_updated_at BEFORE UPDATE ON public.ride_request
 --
 
 CREATE TRIGGER ride_requests_status_timestamps BEFORE UPDATE ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.ride_requests_set_status_timestamps();
-
-
 --
 -- TOC entry 8025 (class 2620 OID 41821)
 
@@ -26458,8 +23544,6 @@ CREATE TRIGGER ride_requests_status_timestamps BEFORE UPDATE ON public.ride_requ
 --
 
 CREATE TRIGGER rides_after_completed_referral AFTER UPDATE ON public.rides FOR EACH ROW EXECUTE FUNCTION public.referral_on_ride_completed();
-
-
 --
 -- TOC entry 8026 (class 2620 OID 40257)
 
@@ -26467,8 +23551,6 @@ CREATE TRIGGER rides_after_completed_referral AFTER UPDATE ON public.rides FOR E
 --
 
 CREATE TRIGGER rides_set_updated_at BEFORE UPDATE ON public.rides FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8122 (class 2620 OID 63831)
 
@@ -26476,8 +23558,6 @@ CREATE TRIGGER rides_set_updated_at BEFORE UPDATE ON public.rides FOR EACH ROW E
 --
 
 CREATE TRIGGER safety_preferences_before_upsert_trigger BEFORE INSERT OR UPDATE ON public.safety_preferences FOR EACH ROW EXECUTE FUNCTION public.safety_preferences_before_upsert();
-
-
 --
 -- TOC entry 8079 (class 2620 OID 43570)
 
@@ -26485,8 +23565,6 @@ CREATE TRIGGER safety_preferences_before_upsert_trigger BEFORE INSERT OR UPDATE 
 --
 
 CREATE TRIGGER scheduled_rides_set_updated_at BEFORE UPDATE ON public.scheduled_rides FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8076 (class 2620 OID 41231)
 
@@ -26494,8 +23572,6 @@ CREATE TRIGGER scheduled_rides_set_updated_at BEFORE UPDATE ON public.scheduled_
 --
 
 CREATE TRIGGER set_updated_at_kyc_documents BEFORE UPDATE ON public.kyc_documents FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8074 (class 2620 OID 41230)
 
@@ -26503,8 +23579,6 @@ CREATE TRIGGER set_updated_at_kyc_documents BEFORE UPDATE ON public.kyc_document
 --
 
 CREATE TRIGGER set_updated_at_kyc_submissions BEFORE UPDATE ON public.kyc_submissions FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8077 (class 2620 OID 41211)
 
@@ -26512,8 +23586,6 @@ CREATE TRIGGER set_updated_at_kyc_submissions BEFORE UPDATE ON public.kyc_submis
 --
 
 CREATE TRIGGER set_updated_at_ride_products BEFORE UPDATE ON public.ride_products FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8116 (class 2620 OID 63015)
 
@@ -26521,8 +23593,6 @@ CREATE TRIGGER set_updated_at_ride_products BEFORE UPDATE ON public.ride_product
 --
 
 CREATE TRIGGER settlement_accounts_set_updated_at BEFORE UPDATE ON public.settlement_accounts FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8084 (class 2620 OID 43741)
 
@@ -26530,8 +23600,6 @@ CREATE TRIGGER settlement_accounts_set_updated_at BEFORE UPDATE ON public.settle
 --
 
 CREATE TRIGGER support_articles_set_updated_at BEFORE UPDATE ON public.support_articles FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8083 (class 2620 OID 43740)
 
@@ -26539,8 +23607,6 @@ CREATE TRIGGER support_articles_set_updated_at BEFORE UPDATE ON public.support_a
 --
 
 CREATE TRIGGER support_sections_set_updated_at BEFORE UPDATE ON public.support_sections FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8125 (class 2620 OID 63966)
 
@@ -26548,8 +23614,6 @@ CREATE TRIGGER support_sections_set_updated_at BEFORE UPDATE ON public.support_s
 --
 
 CREATE TRIGGER teen_policies_set_updated_at BEFORE UPDATE ON public.teen_policies FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8030 (class 2620 OID 40258)
 
@@ -26557,8 +23621,6 @@ CREATE TRIGGER teen_policies_set_updated_at BEFORE UPDATE ON public.teen_policie
 --
 
 CREATE TRIGGER topup_intents_set_updated_at BEFORE UPDATE ON public.topup_intents FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8060 (class 2620 OID 40259)
 
@@ -26566,8 +23628,6 @@ CREATE TRIGGER topup_intents_set_updated_at BEFORE UPDATE ON public.topup_intent
 --
 
 CREATE TRIGGER topup_packages_set_updated_at BEFORE UPDATE ON public.topup_packages FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8100 (class 2620 OID 44770)
 
@@ -26575,8 +23635,6 @@ CREATE TRIGGER topup_packages_set_updated_at BEFORE UPDATE ON public.topup_packa
 --
 
 CREATE TRIGGER trg_customer_addresses_single_default AFTER INSERT OR UPDATE OF is_default ON public.customer_addresses FOR EACH ROW EXECUTE FUNCTION public.customer_addresses_enforce_single_default();
-
-
 --
 -- TOC entry 8035 (class 2620 OID 42212)
 
@@ -26584,8 +23642,6 @@ CREATE TRIGGER trg_customer_addresses_single_default AFTER INSERT OR UPDATE OF i
 --
 
 CREATE TRIGGER trg_drivers_force_id_from_auth_uid BEFORE INSERT ON public.drivers FOR EACH ROW EXECUTE FUNCTION public.drivers_force_id_from_auth_uid();
-
-
 --
 -- TOC entry 8036 (class 2620 OID 55142)
 
@@ -26593,8 +23649,6 @@ CREATE TRIGGER trg_drivers_force_id_from_auth_uid BEFORE INSERT ON public.driver
 --
 
 CREATE TRIGGER trg_drivers_prevent_available_with_active_match BEFORE UPDATE OF status ON public.drivers FOR EACH ROW EXECUTE FUNCTION public.drivers_prevent_available_with_active_match();
-
-
 --
 -- TOC entry 8061 (class 2620 OID 56461)
 
@@ -26602,8 +23656,6 @@ CREATE TRIGGER trg_drivers_prevent_available_with_active_match BEFORE UPDATE OF 
 --
 
 CREATE TRIGGER trg_enqueue_notification_outbox AFTER INSERT ON public.user_notifications FOR EACH ROW EXECUTE FUNCTION public.enqueue_notification_outbox();
-
-
 --
 -- TOC entry 8130 (class 2620 OID 66238)
 
@@ -26611,8 +23663,6 @@ CREATE TRIGGER trg_enqueue_notification_outbox AFTER INSERT ON public.user_notif
 --
 
 CREATE TRIGGER trg_geo_cache_updated_at BEFORE UPDATE ON public.geo_cache FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8048 (class 2620 OID 44400)
 
@@ -26620,8 +23670,6 @@ CREATE TRIGGER trg_geo_cache_updated_at BEFORE UPDATE ON public.geo_cache FOR EA
 --
 
 CREATE TRIGGER trg_guard_profiles_sensitive_update BEFORE UPDATE ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.guard_profiles_sensitive_update();
-
-
 --
 -- TOC entry 8129 (class 2620 OID 66203)
 
@@ -26629,8 +23677,6 @@ CREATE TRIGGER trg_guard_profiles_sensitive_update BEFORE UPDATE ON public.profi
 --
 
 CREATE TRIGGER trg_maps_provider_capabilities_updated_at BEFORE UPDATE ON public.maps_provider_capabilities FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8127 (class 2620 OID 66179)
 
@@ -26638,8 +23684,6 @@ CREATE TRIGGER trg_maps_provider_capabilities_updated_at BEFORE UPDATE ON public
 --
 
 CREATE TRIGGER trg_maps_providers_updated_at BEFORE UPDATE ON public.maps_providers FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8128 (class 2620 OID 66180)
 
@@ -26647,8 +23691,6 @@ CREATE TRIGGER trg_maps_providers_updated_at BEFORE UPDATE ON public.maps_provid
 --
 
 CREATE TRIGGER trg_maps_usage_daily_updated_at BEFORE UPDATE ON public.maps_usage_daily FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8097 (class 2620 OID 56462)
 
@@ -26656,8 +23698,6 @@ CREATE TRIGGER trg_maps_usage_daily_updated_at BEFORE UPDATE ON public.maps_usag
 --
 
 CREATE TRIGGER trg_mcm_notify AFTER INSERT ON public.merchant_chat_messages FOR EACH ROW EXECUTE FUNCTION public.merchant_chat_notify_new_message();
-
-
 --
 -- TOC entry 8098 (class 2620 OID 44715)
 
@@ -26665,8 +23705,6 @@ CREATE TRIGGER trg_mcm_notify AFTER INSERT ON public.merchant_chat_messages FOR 
 --
 
 CREATE TRIGGER trg_mcm_touch_thread AFTER INSERT ON public.merchant_chat_messages FOR EACH ROW EXECUTE FUNCTION public.merchant_chat_touch_thread();
-
-
 --
 -- TOC entry 8118 (class 2620 OID 63115)
 
@@ -26674,8 +23712,6 @@ CREATE TRIGGER trg_mcm_touch_thread AFTER INSERT ON public.merchant_chat_message
 --
 
 CREATE TRIGGER trg_merchant_commission_configs_updated_at BEFORE UPDATE ON public.merchant_commission_configs FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8108 (class 2620 OID 63118)
 
@@ -26683,8 +23719,6 @@ CREATE TRIGGER trg_merchant_commission_configs_updated_at BEFORE UPDATE ON publi
 --
 
 CREATE TRIGGER trg_merchant_order_deliveries_cod_settlement AFTER UPDATE ON public.merchant_order_deliveries FOR EACH ROW EXECUTE FUNCTION public.merchant_order_cod_settlement_after();
-
-
 --
 -- TOC entry 8102 (class 2620 OID 44845)
 
@@ -26692,8 +23726,6 @@ CREATE TRIGGER trg_merchant_order_deliveries_cod_settlement AFTER UPDATE ON publ
 --
 
 CREATE TRIGGER trg_merchant_orders_guard BEFORE UPDATE ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.merchant_orders_guard();
-
-
 --
 -- TOC entry 8090 (class 2620 OID 44737)
 
@@ -26701,8 +23733,6 @@ CREATE TRIGGER trg_merchant_orders_guard BEFORE UPDATE ON public.merchant_orders
 --
 
 CREATE TRIGGER trg_merchants_audit_status_change AFTER UPDATE ON public.merchants FOR EACH ROW EXECUTE FUNCTION public.merchants_audit_status_change();
-
-
 --
 -- TOC entry 8091 (class 2620 OID 44602)
 
@@ -26710,8 +23740,6 @@ CREATE TRIGGER trg_merchants_audit_status_change AFTER UPDATE ON public.merchant
 --
 
 CREATE TRIGGER trg_merchants_guard_status BEFORE INSERT OR UPDATE ON public.merchants FOR EACH ROW EXECUTE FUNCTION public.merchants_guard_status();
-
-
 --
 -- TOC entry 8109 (class 2620 OID 45080)
 
@@ -26719,8 +23747,6 @@ CREATE TRIGGER trg_merchants_guard_status BEFORE INSERT OR UPDATE ON public.merc
 --
 
 CREATE TRIGGER trg_mod_audit_events AFTER INSERT OR UPDATE ON public.merchant_order_deliveries FOR EACH ROW EXECUTE FUNCTION public.merchant_order_delivery_audit_after();
-
-
 --
 -- TOC entry 8110 (class 2620 OID 45079)
 
@@ -26728,8 +23754,6 @@ CREATE TRIGGER trg_mod_audit_events AFTER INSERT OR UPDATE ON public.merchant_or
 --
 
 CREATE TRIGGER trg_mod_guard BEFORE INSERT OR UPDATE ON public.merchant_order_deliveries FOR EACH ROW EXECUTE FUNCTION public.merchant_order_delivery_guard();
-
-
 --
 -- TOC entry 8103 (class 2620 OID 44848)
 
@@ -26737,8 +23761,6 @@ CREATE TRIGGER trg_mod_guard BEFORE INSERT OR UPDATE ON public.merchant_order_de
 --
 
 CREATE TRIGGER trg_notify_merchant_order_created AFTER INSERT ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.notify_merchant_order_created();
-
-
 --
 -- TOC entry 8104 (class 2620 OID 62242)
 
@@ -26746,8 +23768,6 @@ CREATE TRIGGER trg_notify_merchant_order_created AFTER INSERT ON public.merchant
 --
 
 CREATE TRIGGER trg_notify_merchant_order_status_changed AFTER UPDATE OF status ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.notify_merchant_order_status_changed();
-
-
 --
 -- TOC entry 8027 (class 2620 OID 41316)
 
@@ -26755,8 +23775,6 @@ CREATE TRIGGER trg_notify_merchant_order_status_changed AFTER UPDATE OF status O
 --
 
 CREATE TRIGGER trg_on_ride_completed_side_effects AFTER UPDATE OF status ON public.rides FOR EACH ROW WHEN (((new.status = 'completed'::public.ride_status) AND (old.status IS DISTINCT FROM 'completed'::public.ride_status))) EXECUTE FUNCTION public.on_ride_completed_side_effects();
-
-
 --
 -- TOC entry 8105 (class 2620 OID 44880)
 
@@ -26764,8 +23782,6 @@ CREATE TRIGGER trg_on_ride_completed_side_effects AFTER UPDATE OF status ON publ
 --
 
 CREATE TRIGGER trg_order_status_events_on_insert AFTER INSERT ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.merchant_order_status_events_on_insert();
-
-
 --
 -- TOC entry 8106 (class 2620 OID 62243)
 
@@ -26773,8 +23789,6 @@ CREATE TRIGGER trg_order_status_events_on_insert AFTER INSERT ON public.merchant
 --
 
 CREATE TRIGGER trg_order_status_events_on_status_change AFTER UPDATE OF status ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.merchant_order_status_events_on_status_change();
-
-
 --
 -- TOC entry 8088 (class 2620 OID 44526)
 
@@ -26782,8 +23796,6 @@ CREATE TRIGGER trg_order_status_events_on_status_change AFTER UPDATE OF status O
 --
 
 CREATE TRIGGER trg_payout_provider_jobs_set_idem BEFORE INSERT ON public.payout_provider_jobs FOR EACH ROW EXECUTE FUNCTION public.payout_provider_jobs_set_idem();
-
-
 --
 -- TOC entry 8089 (class 2620 OID 44516)
 
@@ -26791,8 +23803,6 @@ CREATE TRIGGER trg_payout_provider_jobs_set_idem BEFORE INSERT ON public.payout_
 --
 
 CREATE TRIGGER trg_payout_provider_jobs_touch BEFORE UPDATE ON public.payout_provider_jobs FOR EACH ROW EXECUTE FUNCTION public.payout_provider_jobs_touch();
-
-
 --
 -- TOC entry 8049 (class 2620 OID 62244)
 
@@ -26800,8 +23810,6 @@ CREATE TRIGGER trg_payout_provider_jobs_touch BEFORE UPDATE ON public.payout_pro
 --
 
 CREATE TRIGGER trg_profiles_guard_active_role BEFORE UPDATE OF active_role ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.profiles_guard_active_role();
-
-
 --
 -- TOC entry 8050 (class 2620 OID 55170)
 
@@ -26809,8 +23817,6 @@ CREATE TRIGGER trg_profiles_guard_active_role BEFORE UPDATE OF active_role ON pu
 --
 
 CREATE TRIGGER trg_profiles_normalize_iraq_phone BEFORE INSERT OR UPDATE OF phone ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.tg_profiles_normalize_iraq_phone();
-
-
 --
 -- TOC entry 8028 (class 2620 OID 41357)
 
@@ -26818,8 +23824,6 @@ CREATE TRIGGER trg_profiles_normalize_iraq_phone BEFORE INSERT OR UPDATE OF phon
 --
 
 CREATE TRIGGER trg_revoke_trip_share_tokens_on_ride_end AFTER UPDATE OF status ON public.rides FOR EACH ROW EXECUTE FUNCTION public.revoke_trip_share_tokens_on_ride_end();
-
-
 --
 -- TOC entry 8073 (class 2620 OID 41776)
 
@@ -26827,8 +23831,6 @@ CREATE TRIGGER trg_revoke_trip_share_tokens_on_ride_end AFTER UPDATE OF status O
 --
 
 CREATE TRIGGER trg_ride_chat_notify_on_message AFTER INSERT ON public.ride_chat_messages FOR EACH ROW EXECUTE FUNCTION public.ride_chat_notify_on_message();
-
-
 --
 -- TOC entry 8082 (class 2620 OID 43645)
 
@@ -26836,8 +23838,6 @@ CREATE TRIGGER trg_ride_chat_notify_on_message AFTER INSERT ON public.ride_chat_
 --
 
 CREATE TRIGGER trg_ride_intents_set_updated_at BEFORE UPDATE ON public.ride_intents FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8059 (class 2620 OID 43610)
 
@@ -26845,8 +23845,6 @@ CREATE TRIGGER trg_ride_intents_set_updated_at BEFORE UPDATE ON public.ride_inte
 --
 
 CREATE TRIGGER trg_ride_requests_set_service_area BEFORE INSERT OR UPDATE OF pickup_lat, pickup_lng ON public.ride_requests FOR EACH ROW EXECUTE FUNCTION public.set_service_area_id_from_pickup();
-
-
 --
 -- TOC entry 8080 (class 2620 OID 43611)
 
@@ -26854,8 +23852,6 @@ CREATE TRIGGER trg_ride_requests_set_service_area BEFORE INSERT OR UPDATE OF pic
 --
 
 CREATE TRIGGER trg_scheduled_rides_set_service_area BEFORE INSERT OR UPDATE OF pickup_lat, pickup_lng ON public.scheduled_rides FOR EACH ROW EXECUTE FUNCTION public.set_service_area_id_from_pickup();
-
-
 --
 -- TOC entry 8081 (class 2620 OID 43595)
 
@@ -26863,8 +23859,6 @@ CREATE TRIGGER trg_scheduled_rides_set_service_area BEFORE INSERT OR UPDATE OF p
 --
 
 CREATE TRIGGER trg_service_areas_set_updated_at BEFORE UPDATE ON public.service_areas FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8072 (class 2620 OID 41345)
 
@@ -26872,8 +23866,6 @@ CREATE TRIGGER trg_service_areas_set_updated_at BEFORE UPDATE ON public.service_
 --
 
 CREATE TRIGGER trg_support_ticket_touch AFTER INSERT ON public.support_messages FOR EACH ROW EXECUTE FUNCTION public.support_ticket_touch_updated_at();
-
-
 --
 -- TOC entry 8075 (class 2620 OID 62246)
 
@@ -26881,8 +23873,6 @@ CREATE TRIGGER trg_support_ticket_touch AFTER INSERT ON public.support_messages 
 --
 
 CREATE TRIGGER trg_sync_profile_kyc_from_submission AFTER INSERT OR UPDATE OF status ON public.kyc_submissions FOR EACH ROW EXECUTE FUNCTION public.sync_profile_kyc_from_submission();
-
-
 --
 -- TOC entry 8051 (class 2620 OID 41309)
 
@@ -26890,8 +23880,6 @@ CREATE TRIGGER trg_sync_profile_kyc_from_submission AFTER INSERT OR UPDATE OF st
 --
 
 CREATE TRIGGER trg_sync_public_profile AFTER INSERT OR UPDATE OF display_name, rating_avg, rating_count ON public.profiles FOR EACH ROW EXECUTE FUNCTION public.sync_public_profile();
-
-
 --
 -- TOC entry 8101 (class 2620 OID 44768)
 
@@ -26899,8 +23887,6 @@ CREATE TRIGGER trg_sync_public_profile AFTER INSERT OR UPDATE OF display_name, r
 --
 
 CREATE TRIGGER trg_touch_customer_addresses_updated_at BEFORE UPDATE ON public.customer_addresses FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8114 (class 2620 OID 56482)
 
@@ -26908,8 +23894,6 @@ CREATE TRIGGER trg_touch_customer_addresses_updated_at BEFORE UPDATE ON public.c
 --
 
 CREATE TRIGGER trg_touch_mchat_ai_settings_updated_at BEFORE UPDATE ON public.merchant_chat_ai_settings FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8095 (class 2620 OID 44687)
 
@@ -26917,8 +23901,6 @@ CREATE TRIGGER trg_touch_mchat_ai_settings_updated_at BEFORE UPDATE ON public.me
 --
 
 CREATE TRIGGER trg_touch_mct_updated_at BEFORE UPDATE ON public.merchant_chat_threads FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8107 (class 2620 OID 44846)
 
@@ -26926,8 +23908,6 @@ CREATE TRIGGER trg_touch_mct_updated_at BEFORE UPDATE ON public.merchant_chat_th
 --
 
 CREATE TRIGGER trg_touch_merchant_orders_updated_at BEFORE UPDATE ON public.merchant_orders FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8093 (class 2620 OID 44631)
 
@@ -26935,8 +23915,6 @@ CREATE TRIGGER trg_touch_merchant_orders_updated_at BEFORE UPDATE ON public.merc
 --
 
 CREATE TRIGGER trg_touch_merchant_products_updated_at BEFORE UPDATE ON public.merchant_products FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8092 (class 2620 OID 44603)
 
@@ -26944,8 +23922,6 @@ CREATE TRIGGER trg_touch_merchant_products_updated_at BEFORE UPDATE ON public.me
 --
 
 CREATE TRIGGER trg_touch_merchants_updated_at BEFORE UPDATE ON public.merchants FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8111 (class 2620 OID 44929)
 
@@ -26953,8 +23929,6 @@ CREATE TRIGGER trg_touch_merchants_updated_at BEFORE UPDATE ON public.merchants 
 --
 
 CREATE TRIGGER trg_touch_mod_updated_at BEFORE UPDATE ON public.merchant_order_deliveries FOR EACH ROW EXECUTE FUNCTION public.touch_updated_at();
-
-
 --
 -- TOC entry 8086 (class 2620 OID 44005)
 
@@ -26962,8 +23936,6 @@ CREATE TRIGGER trg_touch_mod_updated_at BEFORE UPDATE ON public.merchant_order_d
 --
 
 CREATE TRIGGER trg_trusted_contact_outbox_set_updated_at BEFORE UPDATE ON public.trusted_contact_outbox FOR EACH ROW EXECUTE FUNCTION public.tg__set_updated_at();
-
-
 --
 -- TOC entry 8070 (class 2620 OID 43797)
 
@@ -26971,8 +23943,6 @@ CREATE TRIGGER trg_trusted_contact_outbox_set_updated_at BEFORE UPDATE ON public
 --
 
 CREATE TRIGGER trg_trusted_contacts_active_limit BEFORE INSERT OR UPDATE OF is_active, user_id ON public.trusted_contacts FOR EACH ROW EXECUTE FUNCTION public.trusted_contacts_enforce_active_limit();
-
-
 --
 -- TOC entry 8071 (class 2620 OID 55175)
 
@@ -26980,8 +23950,6 @@ CREATE TRIGGER trg_trusted_contacts_active_limit BEFORE INSERT OR UPDATE OF is_a
 --
 
 CREATE TRIGGER trg_trusted_contacts_normalize_iraq_phone BEFORE INSERT OR UPDATE OF phone ON public.trusted_contacts FOR EACH ROW EXECUTE FUNCTION public.tg_trusted_contacts_normalize_iraq_phone();
-
-
 --
 -- TOC entry 8085 (class 2620 OID 43801)
 
@@ -26989,8 +23957,6 @@ CREATE TRIGGER trg_trusted_contacts_normalize_iraq_phone BEFORE INSERT OR UPDATE
 --
 
 CREATE TRIGGER trg_user_safety_settings_updated_at BEFORE UPDATE ON public.user_safety_settings FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8112 (class 2620 OID 55225)
 
@@ -26998,8 +23964,6 @@ CREATE TRIGGER trg_user_safety_settings_updated_at BEFORE UPDATE ON public.user_
 --
 
 CREATE TRIGGER trg_voice_calls_set_updated_at BEFORE UPDATE ON public.voice_calls FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8065 (class 2620 OID 44477)
 
@@ -27007,8 +23971,6 @@ CREATE TRIGGER trg_voice_calls_set_updated_at BEFORE UPDATE ON public.voice_call
 --
 
 CREATE TRIGGER trg_wallet_payout_attempts_autolog_paid AFTER UPDATE ON public.wallet_withdraw_requests FOR EACH ROW EXECUTE FUNCTION public.wallet_payout_attempts_autolog_paid();
-
-
 --
 -- TOC entry 8066 (class 2620 OID 44443)
 
@@ -27016,8 +23978,6 @@ CREATE TRIGGER trg_wallet_payout_attempts_autolog_paid AFTER UPDATE ON public.wa
 --
 
 CREATE TRIGGER trg_wallet_withdraw_audit_log AFTER INSERT OR UPDATE ON public.wallet_withdraw_requests FOR EACH ROW EXECUTE FUNCTION public.wallet_withdraw_audit_log_trigger();
-
-
 --
 -- TOC entry 8029 (class 2620 OID 64995)
 
@@ -27025,8 +23985,6 @@ CREATE TRIGGER trg_wallet_withdraw_audit_log AFTER INSERT OR UPDATE ON public.wa
 --
 
 CREATE TRIGGER trg_wh_trip_share_auto AFTER UPDATE OF status ON public.rides FOR EACH ROW EXECUTE FUNCTION public.trg_wh_trip_share_auto();
-
-
 --
 -- TOC entry 8031 (class 2620 OID 40260)
 
@@ -27034,8 +23992,6 @@ CREATE TRIGGER trg_wh_trip_share_auto AFTER UPDATE OF status ON public.rides FOR
 --
 
 CREATE TRIGGER wallet_accounts_set_updated_at BEFORE UPDATE ON public.wallet_accounts FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8062 (class 2620 OID 44234)
 
@@ -27043,8 +23999,6 @@ CREATE TRIGGER wallet_accounts_set_updated_at BEFORE UPDATE ON public.wallet_acc
 --
 
 CREATE TRIGGER wallet_holds_normalize_status BEFORE INSERT OR UPDATE ON public.wallet_holds FOR EACH ROW EXECUTE FUNCTION public.wallet_holds_normalize_status();
-
-
 --
 -- TOC entry 8063 (class 2620 OID 40261)
 
@@ -27052,8 +24006,6 @@ CREATE TRIGGER wallet_holds_normalize_status BEFORE INSERT OR UPDATE ON public.w
 --
 
 CREATE TRIGGER wallet_holds_set_updated_at BEFORE UPDATE ON public.wallet_holds FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8087 (class 2620 OID 44475)
 
@@ -27061,8 +24013,6 @@ CREATE TRIGGER wallet_holds_set_updated_at BEFORE UPDATE ON public.wallet_holds 
 --
 
 CREATE TRIGGER wallet_payout_attempts_set_updated_at BEFORE UPDATE ON public.wallet_payout_attempts FOR EACH ROW EXECUTE FUNCTION public.set_updated_at_wallet_payout_attempts();
-
-
 --
 -- TOC entry 8064 (class 2620 OID 40262)
 
@@ -27070,8 +24020,6 @@ CREATE TRIGGER wallet_payout_attempts_set_updated_at BEFORE UPDATE ON public.wal
 --
 
 CREATE TRIGGER wallet_withdraw_payout_methods_set_updated_at BEFORE UPDATE ON public.wallet_withdraw_payout_methods FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8067 (class 2620 OID 40263)
 
@@ -27079,8 +24027,6 @@ CREATE TRIGGER wallet_withdraw_payout_methods_set_updated_at BEFORE UPDATE ON pu
 --
 
 CREATE TRIGGER wallet_withdraw_requests_set_updated_at BEFORE UPDATE ON public.wallet_withdraw_requests FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8068 (class 2620 OID 40264)
 
@@ -27088,8 +24034,6 @@ CREATE TRIGGER wallet_withdraw_requests_set_updated_at BEFORE UPDATE ON public.w
 --
 
 CREATE TRIGGER wallet_withdrawal_policy_set_updated_at BEFORE UPDATE ON public.wallet_withdrawal_policy FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8119 (class 2620 OID 63568)
 
@@ -27097,8 +24041,6 @@ CREATE TRIGGER wallet_withdrawal_policy_set_updated_at BEFORE UPDATE ON public.w
 --
 
 CREATE TRIGGER webhook_jobs_set_updated_at BEFORE UPDATE ON public.webhook_jobs FOR EACH ROW EXECUTE FUNCTION public.set_updated_at();
-
-
 --
 -- TOC entry 8113 (class 2620 OID 56558)
 
@@ -27106,8 +24048,6 @@ CREATE TRIGGER webhook_jobs_set_updated_at BEFORE UPDATE ON public.webhook_jobs 
 --
 
 CREATE TRIGGER wh_interest_seed AFTER INSERT OR UPDATE ON public.user_interest_targets FOR EACH ROW EXECUTE FUNCTION public.trg_wh_interest_seed();
-
-
 --
 -- TOC entry 8099 (class 2620 OID 56554)
 
@@ -27115,8 +24055,6 @@ CREATE TRIGGER wh_interest_seed AFTER INSERT OR UPDATE ON public.user_interest_t
 --
 
 CREATE TRIGGER wh_merchant_chat_autoreply AFTER INSERT ON public.merchant_chat_messages FOR EACH ROW EXECUTE FUNCTION public.trg_wh_merchant_chat_autoreply();
-
-
 --
 -- TOC entry 8069 (class 2620 OID 56560)
 
@@ -27124,8 +24062,6 @@ CREATE TRIGGER wh_merchant_chat_autoreply AFTER INSERT ON public.merchant_chat_m
 --
 
 CREATE TRIGGER wh_notifications_dispatch AFTER INSERT ON public.notification_outbox FOR EACH ROW EXECUTE FUNCTION public.trg_wh_notifications_dispatch();
-
-
 --
 -- TOC entry 8094 (class 2620 OID 56556)
 
@@ -27133,8 +24069,6 @@ CREATE TRIGGER wh_notifications_dispatch AFTER INSERT ON public.notification_out
 --
 
 CREATE TRIGGER wh_promotion_notify AFTER INSERT OR UPDATE ON public.merchant_promotions FOR EACH ROW EXECUTE FUNCTION public.trg_wh_promotion_notify();
-
-
 --
 -- TOC entry 8017 (class 2620 OID 17112)
 
@@ -27143,8 +24077,6 @@ CREATE TRIGGER wh_promotion_notify AFTER INSERT OR UPDATE ON public.merchant_pro
 
 ALTER TABLE ONLY public.achievement_progress
     ADD CONSTRAINT achievement_progress_achievement_id_fkey FOREIGN KEY (achievement_id) REFERENCES public.achievements(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7868 (class 2606 OID 40707)
 
@@ -27153,8 +24085,6 @@ ALTER TABLE ONLY public.achievement_progress
 
 ALTER TABLE ONLY public.achievement_progress
     ADD CONSTRAINT achievement_progress_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7927 (class 2606 OID 44412)
 
@@ -27163,8 +24093,6 @@ ALTER TABLE ONLY public.achievement_progress
 
 ALTER TABLE ONLY public.admin_audit_log
     ADD CONSTRAINT admin_audit_log_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7928 (class 2606 OID 44417)
 
@@ -27173,8 +24101,6 @@ ALTER TABLE ONLY public.admin_audit_log
 
 ALTER TABLE ONLY public.admin_audit_log
     ADD CONSTRAINT admin_audit_log_target_user_id_fkey FOREIGN KEY (target_user_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7925 (class 2606 OID 44389)
 
@@ -27183,8 +24109,6 @@ ALTER TABLE ONLY public.admin_audit_log
 
 ALTER TABLE ONLY public.admin_users
     ADD CONSTRAINT admin_users_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id);
-
-
 --
 -- TOC entry 7926 (class 2606 OID 44384)
 
@@ -27193,8 +24117,6 @@ ALTER TABLE ONLY public.admin_users
 
 ALTER TABLE ONLY public.admin_users
     ADD CONSTRAINT admin_users_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7979 (class 2606 OID 63319)
 
@@ -27203,8 +24125,6 @@ ALTER TABLE ONLY public.admin_users
 
 ALTER TABLE ONLY public.agent_daily_counters
     ADD CONSTRAINT agent_daily_counters_agent_id_fkey FOREIGN KEY (agent_id) REFERENCES public.cash_agents(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7829 (class 2606 OID 40265)
 
@@ -27213,8 +24133,6 @@ ALTER TABLE ONLY public.agent_daily_counters
 
 ALTER TABLE ONLY public.app_events
     ADD CONSTRAINT app_events_payment_intent_id_fkey FOREIGN KEY (payment_intent_id) REFERENCES public.payment_intents(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7830 (class 2606 OID 40270)
 
@@ -27223,8 +24141,6 @@ ALTER TABLE ONLY public.app_events
 
 ALTER TABLE ONLY public.app_events
     ADD CONSTRAINT app_events_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7975 (class 2606 OID 63043)
 
@@ -27233,8 +24149,6 @@ ALTER TABLE ONLY public.app_events
 
 ALTER TABLE ONLY public.cash_collections
     ADD CONSTRAINT cash_collections_ride_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7980 (class 2606 OID 63354)
 
@@ -27243,8 +24157,6 @@ ALTER TABLE ONLY public.cash_collections
 
 ALTER TABLE ONLY public.cashbox_daily_closings
     ADD CONSTRAINT cashbox_daily_closings_agent_id_fkey FOREIGN KEY (agent_id) REFERENCES public.cash_agents(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7999 (class 2606 OID 64098)
 
@@ -27253,8 +24165,6 @@ ALTER TABLE ONLY public.cashbox_daily_closings
 
 ALTER TABLE ONLY public.concierge_feedback
     ADD CONSTRAINT concierge_feedback_session_id_fkey FOREIGN KEY (session_id) REFERENCES public.concierge_sessions(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8000 (class 2606 OID 64103)
 
@@ -27263,8 +24173,6 @@ ALTER TABLE ONLY public.concierge_feedback
 
 ALTER TABLE ONLY public.concierge_feedback
     ADD CONSTRAINT concierge_feedback_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7998 (class 2606 OID 64078)
 
@@ -27273,8 +24181,6 @@ ALTER TABLE ONLY public.concierge_feedback
 
 ALTER TABLE ONLY public.concierge_sessions
     ADD CONSTRAINT concierge_sessions_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7942 (class 2606 OID 44757)
 
@@ -27283,8 +24189,6 @@ ALTER TABLE ONLY public.concierge_sessions
 
 ALTER TABLE ONLY public.customer_addresses
     ADD CONSTRAINT customer_addresses_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7862 (class 2606 OID 40596)
 
@@ -27293,8 +24197,6 @@ ALTER TABLE ONLY public.customer_addresses
 
 ALTER TABLE ONLY public.device_tokens
     ADD CONSTRAINT device_tokens_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8007 (class 2606 OID 64536)
 
@@ -27303,8 +24205,6 @@ ALTER TABLE ONLY public.device_tokens
 
 ALTER TABLE ONLY public.driver_coaching_tips
     ADD CONSTRAINT driver_coaching_tips_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7864 (class 2606 OID 40641)
 
@@ -27313,8 +24213,6 @@ ALTER TABLE ONLY public.driver_coaching_tips
 
 ALTER TABLE ONLY public.driver_counters
     ADD CONSTRAINT driver_counters_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7901 (class 2606 OID 41837)
 
@@ -27323,8 +24221,6 @@ ALTER TABLE ONLY public.driver_counters
 
 ALTER TABLE ONLY public.driver_leaderboard_daily
     ADD CONSTRAINT driver_leaderboard_daily_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7831 (class 2606 OID 40275)
 
@@ -27333,8 +24229,6 @@ ALTER TABLE ONLY public.driver_leaderboard_daily
 
 ALTER TABLE ONLY public.driver_locations
     ADD CONSTRAINT driver_locations_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7866 (class 2606 OID 40672)
 
@@ -27343,8 +24237,6 @@ ALTER TABLE ONLY public.driver_locations
 
 ALTER TABLE ONLY public.driver_rank_snapshots
     ADD CONSTRAINT driver_rank_snapshots_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8005 (class 2606 OID 64466)
 
@@ -27353,8 +24245,6 @@ ALTER TABLE ONLY public.driver_rank_snapshots
 
 ALTER TABLE ONLY public.driver_shifts
     ADD CONSTRAINT driver_shifts_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7865 (class 2606 OID 40654)
 
@@ -27363,8 +24253,6 @@ ALTER TABLE ONLY public.driver_shifts
 
 ALTER TABLE ONLY public.driver_stats_daily
     ADD CONSTRAINT driver_stats_daily_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7957 (class 2606 OID 45093)
 
@@ -27373,8 +24261,6 @@ ALTER TABLE ONLY public.driver_stats_daily
 
 ALTER TABLE ONLY public.driver_status_events
     ADD CONSTRAINT driver_status_events_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7832 (class 2606 OID 40280)
 
@@ -27383,8 +24269,6 @@ ALTER TABLE ONLY public.driver_status_events
 
 ALTER TABLE ONLY public.driver_vehicles
     ADD CONSTRAINT driver_vehicles_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7833 (class 2606 OID 40285)
 
@@ -27393,8 +24277,6 @@ ALTER TABLE ONLY public.driver_vehicles
 
 ALTER TABLE ONLY public.drivers
     ADD CONSTRAINT drivers_id_fkey FOREIGN KEY (id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8008 (class 2606 OID 64558)
 
@@ -27403,8 +24285,6 @@ ALTER TABLE ONLY public.drivers
 
 ALTER TABLE ONLY public.earnings_coach_sessions
     ADD CONSTRAINT earnings_coach_sessions_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7990 (class 2606 OID 63872)
 
@@ -27413,8 +24293,6 @@ ALTER TABLE ONLY public.earnings_coach_sessions
 
 ALTER TABLE ONLY public.families
     ADD CONSTRAINT families_created_by_user_id_fkey FOREIGN KEY (created_by_user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7991 (class 2606 OID 63889)
 
@@ -27423,8 +24301,6 @@ ALTER TABLE ONLY public.families
 
 ALTER TABLE ONLY public.family_members
     ADD CONSTRAINT family_members_family_id_fkey FOREIGN KEY (family_id) REFERENCES public.families(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7992 (class 2606 OID 63894)
 
@@ -27433,8 +24309,6 @@ ALTER TABLE ONLY public.family_members
 
 ALTER TABLE ONLY public.family_members
     ADD CONSTRAINT family_members_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7971 (class 2606 OID 62313)
 
@@ -27443,8 +24317,6 @@ ALTER TABLE ONLY public.family_members
 
 ALTER TABLE ONLY public.fare_quotes
     ADD CONSTRAINT fare_quotes_pricing_config_id_fkey FOREIGN KEY (pricing_config_id) REFERENCES public.pricing_configs(id);
-
-
 --
 -- TOC entry 7972 (class 2606 OID 62285)
 
@@ -27453,8 +24325,6 @@ ALTER TABLE ONLY public.fare_quotes
 
 ALTER TABLE ONLY public.fare_quotes
     ADD CONSTRAINT fare_quotes_rider_id_fkey FOREIGN KEY (rider_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7973 (class 2606 OID 62290)
 
@@ -27463,8 +24333,6 @@ ALTER TABLE ONLY public.fare_quotes
 
 ALTER TABLE ONLY public.fare_quotes
     ADD CONSTRAINT fare_quotes_service_area_id_fkey FOREIGN KEY (service_area_id) REFERENCES public.service_areas(id);
-
-
 --
 -- TOC entry 7985 (class 2606 OID 63723)
 
@@ -27473,8 +24341,6 @@ ALTER TABLE ONLY public.fare_quotes
 
 ALTER TABLE ONLY public.fraud_case_events
     ADD CONSTRAINT fraud_case_events_case_id_fkey FOREIGN KEY (case_id) REFERENCES public.fraud_cases(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7986 (class 2606 OID 63728)
 
@@ -27483,8 +24349,6 @@ ALTER TABLE ONLY public.fraud_case_events
 
 ALTER TABLE ONLY public.fraud_case_events
     ADD CONSTRAINT fraud_case_events_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.fraud_events(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7818 (class 2606 OID 40290)
 
@@ -27493,8 +24357,6 @@ ALTER TABLE ONLY public.fraud_case_events
 
 ALTER TABLE ONLY public.gift_codes
     ADD CONSTRAINT gift_codes_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7819 (class 2606 OID 40295)
 
@@ -27503,8 +24365,6 @@ ALTER TABLE ONLY public.gift_codes
 
 ALTER TABLE ONLY public.gift_codes
     ADD CONSTRAINT gift_codes_redeemed_by_fkey FOREIGN KEY (redeemed_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7820 (class 2606 OID 40300)
 
@@ -27513,8 +24373,6 @@ ALTER TABLE ONLY public.gift_codes
 
 ALTER TABLE ONLY public.gift_codes
     ADD CONSTRAINT gift_codes_redeemed_entry_id_fkey FOREIGN KEY (redeemed_entry_id) REFERENCES public.wallet_entries(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7891 (class 2606 OID 41422)
 
@@ -27523,8 +24381,6 @@ ALTER TABLE ONLY public.gift_codes
 
 ALTER TABLE ONLY public.kyc_documents
     ADD CONSTRAINT kyc_documents_document_type_id_fkey FOREIGN KEY (document_type_id) REFERENCES public.kyc_document_types(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7892 (class 2606 OID 41023)
 
@@ -27533,8 +24389,6 @@ ALTER TABLE ONLY public.kyc_documents
 
 ALTER TABLE ONLY public.kyc_documents
     ADD CONSTRAINT kyc_documents_submission_id_fkey FOREIGN KEY (submission_id) REFERENCES public.kyc_submissions(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7893 (class 2606 OID 41028)
 
@@ -27543,8 +24397,6 @@ ALTER TABLE ONLY public.kyc_documents
 
 ALTER TABLE ONLY public.kyc_documents
     ADD CONSTRAINT kyc_documents_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7894 (class 2606 OID 41405)
 
@@ -27553,8 +24405,6 @@ ALTER TABLE ONLY public.kyc_documents
 
 ALTER TABLE ONLY public.kyc_liveness_sessions
     ADD CONSTRAINT kyc_liveness_sessions_submission_id_fkey FOREIGN KEY (submission_id) REFERENCES public.kyc_submissions(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7889 (class 2606 OID 41006)
 
@@ -27563,8 +24413,6 @@ ALTER TABLE ONLY public.kyc_liveness_sessions
 
 ALTER TABLE ONLY public.kyc_submissions
     ADD CONSTRAINT kyc_submissions_reviewer_id_fkey FOREIGN KEY (reviewer_id) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7890 (class 2606 OID 41001)
 
@@ -27573,8 +24421,6 @@ ALTER TABLE ONLY public.kyc_submissions
 
 ALTER TABLE ONLY public.kyc_submissions
     ADD CONSTRAINT kyc_submissions_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8015 (class 2606 OID 66198)
 
@@ -27583,8 +24429,6 @@ ALTER TABLE ONLY public.kyc_submissions
 
 ALTER TABLE ONLY public.maps_provider_capabilities
     ADD CONSTRAINT maps_provider_capabilities_provider_code_fkey FOREIGN KEY (provider_code) REFERENCES public.maps_providers(provider_code) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8014 (class 2606 OID 66174)
 
@@ -27593,8 +24437,6 @@ ALTER TABLE ONLY public.maps_provider_capabilities
 
 ALTER TABLE ONLY public.maps_usage_daily
     ADD CONSTRAINT maps_usage_daily_provider_code_fkey FOREIGN KEY (provider_code) REFERENCES public.maps_providers(provider_code) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8002 (class 2606 OID 64199)
 
@@ -27603,8 +24445,6 @@ ALTER TABLE ONLY public.maps_usage_daily
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES public.membership_plans(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 8003 (class 2606 OID 64204)
 
@@ -27613,8 +24453,6 @@ ALTER TABLE ONLY public.memberships
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_shared_from_membership_id_fkey FOREIGN KEY (shared_from_membership_id) REFERENCES public.memberships(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 8004 (class 2606 OID 64194)
 
@@ -27623,8 +24461,6 @@ ALTER TABLE ONLY public.memberships
 
 ALTER TABLE ONLY public.memberships
     ADD CONSTRAINT memberships_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7969 (class 2606 OID 56498)
 
@@ -27633,8 +24469,6 @@ ALTER TABLE ONLY public.memberships
 
 ALTER TABLE ONLY public.merchant_chat_ai_receipts
     ADD CONSTRAINT merchant_chat_ai_receipts_message_id_fkey FOREIGN KEY (message_id) REFERENCES public.merchant_chat_messages(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7970 (class 2606 OID 56503)
 
@@ -27643,8 +24477,6 @@ ALTER TABLE ONLY public.merchant_chat_ai_receipts
 
 ALTER TABLE ONLY public.merchant_chat_ai_receipts
     ADD CONSTRAINT merchant_chat_ai_receipts_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.merchant_chat_threads(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7968 (class 2606 OID 56477)
 
@@ -27653,8 +24485,6 @@ ALTER TABLE ONLY public.merchant_chat_ai_receipts
 
 ALTER TABLE ONLY public.merchant_chat_ai_settings
     ADD CONSTRAINT merchant_chat_ai_settings_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.merchant_chat_threads(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7939 (class 2606 OID 44704)
 
@@ -27663,8 +24493,6 @@ ALTER TABLE ONLY public.merchant_chat_ai_settings
 
 ALTER TABLE ONLY public.merchant_chat_messages
     ADD CONSTRAINT merchant_chat_messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7940 (class 2606 OID 44699)
 
@@ -27673,8 +24501,6 @@ ALTER TABLE ONLY public.merchant_chat_messages
 
 ALTER TABLE ONLY public.merchant_chat_messages
     ADD CONSTRAINT merchant_chat_messages_thread_id_fkey FOREIGN KEY (thread_id) REFERENCES public.merchant_chat_threads(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7937 (class 2606 OID 44677)
 
@@ -27683,8 +24509,6 @@ ALTER TABLE ONLY public.merchant_chat_messages
 
 ALTER TABLE ONLY public.merchant_chat_threads
     ADD CONSTRAINT merchant_chat_threads_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7938 (class 2606 OID 44672)
 
@@ -27693,8 +24517,6 @@ ALTER TABLE ONLY public.merchant_chat_threads
 
 ALTER TABLE ONLY public.merchant_chat_threads
     ADD CONSTRAINT merchant_chat_threads_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7977 (class 2606 OID 63109)
 
@@ -27703,8 +24525,6 @@ ALTER TABLE ONLY public.merchant_chat_threads
 
 ALTER TABLE ONLY public.merchant_commission_configs
     ADD CONSTRAINT merchant_commission_configs_merchant_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7952 (class 2606 OID 44912)
 
@@ -27713,8 +24533,6 @@ ALTER TABLE ONLY public.merchant_commission_configs
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7953 (class 2606 OID 44917)
 
@@ -27723,8 +24541,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7954 (class 2606 OID 44907)
 
@@ -27733,8 +24549,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7955 (class 2606 OID 44902)
 
@@ -27743,8 +24557,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_deliveries
     ADD CONSTRAINT merchant_order_deliveries_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.merchant_orders(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7956 (class 2606 OID 44939)
 
@@ -27753,8 +24565,6 @@ ALTER TABLE ONLY public.merchant_order_deliveries
 
 ALTER TABLE ONLY public.merchant_order_delivery_events
     ADD CONSTRAINT merchant_order_delivery_events_delivery_id_fkey FOREIGN KEY (delivery_id) REFERENCES public.merchant_order_deliveries(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7948 (class 2606 OID 44828)
 
@@ -27763,8 +24573,6 @@ ALTER TABLE ONLY public.merchant_order_delivery_events
 
 ALTER TABLE ONLY public.merchant_order_items
     ADD CONSTRAINT merchant_order_items_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.merchant_orders(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7949 (class 2606 OID 44833)
 
@@ -27773,8 +24581,6 @@ ALTER TABLE ONLY public.merchant_order_items
 
 ALTER TABLE ONLY public.merchant_order_items
     ADD CONSTRAINT merchant_order_items_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.merchant_products(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7950 (class 2606 OID 44871)
 
@@ -27783,8 +24589,6 @@ ALTER TABLE ONLY public.merchant_order_items
 
 ALTER TABLE ONLY public.merchant_order_status_events
     ADD CONSTRAINT merchant_order_status_events_actor_id_fkey FOREIGN KEY (actor_id) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7951 (class 2606 OID 44866)
 
@@ -27793,8 +24597,6 @@ ALTER TABLE ONLY public.merchant_order_status_events
 
 ALTER TABLE ONLY public.merchant_order_status_events
     ADD CONSTRAINT merchant_order_status_events_order_id_fkey FOREIGN KEY (order_id) REFERENCES public.merchant_orders(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7943 (class 2606 OID 44804)
 
@@ -27803,8 +24605,6 @@ ALTER TABLE ONLY public.merchant_order_status_events
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_address_id_fkey FOREIGN KEY (address_id) REFERENCES public.customer_addresses(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7944 (class 2606 OID 44953)
 
@@ -27813,8 +24613,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_chat_thread_id_fkey FOREIGN KEY (chat_thread_id) REFERENCES public.merchant_chat_threads(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7945 (class 2606 OID 44799)
 
@@ -27823,8 +24621,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7946 (class 2606 OID 45073)
 
@@ -27833,8 +24629,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_customer_id_public_profiles_fkey FOREIGN KEY (customer_id) REFERENCES public.public_profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7947 (class 2606 OID 44794)
 
@@ -27843,8 +24637,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_orders
     ADD CONSTRAINT merchant_orders_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7934 (class 2606 OID 44619)
 
@@ -27853,8 +24645,6 @@ ALTER TABLE ONLY public.merchant_orders
 
 ALTER TABLE ONLY public.merchant_products
     ADD CONSTRAINT merchant_products_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7935 (class 2606 OID 44645)
 
@@ -27863,8 +24653,6 @@ ALTER TABLE ONLY public.merchant_products
 
 ALTER TABLE ONLY public.merchant_promotions
     ADD CONSTRAINT merchant_promotions_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7936 (class 2606 OID 44650)
 
@@ -27873,8 +24661,6 @@ ALTER TABLE ONLY public.merchant_promotions
 
 ALTER TABLE ONLY public.merchant_promotions
     ADD CONSTRAINT merchant_promotions_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.merchant_products(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7941 (class 2606 OID 44728)
 
@@ -27883,8 +24669,6 @@ ALTER TABLE ONLY public.merchant_promotions
 
 ALTER TABLE ONLY public.merchant_status_audit_log
     ADD CONSTRAINT merchant_status_audit_log_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7933 (class 2606 OID 44590)
 
@@ -27893,8 +24677,6 @@ ALTER TABLE ONLY public.merchant_status_audit_log
 
 ALTER TABLE ONLY public.merchants
     ADD CONSTRAINT merchants_owner_profile_id_fkey FOREIGN KEY (owner_profile_id) REFERENCES public.profiles(id) ON DELETE RESTRICT;
-
-
 --
 -- TOC entry 7863 (class 2606 OID 40622)
 
@@ -27903,8 +24685,6 @@ ALTER TABLE ONLY public.merchants
 
 ALTER TABLE ONLY public.notification_outbox
     ADD CONSTRAINT notification_outbox_notification_id_fkey FOREIGN KEY (notification_id) REFERENCES public.user_notifications(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7984 (class 2606 OID 63618)
 
@@ -27913,8 +24693,6 @@ ALTER TABLE ONLY public.notification_outbox
 
 ALTER TABLE ONLY public.ops_alert_events
     ADD CONSTRAINT ops_alert_events_rule_id_fkey FOREIGN KEY (rule_id) REFERENCES public.ops_alert_rules(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7983 (class 2606 OID 63602)
 
@@ -27923,8 +24701,6 @@ ALTER TABLE ONLY public.ops_alert_events
 
 ALTER TABLE ONLY public.ops_alert_state
     ADD CONSTRAINT ops_alert_state_rule_id_fkey FOREIGN KEY (rule_id) REFERENCES public.ops_alert_rules(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8001 (class 2606 OID 64135)
 
@@ -27933,8 +24709,6 @@ ALTER TABLE ONLY public.ops_alert_state
 
 ALTER TABLE ONLY public.order_bundles
     ADD CONSTRAINT order_bundles_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8012 (class 2606 OID 64664)
 
@@ -27943,8 +24717,6 @@ ALTER TABLE ONLY public.order_bundles
 
 ALTER TABLE ONLY public.passkey_auth_log
     ADD CONSTRAINT passkey_auth_log_passkey_id_fkey FOREIGN KEY (passkey_id) REFERENCES public.user_passkeys(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 8013 (class 2606 OID 64659)
 
@@ -27953,8 +24725,6 @@ ALTER TABLE ONLY public.passkey_auth_log
 
 ALTER TABLE ONLY public.passkey_auth_log
     ADD CONSTRAINT passkey_auth_log_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7834 (class 2606 OID 40305)
 
@@ -27963,8 +24733,6 @@ ALTER TABLE ONLY public.passkey_auth_log
 
 ALTER TABLE ONLY public.payment_intents
     ADD CONSTRAINT payment_intents_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7835 (class 2606 OID 40310)
 
@@ -27973,8 +24741,6 @@ ALTER TABLE ONLY public.payment_intents
 
 ALTER TABLE ONLY public.payments
     ADD CONSTRAINT payments_payment_intent_id_fkey FOREIGN KEY (payment_intent_id) REFERENCES public.payment_intents(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7836 (class 2606 OID 40315)
 
@@ -27983,8 +24749,6 @@ ALTER TABLE ONLY public.payments
 
 ALTER TABLE ONLY public.payments
     ADD CONSTRAINT payments_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7932 (class 2606 OID 44537)
 
@@ -27993,8 +24757,6 @@ ALTER TABLE ONLY public.payments
 
 ALTER TABLE ONLY public.payout_provider_job_attempts
     ADD CONSTRAINT payout_provider_job_attempts_job_id_fkey FOREIGN KEY (job_id) REFERENCES public.payout_provider_jobs(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7931 (class 2606 OID 44505)
 
@@ -28003,8 +24765,6 @@ ALTER TABLE ONLY public.payout_provider_job_attempts
 
 ALTER TABLE ONLY public.payout_provider_jobs
     ADD CONSTRAINT payout_provider_jobs_withdraw_request_id_fkey FOREIGN KEY (withdraw_request_id) REFERENCES public.wallet_withdraw_requests(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7837 (class 2606 OID 40320)
 
@@ -28013,8 +24773,6 @@ ALTER TABLE ONLY public.payout_provider_jobs
 
 ALTER TABLE ONLY public.profile_kyc
     ADD CONSTRAINT profile_kyc_updated_by_fkey FOREIGN KEY (updated_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7838 (class 2606 OID 40325)
 
@@ -28023,8 +24781,6 @@ ALTER TABLE ONLY public.profile_kyc
 
 ALTER TABLE ONLY public.profile_kyc
     ADD CONSTRAINT profile_kyc_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7839 (class 2606 OID 40330)
 
@@ -28033,8 +24789,6 @@ ALTER TABLE ONLY public.profile_kyc
 
 ALTER TABLE ONLY public.profiles
     ADD CONSTRAINT profiles_id_fkey FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7965 (class 2606 OID 56451)
 
@@ -28043,8 +24797,6 @@ ALTER TABLE ONLY public.profiles
 
 ALTER TABLE ONLY public.promotion_notification_receipts
     ADD CONSTRAINT promotion_notification_receipts_notification_id_fkey FOREIGN KEY (notification_id) REFERENCES public.user_notifications(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7966 (class 2606 OID 56441)
 
@@ -28053,8 +24805,6 @@ ALTER TABLE ONLY public.promotion_notification_receipts
 
 ALTER TABLE ONLY public.promotion_notification_receipts
     ADD CONSTRAINT promotion_notification_receipts_promotion_id_fkey FOREIGN KEY (promotion_id) REFERENCES public.merchant_promotions(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7967 (class 2606 OID 56446)
 
@@ -28063,8 +24813,6 @@ ALTER TABLE ONLY public.promotion_notification_receipts
 
 ALTER TABLE ONLY public.promotion_notification_receipts
     ADD CONSTRAINT promotion_notification_receipts_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7861 (class 2606 OID 40574)
 
@@ -28073,8 +24821,6 @@ ALTER TABLE ONLY public.promotion_notification_receipts
 
 ALTER TABLE ONLY public.public_profiles
     ADD CONSTRAINT public_profiles_id_fkey FOREIGN KEY (id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8011 (class 2606 OID 64643)
 
@@ -28083,8 +24829,6 @@ ALTER TABLE ONLY public.public_profiles
 
 ALTER TABLE ONLY public.recovery_codes
     ADD CONSTRAINT recovery_codes_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7869 (class 2606 OID 40746)
 
@@ -28093,8 +24837,6 @@ ALTER TABLE ONLY public.recovery_codes
 
 ALTER TABLE ONLY public.referral_codes
     ADD CONSTRAINT referral_codes_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7899 (class 2606 OID 41806)
 
@@ -28103,8 +24845,6 @@ ALTER TABLE ONLY public.referral_codes
 
 ALTER TABLE ONLY public.referral_invites
     ADD CONSTRAINT referral_invites_referred_user_id_fkey FOREIGN KEY (referred_user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7900 (class 2606 OID 41801)
 
@@ -28113,8 +24853,6 @@ ALTER TABLE ONLY public.referral_invites
 
 ALTER TABLE ONLY public.referral_invites
     ADD CONSTRAINT referral_invites_referrer_id_fkey FOREIGN KEY (referrer_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7870 (class 2606 OID 40765)
 
@@ -28123,8 +24861,6 @@ ALTER TABLE ONLY public.referral_invites
 
 ALTER TABLE ONLY public.referral_redemptions
     ADD CONSTRAINT referral_redemptions_campaign_id_fkey FOREIGN KEY (campaign_id) REFERENCES public.referral_campaigns(id);
-
-
 --
 -- TOC entry 7871 (class 2606 OID 40775)
 
@@ -28133,8 +24869,6 @@ ALTER TABLE ONLY public.referral_redemptions
 
 ALTER TABLE ONLY public.referral_redemptions
     ADD CONSTRAINT referral_redemptions_referred_id_fkey FOREIGN KEY (referred_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7872 (class 2606 OID 40770)
 
@@ -28143,8 +24877,6 @@ ALTER TABLE ONLY public.referral_redemptions
 
 ALTER TABLE ONLY public.referral_redemptions
     ADD CONSTRAINT referral_redemptions_referrer_id_fkey FOREIGN KEY (referrer_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7880 (class 2606 OID 40900)
 
@@ -28153,8 +24885,6 @@ ALTER TABLE ONLY public.referral_redemptions
 
 ALTER TABLE ONLY public.ride_chat_messages
     ADD CONSTRAINT ride_chat_messages_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7881 (class 2606 OID 40905)
 
@@ -28163,8 +24893,6 @@ ALTER TABLE ONLY public.ride_chat_messages
 
 ALTER TABLE ONLY public.ride_chat_messages
     ADD CONSTRAINT ride_chat_messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7882 (class 2606 OID 40928)
 
@@ -28173,8 +24901,6 @@ ALTER TABLE ONLY public.ride_chat_messages
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_message_id_fkey FOREIGN KEY (message_id) REFERENCES public.ride_chat_messages(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7883 (class 2606 OID 40933)
 
@@ -28183,8 +24909,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_reader_id_fkey FOREIGN KEY (reader_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7884 (class 2606 OID 40923)
 
@@ -28193,8 +24917,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_read_receipts
     ADD CONSTRAINT ride_chat_read_receipts_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7896 (class 2606 OID 41760)
 
@@ -28203,8 +24925,6 @@ ALTER TABLE ONLY public.ride_chat_read_receipts
 
 ALTER TABLE ONLY public.ride_chat_threads
     ADD CONSTRAINT ride_chat_threads_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7897 (class 2606 OID 41750)
 
@@ -28213,8 +24933,6 @@ ALTER TABLE ONLY public.ride_chat_threads
 
 ALTER TABLE ONLY public.ride_chat_threads
     ADD CONSTRAINT ride_chat_threads_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7898 (class 2606 OID 41755)
 
@@ -28223,8 +24941,6 @@ ALTER TABLE ONLY public.ride_chat_threads
 
 ALTER TABLE ONLY public.ride_chat_threads
     ADD CONSTRAINT ride_chat_threads_rider_id_fkey FOREIGN KEY (rider_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7885 (class 2606 OID 40951)
 
@@ -28233,8 +24949,6 @@ ALTER TABLE ONLY public.ride_chat_threads
 
 ALTER TABLE ONLY public.ride_chat_typing
     ADD CONSTRAINT ride_chat_typing_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7886 (class 2606 OID 40946)
 
@@ -28243,8 +24957,6 @@ ALTER TABLE ONLY public.ride_chat_typing
 
 ALTER TABLE ONLY public.ride_chat_typing
     ADD CONSTRAINT ride_chat_typing_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7895 (class 2606 OID 41723)
 
@@ -28253,8 +24965,6 @@ ALTER TABLE ONLY public.ride_chat_typing
 
 ALTER TABLE ONLY public.ride_completion_log
     ADD CONSTRAINT ride_completion_log_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7840 (class 2606 OID 40340)
 
@@ -28263,8 +24973,6 @@ ALTER TABLE ONLY public.ride_completion_log
 
 ALTER TABLE ONLY public.ride_events
     ADD CONSTRAINT ride_events_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7841 (class 2606 OID 40345)
 
@@ -28273,8 +24981,6 @@ ALTER TABLE ONLY public.ride_events
 
 ALTER TABLE ONLY public.ride_incidents
     ADD CONSTRAINT ride_incidents_assigned_to_fkey FOREIGN KEY (assigned_to) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7842 (class 2606 OID 40350)
 
@@ -28283,8 +24989,6 @@ ALTER TABLE ONLY public.ride_incidents
 
 ALTER TABLE ONLY public.ride_incidents
     ADD CONSTRAINT ride_incidents_reporter_id_fkey FOREIGN KEY (reporter_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7843 (class 2606 OID 40355)
 
@@ -28293,8 +24997,6 @@ ALTER TABLE ONLY public.ride_incidents
 
 ALTER TABLE ONLY public.ride_incidents
     ADD CONSTRAINT ride_incidents_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7907 (class 2606 OID 43640)
 
@@ -28303,8 +25005,6 @@ ALTER TABLE ONLY public.ride_incidents
 
 ALTER TABLE ONLY public.ride_intents
     ADD CONSTRAINT ride_intents_converted_request_id_fkey FOREIGN KEY (converted_request_id) REFERENCES public.ride_requests(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7908 (class 2606 OID 43635)
 
@@ -28313,8 +25013,6 @@ ALTER TABLE ONLY public.ride_intents
 
 ALTER TABLE ONLY public.ride_intents
     ADD CONSTRAINT ride_intents_service_area_id_fkey FOREIGN KEY (service_area_id) REFERENCES public.service_areas(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7844 (class 2606 OID 40360)
 
@@ -28323,8 +25021,6 @@ ALTER TABLE ONLY public.ride_intents
 
 ALTER TABLE ONLY public.ride_ratings
     ADD CONSTRAINT ride_ratings_ratee_id_fkey FOREIGN KEY (ratee_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7845 (class 2606 OID 40365)
 
@@ -28333,8 +25029,6 @@ ALTER TABLE ONLY public.ride_ratings
 
 ALTER TABLE ONLY public.ride_ratings
     ADD CONSTRAINT ride_ratings_rater_id_fkey FOREIGN KEY (rater_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7846 (class 2606 OID 40370)
 
@@ -28343,8 +25037,6 @@ ALTER TABLE ONLY public.ride_ratings
 
 ALTER TABLE ONLY public.ride_ratings
     ADD CONSTRAINT ride_ratings_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7847 (class 2606 OID 40375)
 
@@ -28353,8 +25045,6 @@ ALTER TABLE ONLY public.ride_ratings
 
 ALTER TABLE ONLY public.ride_receipts
     ADD CONSTRAINT ride_receipts_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7848 (class 2606 OID 40380)
 
@@ -28363,8 +25053,6 @@ ALTER TABLE ONLY public.ride_receipts
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_assigned_driver_id_fkey FOREIGN KEY (assigned_driver_id) REFERENCES public.drivers(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7849 (class 2606 OID 62324)
 
@@ -28373,8 +25061,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_fare_quote_fk FOREIGN KEY (fare_quote_id) REFERENCES public.fare_quotes(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7850 (class 2606 OID 41213)
 
@@ -28383,8 +25069,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_product_code_fkey FOREIGN KEY (product_code) REFERENCES public.ride_products(code);
-
-
 --
 -- TOC entry 7851 (class 2606 OID 40385)
 
@@ -28393,8 +25077,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_rider_id_fkey FOREIGN KEY (rider_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7852 (class 2606 OID 43598)
 
@@ -28403,8 +25085,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ride_requests
     ADD CONSTRAINT ride_requests_service_area_id_fkey FOREIGN KEY (service_area_id) REFERENCES public.service_areas(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7917 (class 2606 OID 43839)
 
@@ -28413,8 +25093,6 @@ ALTER TABLE ONLY public.ride_requests
 
 ALTER TABLE ONLY public.ridecheck_events
     ADD CONSTRAINT ridecheck_events_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7918 (class 2606 OID 43856)
 
@@ -28423,8 +25101,6 @@ ALTER TABLE ONLY public.ridecheck_events
 
 ALTER TABLE ONLY public.ridecheck_responses
     ADD CONSTRAINT ridecheck_responses_event_id_fkey FOREIGN KEY (event_id) REFERENCES public.ridecheck_events(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7919 (class 2606 OID 43861)
 
@@ -28433,8 +25109,6 @@ ALTER TABLE ONLY public.ridecheck_responses
 
 ALTER TABLE ONLY public.ridecheck_responses
     ADD CONSTRAINT ridecheck_responses_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7920 (class 2606 OID 43866)
 
@@ -28443,8 +25117,6 @@ ALTER TABLE ONLY public.ridecheck_responses
 
 ALTER TABLE ONLY public.ridecheck_responses
     ADD CONSTRAINT ridecheck_responses_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7916 (class 2606 OID 43822)
 
@@ -28453,8 +25125,6 @@ ALTER TABLE ONLY public.ridecheck_responses
 
 ALTER TABLE ONLY public.ridecheck_state
     ADD CONSTRAINT ridecheck_state_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7821 (class 2606 OID 40390)
 
@@ -28463,8 +25133,6 @@ ALTER TABLE ONLY public.ridecheck_state
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_driver_id_fkey FOREIGN KEY (driver_id) REFERENCES public.drivers(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7822 (class 2606 OID 40395)
 
@@ -28473,8 +25141,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_payment_intent_id_fkey FOREIGN KEY (payment_intent_id) REFERENCES public.payment_intents(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7823 (class 2606 OID 41219)
 
@@ -28483,8 +25149,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_product_code_fkey FOREIGN KEY (product_code) REFERENCES public.ride_products(code);
-
-
 --
 -- TOC entry 7824 (class 2606 OID 40400)
 
@@ -28493,8 +25157,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_request_id_fkey FOREIGN KEY (request_id) REFERENCES public.ride_requests(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7825 (class 2606 OID 40405)
 
@@ -28503,8 +25165,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_rider_id_fkey FOREIGN KEY (rider_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7826 (class 2606 OID 40410)
 
@@ -28513,8 +25173,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.rides
     ADD CONSTRAINT rides_wallet_hold_id_fkey FOREIGN KEY (wallet_hold_id) REFERENCES public.wallet_holds(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7988 (class 2606 OID 63852)
 
@@ -28523,8 +25181,6 @@ ALTER TABLE ONLY public.rides
 
 ALTER TABLE ONLY public.safety_mismatch_reports
     ADD CONSTRAINT safety_mismatch_reports_reported_user_id_fkey FOREIGN KEY (reported_user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7989 (class 2606 OID 63847)
 
@@ -28533,8 +25189,6 @@ ALTER TABLE ONLY public.safety_mismatch_reports
 
 ALTER TABLE ONLY public.safety_mismatch_reports
     ADD CONSTRAINT safety_mismatch_reports_reporter_id_fkey FOREIGN KEY (reporter_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7987 (class 2606 OID 63824)
 
@@ -28543,8 +25197,6 @@ ALTER TABLE ONLY public.safety_mismatch_reports
 
 ALTER TABLE ONLY public.safety_preferences
     ADD CONSTRAINT safety_preferences_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7902 (class 2606 OID 62330)
 
@@ -28553,8 +25205,6 @@ ALTER TABLE ONLY public.safety_preferences
 
 ALTER TABLE ONLY public.scheduled_rides
     ADD CONSTRAINT scheduled_rides_fare_quote_fk FOREIGN KEY (fare_quote_id) REFERENCES public.fare_quotes(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7903 (class 2606 OID 43562)
 
@@ -28563,8 +25213,6 @@ ALTER TABLE ONLY public.scheduled_rides
 
 ALTER TABLE ONLY public.scheduled_rides
     ADD CONSTRAINT scheduled_rides_ride_request_id_fkey FOREIGN KEY (ride_request_id) REFERENCES public.ride_requests(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7904 (class 2606 OID 43557)
 
@@ -28573,8 +25221,6 @@ ALTER TABLE ONLY public.scheduled_rides
 
 ALTER TABLE ONLY public.scheduled_rides
     ADD CONSTRAINT scheduled_rides_rider_id_fkey FOREIGN KEY (rider_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7905 (class 2606 OID 43603)
 
@@ -28583,8 +25229,6 @@ ALTER TABLE ONLY public.scheduled_rides
 
 ALTER TABLE ONLY public.scheduled_rides
     ADD CONSTRAINT scheduled_rides_service_area_id_fkey FOREIGN KEY (service_area_id) REFERENCES public.service_areas(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7906 (class 2606 OID 43590)
 
@@ -28593,8 +25237,6 @@ ALTER TABLE ONLY public.scheduled_rides
 
 ALTER TABLE ONLY public.service_areas
     ADD CONSTRAINT service_areas_pricing_config_id_fkey FOREIGN KEY (pricing_config_id) REFERENCES public.pricing_configs(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7974 (class 2606 OID 63025)
 
@@ -28603,8 +25245,6 @@ ALTER TABLE ONLY public.service_areas
 
 ALTER TABLE ONLY public.settlement_entries
     ADD CONSTRAINT settlement_entries_account_fkey FOREIGN KEY (account_id) REFERENCES public.settlement_accounts(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7978 (class 2606 OID 63331)
 
@@ -28613,8 +25253,6 @@ ALTER TABLE ONLY public.settlement_entries
 
 ALTER TABLE ONLY public.settlement_payouts
     ADD CONSTRAINT settlement_payouts_agent_id_fkey FOREIGN KEY (agent_id) REFERENCES public.cash_agents(id);
-
-
 --
 -- TOC entry 7976 (class 2606 OID 63324)
 
@@ -28623,8 +25261,6 @@ ALTER TABLE ONLY public.settlement_payouts
 
 ALTER TABLE ONLY public.settlement_receipts
     ADD CONSTRAINT settlement_receipts_agent_id_fkey FOREIGN KEY (agent_id) REFERENCES public.cash_agents(id);
-
-
 --
 -- TOC entry 8006 (class 2606 OID 64488)
 
@@ -28633,8 +25269,6 @@ ALTER TABLE ONLY public.settlement_receipts
 
 ALTER TABLE ONLY public.shift_progress
     ADD CONSTRAINT shift_progress_shift_id_fkey FOREIGN KEY (shift_id) REFERENCES public.driver_shifts(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7909 (class 2606 OID 43692)
 
@@ -28643,8 +25277,6 @@ ALTER TABLE ONLY public.shift_progress
 
 ALTER TABLE ONLY public.sos_events
     ADD CONSTRAINT sos_events_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7910 (class 2606 OID 43687)
 
@@ -28653,8 +25285,6 @@ ALTER TABLE ONLY public.sos_events
 
 ALTER TABLE ONLY public.sos_events
     ADD CONSTRAINT sos_events_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7911 (class 2606 OID 43732)
 
@@ -28663,8 +25293,6 @@ ALTER TABLE ONLY public.sos_events
 
 ALTER TABLE ONLY public.support_articles
     ADD CONSTRAINT support_articles_section_id_fkey FOREIGN KEY (section_id) REFERENCES public.support_sections(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7878 (class 2606 OID 40875)
 
@@ -28673,8 +25301,6 @@ ALTER TABLE ONLY public.support_articles
 
 ALTER TABLE ONLY public.support_messages
     ADD CONSTRAINT support_messages_sender_id_fkey FOREIGN KEY (sender_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7879 (class 2606 OID 40870)
 
@@ -28683,8 +25309,6 @@ ALTER TABLE ONLY public.support_messages
 
 ALTER TABLE ONLY public.support_messages
     ADD CONSTRAINT support_messages_ticket_id_fkey FOREIGN KEY (ticket_id) REFERENCES public.support_tickets(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7874 (class 2606 OID 40850)
 
@@ -28693,8 +25317,6 @@ ALTER TABLE ONLY public.support_messages
 
 ALTER TABLE ONLY public.support_tickets
     ADD CONSTRAINT support_tickets_category_code_fkey FOREIGN KEY (category_code) REFERENCES public.support_categories(code);
-
-
 --
 -- TOC entry 7875 (class 2606 OID 41332)
 
@@ -28703,8 +25325,6 @@ ALTER TABLE ONLY public.support_tickets
 
 ALTER TABLE ONLY public.support_tickets
     ADD CONSTRAINT support_tickets_category_id_fkey FOREIGN KEY (category_id) REFERENCES public.support_categories(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7876 (class 2606 OID 40845)
 
@@ -28713,8 +25333,6 @@ ALTER TABLE ONLY public.support_tickets
 
 ALTER TABLE ONLY public.support_tickets
     ADD CONSTRAINT support_tickets_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7877 (class 2606 OID 40855)
 
@@ -28723,8 +25341,6 @@ ALTER TABLE ONLY public.support_tickets
 
 ALTER TABLE ONLY public.support_tickets
     ADD CONSTRAINT support_tickets_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7993 (class 2606 OID 63917)
 
@@ -28733,8 +25349,6 @@ ALTER TABLE ONLY public.support_tickets
 
 ALTER TABLE ONLY public.teen_policies
     ADD CONSTRAINT teen_policies_family_id_fkey FOREIGN KEY (family_id) REFERENCES public.families(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7994 (class 2606 OID 63922)
 
@@ -28743,8 +25357,6 @@ ALTER TABLE ONLY public.teen_policies
 
 ALTER TABLE ONLY public.teen_policies
     ADD CONSTRAINT teen_policies_teen_user_id_fkey FOREIGN KEY (teen_user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7827 (class 2606 OID 40425)
 
@@ -28753,8 +25365,6 @@ ALTER TABLE ONLY public.teen_policies
 
 ALTER TABLE ONLY public.topup_intents
     ADD CONSTRAINT topup_intents_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7995 (class 2606 OID 63943)
 
@@ -28763,8 +25373,6 @@ ALTER TABLE ONLY public.topup_intents
 
 ALTER TABLE ONLY public.trip_guardian_links
     ADD CONSTRAINT trip_guardian_links_guardian_user_id_fkey FOREIGN KEY (guardian_user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7996 (class 2606 OID 63938)
 
@@ -28773,8 +25381,6 @@ ALTER TABLE ONLY public.trip_guardian_links
 
 ALTER TABLE ONLY public.trip_guardian_links
     ADD CONSTRAINT trip_guardian_links_teen_user_id_fkey FOREIGN KEY (teen_user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7997 (class 2606 OID 64017)
 
@@ -28783,8 +25389,6 @@ ALTER TABLE ONLY public.trip_guardian_links
 
 ALTER TABLE ONLY public.trip_live_activities
     ADD CONSTRAINT trip_live_activities_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7887 (class 2606 OID 40977)
 
@@ -28793,8 +25397,6 @@ ALTER TABLE ONLY public.trip_live_activities
 
 ALTER TABLE ONLY public.trip_share_tokens
     ADD CONSTRAINT trip_share_tokens_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7888 (class 2606 OID 40972)
 
@@ -28803,8 +25405,6 @@ ALTER TABLE ONLY public.trip_share_tokens
 
 ALTER TABLE ONLY public.trip_share_tokens
     ADD CONSTRAINT trip_share_tokens_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7913 (class 2606 OID 43783)
 
@@ -28813,8 +25413,6 @@ ALTER TABLE ONLY public.trip_share_tokens
 
 ALTER TABLE ONLY public.trusted_contact_events
     ADD CONSTRAINT trusted_contact_events_contact_id_fkey FOREIGN KEY (contact_id) REFERENCES public.trusted_contacts(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7914 (class 2606 OID 43788)
 
@@ -28823,8 +25421,6 @@ ALTER TABLE ONLY public.trusted_contact_events
 
 ALTER TABLE ONLY public.trusted_contact_events
     ADD CONSTRAINT trusted_contact_events_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7915 (class 2606 OID 43778)
 
@@ -28833,8 +25429,6 @@ ALTER TABLE ONLY public.trusted_contact_events
 
 ALTER TABLE ONLY public.trusted_contact_events
     ADD CONSTRAINT trusted_contact_events_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7921 (class 2606 OID 43987)
 
@@ -28843,8 +25437,6 @@ ALTER TABLE ONLY public.trusted_contact_events
 
 ALTER TABLE ONLY public.trusted_contact_outbox
     ADD CONSTRAINT trusted_contact_outbox_contact_id_fkey FOREIGN KEY (contact_id) REFERENCES public.trusted_contacts(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7922 (class 2606 OID 43997)
 
@@ -28853,8 +25445,6 @@ ALTER TABLE ONLY public.trusted_contact_outbox
 
 ALTER TABLE ONLY public.trusted_contact_outbox
     ADD CONSTRAINT trusted_contact_outbox_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7923 (class 2606 OID 43992)
 
@@ -28863,8 +25453,6 @@ ALTER TABLE ONLY public.trusted_contact_outbox
 
 ALTER TABLE ONLY public.trusted_contact_outbox
     ADD CONSTRAINT trusted_contact_outbox_sos_event_id_fkey FOREIGN KEY (sos_event_id) REFERENCES public.sos_events(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7924 (class 2606 OID 43982)
 
@@ -28873,8 +25461,6 @@ ALTER TABLE ONLY public.trusted_contact_outbox
 
 ALTER TABLE ONLY public.trusted_contact_outbox
     ADD CONSTRAINT trusted_contact_outbox_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7873 (class 2606 OID 40800)
 
@@ -28883,8 +25469,6 @@ ALTER TABLE ONLY public.trusted_contact_outbox
 
 ALTER TABLE ONLY public.trusted_contacts
     ADD CONSTRAINT trusted_contacts_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7962 (class 2606 OID 56411)
 
@@ -28893,8 +25477,6 @@ ALTER TABLE ONLY public.trusted_contacts
 
 ALTER TABLE ONLY public.user_interest_targets
     ADD CONSTRAINT user_interest_targets_merchant_id_fkey FOREIGN KEY (merchant_id) REFERENCES public.merchants(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7963 (class 2606 OID 56416)
 
@@ -28903,8 +25485,6 @@ ALTER TABLE ONLY public.user_interest_targets
 
 ALTER TABLE ONLY public.user_interest_targets
     ADD CONSTRAINT user_interest_targets_product_id_fkey FOREIGN KEY (product_id) REFERENCES public.merchant_products(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7964 (class 2606 OID 56406)
 
@@ -28913,8 +25493,6 @@ ALTER TABLE ONLY public.user_interest_targets
 
 ALTER TABLE ONLY public.user_interest_targets
     ADD CONSTRAINT user_interest_targets_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7853 (class 2606 OID 40430)
 
@@ -28923,8 +25501,6 @@ ALTER TABLE ONLY public.user_interest_targets
 
 ALTER TABLE ONLY public.user_notifications
     ADD CONSTRAINT user_notifications_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 8009 (class 2606 OID 64602)
 
@@ -28933,8 +25509,6 @@ ALTER TABLE ONLY public.user_notifications
 
 ALTER TABLE ONLY public.user_passkeys
     ADD CONSTRAINT user_passkeys_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7912 (class 2606 OID 43758)
 
@@ -28943,8 +25517,6 @@ ALTER TABLE ONLY public.user_passkeys
 
 ALTER TABLE ONLY public.user_safety_settings
     ADD CONSTRAINT user_safety_settings_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7960 (class 2606 OID 55235)
 
@@ -28953,8 +25525,6 @@ ALTER TABLE ONLY public.user_safety_settings
 
 ALTER TABLE ONLY public.voice_call_participants
     ADD CONSTRAINT voice_call_participants_call_id_fkey FOREIGN KEY (call_id) REFERENCES public.voice_calls(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7961 (class 2606 OID 55240)
 
@@ -28963,8 +25533,6 @@ ALTER TABLE ONLY public.voice_call_participants
 
 ALTER TABLE ONLY public.voice_call_participants
     ADD CONSTRAINT voice_call_participants_profile_id_fkey FOREIGN KEY (profile_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7958 (class 2606 OID 55216)
 
@@ -28973,8 +25541,6 @@ ALTER TABLE ONLY public.voice_call_participants
 
 ALTER TABLE ONLY public.voice_calls
     ADD CONSTRAINT voice_calls_created_by_fkey FOREIGN KEY (created_by) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7959 (class 2606 OID 55211)
 
@@ -28983,8 +25549,6 @@ ALTER TABLE ONLY public.voice_calls
 
 ALTER TABLE ONLY public.voice_calls
     ADD CONSTRAINT voice_calls_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7828 (class 2606 OID 40435)
 
@@ -28993,8 +25557,6 @@ ALTER TABLE ONLY public.voice_calls
 
 ALTER TABLE ONLY public.wallet_accounts
     ADD CONSTRAINT wallet_accounts_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7854 (class 2606 OID 40440)
 
@@ -29003,8 +25565,6 @@ ALTER TABLE ONLY public.wallet_accounts
 
 ALTER TABLE ONLY public.wallet_entries
     ADD CONSTRAINT wallet_entries_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7855 (class 2606 OID 40445)
 
@@ -29013,8 +25573,6 @@ ALTER TABLE ONLY public.wallet_entries
 
 ALTER TABLE ONLY public.wallet_holds
     ADD CONSTRAINT wallet_holds_ride_id_fkey FOREIGN KEY (ride_id) REFERENCES public.rides(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7856 (class 2606 OID 40450)
 
@@ -29023,8 +25581,6 @@ ALTER TABLE ONLY public.wallet_holds
 
 ALTER TABLE ONLY public.wallet_holds
     ADD CONSTRAINT wallet_holds_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7857 (class 2606 OID 40455)
 
@@ -29033,8 +25589,6 @@ ALTER TABLE ONLY public.wallet_holds
 
 ALTER TABLE ONLY public.wallet_holds
     ADD CONSTRAINT wallet_holds_withdraw_request_id_fkey FOREIGN KEY (withdraw_request_id) REFERENCES public.wallet_withdraw_requests(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7930 (class 2606 OID 44466)
 
@@ -29043,8 +25597,6 @@ ALTER TABLE ONLY public.wallet_holds
 
 ALTER TABLE ONLY public.wallet_payout_attempts
     ADD CONSTRAINT wallet_payout_attempts_withdraw_request_id_fkey FOREIGN KEY (withdraw_request_id) REFERENCES public.wallet_withdraw_requests(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7929 (class 2606 OID 44435)
 
@@ -29053,8 +25605,6 @@ ALTER TABLE ONLY public.wallet_payout_attempts
 
 ALTER TABLE ONLY public.wallet_withdraw_audit_log
     ADD CONSTRAINT wallet_withdraw_audit_log_request_id_fkey FOREIGN KEY (request_id) REFERENCES public.wallet_withdraw_requests(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7858 (class 2606 OID 40460)
 
@@ -29063,8 +25613,6 @@ ALTER TABLE ONLY public.wallet_withdraw_audit_log
 
 ALTER TABLE ONLY public.wallet_withdraw_payout_methods
     ADD CONSTRAINT wallet_withdraw_payout_methods_updated_by_fkey FOREIGN KEY (updated_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7859 (class 2606 OID 40465)
 
@@ -29073,8 +25621,6 @@ ALTER TABLE ONLY public.wallet_withdraw_payout_methods
 
 ALTER TABLE ONLY public.wallet_withdraw_requests
     ADD CONSTRAINT wallet_withdraw_requests_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.profiles(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7860 (class 2606 OID 40470)
 
@@ -29083,8 +25629,6 @@ ALTER TABLE ONLY public.wallet_withdraw_requests
 
 ALTER TABLE ONLY public.wallet_withdrawal_policy
     ADD CONSTRAINT wallet_withdrawal_policy_updated_by_fkey FOREIGN KEY (updated_by) REFERENCES public.profiles(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 8010 (class 2606 OID 64624)
 
@@ -29093,8 +25637,6 @@ ALTER TABLE ONLY public.wallet_withdrawal_policy
 
 ALTER TABLE ONLY public.webauthn_challenges
     ADD CONSTRAINT webauthn_challenges_user_id_fkey FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7982 (class 2606 OID 63558)
 
@@ -29103,8 +25645,6 @@ ALTER TABLE ONLY public.webauthn_challenges
 
 ALTER TABLE ONLY public.webhook_job_attempts
     ADD CONSTRAINT webhook_job_attempts_job_id_fkey FOREIGN KEY (job_id) REFERENCES public.webhook_jobs(id) ON DELETE CASCADE;
-
-
 --
 -- TOC entry 7981 (class 2606 OID 63541)
 
@@ -29113,8 +25653,6 @@ ALTER TABLE ONLY public.webhook_job_attempts
 
 ALTER TABLE ONLY public.webhook_jobs
     ADD CONSTRAINT webhook_jobs_provider_event_pk_fkey FOREIGN KEY (provider_event_pk) REFERENCES public.provider_events(id) ON DELETE SET NULL;
-
-
 --
 -- TOC entry 7812 (class 2606 OID 17285)
 
@@ -29122,8 +25660,6 @@ ALTER TABLE ONLY public.webhook_jobs
 --
 
 CREATE POLICY "Admins can view driver_status_events" ON public.driver_status_events FOR SELECT TO authenticated USING (public.is_admin());
-
-
 --
 -- TOC entry 8358 (class 0 OID 40696)
 -- Dependencies: 454
@@ -29132,7 +25668,6 @@ CREATE POLICY "Admins can view driver_status_events" ON public.driver_status_eve
 --
 
 ALTER TABLE public.achievement_progress ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8357 (class 0 OID 40681)
 -- Dependencies: 453
@@ -29141,7 +25676,6 @@ ALTER TABLE public.achievement_progress ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.achievements ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8444 (class 0 OID 64142)
 -- Dependencies: 566
@@ -29150,7 +25684,6 @@ ALTER TABLE public.achievements ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.addon_offers ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8671 (class 3256 OID 64156)
 
@@ -29158,8 +25691,6 @@ ALTER TABLE public.addon_offers ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY addon_offers_service ON public.addon_offers TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8394 (class 0 OID 44402)
 -- Dependencies: 494
@@ -29168,7 +25699,6 @@ CREATE POLICY addon_offers_service ON public.addon_offers TO service_role USING 
 --
 
 ALTER TABLE public.admin_audit_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8742 (class 3256 OID 44422)
 
@@ -29176,8 +25706,6 @@ ALTER TABLE public.admin_audit_log ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY admin_audit_log_admin_select ON public.admin_audit_log FOR SELECT TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8393 (class 0 OID 44376)
 -- Dependencies: 492
@@ -29186,7 +25714,6 @@ CREATE POLICY admin_audit_log_admin_select ON public.admin_audit_log FOR SELECT 
 --
 
 ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8739 (class 3256 OID 44395)
 
@@ -29194,8 +25721,6 @@ ALTER TABLE public.admin_users ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY admin_users_admin_select ON public.admin_users FOR SELECT TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8738 (class 3256 OID 44394)
 
@@ -29203,8 +25728,6 @@ CREATE POLICY admin_users_admin_select ON public.admin_users FOR SELECT TO authe
 --
 
 CREATE POLICY admin_users_service_role_all ON public.admin_users TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8327 (class 0 OID 39843)
 -- Dependencies: 418
@@ -29213,7 +25736,6 @@ CREATE POLICY admin_users_service_role_all ON public.admin_users TO service_role
 --
 
 ALTER TABLE public.api_rate_limits ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8328 (class 0 OID 39849)
 -- Dependencies: 419
@@ -29222,7 +25744,6 @@ ALTER TABLE public.api_rate_limits ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.app_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8413 (class 0 OID 55154)
 -- Dependencies: 515
@@ -29231,7 +25752,6 @@ ALTER TABLE public.app_events ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.auth_sms_hook_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8690 (class 3256 OID 55177)
 
@@ -29239,8 +25759,6 @@ ALTER TABLE public.auth_sms_hook_events ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY auth_sms_hook_events_service_role_all ON public.auth_sms_hook_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8422 (class 0 OID 63032)
 -- Dependencies: 533
@@ -29249,7 +25767,6 @@ CREATE POLICY auth_sms_hook_events_service_role_all ON public.auth_sms_hook_even
 --
 
 ALTER TABLE public.cash_collections ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8823 (class 3256 OID 63050)
 
@@ -29259,8 +25776,6 @@ ALTER TABLE public.cash_collections ENABLE ROW LEVEL SECURITY;
 CREATE POLICY cash_collections_insert ON public.cash_collections FOR INSERT TO authenticated WITH CHECK ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = cash_collections.ride_id) AND (r.driver_id = ( SELECT auth.uid() AS uid))))));
-
-
 --
 -- TOC entry 8822 (class 3256 OID 63049)
 
@@ -29270,8 +25785,6 @@ CREATE POLICY cash_collections_insert ON public.cash_collections FOR INSERT TO a
 CREATE POLICY cash_collections_select ON public.cash_collections FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = cash_collections.ride_id) AND ((r.driver_id = ( SELECT auth.uid() AS uid)) OR (r.rider_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8824 (class 3256 OID 63051)
 
@@ -29283,8 +25796,6 @@ CREATE POLICY cash_collections_update ON public.cash_collections FOR UPDATE TO a
   WHERE ((r.id = cash_collections.ride_id) AND (r.driver_id = ( SELECT auth.uid() AS uid))))))) WITH CHECK ((( SELECT public.is_admin() AS is_admin) OR ((status = 'reported'::public.cash_collection_status) AND (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = cash_collections.ride_id) AND (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8442 (class 0 OID 64087)
 -- Dependencies: 564
@@ -29293,7 +25804,6 @@ CREATE POLICY cash_collections_update ON public.cash_collections FOR UPDATE TO a
 --
 
 ALTER TABLE public.concierge_feedback ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8737 (class 3256 OID 64770)
 
@@ -29301,8 +25811,6 @@ ALTER TABLE public.concierge_feedback ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY concierge_feedback_own ON public.concierge_feedback TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8669 (class 3256 OID 64110)
 
@@ -29310,8 +25818,6 @@ CREATE POLICY concierge_feedback_own ON public.concierge_feedback TO authenticat
 --
 
 CREATE POLICY concierge_feedback_service ON public.concierge_feedback TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8441 (class 0 OID 64061)
 -- Dependencies: 563
@@ -29320,7 +25826,6 @@ CREATE POLICY concierge_feedback_service ON public.concierge_feedback TO service
 --
 
 ALTER TABLE public.concierge_sessions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8740 (class 3256 OID 64771)
 
@@ -29328,8 +25833,6 @@ ALTER TABLE public.concierge_sessions ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY concierge_sessions_own ON public.concierge_sessions TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8665 (class 3256 OID 64086)
 
@@ -29337,8 +25840,6 @@ CREATE POLICY concierge_sessions_own ON public.concierge_sessions TO authenticat
 --
 
 CREATE POLICY concierge_sessions_service ON public.concierge_sessions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8406 (class 0 OID 44746)
 -- Dependencies: 507
@@ -29347,7 +25848,6 @@ CREATE POLICY concierge_sessions_service ON public.concierge_sessions TO service
 --
 
 ALTER TABLE public.customer_addresses ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8773 (class 3256 OID 44767)
 
@@ -29355,8 +25855,6 @@ ALTER TABLE public.customer_addresses ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY customer_addresses_delete_own_or_admin ON public.customer_addresses FOR DELETE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8771 (class 3256 OID 44765)
 
@@ -29364,8 +25862,6 @@ CREATE POLICY customer_addresses_delete_own_or_admin ON public.customer_addresse
 --
 
 CREATE POLICY customer_addresses_insert_own ON public.customer_addresses FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8770 (class 3256 OID 44764)
 
@@ -29373,8 +25869,6 @@ CREATE POLICY customer_addresses_insert_own ON public.customer_addresses FOR INS
 --
 
 CREATE POLICY customer_addresses_select_own_or_admin ON public.customer_addresses FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8772 (class 3256 OID 44766)
 
@@ -29382,8 +25876,6 @@ CREATE POLICY customer_addresses_select_own_or_admin ON public.customer_addresse
 --
 
 CREATE POLICY customer_addresses_update_own_or_admin ON public.customer_addresses FOR UPDATE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8451 (class 0 OID 64495)
 -- Dependencies: 573
@@ -29392,7 +25884,6 @@ CREATE POLICY customer_addresses_update_own_or_admin ON public.customer_addresse
 --
 
 ALTER TABLE public.demand_hotspots ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8705 (class 3256 OID 64508)
 
@@ -29400,8 +25891,6 @@ ALTER TABLE public.demand_hotspots ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY demand_hotspots_read ON public.demand_hotspots FOR SELECT TO authenticated USING ((valid_until > now()));
-
-
 --
 -- TOC entry 8706 (class 3256 OID 64509)
 
@@ -29409,8 +25898,6 @@ CREATE POLICY demand_hotspots_read ON public.demand_hotspots FOR SELECT TO authe
 --
 
 CREATE POLICY demand_hotspots_service ON public.demand_hotspots TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8352 (class 0 OID 40583)
 -- Dependencies: 447
@@ -29419,7 +25906,6 @@ CREATE POLICY demand_hotspots_service ON public.demand_hotspots TO service_role 
 --
 
 ALTER TABLE public.device_tokens ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8468 (class 3256 OID 42012)
 
@@ -29427,8 +25913,6 @@ ALTER TABLE public.device_tokens ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY device_tokens_delete_own ON public.device_tokens FOR DELETE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8466 (class 3256 OID 42010)
 
@@ -29436,8 +25920,6 @@ CREATE POLICY device_tokens_delete_own ON public.device_tokens FOR DELETE TO aut
 --
 
 CREATE POLICY device_tokens_insert_own ON public.device_tokens FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8465 (class 3256 OID 42009)
 
@@ -29445,8 +25927,6 @@ CREATE POLICY device_tokens_insert_own ON public.device_tokens FOR INSERT TO aut
 --
 
 CREATE POLICY device_tokens_select_own_or_admin ON public.device_tokens FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8467 (class 3256 OID 42011)
 
@@ -29454,8 +25934,6 @@ CREATE POLICY device_tokens_select_own_or_admin ON public.device_tokens FOR SELE
 --
 
 CREATE POLICY device_tokens_update_own ON public.device_tokens FOR UPDATE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8453 (class 0 OID 64526)
 -- Dependencies: 575
@@ -29464,7 +25942,6 @@ CREATE POLICY device_tokens_update_own ON public.device_tokens FOR UPDATE TO aut
 --
 
 ALTER TABLE public.driver_coaching_tips ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8741 (class 3256 OID 64772)
 
@@ -29472,8 +25949,6 @@ ALTER TABLE public.driver_coaching_tips ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY driver_coaching_tips_own ON public.driver_coaching_tips TO authenticated USING ((( SELECT auth.uid() AS uid) = driver_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = driver_id));
-
-
 --
 -- TOC entry 8716 (class 3256 OID 64544)
 
@@ -29481,8 +25956,6 @@ CREATE POLICY driver_coaching_tips_own ON public.driver_coaching_tips TO authent
 --
 
 CREATE POLICY driver_coaching_tips_service ON public.driver_coaching_tips TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8354 (class 0 OID 40633)
 -- Dependencies: 450
@@ -29491,7 +25964,6 @@ CREATE POLICY driver_coaching_tips_service ON public.driver_coaching_tips TO ser
 --
 
 ALTER TABLE public.driver_counters ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8380 (class 0 OID 41825)
 -- Dependencies: 476
@@ -29500,7 +25972,6 @@ ALTER TABLE public.driver_counters ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.driver_leaderboard_daily ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8469 (class 3256 OID 42013)
 
@@ -29508,8 +25979,6 @@ ALTER TABLE public.driver_leaderboard_daily ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY driver_leaderboard_daily_select_all ON public.driver_leaderboard_daily FOR SELECT TO authenticated USING (true);
-
-
 --
 -- TOC entry 8329 (class 0 OID 39858)
 -- Dependencies: 420
@@ -29518,7 +25987,6 @@ CREATE POLICY driver_leaderboard_daily_select_all ON public.driver_leaderboard_d
 --
 
 ALTER TABLE public.driver_locations ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8356 (class 0 OID 40660)
 -- Dependencies: 452
@@ -29527,7 +25995,6 @@ ALTER TABLE public.driver_locations ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.driver_rank_snapshots ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8470 (class 3256 OID 42014)
 
@@ -29535,8 +26002,6 @@ ALTER TABLE public.driver_rank_snapshots ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY driver_rank_snapshots_select_authenticated ON public.driver_rank_snapshots FOR SELECT TO authenticated USING (true);
-
-
 --
 -- TOC entry 8449 (class 0 OID 64453)
 -- Dependencies: 571
@@ -29545,7 +26010,6 @@ CREATE POLICY driver_rank_snapshots_select_authenticated ON public.driver_rank_s
 --
 
 ALTER TABLE public.driver_shifts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8750 (class 3256 OID 64773)
 
@@ -29553,8 +26017,6 @@ ALTER TABLE public.driver_shifts ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY driver_shifts_own ON public.driver_shifts TO authenticated USING ((( SELECT auth.uid() AS uid) = driver_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = driver_id));
-
-
 --
 -- TOC entry 8695 (class 3256 OID 64475)
 
@@ -29562,8 +26024,6 @@ CREATE POLICY driver_shifts_own ON public.driver_shifts TO authenticated USING (
 --
 
 CREATE POLICY driver_shifts_service ON public.driver_shifts TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8355 (class 0 OID 40646)
 -- Dependencies: 451
@@ -29572,7 +26032,6 @@ CREATE POLICY driver_shifts_service ON public.driver_shifts TO service_role USIN
 --
 
 ALTER TABLE public.driver_stats_daily ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8471 (class 3256 OID 42015)
 
@@ -29580,8 +26039,6 @@ ALTER TABLE public.driver_stats_daily ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY driver_stats_daily_select_own_or_admin ON public.driver_stats_daily FOR SELECT TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8412 (class 0 OID 45085)
 -- Dependencies: 514
@@ -29590,7 +26047,6 @@ CREATE POLICY driver_stats_daily_select_own_or_admin ON public.driver_stats_dail
 --
 
 ALTER TABLE public.driver_status_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8330 (class 0 OID 39868)
 -- Dependencies: 421
@@ -29599,7 +26055,6 @@ ALTER TABLE public.driver_status_events ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.driver_vehicles ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8331 (class 0 OID 39876)
 -- Dependencies: 422
@@ -29608,7 +26063,6 @@ ALTER TABLE public.driver_vehicles ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.drivers ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8634 (class 3256 OID 42214)
 
@@ -29616,8 +26070,6 @@ ALTER TABLE public.drivers ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY drivers_insert_self ON public.drivers FOR INSERT TO authenticated WITH CHECK ((( SELECT auth.uid() AS uid) IS NOT NULL));
-
-
 --
 -- TOC entry 8633 (class 3256 OID 42213)
 
@@ -29625,8 +26077,6 @@ CREATE POLICY drivers_insert_self ON public.drivers FOR INSERT TO authenticated 
 --
 
 CREATE POLICY drivers_select_self ON public.drivers FOR SELECT TO authenticated USING ((id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8686 (class 3256 OID 43663)
 
@@ -29636,8 +26086,6 @@ CREATE POLICY drivers_select_self ON public.drivers FOR SELECT TO authenticated 
 CREATE POLICY drivers_update_self ON public.drivers FOR UPDATE TO authenticated USING ((id = ( SELECT auth.uid() AS uid))) WITH CHECK (((id = ( SELECT auth.uid() AS uid)) AND ((status <> 'available'::public.driver_status) OR (EXISTS ( SELECT 1
    FROM public.profile_kyc pk
   WHERE ((pk.user_id = ( SELECT auth.uid() AS uid)) AND (pk.status = 'verified'::public.kyc_status)))))));
-
-
 --
 -- TOC entry 8454 (class 0 OID 64545)
 -- Dependencies: 576
@@ -29646,7 +26094,6 @@ CREATE POLICY drivers_update_self ON public.drivers FOR UPDATE TO authenticated 
 --
 
 ALTER TABLE public.earnings_coach_sessions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8751 (class 3256 OID 64774)
 
@@ -29654,8 +26101,6 @@ ALTER TABLE public.earnings_coach_sessions ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY earnings_coach_sessions_own ON public.earnings_coach_sessions TO authenticated USING ((( SELECT auth.uid() AS uid) = driver_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = driver_id));
-
-
 --
 -- TOC entry 8717 (class 3256 OID 64565)
 
@@ -29663,8 +26108,6 @@ CREATE POLICY earnings_coach_sessions_own ON public.earnings_coach_sessions TO a
 --
 
 CREATE POLICY earnings_coach_sessions_service ON public.earnings_coach_sessions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8452 (class 0 OID 64510)
 -- Dependencies: 574
@@ -29673,7 +26116,6 @@ CREATE POLICY earnings_coach_sessions_service ON public.earnings_coach_sessions 
 --
 
 ALTER TABLE public.earnings_forecasts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8707 (class 3256 OID 64524)
 
@@ -29681,8 +26123,6 @@ ALTER TABLE public.earnings_forecasts ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY earnings_forecasts_read ON public.earnings_forecasts FOR SELECT TO authenticated USING (true);
-
-
 --
 -- TOC entry 8708 (class 3256 OID 64525)
 
@@ -29690,8 +26130,6 @@ CREATE POLICY earnings_forecasts_read ON public.earnings_forecasts FOR SELECT TO
 --
 
 CREATE POLICY earnings_forecasts_service ON public.earnings_forecasts TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8434 (class 0 OID 63862)
 -- Dependencies: 556
@@ -29700,7 +26138,6 @@ CREATE POLICY earnings_forecasts_service ON public.earnings_forecasts TO service
 --
 
 ALTER TABLE public.families ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8718 (class 3256 OID 64832)
 
@@ -29708,8 +26145,6 @@ ALTER TABLE public.families ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY families_creator_delete ON public.families FOR DELETE TO authenticated USING ((( SELECT auth.uid() AS uid) = created_by_user_id));
-
-
 --
 -- TOC entry 8663 (class 3256 OID 64830)
 
@@ -29717,8 +26152,6 @@ CREATE POLICY families_creator_delete ON public.families FOR DELETE TO authentic
 --
 
 CREATE POLICY families_creator_insert ON public.families FOR INSERT TO authenticated WITH CHECK ((( SELECT auth.uid() AS uid) = created_by_user_id));
-
-
 --
 -- TOC entry 8664 (class 3256 OID 64831)
 
@@ -29726,8 +26159,6 @@ CREATE POLICY families_creator_insert ON public.families FOR INSERT TO authentic
 --
 
 CREATE POLICY families_creator_update ON public.families FOR UPDATE TO authenticated USING ((( SELECT auth.uid() AS uid) = created_by_user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = created_by_user_id));
-
-
 --
 -- TOC entry 8662 (class 3256 OID 64829)
 
@@ -29737,8 +26168,6 @@ CREATE POLICY families_creator_update ON public.families FOR UPDATE TO authentic
 CREATE POLICY families_select_access ON public.families FOR SELECT TO authenticated USING (((( SELECT auth.uid() AS uid) = created_by_user_id) OR (EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = families.id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.status = 'active'::public.family_member_status))))));
-
-
 --
 -- TOC entry 8617 (class 3256 OID 63952)
 
@@ -29746,8 +26175,6 @@ CREATE POLICY families_select_access ON public.families FOR SELECT TO authentica
 --
 
 CREATE POLICY families_service ON public.families TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8435 (class 0 OID 63878)
 -- Dependencies: 557
@@ -29756,7 +26183,6 @@ CREATE POLICY families_service ON public.families TO service_role USING (true) W
 --
 
 ALTER TABLE public.family_members ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8791 (class 3256 OID 64837)
 
@@ -29766,8 +26192,6 @@ ALTER TABLE public.family_members ENABLE ROW LEVEL SECURITY;
 CREATE POLICY family_members_guardian_delete ON public.family_members FOR DELETE TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = family_members.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8761 (class 3256 OID 64834)
 
@@ -29777,8 +26201,6 @@ CREATE POLICY family_members_guardian_delete ON public.family_members FOR DELETE
 CREATE POLICY family_members_guardian_insert ON public.family_members FOR INSERT TO authenticated WITH CHECK ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = family_members.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8764 (class 3256 OID 64835)
 
@@ -29790,8 +26212,6 @@ CREATE POLICY family_members_guardian_update ON public.family_members FOR UPDATE
   WHERE ((fm.family_id = family_members.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status))))) WITH CHECK ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = family_members.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8756 (class 3256 OID 64833)
 
@@ -29801,8 +26221,6 @@ CREATE POLICY family_members_guardian_update ON public.family_members FOR UPDATE
 CREATE POLICY family_members_select_access ON public.family_members FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = family_members.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status))))));
-
-
 --
 -- TOC entry 8636 (class 3256 OID 63956)
 
@@ -29810,8 +26228,6 @@ CREATE POLICY family_members_select_access ON public.family_members FOR SELECT T
 --
 
 CREATE POLICY family_members_service ON public.family_members TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8420 (class 0 OID 62271)
 -- Dependencies: 527
@@ -29820,7 +26236,6 @@ CREATE POLICY family_members_service ON public.family_members TO service_role US
 --
 
 ALTER TABLE public.fare_quotes ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8821 (class 3256 OID 62298)
 
@@ -29828,8 +26243,6 @@ ALTER TABLE public.fare_quotes ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY fare_quotes_insert_own ON public.fare_quotes FOR INSERT TO authenticated WITH CHECK ((rider_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8820 (class 3256 OID 62297)
 
@@ -29837,8 +26250,6 @@ CREATE POLICY fare_quotes_insert_own ON public.fare_quotes FOR INSERT TO authent
 --
 
 CREATE POLICY fare_quotes_select_own ON public.fare_quotes FOR SELECT TO authenticated USING ((rider_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8448 (class 0 OID 64228)
 -- Dependencies: 570
@@ -29847,7 +26258,6 @@ CREATE POLICY fare_quotes_select_own ON public.fare_quotes FOR SELECT TO authent
 --
 
 ALTER TABLE public.fee_disclosures ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8680 (class 3256 OID 64244)
 
@@ -29855,8 +26265,6 @@ ALTER TABLE public.fee_disclosures ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY fee_disclosures_read ON public.fee_disclosures FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8681 (class 3256 OID 64245)
 
@@ -29864,8 +26272,6 @@ CREATE POLICY fee_disclosures_read ON public.fee_disclosures FOR SELECT TO authe
 --
 
 CREATE POLICY fee_disclosures_service ON public.fee_disclosures TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8430 (class 0 OID 63717)
 -- Dependencies: 551
@@ -29874,7 +26280,6 @@ CREATE POLICY fee_disclosures_service ON public.fee_disclosures TO service_role 
 --
 
 ALTER TABLE public.fraud_case_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8429 (class 0 OID 63702)
 -- Dependencies: 550
@@ -29883,7 +26288,6 @@ ALTER TABLE public.fraud_case_events ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.fraud_cases ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8431 (class 0 OID 63733)
 -- Dependencies: 552
@@ -29892,7 +26296,6 @@ ALTER TABLE public.fraud_cases ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.fraud_enforcement_actions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8428 (class 0 OID 63689)
 -- Dependencies: 549
@@ -29901,7 +26304,6 @@ ALTER TABLE public.fraud_enforcement_actions ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.fraud_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8463 (class 0 OID 66226)
 -- Dependencies: 599
@@ -29910,7 +26312,6 @@ ALTER TABLE public.fraud_events ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.geo_cache ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8805 (class 3256 OID 66322)
 
@@ -29918,8 +26319,6 @@ ALTER TABLE public.geo_cache ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY geo_cache_service_role_all_v1 ON public.geo_cache TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8323 (class 0 OID 39757)
 -- Dependencies: 414
@@ -29928,7 +26327,6 @@ CREATE POLICY geo_cache_service_role_all_v1 ON public.geo_cache TO service_role 
 --
 
 ALTER TABLE public.gift_codes ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8476 (class 3256 OID 42019)
 
@@ -29936,8 +26334,6 @@ ALTER TABLE public.gift_codes ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY gift_codes_admin_delete ON public.gift_codes FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8474 (class 3256 OID 42017)
 
@@ -29945,8 +26341,6 @@ CREATE POLICY gift_codes_admin_delete ON public.gift_codes FOR DELETE TO authent
 --
 
 CREATE POLICY gift_codes_admin_insert ON public.gift_codes FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8475 (class 3256 OID 42018)
 
@@ -29954,8 +26348,6 @@ CREATE POLICY gift_codes_admin_insert ON public.gift_codes FOR INSERT TO authent
 --
 
 CREATE POLICY gift_codes_admin_update ON public.gift_codes FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8473 (class 3256 OID 42016)
 
@@ -29963,8 +26355,6 @@ CREATE POLICY gift_codes_admin_update ON public.gift_codes FOR UPDATE TO authent
 --
 
 CREATE POLICY gift_codes_select_admin_or_redeemer_or_creator ON public.gift_codes FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (redeemed_by = ( SELECT auth.uid() AS uid)) OR (created_by = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8373 (class 0 OID 41373)
 -- Dependencies: 469
@@ -29973,7 +26363,6 @@ CREATE POLICY gift_codes_select_admin_or_redeemer_or_creator ON public.gift_code
 --
 
 ALTER TABLE public.kyc_document_types ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8371 (class 0 OID 41012)
 -- Dependencies: 467
@@ -29982,7 +26371,6 @@ ALTER TABLE public.kyc_document_types ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.kyc_documents ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8482 (class 3256 OID 42024)
 
@@ -29990,8 +26378,6 @@ ALTER TABLE public.kyc_documents ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY kyc_documents_delete_owner_or_admin ON public.kyc_documents FOR DELETE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8478 (class 3256 OID 42021)
 
@@ -29999,8 +26385,6 @@ CREATE POLICY kyc_documents_delete_owner_or_admin ON public.kyc_documents FOR DE
 --
 
 CREATE POLICY kyc_documents_insert_owner ON public.kyc_documents FOR INSERT TO authenticated WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8477 (class 3256 OID 42020)
 
@@ -30008,8 +26392,6 @@ CREATE POLICY kyc_documents_insert_owner ON public.kyc_documents FOR INSERT TO a
 --
 
 CREATE POLICY kyc_documents_select_owner_or_admin ON public.kyc_documents FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8480 (class 3256 OID 42022)
 
@@ -30017,8 +26399,6 @@ CREATE POLICY kyc_documents_select_owner_or_admin ON public.kyc_documents FOR SE
 --
 
 CREATE POLICY kyc_documents_update_owner_or_admin ON public.kyc_documents FOR UPDATE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8374 (class 0 OID 41392)
 -- Dependencies: 470
@@ -30027,7 +26407,6 @@ CREATE POLICY kyc_documents_update_owner_or_admin ON public.kyc_documents FOR UP
 --
 
 ALTER TABLE public.kyc_liveness_sessions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8370 (class 0 OID 40989)
 -- Dependencies: 466
@@ -30036,7 +26415,6 @@ ALTER TABLE public.kyc_liveness_sessions ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.kyc_submissions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8486 (class 3256 OID 42029)
 
@@ -30044,8 +26422,6 @@ ALTER TABLE public.kyc_submissions ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY kyc_submissions_delete_owner_or_admin ON public.kyc_submissions FOR DELETE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8484 (class 3256 OID 42026)
 
@@ -30053,8 +26429,6 @@ CREATE POLICY kyc_submissions_delete_owner_or_admin ON public.kyc_submissions FO
 --
 
 CREATE POLICY kyc_submissions_insert_owner ON public.kyc_submissions FOR INSERT TO authenticated WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8767 (class 3256 OID 62215)
 
@@ -30062,8 +26436,6 @@ CREATE POLICY kyc_submissions_insert_owner ON public.kyc_submissions FOR INSERT 
 --
 
 CREATE POLICY kyc_submissions_select_owner_or_admin ON public.kyc_submissions FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8768 (class 3256 OID 62216)
 
@@ -30071,8 +26443,6 @@ CREATE POLICY kyc_submissions_select_owner_or_admin ON public.kyc_submissions FO
 --
 
 CREATE POLICY kyc_submissions_update_authenticated ON public.kyc_submissions FOR UPDATE TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid))) AND (status = ANY (ARRAY['draft'::public.kyc_submission_status, 'submitted'::public.kyc_submission_status, 'resubmit_required'::public.kyc_submission_status]))))) WITH CHECK ((( SELECT public.is_admin() AS is_admin) OR (((user_id = ( SELECT auth.uid() AS uid)) OR (profile_id = ( SELECT auth.uid() AS uid))) AND (status = ANY (ARRAY['draft'::public.kyc_submission_status, 'submitted'::public.kyc_submission_status, 'resubmit_required'::public.kyc_submission_status])) AND (reviewer_id IS NULL) AND (reviewed_at IS NULL))));
-
-
 --
 -- TOC entry 8440 (class 0 OID 64045)
 -- Dependencies: 562
@@ -30081,7 +26451,6 @@ CREATE POLICY kyc_submissions_update_authenticated ON public.kyc_submissions FOR
 --
 
 ALTER TABLE public.live_activity_throttle_config ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8661 (class 3256 OID 64058)
 
@@ -30089,8 +26458,6 @@ ALTER TABLE public.live_activity_throttle_config ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY live_activity_throttle_config_service ON public.live_activity_throttle_config TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8461 (class 0 OID 66186)
 -- Dependencies: 596
@@ -30099,7 +26466,6 @@ CREATE POLICY live_activity_throttle_config_service ON public.live_activity_thro
 --
 
 ALTER TABLE public.maps_provider_capabilities ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8804 (class 3256 OID 66321)
 
@@ -30107,8 +26473,6 @@ ALTER TABLE public.maps_provider_capabilities ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY maps_provider_capabilities_service_role_all_v1 ON public.maps_provider_capabilities TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8464 (class 0 OID 66247)
 -- Dependencies: 600
@@ -30117,7 +26481,6 @@ CREATE POLICY maps_provider_capabilities_service_role_all_v1 ON public.maps_prov
 --
 
 ALTER TABLE public.maps_provider_health ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8806 (class 3256 OID 66323)
 
@@ -30125,8 +26488,6 @@ ALTER TABLE public.maps_provider_health ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY maps_provider_health_service_role_all_v1 ON public.maps_provider_health TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8459 (class 0 OID 66150)
 -- Dependencies: 594
@@ -30135,7 +26496,6 @@ CREATE POLICY maps_provider_health_service_role_all_v1 ON public.maps_provider_h
 --
 
 ALTER TABLE public.maps_providers ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8802 (class 3256 OID 66319)
 
@@ -30143,8 +26503,6 @@ ALTER TABLE public.maps_providers ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY maps_providers_service_role_all_v1 ON public.maps_providers TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8462 (class 0 OID 66209)
 -- Dependencies: 598
@@ -30153,7 +26511,6 @@ CREATE POLICY maps_providers_service_role_all_v1 ON public.maps_providers TO ser
 --
 
 ALTER TABLE public.maps_requests_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8807 (class 3256 OID 66324)
 
@@ -30161,8 +26518,6 @@ ALTER TABLE public.maps_requests_log ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY maps_requests_log_service_role_all_v1 ON public.maps_requests_log TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8460 (class 0 OID 66163)
 -- Dependencies: 595
@@ -30171,7 +26526,6 @@ CREATE POLICY maps_requests_log_service_role_all_v1 ON public.maps_requests_log 
 --
 
 ALTER TABLE public.maps_usage_daily ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8803 (class 3256 OID 66320)
 
@@ -30179,8 +26533,6 @@ ALTER TABLE public.maps_usage_daily ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY maps_usage_daily_service_role_all_v1 ON public.maps_usage_daily TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8703 (class 3256 OID 56509)
 
@@ -30191,8 +26543,6 @@ CREATE POLICY mcar_select_participant ON public.merchant_chat_ai_receipts FOR SE
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_ai_receipts.thread_id) AND ((t.customer_id = ( SELECT auth.uid() AS uid)) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR public.is_admin())))));
-
-
 --
 -- TOC entry 8702 (class 3256 OID 56490)
 
@@ -30203,8 +26553,6 @@ CREATE POLICY mcas_delete_owner ON public.merchant_chat_ai_settings FOR DELETE T
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_ai_settings.thread_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR public.is_admin())))));
-
-
 --
 -- TOC entry 8700 (class 3256 OID 56485)
 
@@ -30215,8 +26563,6 @@ CREATE POLICY mcas_insert_owner ON public.merchant_chat_ai_settings FOR INSERT T
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_ai_settings.thread_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR public.is_admin())))));
-
-
 --
 -- TOC entry 8699 (class 3256 OID 56483)
 
@@ -30227,8 +26573,6 @@ CREATE POLICY mcas_select_participant ON public.merchant_chat_ai_settings FOR SE
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_ai_settings.thread_id) AND ((t.customer_id = ( SELECT auth.uid() AS uid)) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR public.is_admin())))));
-
-
 --
 -- TOC entry 8701 (class 3256 OID 56487)
 
@@ -30242,8 +26586,6 @@ CREATE POLICY mcas_update_owner ON public.merchant_chat_ai_settings FOR UPDATE T
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_ai_settings.thread_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR public.is_admin())))));
-
-
 --
 -- TOC entry 8808 (class 3256 OID 62218)
 
@@ -30251,8 +26593,6 @@ CREATE POLICY mcas_update_owner ON public.merchant_chat_ai_settings FOR UPDATE T
 --
 
 CREATE POLICY mcm_delete_admin ON public.merchant_chat_messages FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8809 (class 3256 OID 62219)
 
@@ -30263,8 +26603,6 @@ CREATE POLICY mcm_insert ON public.merchant_chat_messages FOR INSERT TO authenti
    FROM (public.merchant_chat_threads t
      JOIN public.merchants m ON ((m.id = t.merchant_id)))
   WHERE ((t.id = merchant_chat_messages.thread_id) AND ((t.customer_id = ( SELECT auth.uid() AS uid)) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)) AND ((m.status = 'approved'::public.merchant_status) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))));
-
-
 --
 -- TOC entry 8763 (class 3256 OID 44711)
 
@@ -30276,8 +26614,6 @@ CREATE POLICY mcm_select ON public.merchant_chat_messages FOR SELECT TO authenti
   WHERE ((t.id = merchant_chat_messages.thread_id) AND ((t.customer_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
            FROM public.merchants m
           WHERE ((m.id = t.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8762 (class 3256 OID 44686)
 
@@ -30287,8 +26623,6 @@ CREATE POLICY mcm_select ON public.merchant_chat_messages FOR SELECT TO authenti
 CREATE POLICY mct_delete_participant ON public.merchant_chat_threads FOR DELETE TO authenticated USING (((customer_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_chat_threads.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8810 (class 3256 OID 62221)
 
@@ -30298,8 +26632,6 @@ CREATE POLICY mct_delete_participant ON public.merchant_chat_threads FOR DELETE 
 CREATE POLICY mct_insert_customer ON public.merchant_chat_threads FOR INSERT TO authenticated WITH CHECK (((customer_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_chat_threads.merchant_id) AND ((m.status = 'approved'::public.merchant_status) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))));
-
-
 --
 -- TOC entry 8760 (class 3256 OID 44684)
 
@@ -30309,8 +26641,6 @@ CREATE POLICY mct_insert_customer ON public.merchant_chat_threads FOR INSERT TO 
 CREATE POLICY mct_select ON public.merchant_chat_threads FOR SELECT TO authenticated USING (((customer_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_chat_threads.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8445 (class 0 OID 64167)
 -- Dependencies: 567
@@ -30319,7 +26649,6 @@ CREATE POLICY mct_select ON public.merchant_chat_threads FOR SELECT TO authentic
 --
 
 ALTER TABLE public.membership_plans ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8672 (class 3256 OID 64239)
 
@@ -30327,8 +26656,6 @@ ALTER TABLE public.membership_plans ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY membership_plans_read ON public.membership_plans FOR SELECT TO authenticated, anon USING ((is_active = true));
-
-
 --
 -- TOC entry 8673 (class 3256 OID 64240)
 
@@ -30336,8 +26663,6 @@ CREATE POLICY membership_plans_read ON public.membership_plans FOR SELECT TO aut
 --
 
 CREATE POLICY membership_plans_service ON public.membership_plans TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8446 (class 0 OID 64183)
 -- Dependencies: 568
@@ -30346,7 +26671,6 @@ CREATE POLICY membership_plans_service ON public.membership_plans TO service_rol
 --
 
 ALTER TABLE public.memberships ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8752 (class 3256 OID 64779)
 
@@ -30354,8 +26678,6 @@ ALTER TABLE public.memberships ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY memberships_own ON public.memberships TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8678 (class 3256 OID 64242)
 
@@ -30363,8 +26685,6 @@ CREATE POLICY memberships_own ON public.memberships TO authenticated USING ((( S
 --
 
 CREATE POLICY memberships_service ON public.memberships TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8419 (class 0 OID 56492)
 -- Dependencies: 521
@@ -30373,7 +26693,6 @@ CREATE POLICY memberships_service ON public.memberships TO service_role USING (t
 --
 
 ALTER TABLE public.merchant_chat_ai_receipts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8418 (class 0 OID 56463)
 -- Dependencies: 520
@@ -30382,7 +26701,6 @@ ALTER TABLE public.merchant_chat_ai_receipts ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.merchant_chat_ai_settings ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8404 (class 0 OID 44688)
 -- Dependencies: 505
@@ -30391,7 +26709,6 @@ ALTER TABLE public.merchant_chat_ai_settings ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.merchant_chat_messages ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8403 (class 0 OID 44662)
 -- Dependencies: 504
@@ -30400,7 +26717,6 @@ ALTER TABLE public.merchant_chat_messages ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.merchant_chat_threads ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8410 (class 0 OID 44884)
 -- Dependencies: 511
@@ -30409,7 +26725,6 @@ ALTER TABLE public.merchant_chat_threads ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.merchant_order_deliveries ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8811 (class 3256 OID 62222)
 
@@ -30421,8 +26736,6 @@ CREATE POLICY merchant_order_deliveries_select ON public.merchant_order_deliveri
   WHERE ((m.id = merchant_order_deliveries.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ((EXISTS ( SELECT 1
    FROM public.drivers d
   WHERE (d.id = ( SELECT auth.uid() AS uid)))) AND (((status = 'requested'::public.merchant_order_delivery_status) AND (driver_id IS NULL)) OR (driver_id = ( SELECT auth.uid() AS uid))))));
-
-
 --
 -- TOC entry 8778 (class 3256 OID 44927)
 
@@ -30434,8 +26747,6 @@ CREATE POLICY merchant_order_deliveries_update_actor ON public.merchant_order_de
   WHERE ((m.id = merchant_order_deliveries.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))))) WITH CHECK ((( SELECT public.is_admin() AS is_admin) OR (driver_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_order_deliveries.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8411 (class 0 OID 44930)
 -- Dependencies: 512
@@ -30444,7 +26755,6 @@ CREATE POLICY merchant_order_deliveries_update_actor ON public.merchant_order_de
 --
 
 ALTER TABLE public.merchant_order_delivery_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8779 (class 3256 OID 44945)
 
@@ -30456,8 +26766,6 @@ CREATE POLICY merchant_order_delivery_events_select ON public.merchant_order_del
   WHERE ((d.id = merchant_order_delivery_events.delivery_id) AND ((d.customer_id = ( SELECT auth.uid() AS uid)) OR (d.driver_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
            FROM public.merchants m
           WHERE ((m.id = d.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8408 (class 0 OID 44815)
 -- Dependencies: 509
@@ -30466,7 +26774,6 @@ CREATE POLICY merchant_order_delivery_events_select ON public.merchant_order_del
 --
 
 ALTER TABLE public.merchant_order_items ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8776 (class 3256 OID 44839)
 
@@ -30477,8 +26784,6 @@ CREATE POLICY merchant_order_items_select ON public.merchant_order_items FOR SEL
    FROM (public.merchant_orders o
      JOIN public.merchants m ON ((m.id = o.merchant_id)))
   WHERE ((o.id = merchant_order_items.order_id) AND ((o.customer_id = ( SELECT auth.uid() AS uid)) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8409 (class 0 OID 44857)
 -- Dependencies: 510
@@ -30487,7 +26792,6 @@ CREATE POLICY merchant_order_items_select ON public.merchant_order_items FOR SEL
 --
 
 ALTER TABLE public.merchant_order_status_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8677 (class 3256 OID 44877)
 
@@ -30498,8 +26802,6 @@ CREATE POLICY merchant_order_status_events_select ON public.merchant_order_statu
    FROM (public.merchant_orders o
      JOIN public.merchants m ON ((m.id = o.merchant_id)))
   WHERE ((o.id = merchant_order_status_events.order_id) AND ((o.customer_id = ( SELECT auth.uid() AS uid)) OR (m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8407 (class 0 OID 44771)
 -- Dependencies: 508
@@ -30508,7 +26810,6 @@ CREATE POLICY merchant_order_status_events_select ON public.merchant_order_statu
 --
 
 ALTER TABLE public.merchant_orders ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8774 (class 3256 OID 44812)
 
@@ -30518,8 +26819,6 @@ ALTER TABLE public.merchant_orders ENABLE ROW LEVEL SECURITY;
 CREATE POLICY merchant_orders_select ON public.merchant_orders FOR SELECT TO authenticated USING (((customer_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_orders.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8775 (class 3256 OID 44813)
 
@@ -30531,8 +26830,6 @@ CREATE POLICY merchant_orders_update ON public.merchant_orders FOR UPDATE TO aut
   WHERE ((m.id = merchant_orders.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((customer_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_orders.merchant_id) AND (m.owner_profile_id = ( SELECT auth.uid() AS uid))))) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8401 (class 0 OID 44604)
 -- Dependencies: 502
@@ -30541,7 +26838,6 @@ CREATE POLICY merchant_orders_update ON public.merchant_orders FOR UPDATE TO aut
 --
 
 ALTER TABLE public.merchant_products ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8755 (class 3256 OID 44630)
 
@@ -30551,8 +26847,6 @@ ALTER TABLE public.merchant_products ENABLE ROW LEVEL SECURITY;
 CREATE POLICY merchant_products_delete ON public.merchant_products FOR DELETE TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_products.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8812 (class 3256 OID 62223)
 
@@ -30564,8 +26858,6 @@ CREATE POLICY merchant_products_select ON public.merchant_products FOR SELECT TO
   WHERE ((m.id = merchant_products.merchant_id) AND (m.status = 'approved'::public.merchant_status))))) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_products.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))));
-
-
 --
 -- TOC entry 8754 (class 3256 OID 44628)
 
@@ -30577,8 +26869,6 @@ CREATE POLICY merchant_products_update ON public.merchant_products FOR UPDATE TO
   WHERE ((m.id = merchant_products.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))) WITH CHECK ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_products.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8753 (class 3256 OID 44627)
 
@@ -30588,8 +26878,6 @@ CREATE POLICY merchant_products_update ON public.merchant_products FOR UPDATE TO
 CREATE POLICY merchant_products_write ON public.merchant_products FOR INSERT TO authenticated WITH CHECK ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_products.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8402 (class 0 OID 44632)
 -- Dependencies: 503
@@ -30598,7 +26886,6 @@ CREATE POLICY merchant_products_write ON public.merchant_products FOR INSERT TO 
 --
 
 ALTER TABLE public.merchant_promotions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8759 (class 3256 OID 44661)
 
@@ -30608,8 +26895,6 @@ ALTER TABLE public.merchant_promotions ENABLE ROW LEVEL SECURITY;
 CREATE POLICY merchant_promotions_delete ON public.merchant_promotions FOR DELETE TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_promotions.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8757 (class 3256 OID 44658)
 
@@ -30619,8 +26904,6 @@ CREATE POLICY merchant_promotions_delete ON public.merchant_promotions FOR DELET
 CREATE POLICY merchant_promotions_insert ON public.merchant_promotions FOR INSERT TO authenticated WITH CHECK ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_promotions.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8814 (class 3256 OID 62224)
 
@@ -30632,8 +26915,6 @@ CREATE POLICY merchant_promotions_select ON public.merchant_promotions FOR SELEC
   WHERE ((m.id = merchant_promotions.merchant_id) AND (m.status = 'approved'::public.merchant_status)))) OR (EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_promotions.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))));
-
-
 --
 -- TOC entry 8758 (class 3256 OID 44659)
 
@@ -30645,8 +26926,6 @@ CREATE POLICY merchant_promotions_update ON public.merchant_promotions FOR UPDAT
   WHERE ((m.id = merchant_promotions.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))) WITH CHECK ((EXISTS ( SELECT 1
    FROM public.merchants m
   WHERE ((m.id = merchant_promotions.merchant_id) AND ((m.owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8766 (class 3256 OID 44735)
 
@@ -30654,8 +26933,6 @@ CREATE POLICY merchant_promotions_update ON public.merchant_promotions FOR UPDAT
 --
 
 CREATE POLICY merchant_status_audit_insert_admin ON public.merchant_status_audit_log FOR INSERT TO authenticated WITH CHECK ((( SELECT public.is_admin() AS is_admin) AND (actor_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8405 (class 0 OID 44719)
 -- Dependencies: 506
@@ -30664,7 +26941,6 @@ CREATE POLICY merchant_status_audit_insert_admin ON public.merchant_status_audit
 --
 
 ALTER TABLE public.merchant_status_audit_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8765 (class 3256 OID 44734)
 
@@ -30672,8 +26948,6 @@ ALTER TABLE public.merchant_status_audit_log ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY merchant_status_audit_select_admin ON public.merchant_status_audit_log FOR SELECT TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8400 (class 0 OID 44577)
 -- Dependencies: 501
@@ -30682,7 +26956,6 @@ CREATE POLICY merchant_status_audit_select_admin ON public.merchant_status_audit
 --
 
 ALTER TABLE public.merchants ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8815 (class 3256 OID 62225)
 
@@ -30690,8 +26963,6 @@ ALTER TABLE public.merchants ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY merchants_delete_owner ON public.merchants FOR DELETE TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR ((owner_profile_id = ( SELECT auth.uid() AS uid)) AND (status = ANY (ARRAY['draft'::public.merchant_status, 'pending'::public.merchant_status])))));
-
-
 --
 -- TOC entry 8816 (class 3256 OID 62226)
 
@@ -30699,8 +26970,6 @@ CREATE POLICY merchants_delete_owner ON public.merchants FOR DELETE TO authentic
 --
 
 CREATE POLICY merchants_insert_owner ON public.merchants FOR INSERT TO authenticated WITH CHECK ((owner_profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8817 (class 3256 OID 62227)
 
@@ -30708,8 +26977,6 @@ CREATE POLICY merchants_insert_owner ON public.merchants FOR INSERT TO authentic
 --
 
 CREATE POLICY merchants_select ON public.merchants FOR SELECT TO authenticated, anon USING (((status = 'approved'::public.merchant_status) OR (owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8818 (class 3256 OID 62228)
 
@@ -30717,8 +26984,6 @@ CREATE POLICY merchants_select ON public.merchants FOR SELECT TO authenticated, 
 --
 
 CREATE POLICY merchants_update_owner ON public.merchants FOR UPDATE TO authenticated USING (((owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((owner_profile_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8353 (class 0 OID 40608)
 -- Dependencies: 449
@@ -30727,7 +26992,6 @@ CREATE POLICY merchants_update_owner ON public.merchants FOR UPDATE TO authentic
 --
 
 ALTER TABLE public.notification_outbox ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8427 (class 0 OID 63607)
 -- Dependencies: 548
@@ -30736,7 +27000,6 @@ ALTER TABLE public.notification_outbox ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ops_alert_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8769 (class 3256 OID 64780)
 
@@ -30744,8 +27007,6 @@ ALTER TABLE public.ops_alert_events ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ops_alert_events_service_only ON public.ops_alert_events TO service_role USING ((( SELECT auth.role() AS role) = 'service_role'::text)) WITH CHECK ((( SELECT auth.role() AS role) = 'service_role'::text));
-
-
 --
 -- TOC entry 8425 (class 0 OID 63572)
 -- Dependencies: 546
@@ -30754,7 +27015,6 @@ CREATE POLICY ops_alert_events_service_only ON public.ops_alert_events TO servic
 --
 
 ALTER TABLE public.ops_alert_rules ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8777 (class 3256 OID 64781)
 
@@ -30762,8 +27022,6 @@ ALTER TABLE public.ops_alert_rules ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ops_alert_rules_service_only ON public.ops_alert_rules TO service_role USING ((( SELECT auth.role() AS role) = 'service_role'::text)) WITH CHECK ((( SELECT auth.role() AS role) = 'service_role'::text));
-
-
 --
 -- TOC entry 8426 (class 0 OID 63592)
 -- Dependencies: 547
@@ -30772,7 +27030,6 @@ CREATE POLICY ops_alert_rules_service_only ON public.ops_alert_rules TO service_
 --
 
 ALTER TABLE public.ops_alert_state ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8782 (class 3256 OID 64782)
 
@@ -30780,8 +27037,6 @@ ALTER TABLE public.ops_alert_state ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ops_alert_state_service_only ON public.ops_alert_state TO service_role USING ((( SELECT auth.role() AS role) = 'service_role'::text)) WITH CHECK ((( SELECT auth.role() AS role) = 'service_role'::text));
-
-
 --
 -- TOC entry 8443 (class 0 OID 64123)
 -- Dependencies: 565
@@ -30790,7 +27045,6 @@ CREATE POLICY ops_alert_state_service_only ON public.ops_alert_state TO service_
 --
 
 ALTER TABLE public.order_bundles ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8792 (class 3256 OID 64783)
 
@@ -30798,8 +27052,6 @@ ALTER TABLE public.order_bundles ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY order_bundles_own ON public.order_bundles TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8670 (class 3256 OID 64155)
 
@@ -30807,8 +27059,6 @@ CREATE POLICY order_bundles_own ON public.order_bundles TO authenticated USING (
 --
 
 CREATE POLICY order_bundles_service ON public.order_bundles TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8458 (class 0 OID 64650)
 -- Dependencies: 580
@@ -30817,7 +27067,6 @@ CREATE POLICY order_bundles_service ON public.order_bundles TO service_role USIN
 --
 
 ALTER TABLE public.passkey_auth_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8793 (class 3256 OID 64784)
 
@@ -30825,8 +27074,6 @@ ALTER TABLE public.passkey_auth_log ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY passkey_auth_log_own ON public.passkey_auth_log FOR SELECT TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8724 (class 3256 OID 64671)
 
@@ -30834,8 +27081,6 @@ CREATE POLICY passkey_auth_log_own ON public.passkey_auth_log FOR SELECT TO auth
 --
 
 CREATE POLICY passkey_auth_log_service ON public.passkey_auth_log TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8332 (class 0 OID 39887)
 -- Dependencies: 423
@@ -30844,7 +27089,6 @@ CREATE POLICY passkey_auth_log_service ON public.passkey_auth_log TO service_rol
 --
 
 ALTER TABLE public.payment_intents ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8650 (class 3256 OID 42244)
 
@@ -30852,8 +27096,6 @@ ALTER TABLE public.payment_intents ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY payment_intents_select_anon_none ON public.payment_intents FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8649 (class 3256 OID 42243)
 
@@ -30863,8 +27105,6 @@ CREATE POLICY payment_intents_select_anon_none ON public.payment_intents FOR SEL
 CREATE POLICY payment_intents_select_participants ON public.payment_intents FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = payment_intents.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8333 (class 0 OID 39899)
 -- Dependencies: 424
@@ -30873,7 +27113,6 @@ CREATE POLICY payment_intents_select_participants ON public.payment_intents FOR 
 --
 
 ALTER TABLE public.payment_providers ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8619 (class 3256 OID 42198)
 
@@ -30881,8 +27120,6 @@ ALTER TABLE public.payment_providers ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY payment_providers_delete_admin ON public.payment_providers FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8613 (class 3256 OID 42196)
 
@@ -30890,8 +27127,6 @@ CREATE POLICY payment_providers_delete_admin ON public.payment_providers FOR DEL
 --
 
 CREATE POLICY payment_providers_insert_admin ON public.payment_providers FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8607 (class 3256 OID 42195)
 
@@ -30899,8 +27134,6 @@ CREATE POLICY payment_providers_insert_admin ON public.payment_providers FOR INS
 --
 
 CREATE POLICY payment_providers_select_public ON public.payment_providers FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8618 (class 3256 OID 42197)
 
@@ -30908,8 +27141,6 @@ CREATE POLICY payment_providers_select_public ON public.payment_providers FOR SE
 --
 
 CREATE POLICY payment_providers_update_admin ON public.payment_providers FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8334 (class 0 OID 39909)
 -- Dependencies: 425
@@ -30918,7 +27149,6 @@ CREATE POLICY payment_providers_update_admin ON public.payment_providers FOR UPD
 --
 
 ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8652 (class 3256 OID 42246)
 
@@ -30926,8 +27156,6 @@ ALTER TABLE public.payments ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY payments_select_anon_none ON public.payments FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8651 (class 3256 OID 42245)
 
@@ -30937,8 +27165,6 @@ CREATE POLICY payments_select_anon_none ON public.payments FOR SELECT TO anon US
 CREATE POLICY payments_select_participants ON public.payments FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = payments.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8397 (class 0 OID 44481)
 -- Dependencies: 498
@@ -30947,7 +27173,6 @@ CREATE POLICY payments_select_participants ON public.payments FOR SELECT TO auth
 --
 
 ALTER TABLE public.payout_idempotency ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8780 (class 3256 OID 45053)
 
@@ -30955,8 +27180,6 @@ ALTER TABLE public.payout_idempotency ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY payout_idempotency_service_role_all ON public.payout_idempotency TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8668 (class 3256 OID 44544)
 
@@ -30967,8 +27190,6 @@ CREATE POLICY payout_job_attempts_select_admin_or_owner ON public.payout_provide
    FROM (public.payout_provider_jobs j
      JOIN public.wallet_withdraw_requests w ON ((w.id = j.withdraw_request_id)))
   WHERE ((j.id = payout_provider_job_attempts.job_id) AND (w.user_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8399 (class 0 OID 44527)
 -- Dependencies: 500
@@ -30977,7 +27198,6 @@ CREATE POLICY payout_job_attempts_select_admin_or_owner ON public.payout_provide
 --
 
 ALTER TABLE public.payout_provider_job_attempts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8398 (class 0 OID 44492)
 -- Dependencies: 499
@@ -30986,7 +27206,6 @@ ALTER TABLE public.payout_provider_job_attempts ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.payout_provider_jobs ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8748 (class 3256 OID 44512)
 
@@ -30994,8 +27213,6 @@ ALTER TABLE public.payout_provider_jobs ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY payout_provider_jobs_delete_admin ON public.payout_provider_jobs FOR DELETE USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8749 (class 3256 OID 44513)
 
@@ -31005,8 +27222,6 @@ CREATE POLICY payout_provider_jobs_delete_admin ON public.payout_provider_jobs F
 CREATE POLICY payout_provider_jobs_select_admin_or_owner ON public.payout_provider_jobs FOR SELECT USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.wallet_withdraw_requests w
   WHERE ((w.id = payout_provider_jobs.withdraw_request_id) AND (w.user_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8747 (class 3256 OID 44511)
 
@@ -31014,8 +27229,6 @@ CREATE POLICY payout_provider_jobs_select_admin_or_owner ON public.payout_provid
 --
 
 CREATE POLICY payout_provider_jobs_update_admin ON public.payout_provider_jobs FOR UPDATE USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8746 (class 3256 OID 44510)
 
@@ -31023,8 +27236,6 @@ CREATE POLICY payout_provider_jobs_update_admin ON public.payout_provider_jobs F
 --
 
 CREATE POLICY payout_provider_jobs_write_admin ON public.payout_provider_jobs FOR INSERT WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8421 (class 0 OID 62984)
 -- Dependencies: 530
@@ -31033,7 +27244,6 @@ CREATE POLICY payout_provider_jobs_write_admin ON public.payout_provider_jobs FO
 --
 
 ALTER TABLE public.platform_fee_configs ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8819 (class 3256 OID 63384)
 
@@ -31041,8 +27251,6 @@ ALTER TABLE public.platform_fee_configs ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY platform_fee_configs_service_role ON public.platform_fee_configs TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8335 (class 0 OID 39919)
 -- Dependencies: 426
@@ -31051,7 +27259,6 @@ CREATE POLICY platform_fee_configs_service_role ON public.platform_fee_configs T
 --
 
 ALTER TABLE public.pricing_configs ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8447 (class 0 OID 64211)
 -- Dependencies: 569
@@ -31060,7 +27267,6 @@ ALTER TABLE public.pricing_configs ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.pricing_rules ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8679 (class 3256 OID 64243)
 
@@ -31068,8 +27274,6 @@ ALTER TABLE public.pricing_rules ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY pricing_rules_service ON public.pricing_rules TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8336 (class 0 OID 39933)
 -- Dependencies: 427
@@ -31078,7 +27282,6 @@ CREATE POLICY pricing_rules_service ON public.pricing_rules TO service_role USIN
 --
 
 ALTER TABLE public.profile_kyc ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8684 (class 3256 OID 43659)
 
@@ -31086,8 +27289,6 @@ ALTER TABLE public.profile_kyc ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY profile_kyc_admin_delete ON public.profile_kyc FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8683 (class 3256 OID 43658)
 
@@ -31095,8 +27296,6 @@ CREATE POLICY profile_kyc_admin_delete ON public.profile_kyc FOR DELETE TO authe
 --
 
 CREATE POLICY profile_kyc_admin_update ON public.profile_kyc FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8337 (class 0 OID 39940)
 -- Dependencies: 428
@@ -31105,7 +27304,6 @@ CREATE POLICY profile_kyc_admin_update ON public.profile_kyc FOR UPDATE TO authe
 --
 
 ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8487 (class 3256 OID 42031)
 
@@ -31113,8 +27311,6 @@ ALTER TABLE public.profiles ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY profiles_select_own_or_admin ON public.profiles FOR SELECT TO authenticated USING (((id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8488 (class 3256 OID 42032)
 
@@ -31122,8 +27318,6 @@ CREATE POLICY profiles_select_own_or_admin ON public.profiles FOR SELECT TO auth
 --
 
 CREATE POLICY profiles_update_own ON public.profiles FOR UPDATE TO authenticated USING ((id = ( SELECT auth.uid() AS uid))) WITH CHECK ((id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8417 (class 0 OID 56435)
 -- Dependencies: 519
@@ -31132,7 +27326,6 @@ CREATE POLICY profiles_update_own ON public.profiles FOR UPDATE TO authenticated
 --
 
 ALTER TABLE public.promotion_notification_receipts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8790 (class 3256 OID 56516)
 
@@ -31140,8 +27333,6 @@ ALTER TABLE public.promotion_notification_receipts ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY promotion_notification_receipts_select_own ON public.promotion_notification_receipts FOR SELECT TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8338 (class 0 OID 39950)
 -- Dependencies: 429
@@ -31150,7 +27341,6 @@ CREATE POLICY promotion_notification_receipts_select_own ON public.promotion_not
 --
 
 ALTER TABLE public.provider_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8656 (class 3256 OID 42249)
 
@@ -31158,8 +27348,6 @@ ALTER TABLE public.provider_events ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY provider_events_admin_insert ON public.provider_events FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8625 (class 3256 OID 42203)
 
@@ -31167,8 +27355,6 @@ CREATE POLICY provider_events_admin_insert ON public.provider_events FOR INSERT 
 --
 
 CREATE POLICY provider_events_select_admin ON public.provider_events FOR SELECT TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8626 (class 3256 OID 42204)
 
@@ -31176,8 +27362,6 @@ CREATE POLICY provider_events_select_admin ON public.provider_events FOR SELECT 
 --
 
 CREATE POLICY provider_events_select_anon_none ON public.provider_events FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8351 (class 0 OID 40563)
 -- Dependencies: 445
@@ -31186,7 +27370,6 @@ CREATE POLICY provider_events_select_anon_none ON public.provider_events FOR SEL
 --
 
 ALTER TABLE public.public_profiles ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8489 (class 3256 OID 42033)
 
@@ -31194,8 +27377,6 @@ ALTER TABLE public.public_profiles ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY public_profiles_select_all ON public.public_profiles FOR SELECT TO authenticated USING (true);
-
-
 --
 -- TOC entry 8457 (class 0 OID 64632)
 -- Dependencies: 579
@@ -31204,7 +27385,6 @@ CREATE POLICY public_profiles_select_all ON public.public_profiles FOR SELECT TO
 --
 
 ALTER TABLE public.recovery_codes ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8723 (class 3256 OID 64649)
 
@@ -31212,8 +27392,6 @@ ALTER TABLE public.recovery_codes ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY recovery_codes_service ON public.recovery_codes TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8359 (class 0 OID 40722)
 -- Dependencies: 455
@@ -31222,7 +27400,6 @@ CREATE POLICY recovery_codes_service ON public.recovery_codes TO service_role US
 --
 
 ALTER TABLE public.referral_campaigns ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8360 (class 0 OID 40736)
 -- Dependencies: 456
@@ -31231,7 +27408,6 @@ ALTER TABLE public.referral_campaigns ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.referral_codes ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8379 (class 0 OID 41788)
 -- Dependencies: 475
@@ -31240,7 +27416,6 @@ ALTER TABLE public.referral_codes ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.referral_invites ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8361 (class 0 OID 40752)
 -- Dependencies: 457
@@ -31249,7 +27424,6 @@ ALTER TABLE public.referral_invites ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.referral_redemptions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8378 (class 0 OID 41777)
 -- Dependencies: 474
@@ -31258,7 +27432,6 @@ ALTER TABLE public.referral_redemptions ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.referral_settings ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8366 (class 0 OID 40890)
 -- Dependencies: 462
@@ -31267,7 +27440,6 @@ ALTER TABLE public.referral_settings ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_chat_messages ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8494 (class 3256 OID 42037)
 
@@ -31275,8 +27447,6 @@ ALTER TABLE public.ride_chat_messages ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ride_chat_messages_delete_own ON public.ride_chat_messages FOR DELETE TO authenticated USING ((sender_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8492 (class 3256 OID 42035)
 
@@ -31286,8 +27456,6 @@ CREATE POLICY ride_chat_messages_delete_own ON public.ride_chat_messages FOR DEL
 CREATE POLICY ride_chat_messages_insert_sender ON public.ride_chat_messages FOR INSERT TO authenticated WITH CHECK (((sender_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1
    FROM public.ride_chat_threads t
   WHERE ((t.id = ride_chat_messages.thread_id) AND (t.ride_id = ride_chat_messages.ride_id) AND ((t.rider_id = ( SELECT auth.uid() AS uid)) OR (t.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8490 (class 3256 OID 42034)
 
@@ -31297,8 +27465,6 @@ CREATE POLICY ride_chat_messages_insert_sender ON public.ride_chat_messages FOR 
 CREATE POLICY ride_chat_messages_select_participants ON public.ride_chat_messages FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.ride_chat_threads t
   WHERE ((t.id = ride_chat_messages.thread_id) AND ((t.rider_id = ( SELECT auth.uid() AS uid)) OR (t.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8493 (class 3256 OID 42036)
 
@@ -31306,8 +27472,6 @@ CREATE POLICY ride_chat_messages_select_participants ON public.ride_chat_message
 --
 
 CREATE POLICY ride_chat_messages_update_own ON public.ride_chat_messages FOR UPDATE TO authenticated USING ((sender_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((sender_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8495 (class 3256 OID 42038)
 
@@ -31318,8 +27482,6 @@ CREATE POLICY ride_chat_read_insert_self ON public.ride_chat_read_receipts FOR I
    FROM (public.ride_chat_messages m
      JOIN public.rides r ON ((r.id = m.ride_id)))
   WHERE ((m.id = ride_chat_read_receipts.message_id) AND (m.ride_id = ride_chat_read_receipts.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8367 (class 0 OID 40914)
 -- Dependencies: 463
@@ -31328,7 +27490,6 @@ CREATE POLICY ride_chat_read_insert_self ON public.ride_chat_read_receipts FOR I
 --
 
 ALTER TABLE public.ride_chat_read_receipts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8496 (class 3256 OID 42040)
 
@@ -31338,8 +27499,6 @@ ALTER TABLE public.ride_chat_read_receipts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY ride_chat_read_select_participants ON public.ride_chat_read_receipts FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.ride_chat_threads t
   WHERE ((t.id = ride_chat_read_receipts.thread_id) AND ((t.rider_id = ( SELECT auth.uid() AS uid)) OR (t.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8377 (class 0 OID 41740)
 -- Dependencies: 473
@@ -31348,7 +27507,6 @@ CREATE POLICY ride_chat_read_select_participants ON public.ride_chat_read_receip
 --
 
 ALTER TABLE public.ride_chat_threads ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8368 (class 0 OID 40939)
 -- Dependencies: 464
@@ -31357,7 +27515,6 @@ ALTER TABLE public.ride_chat_threads ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_chat_typing ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8376 (class 0 OID 41717)
 -- Dependencies: 472
@@ -31366,7 +27523,6 @@ ALTER TABLE public.ride_chat_typing ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_completion_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8339 (class 0 OID 39958)
 -- Dependencies: 431
@@ -31375,7 +27531,6 @@ ALTER TABLE public.ride_completion_log ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8340 (class 0 OID 39966)
 -- Dependencies: 433
@@ -31384,7 +27539,6 @@ ALTER TABLE public.ride_events ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_incidents ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8630 (class 3256 OID 42208)
 
@@ -31394,8 +27548,6 @@ ALTER TABLE public.ride_incidents ENABLE ROW LEVEL SECURITY;
 CREATE POLICY ride_incidents_insert_reporter ON public.ride_incidents FOR INSERT TO authenticated WITH CHECK (((reporter_id = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ride_incidents.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8632 (class 3256 OID 42210)
 
@@ -31403,8 +27555,6 @@ CREATE POLICY ride_incidents_insert_reporter ON public.ride_incidents FOR INSERT
 --
 
 CREATE POLICY ride_incidents_select_anon_none ON public.ride_incidents FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8629 (class 3256 OID 42207)
 
@@ -31414,8 +27564,6 @@ CREATE POLICY ride_incidents_select_anon_none ON public.ride_incidents FOR SELEC
 CREATE POLICY ride_incidents_select_participant ON public.ride_incidents FOR SELECT TO authenticated USING (((reporter_id = ( SELECT auth.uid() AS uid)) OR (assigned_to = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ride_incidents.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8631 (class 3256 OID 42209)
 
@@ -31423,8 +27571,6 @@ CREATE POLICY ride_incidents_select_participant ON public.ride_incidents FOR SEL
 --
 
 CREATE POLICY ride_incidents_update_reporter_or_assignee ON public.ride_incidents FOR UPDATE TO authenticated USING (((reporter_id = ( SELECT auth.uid() AS uid)) OR (assigned_to = ( SELECT auth.uid() AS uid)))) WITH CHECK (((reporter_id = ( SELECT auth.uid() AS uid)) OR (assigned_to = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8383 (class 0 OID 43615)
 -- Dependencies: 479
@@ -31433,7 +27579,6 @@ CREATE POLICY ride_incidents_update_reporter_or_assignee ON public.ride_incident
 --
 
 ALTER TABLE public.ride_intents ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8813 (class 3256 OID 62229)
 
@@ -31441,8 +27586,6 @@ ALTER TABLE public.ride_intents ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ride_intents_delete_admin ON public.ride_intents FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8743 (class 3256 OID 62230)
 
@@ -31450,8 +27593,6 @@ CREATE POLICY ride_intents_delete_admin ON public.ride_intents FOR DELETE TO aut
 --
 
 CREATE POLICY ride_intents_insert_self_or_admin ON public.ride_intents FOR INSERT TO authenticated WITH CHECK ((((rider_id = ( SELECT auth.uid() AS uid)) AND (status = 'new'::public.ride_intent_status)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8653 (class 3256 OID 43650)
 
@@ -31459,8 +27600,6 @@ CREATE POLICY ride_intents_insert_self_or_admin ON public.ride_intents FOR INSER
 --
 
 CREATE POLICY ride_intents_select_self_or_admin ON public.ride_intents FOR SELECT TO authenticated USING (((rider_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8682 (class 3256 OID 43652)
 
@@ -31468,8 +27607,6 @@ CREATE POLICY ride_intents_select_self_or_admin ON public.ride_intents FOR SELEC
 --
 
 CREATE POLICY ride_intents_update_admin ON public.ride_intents FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8372 (class 0 OID 41198)
 -- Dependencies: 468
@@ -31478,7 +27615,6 @@ CREATE POLICY ride_intents_update_admin ON public.ride_intents FOR UPDATE TO aut
 --
 
 ALTER TABLE public.ride_products ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8341 (class 0 OID 39976)
 -- Dependencies: 434
@@ -31487,7 +27623,6 @@ ALTER TABLE public.ride_products ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.ride_ratings ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8655 (class 3256 OID 42248)
 
@@ -31495,8 +27630,6 @@ ALTER TABLE public.ride_ratings ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ride_ratings_select_anon_none ON public.ride_ratings FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8654 (class 3256 OID 42247)
 
@@ -31506,8 +27639,6 @@ CREATE POLICY ride_ratings_select_anon_none ON public.ride_ratings FOR SELECT TO
 CREATE POLICY ride_ratings_select_participants ON public.ride_ratings FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ride_ratings.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8342 (class 0 OID 39984)
 -- Dependencies: 435
@@ -31516,7 +27647,6 @@ CREATE POLICY ride_ratings_select_participants ON public.ride_ratings FOR SELECT
 --
 
 ALTER TABLE public.ride_receipts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8628 (class 3256 OID 42206)
 
@@ -31524,8 +27654,6 @@ ALTER TABLE public.ride_receipts ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ride_receipts_select_anon_none ON public.ride_receipts FOR SELECT TO anon USING (false);
-
-
 --
 -- TOC entry 8627 (class 3256 OID 42205)
 
@@ -31535,8 +27663,6 @@ CREATE POLICY ride_receipts_select_anon_none ON public.ride_receipts FOR SELECT 
 CREATE POLICY ride_receipts_select_participant ON public.ride_receipts FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ride_receipts.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8343 (class 0 OID 39995)
 -- Dependencies: 436
@@ -31545,7 +27671,6 @@ CREATE POLICY ride_receipts_select_participant ON public.ride_receipts FOR SELEC
 --
 
 ALTER TABLE public.ride_requests ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8497 (class 3256 OID 42041)
 
@@ -31553,8 +27678,6 @@ ALTER TABLE public.ride_requests ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY ride_requests_insert_own ON public.ride_requests FOR INSERT TO authenticated WITH CHECK ((rider_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8498 (class 3256 OID 42042)
 
@@ -31562,8 +27685,6 @@ CREATE POLICY ride_requests_insert_own ON public.ride_requests FOR INSERT TO aut
 --
 
 CREATE POLICY ride_requests_select_own_or_assigned_driver ON public.ride_requests FOR SELECT TO authenticated USING (((rider_id = ( SELECT auth.uid() AS uid)) OR (assigned_driver_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8499 (class 3256 OID 42043)
 
@@ -31571,8 +27692,6 @@ CREATE POLICY ride_requests_select_own_or_assigned_driver ON public.ride_request
 --
 
 CREATE POLICY ride_requests_update_own_cancel ON public.ride_requests FOR UPDATE TO authenticated USING (((rider_id = ( SELECT auth.uid() AS uid)) AND (status = ANY (ARRAY['requested'::public.ride_request_status, 'matched'::public.ride_request_status])))) WITH CHECK (((rider_id = ( SELECT auth.uid() AS uid)) AND (status = 'cancelled'::public.ride_request_status)));
-
-
 --
 -- TOC entry 8390 (class 0 OID 43827)
 -- Dependencies: 486
@@ -31581,7 +27700,6 @@ CREATE POLICY ride_requests_update_own_cancel ON public.ride_requests FOR UPDATE
 --
 
 ALTER TABLE public.ridecheck_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8713 (class 3256 OID 43877)
 
@@ -31591,8 +27709,6 @@ ALTER TABLE public.ridecheck_events ENABLE ROW LEVEL SECURITY;
 CREATE POLICY ridecheck_events_select_participants ON public.ridecheck_events FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ridecheck_events.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8391 (class 0 OID 43847)
 -- Dependencies: 487
@@ -31601,7 +27717,6 @@ CREATE POLICY ridecheck_events_select_participants ON public.ridecheck_events FO
 --
 
 ALTER TABLE public.ridecheck_responses ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8714 (class 3256 OID 43878)
 
@@ -31611,8 +27726,6 @@ ALTER TABLE public.ridecheck_responses ENABLE ROW LEVEL SECURITY;
 CREATE POLICY ridecheck_responses_select_participants ON public.ridecheck_responses FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = ridecheck_responses.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8389 (class 0 OID 43811)
 -- Dependencies: 485
@@ -31621,7 +27734,6 @@ CREATE POLICY ridecheck_responses_select_participants ON public.ridecheck_respon
 --
 
 ALTER TABLE public.ridecheck_state ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8324 (class 0 OID 39794)
 -- Dependencies: 415
@@ -31630,7 +27742,6 @@ ALTER TABLE public.ridecheck_state ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.rides ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8535 (class 3256 OID 42091)
 
@@ -31638,8 +27749,6 @@ ALTER TABLE public.rides ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY rls_delete ON public.achievement_progress FOR DELETE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8600 (class 3256 OID 63778)
 
@@ -31647,8 +27756,6 @@ CREATE POLICY rls_delete ON public.achievement_progress FOR DELETE TO authentica
 --
 
 CREATE POLICY rls_delete ON public.driver_locations FOR DELETE TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8547 (class 3256 OID 42109)
 
@@ -31656,8 +27763,6 @@ CREATE POLICY rls_delete ON public.driver_locations FOR DELETE TO authenticated 
 --
 
 CREATE POLICY rls_delete ON public.driver_vehicles FOR DELETE TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8554 (class 3256 OID 42118)
 
@@ -31665,8 +27770,6 @@ CREATE POLICY rls_delete ON public.driver_vehicles FOR DELETE TO authenticated U
 --
 
 CREATE POLICY rls_delete ON public.kyc_liveness_sessions FOR DELETE TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8568 (class 3256 OID 42142)
 
@@ -31674,8 +27777,6 @@ CREATE POLICY rls_delete ON public.kyc_liveness_sessions FOR DELETE TO authentic
 --
 
 CREATE POLICY rls_delete ON public.referral_codes FOR DELETE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8579 (class 3256 OID 42153)
 
@@ -31683,8 +27784,6 @@ CREATE POLICY rls_delete ON public.referral_codes FOR DELETE TO authenticated US
 --
 
 CREATE POLICY rls_delete ON public.ride_chat_threads FOR DELETE TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8586 (class 3256 OID 42158)
 
@@ -31692,8 +27791,6 @@ CREATE POLICY rls_delete ON public.ride_chat_threads FOR DELETE TO authenticated
 --
 
 CREATE POLICY rls_delete ON public.ride_chat_typing FOR DELETE TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8593 (class 3256 OID 42165)
 
@@ -31701,8 +27798,6 @@ CREATE POLICY rls_delete ON public.ride_chat_typing FOR DELETE TO authenticated 
 --
 
 CREATE POLICY rls_delete ON public.ride_events FOR DELETE TO authenticated USING ((actor_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8601 (class 3256 OID 42178)
 
@@ -31710,8 +27805,6 @@ CREATE POLICY rls_delete ON public.ride_events FOR DELETE TO authenticated USING
 --
 
 CREATE POLICY rls_delete ON public.rides FOR DELETE TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8611 (class 3256 OID 42187)
 
@@ -31719,8 +27812,6 @@ CREATE POLICY rls_delete ON public.rides FOR DELETE TO authenticated USING (((dr
 --
 
 CREATE POLICY rls_delete ON public.user_device_tokens FOR DELETE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8539 (class 3256 OID 42095)
 
@@ -31728,8 +27819,6 @@ CREATE POLICY rls_delete ON public.user_device_tokens FOR DELETE TO authenticate
 --
 
 CREATE POLICY rls_deny_all ON public.api_rate_limits TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8515 (class 3256 OID 42097)
 
@@ -31737,8 +27826,6 @@ CREATE POLICY rls_deny_all ON public.api_rate_limits TO authenticated, anon USIN
 --
 
 CREATE POLICY rls_deny_all ON public.app_events TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8525 (class 3256 OID 42099)
 
@@ -31746,8 +27833,6 @@ CREATE POLICY rls_deny_all ON public.app_events TO authenticated, anon USING (fa
 --
 
 CREATE POLICY rls_deny_all ON public.driver_counters TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8556 (class 3256 OID 42120)
 
@@ -31755,8 +27840,6 @@ CREATE POLICY rls_deny_all ON public.driver_counters TO authenticated, anon USIN
 --
 
 CREATE POLICY rls_deny_all ON public.notification_outbox TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8570 (class 3256 OID 42144)
 
@@ -31764,8 +27847,6 @@ CREATE POLICY rls_deny_all ON public.notification_outbox TO authenticated, anon 
 --
 
 CREATE POLICY rls_deny_all ON public.referral_invites TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8572 (class 3256 OID 42146)
 
@@ -31773,8 +27854,6 @@ CREATE POLICY rls_deny_all ON public.referral_invites TO authenticated, anon USI
 --
 
 CREATE POLICY rls_deny_all ON public.referral_redemptions TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8588 (class 3256 OID 42160)
 
@@ -31782,8 +27861,6 @@ CREATE POLICY rls_deny_all ON public.referral_redemptions TO authenticated, anon
 --
 
 CREATE POLICY rls_deny_all ON public.ride_completion_log TO authenticated, anon USING (false) WITH CHECK (false);
-
-
 --
 -- TOC entry 8533 (class 3256 OID 42089)
 
@@ -31791,8 +27868,6 @@ CREATE POLICY rls_deny_all ON public.ride_completion_log TO authenticated, anon 
 --
 
 CREATE POLICY rls_insert ON public.achievement_progress FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8560 (class 3256 OID 63776)
 
@@ -31800,8 +27875,6 @@ CREATE POLICY rls_insert ON public.achievement_progress FOR INSERT TO authentica
 --
 
 CREATE POLICY rls_insert ON public.driver_locations FOR INSERT TO authenticated WITH CHECK ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8545 (class 3256 OID 42107)
 
@@ -31809,8 +27882,6 @@ CREATE POLICY rls_insert ON public.driver_locations FOR INSERT TO authenticated 
 --
 
 CREATE POLICY rls_insert ON public.driver_vehicles FOR INSERT TO authenticated WITH CHECK ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8552 (class 3256 OID 42116)
 
@@ -31818,8 +27889,6 @@ CREATE POLICY rls_insert ON public.driver_vehicles FOR INSERT TO authenticated W
 --
 
 CREATE POLICY rls_insert ON public.kyc_liveness_sessions FOR INSERT TO authenticated WITH CHECK ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8566 (class 3256 OID 42140)
 
@@ -31827,8 +27896,6 @@ CREATE POLICY rls_insert ON public.kyc_liveness_sessions FOR INSERT TO authentic
 --
 
 CREATE POLICY rls_insert ON public.referral_codes FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8577 (class 3256 OID 42151)
 
@@ -31836,8 +27903,6 @@ CREATE POLICY rls_insert ON public.referral_codes FOR INSERT TO authenticated WI
 --
 
 CREATE POLICY rls_insert ON public.ride_chat_threads FOR INSERT TO authenticated WITH CHECK (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8584 (class 3256 OID 42156)
 
@@ -31845,8 +27910,6 @@ CREATE POLICY rls_insert ON public.ride_chat_threads FOR INSERT TO authenticated
 --
 
 CREATE POLICY rls_insert ON public.ride_chat_typing FOR INSERT TO authenticated WITH CHECK ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8591 (class 3256 OID 42163)
 
@@ -31854,8 +27917,6 @@ CREATE POLICY rls_insert ON public.ride_chat_typing FOR INSERT TO authenticated 
 --
 
 CREATE POLICY rls_insert ON public.ride_events FOR INSERT TO authenticated WITH CHECK ((actor_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8599 (class 3256 OID 42176)
 
@@ -31863,8 +27924,6 @@ CREATE POLICY rls_insert ON public.ride_events FOR INSERT TO authenticated WITH 
 --
 
 CREATE POLICY rls_insert ON public.rides FOR INSERT TO authenticated WITH CHECK (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8609 (class 3256 OID 42185)
 
@@ -31872,8 +27931,6 @@ CREATE POLICY rls_insert ON public.rides FOR INSERT TO authenticated WITH CHECK 
 --
 
 CREATE POLICY rls_insert ON public.user_device_tokens FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8537 (class 3256 OID 42093)
 
@@ -31881,8 +27938,6 @@ CREATE POLICY rls_insert ON public.user_device_tokens FOR INSERT TO authenticate
 --
 
 CREATE POLICY rls_public_select ON public.achievements FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8550 (class 3256 OID 42113)
 
@@ -31890,8 +27945,6 @@ CREATE POLICY rls_public_select ON public.achievements FOR SELECT TO authenticat
 --
 
 CREATE POLICY rls_public_select ON public.kyc_document_types FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8504 (class 3256 OID 42128)
 
@@ -31899,8 +27952,6 @@ CREATE POLICY rls_public_select ON public.kyc_document_types FOR SELECT TO authe
 --
 
 CREATE POLICY rls_public_select ON public.pricing_configs FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8564 (class 3256 OID 42137)
 
@@ -31908,8 +27959,6 @@ CREATE POLICY rls_public_select ON public.pricing_configs FOR SELECT TO authenti
 --
 
 CREATE POLICY rls_public_select ON public.referral_campaigns FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8574 (class 3256 OID 42148)
 
@@ -31917,8 +27966,6 @@ CREATE POLICY rls_public_select ON public.referral_campaigns FOR SELECT TO authe
 --
 
 CREATE POLICY rls_public_select ON public.referral_settings FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8596 (class 3256 OID 42169)
 
@@ -31926,8 +27973,6 @@ CREATE POLICY rls_public_select ON public.referral_settings FOR SELECT TO authen
 --
 
 CREATE POLICY rls_public_select ON public.ride_products FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8603 (class 3256 OID 42180)
 
@@ -31935,8 +27980,6 @@ CREATE POLICY rls_public_select ON public.ride_products FOR SELECT TO authentica
 --
 
 CREATE POLICY rls_public_select ON public.support_categories FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8532 (class 3256 OID 42088)
 
@@ -31944,8 +27987,6 @@ CREATE POLICY rls_public_select ON public.support_categories FOR SELECT TO authe
 --
 
 CREATE POLICY rls_select ON public.achievement_progress FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8559 (class 3256 OID 63775)
 
@@ -31953,8 +27994,6 @@ CREATE POLICY rls_select ON public.achievement_progress FOR SELECT TO authentica
 --
 
 CREATE POLICY rls_select ON public.driver_locations FOR SELECT TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8544 (class 3256 OID 42106)
 
@@ -31962,8 +28001,6 @@ CREATE POLICY rls_select ON public.driver_locations FOR SELECT TO authenticated 
 --
 
 CREATE POLICY rls_select ON public.driver_vehicles FOR SELECT TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8551 (class 3256 OID 42115)
 
@@ -31971,8 +28008,6 @@ CREATE POLICY rls_select ON public.driver_vehicles FOR SELECT TO authenticated U
 --
 
 CREATE POLICY rls_select ON public.kyc_liveness_sessions FOR SELECT TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8558 (class 3256 OID 42130)
 
@@ -31980,8 +28015,6 @@ CREATE POLICY rls_select ON public.kyc_liveness_sessions FOR SELECT TO authentic
 --
 
 CREATE POLICY rls_select ON public.profile_kyc FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8565 (class 3256 OID 42139)
 
@@ -31989,8 +28022,6 @@ CREATE POLICY rls_select ON public.profile_kyc FOR SELECT TO authenticated USING
 --
 
 CREATE POLICY rls_select ON public.referral_codes FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8576 (class 3256 OID 42150)
 
@@ -31998,8 +28029,6 @@ CREATE POLICY rls_select ON public.referral_codes FOR SELECT TO authenticated US
 --
 
 CREATE POLICY rls_select ON public.ride_chat_threads FOR SELECT TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8583 (class 3256 OID 42155)
 
@@ -32007,8 +28036,6 @@ CREATE POLICY rls_select ON public.ride_chat_threads FOR SELECT TO authenticated
 --
 
 CREATE POLICY rls_select ON public.ride_chat_typing FOR SELECT TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8590 (class 3256 OID 42162)
 
@@ -32016,8 +28043,6 @@ CREATE POLICY rls_select ON public.ride_chat_typing FOR SELECT TO authenticated 
 --
 
 CREATE POLICY rls_select ON public.ride_events FOR SELECT TO authenticated USING ((actor_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8598 (class 3256 OID 42175)
 
@@ -32025,8 +28050,6 @@ CREATE POLICY rls_select ON public.ride_events FOR SELECT TO authenticated USING
 --
 
 CREATE POLICY rls_select ON public.rides FOR SELECT TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8608 (class 3256 OID 42184)
 
@@ -32034,8 +28057,6 @@ CREATE POLICY rls_select ON public.rides FOR SELECT TO authenticated USING (((dr
 --
 
 CREATE POLICY rls_select ON public.user_device_tokens FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8614 (class 3256 OID 42189)
 
@@ -32043,8 +28064,6 @@ CREATE POLICY rls_select ON public.user_device_tokens FOR SELECT TO authenticate
 --
 
 CREATE POLICY rls_select ON public.wallet_accounts FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8502 (class 3256 OID 42087)
 
@@ -32052,8 +28071,6 @@ CREATE POLICY rls_select ON public.wallet_accounts FOR SELECT TO authenticated U
 --
 
 CREATE POLICY rls_service_role_all ON public.achievement_progress TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8536 (class 3256 OID 42092)
 
@@ -32061,8 +28078,6 @@ CREATE POLICY rls_service_role_all ON public.achievement_progress TO service_rol
 --
 
 CREATE POLICY rls_service_role_all ON public.achievements TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8538 (class 3256 OID 42094)
 
@@ -32070,8 +28085,6 @@ CREATE POLICY rls_service_role_all ON public.achievements TO service_role USING 
 --
 
 CREATE POLICY rls_service_role_all ON public.api_rate_limits TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8510 (class 3256 OID 42096)
 
@@ -32079,8 +28092,6 @@ CREATE POLICY rls_service_role_all ON public.api_rate_limits TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.app_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8516 (class 3256 OID 42098)
 
@@ -32088,8 +28099,6 @@ CREATE POLICY rls_service_role_all ON public.app_events TO service_role USING (t
 --
 
 CREATE POLICY rls_service_role_all ON public.driver_counters TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8605 (class 3256 OID 63779)
 
@@ -32097,8 +28106,6 @@ CREATE POLICY rls_service_role_all ON public.driver_counters TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.driver_locations TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8540 (class 3256 OID 42105)
 
@@ -32106,8 +28113,6 @@ CREATE POLICY rls_service_role_all ON public.driver_locations TO service_role US
 --
 
 CREATE POLICY rls_service_role_all ON public.driver_vehicles TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8548 (class 3256 OID 42110)
 
@@ -32115,8 +28120,6 @@ CREATE POLICY rls_service_role_all ON public.driver_vehicles TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.drivers TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8528 (class 3256 OID 63753)
 
@@ -32124,8 +28127,6 @@ CREATE POLICY rls_service_role_all ON public.drivers TO service_role USING (true
 --
 
 CREATE POLICY rls_service_role_all ON public.fraud_case_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8527 (class 3256 OID 63752)
 
@@ -32133,8 +28134,6 @@ CREATE POLICY rls_service_role_all ON public.fraud_case_events TO service_role U
 --
 
 CREATE POLICY rls_service_role_all ON public.fraud_cases TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8529 (class 3256 OID 63754)
 
@@ -32142,8 +28141,6 @@ CREATE POLICY rls_service_role_all ON public.fraud_cases TO service_role USING (
 --
 
 CREATE POLICY rls_service_role_all ON public.fraud_enforcement_actions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8526 (class 3256 OID 63751)
 
@@ -32151,8 +28148,6 @@ CREATE POLICY rls_service_role_all ON public.fraud_enforcement_actions TO servic
 --
 
 CREATE POLICY rls_service_role_all ON public.fraud_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8549 (class 3256 OID 42112)
 
@@ -32160,8 +28155,6 @@ CREATE POLICY rls_service_role_all ON public.fraud_events TO service_role USING 
 --
 
 CREATE POLICY rls_service_role_all ON public.kyc_document_types TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8541 (class 3256 OID 42114)
 
@@ -32169,8 +28162,6 @@ CREATE POLICY rls_service_role_all ON public.kyc_document_types TO service_role 
 --
 
 CREATE POLICY rls_service_role_all ON public.kyc_liveness_sessions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8555 (class 3256 OID 42119)
 
@@ -32178,8 +28169,6 @@ CREATE POLICY rls_service_role_all ON public.kyc_liveness_sessions TO service_ro
 --
 
 CREATE POLICY rls_service_role_all ON public.notification_outbox TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8557 (class 3256 OID 42121)
 
@@ -32187,8 +28176,6 @@ CREATE POLICY rls_service_role_all ON public.notification_outbox TO service_role
 --
 
 CREATE POLICY rls_service_role_all ON public.payment_intents TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8472 (class 3256 OID 42123)
 
@@ -32196,8 +28183,6 @@ CREATE POLICY rls_service_role_all ON public.payment_intents TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.payment_providers TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8491 (class 3256 OID 42125)
 
@@ -32205,8 +28190,6 @@ CREATE POLICY rls_service_role_all ON public.payment_providers TO service_role U
 --
 
 CREATE POLICY rls_service_role_all ON public.payments TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8503 (class 3256 OID 42127)
 
@@ -32214,8 +28197,6 @@ CREATE POLICY rls_service_role_all ON public.payments TO service_role USING (tru
 --
 
 CREATE POLICY rls_service_role_all ON public.pricing_configs TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8542 (class 3256 OID 42129)
 
@@ -32223,8 +28204,6 @@ CREATE POLICY rls_service_role_all ON public.pricing_configs TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.profile_kyc TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8562 (class 3256 OID 42134)
 
@@ -32232,8 +28211,6 @@ CREATE POLICY rls_service_role_all ON public.profile_kyc TO service_role USING (
 --
 
 CREATE POLICY rls_service_role_all ON public.provider_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8563 (class 3256 OID 42136)
 
@@ -32241,8 +28218,6 @@ CREATE POLICY rls_service_role_all ON public.provider_events TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.referral_campaigns TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8543 (class 3256 OID 42138)
 
@@ -32250,8 +28225,6 @@ CREATE POLICY rls_service_role_all ON public.referral_campaigns TO service_role 
 --
 
 CREATE POLICY rls_service_role_all ON public.referral_codes TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8569 (class 3256 OID 42143)
 
@@ -32259,8 +28232,6 @@ CREATE POLICY rls_service_role_all ON public.referral_codes TO service_role USIN
 --
 
 CREATE POLICY rls_service_role_all ON public.referral_invites TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8571 (class 3256 OID 42145)
 
@@ -32268,8 +28239,6 @@ CREATE POLICY rls_service_role_all ON public.referral_invites TO service_role US
 --
 
 CREATE POLICY rls_service_role_all ON public.referral_redemptions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8573 (class 3256 OID 42147)
 
@@ -32277,8 +28246,6 @@ CREATE POLICY rls_service_role_all ON public.referral_redemptions TO service_rol
 --
 
 CREATE POLICY rls_service_role_all ON public.referral_settings TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8575 (class 3256 OID 42149)
 
@@ -32286,8 +28253,6 @@ CREATE POLICY rls_service_role_all ON public.referral_settings TO service_role U
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_chat_threads TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8580 (class 3256 OID 42154)
 
@@ -32295,8 +28260,6 @@ CREATE POLICY rls_service_role_all ON public.ride_chat_threads TO service_role U
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_chat_typing TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8587 (class 3256 OID 42159)
 
@@ -32304,8 +28267,6 @@ CREATE POLICY rls_service_role_all ON public.ride_chat_typing TO service_role US
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_completion_log TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8589 (class 3256 OID 42161)
 
@@ -32313,8 +28274,6 @@ CREATE POLICY rls_service_role_all ON public.ride_completion_log TO service_role
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8594 (class 3256 OID 42166)
 
@@ -32322,8 +28281,6 @@ CREATE POLICY rls_service_role_all ON public.ride_events TO service_role USING (
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_incidents TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8595 (class 3256 OID 42168)
 
@@ -32331,8 +28288,6 @@ CREATE POLICY rls_service_role_all ON public.ride_incidents TO service_role USIN
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_products TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8581 (class 3256 OID 42170)
 
@@ -32340,8 +28295,6 @@ CREATE POLICY rls_service_role_all ON public.ride_products TO service_role USING
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_ratings TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8582 (class 3256 OID 42172)
 
@@ -32349,8 +28302,6 @@ CREATE POLICY rls_service_role_all ON public.ride_ratings TO service_role USING 
 --
 
 CREATE POLICY rls_service_role_all ON public.ride_receipts TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8710 (class 3256 OID 43874)
 
@@ -32358,8 +28309,6 @@ CREATE POLICY rls_service_role_all ON public.ride_receipts TO service_role USING
 --
 
 CREATE POLICY rls_service_role_all ON public.ridecheck_events TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8711 (class 3256 OID 43875)
 
@@ -32367,8 +28316,6 @@ CREATE POLICY rls_service_role_all ON public.ridecheck_events TO service_role US
 --
 
 CREATE POLICY rls_service_role_all ON public.ridecheck_responses TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8712 (class 3256 OID 43876)
 
@@ -32376,8 +28323,6 @@ CREATE POLICY rls_service_role_all ON public.ridecheck_responses TO service_role
 --
 
 CREATE POLICY rls_service_role_all ON public.ridecheck_state TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8597 (class 3256 OID 42174)
 
@@ -32385,8 +28330,6 @@ CREATE POLICY rls_service_role_all ON public.ridecheck_state TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.rides TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8666 (class 3256 OID 43571)
 
@@ -32394,8 +28337,6 @@ CREATE POLICY rls_service_role_all ON public.rides TO service_role USING (true) 
 --
 
 CREATE POLICY rls_service_role_all ON public.scheduled_rides TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8602 (class 3256 OID 42179)
 
@@ -32403,8 +28344,6 @@ CREATE POLICY rls_service_role_all ON public.scheduled_rides TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.support_categories TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8604 (class 3256 OID 42181)
 
@@ -32412,8 +28351,6 @@ CREATE POLICY rls_service_role_all ON public.support_categories TO service_role 
 --
 
 CREATE POLICY rls_service_role_all ON public.topup_packages TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8606 (class 3256 OID 42183)
 
@@ -32421,8 +28358,6 @@ CREATE POLICY rls_service_role_all ON public.topup_packages TO service_role USIN
 --
 
 CREATE POLICY rls_service_role_all ON public.user_device_tokens TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8612 (class 3256 OID 42188)
 
@@ -32430,8 +28365,6 @@ CREATE POLICY rls_service_role_all ON public.user_device_tokens TO service_role 
 --
 
 CREATE POLICY rls_service_role_all ON public.wallet_accounts TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8485 (class 3256 OID 63566)
 
@@ -32439,8 +28372,6 @@ CREATE POLICY rls_service_role_all ON public.wallet_accounts TO service_role USI
 --
 
 CREATE POLICY rls_service_role_all ON public.webhook_job_attempts TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8483 (class 3256 OID 63565)
 
@@ -32448,8 +28379,6 @@ CREATE POLICY rls_service_role_all ON public.webhook_job_attempts TO service_rol
 --
 
 CREATE POLICY rls_service_role_all ON public.webhook_jobs TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8534 (class 3256 OID 42090)
 
@@ -32457,8 +28386,6 @@ CREATE POLICY rls_service_role_all ON public.webhook_jobs TO service_role USING 
 --
 
 CREATE POLICY rls_update ON public.achievement_progress FOR UPDATE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8561 (class 3256 OID 63777)
 
@@ -32466,8 +28393,6 @@ CREATE POLICY rls_update ON public.achievement_progress FOR UPDATE TO authentica
 --
 
 CREATE POLICY rls_update ON public.driver_locations FOR UPDATE TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8546 (class 3256 OID 42108)
 
@@ -32475,8 +28400,6 @@ CREATE POLICY rls_update ON public.driver_locations FOR UPDATE TO authenticated 
 --
 
 CREATE POLICY rls_update ON public.driver_vehicles FOR UPDATE TO authenticated USING ((driver_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((driver_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8553 (class 3256 OID 42117)
 
@@ -32484,8 +28407,6 @@ CREATE POLICY rls_update ON public.driver_vehicles FOR UPDATE TO authenticated U
 --
 
 CREATE POLICY rls_update ON public.kyc_liveness_sessions FOR UPDATE TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8567 (class 3256 OID 42141)
 
@@ -32493,8 +28414,6 @@ CREATE POLICY rls_update ON public.kyc_liveness_sessions FOR UPDATE TO authentic
 --
 
 CREATE POLICY rls_update ON public.referral_codes FOR UPDATE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8578 (class 3256 OID 42152)
 
@@ -32502,8 +28421,6 @@ CREATE POLICY rls_update ON public.referral_codes FOR UPDATE TO authenticated US
 --
 
 CREATE POLICY rls_update ON public.ride_chat_threads FOR UPDATE TO authenticated USING (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid)))) WITH CHECK (((driver_id = ( SELECT auth.uid() AS uid)) OR (rider_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8585 (class 3256 OID 42157)
 
@@ -32511,8 +28428,6 @@ CREATE POLICY rls_update ON public.ride_chat_threads FOR UPDATE TO authenticated
 --
 
 CREATE POLICY rls_update ON public.ride_chat_typing FOR UPDATE TO authenticated USING ((profile_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((profile_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8592 (class 3256 OID 42164)
 
@@ -32520,8 +28435,6 @@ CREATE POLICY rls_update ON public.ride_chat_typing FOR UPDATE TO authenticated 
 --
 
 CREATE POLICY rls_update ON public.ride_events FOR UPDATE TO authenticated USING ((actor_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((actor_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8610 (class 3256 OID 42186)
 
@@ -32529,8 +28442,6 @@ CREATE POLICY rls_update ON public.ride_events FOR UPDATE TO authenticated USING
 --
 
 CREATE POLICY rls_update ON public.user_device_tokens FOR UPDATE TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid))) WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8433 (class 0 OID 63837)
 -- Dependencies: 555
@@ -32539,7 +28450,6 @@ CREATE POLICY rls_update ON public.user_device_tokens FOR UPDATE TO authenticate
 --
 
 ALTER TABLE public.safety_mismatch_reports ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8432 (class 0 OID 63811)
 -- Dependencies: 554
@@ -32548,7 +28458,6 @@ ALTER TABLE public.safety_mismatch_reports ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.safety_preferences ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8797 (class 3256 OID 64787)
 
@@ -32556,8 +28465,6 @@ ALTER TABLE public.safety_preferences ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY safety_preferences_own ON public.safety_preferences TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8615 (class 3256 OID 63833)
 
@@ -32565,8 +28472,6 @@ CREATE POLICY safety_preferences_own ON public.safety_preferences TO authenticat
 --
 
 CREATE POLICY safety_preferences_service ON public.safety_preferences TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8794 (class 3256 OID 64785)
 
@@ -32574,8 +28479,6 @@ CREATE POLICY safety_preferences_service ON public.safety_preferences TO service
 --
 
 CREATE POLICY safety_reports_insert_own ON public.safety_mismatch_reports FOR INSERT TO authenticated WITH CHECK ((( SELECT auth.uid() AS uid) = reporter_id));
-
-
 --
 -- TOC entry 8795 (class 3256 OID 64786)
 
@@ -32583,8 +28486,6 @@ CREATE POLICY safety_reports_insert_own ON public.safety_mismatch_reports FOR IN
 --
 
 CREATE POLICY safety_reports_select_own ON public.safety_mismatch_reports FOR SELECT TO authenticated USING ((( SELECT auth.uid() AS uid) = reporter_id));
-
-
 --
 -- TOC entry 8616 (class 3256 OID 63861)
 
@@ -32592,8 +28493,6 @@ CREATE POLICY safety_reports_select_own ON public.safety_mismatch_reports FOR SE
 --
 
 CREATE POLICY safety_reports_service ON public.safety_mismatch_reports TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8381 (class 0 OID 43545)
 -- Dependencies: 477
@@ -32602,7 +28501,6 @@ CREATE POLICY safety_reports_service ON public.safety_mismatch_reports TO servic
 --
 
 ALTER TABLE public.scheduled_rides ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8674 (class 3256 OID 43573)
 
@@ -32610,8 +28508,6 @@ ALTER TABLE public.scheduled_rides ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY scheduled_rides_insert_own ON public.scheduled_rides FOR INSERT TO authenticated WITH CHECK ((rider_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8667 (class 3256 OID 43572)
 
@@ -32619,8 +28515,6 @@ CREATE POLICY scheduled_rides_insert_own ON public.scheduled_rides FOR INSERT TO
 --
 
 CREATE POLICY scheduled_rides_select_own_or_admin ON public.scheduled_rides FOR SELECT TO authenticated USING (((rider_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8675 (class 3256 OID 43574)
 
@@ -32628,8 +28522,6 @@ CREATE POLICY scheduled_rides_select_own_or_admin ON public.scheduled_rides FOR 
 --
 
 CREATE POLICY scheduled_rides_update_own_pending ON public.scheduled_rides FOR UPDATE TO authenticated USING (((rider_id = ( SELECT auth.uid() AS uid)) AND (status = 'pending'::public.scheduled_ride_status))) WITH CHECK ((rider_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8382 (class 0 OID 43576)
 -- Dependencies: 478
@@ -32638,7 +28530,6 @@ CREATE POLICY scheduled_rides_update_own_pending ON public.scheduled_rides FOR U
 --
 
 ALTER TABLE public.service_areas ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8730 (class 3256 OID 44162)
 
@@ -32646,8 +28537,6 @@ ALTER TABLE public.service_areas ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY service_areas_admin_write_del ON public.service_areas FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8728 (class 3256 OID 44160)
 
@@ -32655,8 +28544,6 @@ CREATE POLICY service_areas_admin_write_del ON public.service_areas FOR DELETE T
 --
 
 CREATE POLICY service_areas_admin_write_ins ON public.service_areas FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8729 (class 3256 OID 44161)
 
@@ -32664,8 +28551,6 @@ CREATE POLICY service_areas_admin_write_ins ON public.service_areas FOR INSERT T
 --
 
 CREATE POLICY service_areas_admin_write_upd ON public.service_areas FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8781 (class 3256 OID 46239)
 
@@ -32673,8 +28558,6 @@ CREATE POLICY service_areas_admin_write_upd ON public.service_areas FOR UPDATE T
 --
 
 CREATE POLICY service_areas_select_active_anon ON public.service_areas FOR SELECT TO anon USING ((is_active = true));
-
-
 --
 -- TOC entry 8676 (class 3256 OID 43612)
 
@@ -32682,8 +28565,6 @@ CREATE POLICY service_areas_select_active_anon ON public.service_areas FOR SELEC
 --
 
 CREATE POLICY service_areas_select_active_or_admin ON public.service_areas FOR SELECT TO authenticated USING (((is_active = true) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8450 (class 0 OID 64476)
 -- Dependencies: 572
@@ -32692,7 +28573,6 @@ CREATE POLICY service_areas_select_active_or_admin ON public.service_areas FOR S
 --
 
 ALTER TABLE public.shift_progress ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8704 (class 3256 OID 64494)
 
@@ -32700,8 +28580,6 @@ ALTER TABLE public.shift_progress ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY shift_progress_service ON public.shift_progress TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8384 (class 0 OID 43676)
 -- Dependencies: 480
@@ -32710,7 +28588,6 @@ CREATE POLICY shift_progress_service ON public.shift_progress TO service_role US
 --
 
 ALTER TABLE public.sos_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8691 (class 3256 OID 43702)
 
@@ -32718,8 +28595,6 @@ ALTER TABLE public.sos_events ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY sos_events_delete_admin ON public.sos_events FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8688 (class 3256 OID 43700)
 
@@ -32727,8 +28602,6 @@ CREATE POLICY sos_events_delete_admin ON public.sos_events FOR DELETE TO authent
 --
 
 CREATE POLICY sos_events_insert_own ON public.sos_events FOR INSERT TO authenticated WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8687 (class 3256 OID 43699)
 
@@ -32736,8 +28609,6 @@ CREATE POLICY sos_events_insert_own ON public.sos_events FOR INSERT TO authentic
 --
 
 CREATE POLICY sos_events_select_own ON public.sos_events FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8689 (class 3256 OID 43701)
 
@@ -32745,8 +28616,6 @@ CREATE POLICY sos_events_select_own ON public.sos_events FOR SELECT TO authentic
 --
 
 CREATE POLICY sos_events_update_admin ON public.sos_events FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8386 (class 0 OID 43717)
 -- Dependencies: 482
@@ -32755,7 +28624,6 @@ CREATE POLICY sos_events_update_admin ON public.sos_events FOR UPDATE TO authent
 --
 
 ALTER TABLE public.support_articles ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8733 (class 3256 OID 44165)
 
@@ -32763,8 +28631,6 @@ ALTER TABLE public.support_articles ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY support_articles_admin_write_del ON public.support_articles FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8731 (class 3256 OID 44163)
 
@@ -32772,8 +28638,6 @@ CREATE POLICY support_articles_admin_write_del ON public.support_articles FOR DE
 --
 
 CREATE POLICY support_articles_admin_write_ins ON public.support_articles FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8732 (class 3256 OID 44164)
 
@@ -32781,8 +28645,6 @@ CREATE POLICY support_articles_admin_write_ins ON public.support_articles FOR IN
 --
 
 CREATE POLICY support_articles_admin_write_upd ON public.support_articles FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8693 (class 3256 OID 43744)
 
@@ -32790,8 +28652,6 @@ CREATE POLICY support_articles_admin_write_upd ON public.support_articles FOR UP
 --
 
 CREATE POLICY support_articles_select_public ON public.support_articles FOR SELECT TO authenticated, anon USING ((enabled = true));
-
-
 --
 -- TOC entry 8363 (class 0 OID 40824)
 -- Dependencies: 459
@@ -32800,7 +28660,6 @@ CREATE POLICY support_articles_select_public ON public.support_articles FOR SELE
 --
 
 ALTER TABLE public.support_categories ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8365 (class 0 OID 40861)
 -- Dependencies: 461
@@ -32809,7 +28668,6 @@ ALTER TABLE public.support_categories ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.support_messages ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8500 (class 3256 OID 42045)
 
@@ -32819,8 +28677,6 @@ ALTER TABLE public.support_messages ENABLE ROW LEVEL SECURITY;
 CREATE POLICY support_messages_insert_ticket_owner_or_admin ON public.support_messages FOR INSERT TO authenticated WITH CHECK (((sender_id = ( SELECT auth.uid() AS uid)) AND (( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.support_tickets t
   WHERE ((t.id = support_messages.ticket_id) AND (t.created_by = ( SELECT auth.uid() AS uid))))))));
-
-
 --
 -- TOC entry 8501 (class 3256 OID 42046)
 
@@ -32830,8 +28686,6 @@ CREATE POLICY support_messages_insert_ticket_owner_or_admin ON public.support_me
 CREATE POLICY support_messages_select_ticket_owner_sender_or_admin ON public.support_messages FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (sender_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.support_tickets t
   WHERE ((t.id = support_messages.ticket_id) AND (t.created_by = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8385 (class 0 OID 43703)
 -- Dependencies: 481
@@ -32840,7 +28694,6 @@ CREATE POLICY support_messages_select_ticket_owner_sender_or_admin ON public.sup
 --
 
 ALTER TABLE public.support_sections ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8736 (class 3256 OID 44168)
 
@@ -32848,8 +28701,6 @@ ALTER TABLE public.support_sections ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY support_sections_admin_write_del ON public.support_sections FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8734 (class 3256 OID 44166)
 
@@ -32857,8 +28708,6 @@ CREATE POLICY support_sections_admin_write_del ON public.support_sections FOR DE
 --
 
 CREATE POLICY support_sections_admin_write_ins ON public.support_sections FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8735 (class 3256 OID 44167)
 
@@ -32866,8 +28715,6 @@ CREATE POLICY support_sections_admin_write_ins ON public.support_sections FOR IN
 --
 
 CREATE POLICY support_sections_admin_write_upd ON public.support_sections FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8692 (class 3256 OID 43742)
 
@@ -32875,8 +28722,6 @@ CREATE POLICY support_sections_admin_write_upd ON public.support_sections FOR UP
 --
 
 CREATE POLICY support_sections_select_public ON public.support_sections FOR SELECT TO authenticated, anon USING ((enabled = true));
-
-
 --
 -- TOC entry 8364 (class 0 OID 40833)
 -- Dependencies: 460
@@ -32885,7 +28730,6 @@ CREATE POLICY support_sections_select_public ON public.support_sections FOR SELE
 --
 
 ALTER TABLE public.support_tickets ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8505 (class 3256 OID 42047)
 
@@ -32893,8 +28737,6 @@ ALTER TABLE public.support_tickets ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY support_tickets_insert_own ON public.support_tickets FOR INSERT TO authenticated WITH CHECK ((created_by = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8506 (class 3256 OID 42048)
 
@@ -32902,8 +28744,6 @@ CREATE POLICY support_tickets_insert_own ON public.support_tickets FOR INSERT TO
 --
 
 CREATE POLICY support_tickets_select_own_or_admin ON public.support_tickets FOR SELECT TO authenticated USING (((created_by = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8507 (class 3256 OID 42049)
 
@@ -32911,8 +28751,6 @@ CREATE POLICY support_tickets_select_own_or_admin ON public.support_tickets FOR 
 --
 
 CREATE POLICY support_tickets_update_own_or_admin ON public.support_tickets FOR UPDATE TO authenticated USING (((created_by = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((created_by = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8436 (class 0 OID 63903)
 -- Dependencies: 558
@@ -32921,7 +28759,6 @@ CREATE POLICY support_tickets_update_own_or_admin ON public.support_tickets FOR 
 --
 
 ALTER TABLE public.teen_policies ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8530 (class 3256 OID 64842)
 
@@ -32931,8 +28768,6 @@ ALTER TABLE public.teen_policies ENABLE ROW LEVEL SECURITY;
 CREATE POLICY teen_policies_guardian_delete ON public.teen_policies FOR DELETE TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = teen_policies.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8800 (class 3256 OID 64839)
 
@@ -32942,8 +28777,6 @@ CREATE POLICY teen_policies_guardian_delete ON public.teen_policies FOR DELETE T
 CREATE POLICY teen_policies_guardian_insert ON public.teen_policies FOR INSERT TO authenticated WITH CHECK ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = teen_policies.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8801 (class 3256 OID 64840)
 
@@ -32955,8 +28788,6 @@ CREATE POLICY teen_policies_guardian_update ON public.teen_policies FOR UPDATE T
   WHERE ((fm.family_id = teen_policies.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status))))) WITH CHECK ((EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = teen_policies.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status)))));
-
-
 --
 -- TOC entry 8796 (class 3256 OID 64838)
 
@@ -32966,8 +28797,6 @@ CREATE POLICY teen_policies_guardian_update ON public.teen_policies FOR UPDATE T
 CREATE POLICY teen_policies_select_access ON public.teen_policies FOR SELECT TO authenticated USING (((teen_user_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.family_members fm
   WHERE ((fm.family_id = teen_policies.family_id) AND (fm.user_id = ( SELECT auth.uid() AS uid)) AND (fm.role = 'guardian'::public.family_member_role) AND (fm.status = 'active'::public.family_member_status))))));
-
-
 --
 -- TOC entry 8657 (class 3256 OID 63960)
 
@@ -32975,8 +28804,6 @@ CREATE POLICY teen_policies_select_access ON public.teen_policies FOR SELECT TO 
 --
 
 CREATE POLICY teen_policies_service ON public.teen_policies TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8325 (class 0 OID 39813)
 -- Dependencies: 416
@@ -32985,7 +28812,6 @@ CREATE POLICY teen_policies_service ON public.teen_policies TO service_role USIN
 --
 
 ALTER TABLE public.topup_intents ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8511 (class 3256 OID 42052)
 
@@ -32993,8 +28819,6 @@ ALTER TABLE public.topup_intents ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY topup_intents_admin_update ON public.topup_intents FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8508 (class 3256 OID 42050)
 
@@ -33002,8 +28826,6 @@ CREATE POLICY topup_intents_admin_update ON public.topup_intents FOR UPDATE TO a
 --
 
 CREATE POLICY topup_intents_insert_own ON public.topup_intents FOR INSERT TO authenticated WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) AND (status = 'created'::public.topup_status)));
-
-
 --
 -- TOC entry 8509 (class 3256 OID 42051)
 
@@ -33011,8 +28833,6 @@ CREATE POLICY topup_intents_insert_own ON public.topup_intents FOR INSERT TO aut
 --
 
 CREATE POLICY topup_intents_select_own_or_admin ON public.topup_intents FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8344 (class 0 OID 40013)
 -- Dependencies: 437
@@ -33021,7 +28841,6 @@ CREATE POLICY topup_intents_select_own_or_admin ON public.topup_intents FOR SELE
 --
 
 ALTER TABLE public.topup_packages ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8624 (class 3256 OID 42202)
 
@@ -33029,8 +28848,6 @@ ALTER TABLE public.topup_packages ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY topup_packages_delete_admin ON public.topup_packages FOR DELETE TO authenticated USING (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8621 (class 3256 OID 42200)
 
@@ -33038,8 +28855,6 @@ CREATE POLICY topup_packages_delete_admin ON public.topup_packages FOR DELETE TO
 --
 
 CREATE POLICY topup_packages_insert_admin ON public.topup_packages FOR INSERT TO authenticated WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8620 (class 3256 OID 42199)
 
@@ -33047,8 +28862,6 @@ CREATE POLICY topup_packages_insert_admin ON public.topup_packages FOR INSERT TO
 --
 
 CREATE POLICY topup_packages_select_public_active ON public.topup_packages FOR SELECT TO authenticated, anon USING ((active = true));
-
-
 --
 -- TOC entry 8622 (class 3256 OID 42201)
 
@@ -33056,8 +28869,6 @@ CREATE POLICY topup_packages_select_public_active ON public.topup_packages FOR S
 --
 
 CREATE POLICY topup_packages_update_admin ON public.topup_packages FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8437 (class 0 OID 63928)
 -- Dependencies: 559
@@ -33066,7 +28877,6 @@ CREATE POLICY topup_packages_update_admin ON public.topup_packages FOR UPDATE TO
 --
 
 ALTER TABLE public.trip_guardian_links ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8531 (class 3256 OID 64843)
 
@@ -33074,8 +28884,6 @@ ALTER TABLE public.trip_guardian_links ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trip_guardian_select_access ON public.trip_guardian_links FOR SELECT TO authenticated USING (((guardian_user_id = ( SELECT auth.uid() AS uid)) OR (teen_user_id = ( SELECT auth.uid() AS uid))));
-
-
 --
 -- TOC entry 8658 (class 3256 OID 63963)
 
@@ -33083,8 +28891,6 @@ CREATE POLICY trip_guardian_select_access ON public.trip_guardian_links FOR SELE
 --
 
 CREATE POLICY trip_guardian_service ON public.trip_guardian_links TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8438 (class 0 OID 64003)
 -- Dependencies: 560
@@ -33093,7 +28899,6 @@ CREATE POLICY trip_guardian_service ON public.trip_guardian_links TO service_rol
 --
 
 ALTER TABLE public.trip_live_activities ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8798 (class 3256 OID 64792)
 
@@ -33101,8 +28906,6 @@ ALTER TABLE public.trip_live_activities ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trip_live_activities_own ON public.trip_live_activities TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8659 (class 3256 OID 64025)
 
@@ -33110,8 +28913,6 @@ CREATE POLICY trip_live_activities_own ON public.trip_live_activities TO authent
 --
 
 CREATE POLICY trip_live_activities_service ON public.trip_live_activities TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8369 (class 0 OID 40961)
 -- Dependencies: 465
@@ -33120,7 +28921,6 @@ CREATE POLICY trip_live_activities_service ON public.trip_live_activities TO ser
 --
 
 ALTER TABLE public.trip_share_tokens ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8512 (class 3256 OID 42053)
 
@@ -33130,8 +28930,6 @@ ALTER TABLE public.trip_share_tokens ENABLE ROW LEVEL SECURITY;
 CREATE POLICY trip_share_tokens_insert_participant ON public.trip_share_tokens FOR INSERT TO authenticated WITH CHECK (((created_by = ( SELECT auth.uid() AS uid)) AND (EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = trip_share_tokens.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)))))));
-
-
 --
 -- TOC entry 8514 (class 3256 OID 42055)
 
@@ -33139,8 +28937,6 @@ CREATE POLICY trip_share_tokens_insert_participant ON public.trip_share_tokens F
 --
 
 CREATE POLICY trip_share_tokens_revoke_own ON public.trip_share_tokens FOR UPDATE TO authenticated USING ((created_by = ( SELECT auth.uid() AS uid))) WITH CHECK ((created_by = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8513 (class 3256 OID 42054)
 
@@ -33150,8 +28946,6 @@ CREATE POLICY trip_share_tokens_revoke_own ON public.trip_share_tokens FOR UPDAT
 CREATE POLICY trip_share_tokens_select_participant ON public.trip_share_tokens FOR SELECT TO authenticated USING ((EXISTS ( SELECT 1
    FROM public.rides r
   WHERE ((r.id = trip_share_tokens.ride_id) AND ((r.rider_id = ( SELECT auth.uid() AS uid)) OR (r.driver_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))))));
-
-
 --
 -- TOC entry 8439 (class 0 OID 64026)
 -- Dependencies: 561
@@ -33160,7 +28954,6 @@ CREATE POLICY trip_share_tokens_select_participant ON public.trip_share_tokens F
 --
 
 ALTER TABLE public.trip_status_transitions ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8660 (class 3256 OID 64038)
 
@@ -33168,8 +28961,6 @@ ALTER TABLE public.trip_status_transitions ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trip_status_transitions_service ON public.trip_status_transitions TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8388 (class 0 OID 43767)
 -- Dependencies: 484
@@ -33178,7 +28969,6 @@ CREATE POLICY trip_status_transitions_service ON public.trip_status_transitions 
 --
 
 ALTER TABLE public.trusted_contact_events ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8696 (class 3256 OID 43795)
 
@@ -33186,8 +28976,6 @@ ALTER TABLE public.trusted_contact_events ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trusted_contact_events_select_own_or_admin ON public.trusted_contact_events FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8392 (class 0 OID 43966)
 -- Dependencies: 488
@@ -33196,7 +28984,6 @@ CREATE POLICY trusted_contact_events_select_own_or_admin ON public.trusted_conta
 --
 
 ALTER TABLE public.trusted_contact_outbox ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8727 (class 3256 OID 44147)
 
@@ -33204,8 +28991,6 @@ ALTER TABLE public.trusted_contact_outbox ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trusted_contact_outbox_admin_read ON public.trusted_contact_outbox FOR SELECT TO authenticated USING (public.is_admin(( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8715 (class 3256 OID 44006)
 
@@ -33213,8 +28998,6 @@ CREATE POLICY trusted_contact_outbox_admin_read ON public.trusted_contact_outbox
 --
 
 CREATE POLICY trusted_contact_outbox_service_role_all ON public.trusted_contact_outbox TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8362 (class 0 OID 40790)
 -- Dependencies: 458
@@ -33223,7 +29006,6 @@ CREATE POLICY trusted_contact_outbox_service_role_all ON public.trusted_contact_
 --
 
 ALTER TABLE public.trusted_contacts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8517 (class 3256 OID 42056)
 
@@ -33231,8 +29013,6 @@ ALTER TABLE public.trusted_contacts ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY trusted_contacts_write_own_or_admin ON public.trusted_contacts TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8375 (class 0 OID 41699)
 -- Dependencies: 471
@@ -33241,7 +29021,6 @@ CREATE POLICY trusted_contacts_write_own_or_admin ON public.trusted_contacts TO 
 --
 
 ALTER TABLE public.user_device_tokens ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8416 (class 0 OID 56390)
 -- Dependencies: 518
@@ -33250,7 +29029,6 @@ ALTER TABLE public.user_device_tokens ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.user_interest_targets ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8789 (class 3256 OID 56515)
 
@@ -33258,8 +29036,6 @@ ALTER TABLE public.user_interest_targets ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY user_interest_targets_delete_own ON public.user_interest_targets FOR DELETE TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8787 (class 3256 OID 56513)
 
@@ -33267,8 +29043,6 @@ CREATE POLICY user_interest_targets_delete_own ON public.user_interest_targets F
 --
 
 CREATE POLICY user_interest_targets_insert_own ON public.user_interest_targets FOR INSERT TO authenticated WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8786 (class 3256 OID 56512)
 
@@ -33276,8 +29050,6 @@ CREATE POLICY user_interest_targets_insert_own ON public.user_interest_targets F
 --
 
 CREATE POLICY user_interest_targets_select_own ON public.user_interest_targets FOR SELECT TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8788 (class 3256 OID 56514)
 
@@ -33285,8 +29057,6 @@ CREATE POLICY user_interest_targets_select_own ON public.user_interest_targets F
 --
 
 CREATE POLICY user_interest_targets_update_own ON public.user_interest_targets FOR UPDATE TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8345 (class 0 OID 40026)
 -- Dependencies: 438
@@ -33295,7 +29065,6 @@ CREATE POLICY user_interest_targets_update_own ON public.user_interest_targets F
 --
 
 ALTER TABLE public.user_notifications ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8518 (class 3256 OID 42057)
 
@@ -33303,8 +29072,6 @@ ALTER TABLE public.user_notifications ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY user_notifications_select_own_or_admin ON public.user_notifications FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8519 (class 3256 OID 42058)
 
@@ -33312,8 +29079,6 @@ CREATE POLICY user_notifications_select_own_or_admin ON public.user_notification
 --
 
 CREATE POLICY user_notifications_update_own_or_admin ON public.user_notifications FOR UPDATE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8455 (class 0 OID 64585)
 -- Dependencies: 577
@@ -33322,7 +29087,6 @@ CREATE POLICY user_notifications_update_own_or_admin ON public.user_notification
 --
 
 ALTER TABLE public.user_passkeys ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8799 (class 3256 OID 64793)
 
@@ -33330,8 +29094,6 @@ ALTER TABLE public.user_passkeys ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY user_passkeys_own ON public.user_passkeys TO authenticated USING ((( SELECT auth.uid() AS uid) = user_id)) WITH CHECK ((( SELECT auth.uid() AS uid) = user_id));
-
-
 --
 -- TOC entry 8719 (class 3256 OID 64610)
 
@@ -33339,8 +29101,6 @@ CREATE POLICY user_passkeys_own ON public.user_passkeys TO authenticated USING (
 --
 
 CREATE POLICY user_passkeys_service ON public.user_passkeys TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8387 (class 0 OID 43747)
 -- Dependencies: 483
@@ -33349,7 +29109,6 @@ CREATE POLICY user_passkeys_service ON public.user_passkeys TO service_role USIN
 --
 
 ALTER TABLE public.user_safety_settings ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8698 (class 3256 OID 43799)
 
@@ -33357,8 +29116,6 @@ ALTER TABLE public.user_safety_settings ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY user_safety_settings_insert_own ON public.user_safety_settings FOR INSERT TO authenticated WITH CHECK ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8697 (class 3256 OID 43798)
 
@@ -33366,8 +29123,6 @@ CREATE POLICY user_safety_settings_insert_own ON public.user_safety_settings FOR
 --
 
 CREATE POLICY user_safety_settings_select_own_or_admin ON public.user_safety_settings FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8709 (class 3256 OID 43800)
 
@@ -33375,8 +29130,6 @@ CREATE POLICY user_safety_settings_select_own_or_admin ON public.user_safety_set
 --
 
 CREATE POLICY user_safety_settings_update_own_or_admin ON public.user_safety_settings FOR UPDATE TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin))) WITH CHECK (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8415 (class 0 OID 55226)
 -- Dependencies: 517
@@ -33385,7 +29138,6 @@ CREATE POLICY user_safety_settings_update_own_or_admin ON public.user_safety_set
 --
 
 ALTER TABLE public.voice_call_participants ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8785 (class 3256 OID 55251)
 
@@ -33395,8 +29147,6 @@ ALTER TABLE public.voice_call_participants ENABLE ROW LEVEL SECURITY;
 CREATE POLICY voice_call_participants_participant_select ON public.voice_call_participants FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (profile_id = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.voice_call_participants p
   WHERE ((p.call_id = voice_call_participants.call_id) AND (p.profile_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8783 (class 3256 OID 55248)
 
@@ -33404,8 +29154,6 @@ CREATE POLICY voice_call_participants_participant_select ON public.voice_call_pa
 --
 
 CREATE POLICY voice_call_participants_service_role_all ON public.voice_call_participants TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8414 (class 0 OID 55199)
 -- Dependencies: 516
@@ -33414,7 +29162,6 @@ CREATE POLICY voice_call_participants_service_role_all ON public.voice_call_part
 --
 
 ALTER TABLE public.voice_calls ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8784 (class 3256 OID 55250)
 
@@ -33424,8 +29171,6 @@ ALTER TABLE public.voice_calls ENABLE ROW LEVEL SECURITY;
 CREATE POLICY voice_calls_participant_select ON public.voice_calls FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (created_by = ( SELECT auth.uid() AS uid)) OR (EXISTS ( SELECT 1
    FROM public.voice_call_participants p
   WHERE ((p.call_id = voice_calls.id) AND (p.profile_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8694 (class 3256 OID 55246)
 
@@ -33433,8 +29178,6 @@ CREATE POLICY voice_calls_participant_select ON public.voice_calls FOR SELECT TO
 --
 
 CREATE POLICY voice_calls_service_role_all ON public.voice_calls TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8326 (class 0 OID 39828)
 -- Dependencies: 417
@@ -33443,7 +29186,6 @@ CREATE POLICY voice_calls_service_role_all ON public.voice_calls TO service_role
 --
 
 ALTER TABLE public.wallet_accounts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8346 (class 0 OID 40034)
 -- Dependencies: 439
@@ -33452,7 +29194,6 @@ ALTER TABLE public.wallet_accounts ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.wallet_entries ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8520 (class 3256 OID 42059)
 
@@ -33460,8 +29201,6 @@ ALTER TABLE public.wallet_entries ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY wallet_entries_select_own ON public.wallet_entries FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8347 (class 0 OID 40042)
 -- Dependencies: 441
@@ -33470,7 +29209,6 @@ CREATE POLICY wallet_entries_select_own ON public.wallet_entries FOR SELECT TO a
 --
 
 ALTER TABLE public.wallet_holds ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8521 (class 3256 OID 42060)
 
@@ -33478,8 +29216,6 @@ ALTER TABLE public.wallet_holds ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY wallet_holds_select_own ON public.wallet_holds FOR SELECT TO authenticated USING ((user_id = ( SELECT auth.uid() AS uid)));
-
-
 --
 -- TOC entry 8396 (class 0 OID 44453)
 -- Dependencies: 496
@@ -33488,7 +29224,6 @@ CREATE POLICY wallet_holds_select_own ON public.wallet_holds FOR SELECT TO authe
 --
 
 ALTER TABLE public.wallet_payout_attempts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8745 (class 3256 OID 44473)
 
@@ -33498,8 +29233,6 @@ ALTER TABLE public.wallet_payout_attempts ENABLE ROW LEVEL SECURITY;
 CREATE POLICY wallet_payout_attempts_select_own_or_admin ON public.wallet_payout_attempts FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.wallet_withdraw_requests w
   WHERE ((w.id = wallet_payout_attempts.withdraw_request_id) AND (w.user_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8395 (class 0 OID 44425)
 -- Dependencies: 495
@@ -33508,7 +29241,6 @@ CREATE POLICY wallet_payout_attempts_select_own_or_admin ON public.wallet_payout
 --
 
 ALTER TABLE public.wallet_withdraw_audit_log ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8348 (class 0 OID 40053)
 -- Dependencies: 442
@@ -33517,7 +29249,6 @@ ALTER TABLE public.wallet_withdraw_audit_log ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.wallet_withdraw_payout_methods ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8349 (class 0 OID 40059)
 -- Dependencies: 443
@@ -33526,7 +29257,6 @@ ALTER TABLE public.wallet_withdraw_payout_methods ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.wallet_withdraw_requests ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8350 (class 0 OID 40070)
 -- Dependencies: 444
@@ -33535,7 +29265,6 @@ ALTER TABLE public.wallet_withdraw_requests ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.wallet_withdrawal_policy ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8456 (class 0 OID 64611)
 -- Dependencies: 578
@@ -33544,7 +29273,6 @@ ALTER TABLE public.wallet_withdrawal_policy ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.webauthn_challenges ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8722 (class 3256 OID 64631)
 
@@ -33552,8 +29280,6 @@ ALTER TABLE public.webauthn_challenges ENABLE ROW LEVEL SECURITY;
 --
 
 CREATE POLICY webauthn_challenges_service ON public.webauthn_challenges TO service_role USING (true) WITH CHECK (true);
-
-
 --
 -- TOC entry 8424 (class 0 OID 63549)
 -- Dependencies: 545
@@ -33562,7 +29288,6 @@ CREATE POLICY webauthn_challenges_service ON public.webauthn_challenges TO servi
 --
 
 ALTER TABLE public.webhook_job_attempts ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8423 (class 0 OID 63525)
 -- Dependencies: 544
@@ -33571,7 +29296,6 @@ ALTER TABLE public.webhook_job_attempts ENABLE ROW LEVEL SECURITY;
 --
 
 ALTER TABLE public.webhook_jobs ENABLE ROW LEVEL SECURITY;
-
 --
 -- TOC entry 8744 (class 3256 OID 44440)
 
@@ -33581,8 +29305,6 @@ ALTER TABLE public.webhook_jobs ENABLE ROW LEVEL SECURITY;
 CREATE POLICY withdraw_audit_select_own_or_admin ON public.wallet_withdraw_audit_log FOR SELECT TO authenticated USING ((( SELECT public.is_admin() AS is_admin) OR (EXISTS ( SELECT 1
    FROM public.wallet_withdraw_requests w
   WHERE ((w.id = wallet_withdraw_audit_log.request_id) AND (w.user_id = ( SELECT auth.uid() AS uid)))))));
-
-
 --
 -- TOC entry 8524 (class 3256 OID 42066)
 
@@ -33590,8 +29312,6 @@ CREATE POLICY withdraw_audit_select_own_or_admin ON public.wallet_withdraw_audit
 --
 
 CREATE POLICY withdraw_payout_methods_admin_update ON public.wallet_withdraw_payout_methods FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8523 (class 3256 OID 42065)
 
@@ -33599,8 +29319,6 @@ CREATE POLICY withdraw_payout_methods_admin_update ON public.wallet_withdraw_pay
 --
 
 CREATE POLICY withdraw_payout_methods_select ON public.wallet_withdraw_payout_methods FOR SELECT TO authenticated USING ((( SELECT auth.uid() AS uid) IS NOT NULL));
-
-
 --
 -- TOC entry 8637 (class 3256 OID 42217)
 
@@ -33608,8 +29326,6 @@ CREATE POLICY withdraw_payout_methods_select ON public.wallet_withdraw_payout_me
 --
 
 CREATE POLICY withdraw_policy_admin_update ON public.wallet_withdrawal_policy FOR UPDATE TO authenticated USING (( SELECT public.is_admin() AS is_admin)) WITH CHECK (( SELECT public.is_admin() AS is_admin));
-
-
 --
 -- TOC entry 8635 (class 3256 OID 42216)
 
@@ -33617,8 +29333,6 @@ CREATE POLICY withdraw_policy_admin_update ON public.wallet_withdrawal_policy FO
 --
 
 CREATE POLICY withdraw_policy_select_public ON public.wallet_withdrawal_policy FOR SELECT TO authenticated, anon USING (true);
-
-
 --
 -- TOC entry 8522 (class 3256 OID 42062)
 
@@ -33626,8 +29340,6 @@ CREATE POLICY withdraw_policy_select_public ON public.wallet_withdrawal_policy F
 --
 
 CREATE POLICY withdraw_select_own_or_admin ON public.wallet_withdraw_requests FOR SELECT TO authenticated USING (((user_id = ( SELECT auth.uid() AS uid)) OR ( SELECT public.is_admin() AS is_admin)));
-
-
 --
 -- TOC entry 8313 (class 0 OID 17239)
 -- Dependencies: 390
@@ -33636,8 +29348,6 @@ CREATE POLICY withdraw_select_own_or_admin ON public.wallet_withdraw_requests FO
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.driver_locations;
-
-
 --
 -- TOC entry 8840 (class 6106 OID 40789)
 
@@ -33645,8 +29355,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.driver_locations;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.driver_stats_daily;
-
-
 --
 -- TOC entry 8829 (class 6106 OID 40536)
 
@@ -33654,8 +29362,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.driver_stats_daily;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.drivers;
-
-
 --
 -- TOC entry 8849 (class 6106 OID 41049)
 
@@ -33663,8 +29369,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.drivers;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.kyc_documents;
-
-
 --
 -- TOC entry 8848 (class 6106 OID 41048)
 
@@ -33672,8 +29376,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.kyc_documents;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.kyc_submissions;
-
-
 --
 -- TOC entry 8864 (class 6106 OID 44718)
 
@@ -33681,8 +29383,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.kyc_submissions;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_chat_messages;
-
-
 --
 -- TOC entry 8863 (class 6106 OID 44717)
 
@@ -33690,8 +29390,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_chat_messages
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_chat_threads;
-
-
 --
 -- TOC entry 8868 (class 6106 OID 44951)
 
@@ -33699,8 +29397,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_chat_threads;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_deliveries;
-
-
 --
 -- TOC entry 8869 (class 6106 OID 44952)
 
@@ -33708,8 +29404,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_deliver
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_delivery_events;
-
-
 --
 -- TOC entry 8866 (class 6106 OID 44852)
 
@@ -33717,8 +29411,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_deliver
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_items;
-
-
 --
 -- TOC entry 8867 (class 6106 OID 44883)
 
@@ -33726,8 +29418,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_items;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_status_events;
-
-
 --
 -- TOC entry 8865 (class 6106 OID 44851)
 
@@ -33735,8 +29425,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_order_status_
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_orders;
-
-
 --
 -- TOC entry 8854 (class 6106 OID 42234)
 
@@ -33744,8 +29432,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.merchant_orders;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payment_intents;
-
-
 --
 -- TOC entry 8830 (class 6106 OID 40537)
 
@@ -33753,8 +29439,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payment_intents;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payments;
-
-
 --
 -- TOC entry 8862 (class 6106 OID 44547)
 
@@ -33762,8 +29446,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payments;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payout_provider_job_attempts;
-
-
 --
 -- TOC entry 8861 (class 6106 OID 44517)
 
@@ -33771,8 +29453,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payout_provider_job_at
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payout_provider_jobs;
-
-
 --
 -- TOC entry 8853 (class 6106 OID 42233)
 
@@ -33780,8 +29460,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.payout_provider_jobs;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.provider_events;
-
-
 --
 -- TOC entry 8844 (class 6106 OID 41044)
 
@@ -33789,8 +29467,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.provider_events;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_messages;
-
-
 --
 -- TOC entry 8845 (class 6106 OID 41045)
 
@@ -33798,8 +29474,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_messages;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_read_receipts;
-
-
 --
 -- TOC entry 8850 (class 6106 OID 42230)
 
@@ -33807,8 +29481,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_read_receipt
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_threads;
-
-
 --
 -- TOC entry 8846 (class 6106 OID 41046)
 
@@ -33816,8 +29488,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_threads;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_typing;
-
-
 --
 -- TOC entry 8831 (class 6106 OID 40538)
 
@@ -33825,8 +29495,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_chat_typing;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_events;
-
-
 --
 -- TOC entry 8852 (class 6106 OID 42232)
 
@@ -33834,8 +29502,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_events;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_incidents;
-
-
 --
 -- TOC entry 8856 (class 6106 OID 44139)
 
@@ -33843,8 +29509,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_incidents;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_intents;
-
-
 --
 -- TOC entry 8851 (class 6106 OID 42231)
 
@@ -33852,8 +29516,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_intents;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_receipts;
-
-
 --
 -- TOC entry 8832 (class 6106 OID 40539)
 
@@ -33861,8 +29523,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_receipts;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_requests;
-
-
 --
 -- TOC entry 8857 (class 6106 OID 44140)
 
@@ -33870,8 +29530,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ride_requests;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ridecheck_events;
-
-
 --
 -- TOC entry 8858 (class 6106 OID 44141)
 
@@ -33879,8 +29537,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ridecheck_events;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ridecheck_responses;
-
-
 --
 -- TOC entry 8833 (class 6106 OID 40540)
 
@@ -33888,8 +29544,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.ridecheck_responses;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.rides;
-
-
 --
 -- TOC entry 8855 (class 6106 OID 44138)
 
@@ -33897,8 +29551,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.rides;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.scheduled_rides;
-
-
 --
 -- TOC entry 8843 (class 6106 OID 41043)
 
@@ -33906,8 +29558,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.scheduled_rides;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.support_messages;
-
-
 --
 -- TOC entry 8842 (class 6106 OID 41042)
 
@@ -33915,8 +29565,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.support_messages;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.support_tickets;
-
-
 --
 -- TOC entry 8834 (class 6106 OID 40541)
 
@@ -33924,8 +29572,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.support_tickets;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.topup_intents;
-
-
 --
 -- TOC entry 8847 (class 6106 OID 41047)
 
@@ -33933,8 +29579,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.topup_intents;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.trip_share_tokens;
-
-
 --
 -- TOC entry 8841 (class 6106 OID 41041)
 
@@ -33942,8 +29586,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.trip_share_tokens;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.trusted_contacts;
-
-
 --
 -- TOC entry 8835 (class 6106 OID 40542)
 
@@ -33951,8 +29593,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.trusted_contacts;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.user_notifications;
-
-
 --
 -- TOC entry 8836 (class 6106 OID 40543)
 
@@ -33960,8 +29600,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.user_notifications;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_accounts;
-
-
 --
 -- TOC entry 8837 (class 6106 OID 40544)
 
@@ -33969,8 +29607,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_accounts;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_entries;
-
-
 --
 -- TOC entry 8838 (class 6106 OID 40545)
 
@@ -33978,8 +29614,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_entries;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_holds;
-
-
 --
 -- TOC entry 8860 (class 6106 OID 44479)
 
@@ -33987,8 +29621,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_holds;
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_payout_attempts;
-
-
 --
 -- TOC entry 8859 (class 6106 OID 44478)
 
@@ -33996,8 +29628,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_payout_attempts
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_withdraw_audit_log;
-
-
 --
 -- TOC entry 8839 (class 6106 OID 40546)
 
@@ -34005,8 +29635,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_withdraw_audit_
 --
 
 ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_withdraw_requests;
-
-
 --
 -- TOC entry 8827 (class 6106 OID 24116)
 
@@ -34015,8 +29643,6 @@ ALTER PUBLICATION supabase_realtime ADD TABLE ONLY public.wallet_withdraw_reques
 
 REVOKE ALL ON FUNCTION public._edge_webhook_post(p_function_name text, p_secret_name text, p_payload jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public._edge_webhook_post(p_function_name text, p_secret_name text, p_payload jsonb) TO service_role;
-
-
 --
 -- TOC entry 9725 (class 0 OID 0)
 -- Dependencies: 1786
@@ -34026,8 +29652,6 @@ GRANT ALL ON FUNCTION public._edge_webhook_post(p_function_name text, p_secret_n
 
 REVOKE ALL ON FUNCTION public._fraud_require_service_role() FROM PUBLIC;
 GRANT ALL ON FUNCTION public._fraud_require_service_role() TO service_role;
-
-
 --
 -- TOC entry 9726 (class 0 OID 0)
 -- Dependencies: 723
@@ -34037,8 +29661,6 @@ GRANT ALL ON FUNCTION public._fraud_require_service_role() TO service_role;
 
 REVOKE ALL ON FUNCTION public._vault_secret(p_name text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public._vault_secret(p_name text) TO service_role;
-
-
 --
 -- TOC entry 9727 (class 0 OID 0)
 -- Dependencies: 796
@@ -34049,8 +29671,6 @@ GRANT ALL ON FUNCTION public._vault_secret(p_name text) TO service_role;
 REVOKE ALL ON FUNCTION public.achievement_claim(p_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.achievement_claim(p_key text) TO service_role;
 GRANT ALL ON FUNCTION public.achievement_claim(p_key text) TO authenticated;
-
-
 --
 -- TOC entry 9728 (class 0 OID 0)
 -- Dependencies: 700
@@ -34061,8 +29681,6 @@ GRANT ALL ON FUNCTION public.achievement_claim(p_key text) TO authenticated;
 REVOKE ALL ON FUNCTION public.admin_cash_agent_create_v1(p_code text, p_name text, p_location text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cash_agent_create_v1(p_code text, p_name text, p_location text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cash_agent_create_v1(p_code text, p_name text, p_location text) TO authenticated;
-
-
 --
 -- TOC entry 9729 (class 0 OID 0)
 -- Dependencies: 1445
@@ -34073,8 +29691,6 @@ GRANT ALL ON FUNCTION public.admin_cash_agent_create_v1(p_code text, p_name text
 REVOKE ALL ON FUNCTION public.admin_cash_agent_list_v1(p_active_only boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cash_agent_list_v1(p_active_only boolean) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cash_agent_list_v1(p_active_only boolean) TO authenticated;
-
-
 --
 -- TOC entry 9730 (class 0 OID 0)
 -- Dependencies: 1021
@@ -34085,8 +29701,6 @@ GRANT ALL ON FUNCTION public.admin_cash_agent_list_v1(p_active_only boolean) TO 
 REVOKE ALL ON FUNCTION public.admin_cash_agent_next_doc_no_v1(p_agent_id uuid, p_kind text, p_day date) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cash_agent_next_doc_no_v1(p_agent_id uuid, p_kind text, p_day date) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cash_agent_next_doc_no_v1(p_agent_id uuid, p_kind text, p_day date) TO authenticated;
-
-
 --
 -- TOC entry 9731 (class 0 OID 0)
 -- Dependencies: 676
@@ -34097,8 +29711,6 @@ GRANT ALL ON FUNCTION public.admin_cash_agent_next_doc_no_v1(p_agent_id uuid, p_
 REVOKE ALL ON FUNCTION public.admin_cash_agent_set_active_v1(p_agent_id uuid, p_is_active boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cash_agent_set_active_v1(p_agent_id uuid, p_is_active boolean) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cash_agent_set_active_v1(p_agent_id uuid, p_is_active boolean) TO authenticated;
-
-
 --
 -- TOC entry 9732 (class 0 OID 0)
 -- Dependencies: 1215
@@ -34109,8 +29721,6 @@ GRANT ALL ON FUNCTION public.admin_cash_agent_set_active_v1(p_agent_id uuid, p_i
 REVOKE ALL ON FUNCTION public.admin_cashbox_close_day_v1(p_agent_id uuid, p_day date, p_counted_cash_iqd integer, p_note text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cashbox_close_day_v1(p_agent_id uuid, p_day date, p_counted_cash_iqd integer, p_note text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cashbox_close_day_v1(p_agent_id uuid, p_day date, p_counted_cash_iqd integer, p_note text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9733 (class 0 OID 0)
 -- Dependencies: 1548
@@ -34121,8 +29731,6 @@ GRANT ALL ON FUNCTION public.admin_cashbox_close_day_v1(p_agent_id uuid, p_day d
 REVOKE ALL ON FUNCTION public.admin_cashbox_reconciliation_v1(p_agent_id uuid, p_date_from date, p_date_to date) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_cashbox_reconciliation_v1(p_agent_id uuid, p_date_from date, p_date_to date) TO service_role;
 GRANT ALL ON FUNCTION public.admin_cashbox_reconciliation_v1(p_agent_id uuid, p_date_from date, p_date_to date) TO authenticated;
-
-
 --
 -- TOC entry 9734 (class 0 OID 0)
 -- Dependencies: 1731
@@ -34133,8 +29741,6 @@ GRANT ALL ON FUNCTION public.admin_cashbox_reconciliation_v1(p_agent_id uuid, p_
 REVOKE ALL ON FUNCTION public.admin_clone_pricing_config_v1(p_source_id uuid, p_name text, p_effective_from timestamp with time zone, p_active boolean, p_set_default boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_clone_pricing_config_v1(p_source_id uuid, p_name text, p_effective_from timestamp with time zone, p_active boolean, p_set_default boolean) TO service_role;
 GRANT ALL ON FUNCTION public.admin_clone_pricing_config_v1(p_source_id uuid, p_name text, p_effective_from timestamp with time zone, p_active boolean, p_set_default boolean) TO authenticated;
-
-
 --
 -- TOC entry 9735 (class 0 OID 0)
 -- Dependencies: 414
@@ -34144,8 +29750,6 @@ GRANT ALL ON FUNCTION public.admin_clone_pricing_config_v1(p_source_id uuid, p_n
 
 GRANT ALL ON TABLE public.gift_codes TO authenticated;
 GRANT ALL ON TABLE public.gift_codes TO service_role;
-
-
 --
 -- TOC entry 9736 (class 0 OID 0)
 -- Dependencies: 878
@@ -34155,8 +29759,6 @@ GRANT ALL ON TABLE public.gift_codes TO service_role;
 
 REVOKE ALL ON FUNCTION public.admin_create_gift_code(p_amount_iqd bigint, p_code text, p_memo text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_create_gift_code(p_amount_iqd bigint, p_code text, p_memo text) TO service_role;
-
-
 --
 -- TOC entry 9737 (class 0 OID 0)
 -- Dependencies: 1599
@@ -34166,8 +29768,6 @@ GRANT ALL ON FUNCTION public.admin_create_gift_code(p_amount_iqd bigint, p_code 
 
 REVOKE ALL ON FUNCTION public.admin_create_service_area_bbox(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9738 (class 0 OID 0)
 -- Dependencies: 1673
@@ -34178,8 +29778,6 @@ GRANT ALL ON FUNCTION public.admin_create_service_area_bbox(p_name text, p_gover
 REVOKE ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_notes text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_notes text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_notes text) TO authenticated;
-
-
 --
 -- TOC entry 9739 (class 0 OID 0)
 -- Dependencies: 784
@@ -34190,8 +29788,6 @@ GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_go
 REVOKE ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_notes text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_notes text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_notes text) TO authenticated;
-
-
 --
 -- TOC entry 9740 (class 0 OID 0)
 -- Dependencies: 728
@@ -34202,8 +29798,6 @@ GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v2(p_name text, p_go
 REVOKE ALL ON FUNCTION public.admin_create_service_area_bbox_v3(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v3(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v3(p_name text, p_governorate text, p_min_lat double precision, p_min_lng double precision, p_max_lat double precision, p_max_lng double precision, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) TO authenticated;
-
-
 --
 -- TOC entry 9741 (class 0 OID 0)
 -- Dependencies: 1321
@@ -34213,8 +29807,6 @@ GRANT ALL ON FUNCTION public.admin_create_service_area_bbox_v3(p_name text, p_go
 
 REVOKE ALL ON FUNCTION public.admin_grant_user(p_user uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_grant_user(p_user uuid, p_note text) TO service_role;
-
-
 --
 -- TOC entry 9742 (class 0 OID 0)
 -- Dependencies: 816
@@ -34225,8 +29817,6 @@ GRANT ALL ON FUNCTION public.admin_grant_user(p_user uuid, p_note text) TO servi
 REVOKE ALL ON FUNCTION public.admin_grant_user_v1(p_user uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_grant_user_v1(p_user uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_grant_user_v1(p_user uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9743 (class 0 OID 0)
 -- Dependencies: 631
@@ -34237,8 +29827,6 @@ GRANT ALL ON FUNCTION public.admin_grant_user_v1(p_user uuid, p_note text) TO au
 REVOKE ALL ON FUNCTION public.admin_maps_provider_capability_list_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_capability_list_v1() TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_capability_list_v1() TO authenticated;
-
-
 --
 -- TOC entry 9744 (class 0 OID 0)
 -- Dependencies: 906
@@ -34249,8 +29837,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_capability_list_v1() TO authent
 REVOKE ALL ON FUNCTION public.admin_maps_provider_capability_set_v1(p_provider_code text, p_capability text, p_enabled boolean, p_unit_label text, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_capability_set_v1(p_provider_code text, p_capability text, p_enabled boolean, p_unit_label text, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_capability_set_v1(p_provider_code text, p_capability text, p_enabled boolean, p_unit_label text, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9745 (class 0 OID 0)
 -- Dependencies: 787
@@ -34261,8 +29847,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_capability_set_v1(p_provider_co
 REVOKE ALL ON FUNCTION public.admin_maps_provider_health_list_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_health_list_v1() TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_health_list_v1() TO authenticated;
-
-
 --
 -- TOC entry 9746 (class 0 OID 0)
 -- Dependencies: 1692
@@ -34273,8 +29857,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_health_list_v1() TO authenticat
 REVOKE ALL ON FUNCTION public.admin_maps_provider_health_reset_v1(p_provider_code text, p_capability text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_health_reset_v1(p_provider_code text, p_capability text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_health_reset_v1(p_provider_code text, p_capability text) TO authenticated;
-
-
 --
 -- TOC entry 9747 (class 0 OID 0)
 -- Dependencies: 1187
@@ -34285,8 +29867,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_health_reset_v1(p_provider_code
 REVOKE ALL ON FUNCTION public.admin_maps_provider_list_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_list_v1() TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_list_v1() TO authenticated;
-
-
 --
 -- TOC entry 9748 (class 0 OID 0)
 -- Dependencies: 1132
@@ -34297,8 +29877,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_list_v1() TO authenticated;
 REVOKE ALL ON FUNCTION public.admin_maps_provider_list_v2() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_list_v2() TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_list_v2() TO authenticated;
-
-
 --
 -- TOC entry 9749 (class 0 OID 0)
 -- Dependencies: 1263
@@ -34309,8 +29887,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_list_v2() TO authenticated;
 REVOKE ALL ON FUNCTION public.admin_maps_provider_set_v1(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_set_v1(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_set_v1(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9750 (class 0 OID 0)
 -- Dependencies: 1540
@@ -34321,8 +29897,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_set_v1(p_provider_code text, p_
 REVOKE ALL ON FUNCTION public.admin_maps_provider_set_v2(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_cache_enabled boolean, p_cache_ttl_seconds integer, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_provider_set_v2(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_cache_enabled boolean, p_cache_ttl_seconds integer, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_provider_set_v2(p_provider_code text, p_priority integer, p_enabled boolean, p_language text, p_region text, p_monthly_soft_cap_units integer, p_monthly_hard_cap_units integer, p_cache_enabled boolean, p_cache_ttl_seconds integer, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9751 (class 0 OID 0)
 -- Dependencies: 1356
@@ -34333,8 +29907,6 @@ GRANT ALL ON FUNCTION public.admin_maps_provider_set_v2(p_provider_code text, p_
 REVOKE ALL ON FUNCTION public.admin_maps_requests_list_v1(p_limit integer, p_provider_code text, p_capability text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_requests_list_v1(p_limit integer, p_provider_code text, p_capability text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_requests_list_v1(p_limit integer, p_provider_code text, p_capability text) TO authenticated;
-
-
 --
 -- TOC entry 9752 (class 0 OID 0)
 -- Dependencies: 734
@@ -34345,8 +29917,6 @@ GRANT ALL ON FUNCTION public.admin_maps_requests_list_v1(p_limit integer, p_prov
 REVOKE ALL ON FUNCTION public.admin_maps_requests_list_v2(p_limit integer, p_provider_code text, p_capability text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_requests_list_v2(p_limit integer, p_provider_code text, p_capability text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_requests_list_v2(p_limit integer, p_provider_code text, p_capability text) TO authenticated;
-
-
 --
 -- TOC entry 9753 (class 0 OID 0)
 -- Dependencies: 820
@@ -34357,8 +29927,6 @@ GRANT ALL ON FUNCTION public.admin_maps_requests_list_v2(p_limit integer, p_prov
 REVOKE ALL ON FUNCTION public.admin_maps_requests_stats_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_maps_requests_stats_v1() TO service_role;
 GRANT ALL ON FUNCTION public.admin_maps_requests_stats_v1() TO authenticated;
-
-
 --
 -- TOC entry 9754 (class 0 OID 0)
 -- Dependencies: 1352
@@ -34368,8 +29936,6 @@ GRANT ALL ON FUNCTION public.admin_maps_requests_stats_v1() TO authenticated;
 
 REVOKE ALL ON FUNCTION public.admin_mark_stale_drivers_offline(p_stale_after_seconds integer, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_mark_stale_drivers_offline(p_stale_after_seconds integer, p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9755 (class 0 OID 0)
 -- Dependencies: 1744
@@ -34380,8 +29946,6 @@ GRANT ALL ON FUNCTION public.admin_mark_stale_drivers_offline(p_stale_after_seco
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_clear_v1(p_merchant_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v1(p_merchant_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v1(p_merchant_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9756 (class 0 OID 0)
 -- Dependencies: 872
@@ -34392,8 +29956,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v1(p_merchant_id uu
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_clear_v2(p_merchant_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v2(p_merchant_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v2(p_merchant_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9757 (class 0 OID 0)
 -- Dependencies: 1646
@@ -34404,8 +29966,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_clear_v2(p_merchant_id uu
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_list_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9758 (class 0 OID 0)
 -- Dependencies: 1642
@@ -34416,8 +29976,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v1(p_limit integer, 
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_list_v2(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v2(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v2(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9759 (class 0 OID 0)
 -- Dependencies: 1604
@@ -34428,8 +29986,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_list_v2(p_limit integer, 
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_set_v1(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v1(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v1(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint) TO authenticated;
-
-
 --
 -- TOC entry 9760 (class 0 OID 0)
 -- Dependencies: 1380
@@ -34440,8 +29996,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v1(p_merchant_id uuid
 REVOKE ALL ON FUNCTION public.admin_merchant_commission_set_v2(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint, p_cod_handling_rate_bps integer, p_cod_handling_flat_fee_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v2(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint, p_cod_handling_rate_bps integer, p_cod_handling_flat_fee_iqd bigint) TO service_role;
 GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v2(p_merchant_id uuid, p_rate_bps integer, p_flat_fee_iqd bigint, p_cod_handling_rate_bps integer, p_cod_handling_flat_fee_iqd bigint) TO authenticated;
-
-
 --
 -- TOC entry 9761 (class 0 OID 0)
 -- Dependencies: 1697
@@ -34452,8 +30006,6 @@ GRANT ALL ON FUNCTION public.admin_merchant_commission_set_v2(p_merchant_id uuid
 REVOKE ALL ON FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean) TO service_role;
 GRANT ALL ON FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean) TO authenticated;
-
-
 --
 -- TOC entry 9762 (class 0 OID 0)
 -- Dependencies: 918
@@ -34464,8 +30016,6 @@ GRANT ALL ON FUNCTION public.admin_platform_fee_list_v1(p_only_active boolean) T
 REVOKE ALL ON FUNCTION public.admin_platform_fee_set_v1(p_product_code text, p_service_area_id uuid, p_rate_bps integer, p_flat_fee_iqd integer, p_active boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_platform_fee_set_v1(p_product_code text, p_service_area_id uuid, p_rate_bps integer, p_flat_fee_iqd integer, p_active boolean) TO service_role;
 GRANT ALL ON FUNCTION public.admin_platform_fee_set_v1(p_product_code text, p_service_area_id uuid, p_rate_bps integer, p_flat_fee_iqd integer, p_active boolean) TO authenticated;
-
-
 --
 -- TOC entry 9763 (class 0 OID 0)
 -- Dependencies: 749
@@ -34476,8 +30026,6 @@ GRANT ALL ON FUNCTION public.admin_platform_fee_set_v1(p_product_code text, p_se
 REVOKE ALL ON FUNCTION public.admin_reconciliation_daily_v1(p_days integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_reconciliation_daily_v1(p_days integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_reconciliation_daily_v1(p_days integer) TO authenticated;
-
-
 --
 -- TOC entry 9764 (class 0 OID 0)
 -- Dependencies: 1376
@@ -34488,8 +30036,6 @@ GRANT ALL ON FUNCTION public.admin_reconciliation_daily_v1(p_days integer) TO au
 REVOKE ALL ON FUNCTION public.admin_record_ride_refund(p_ride_id uuid, p_refund_amount_iqd integer, p_reason text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_record_ride_refund(p_ride_id uuid, p_refund_amount_iqd integer, p_reason text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_record_ride_refund(p_ride_id uuid, p_refund_amount_iqd integer, p_reason text) TO authenticated;
-
-
 --
 -- TOC entry 9766 (class 0 OID 0)
 -- Dependencies: 1081
@@ -34499,8 +30045,6 @@ GRANT ALL ON FUNCTION public.admin_record_ride_refund(p_ride_id uuid, p_refund_a
 
 REVOKE ALL ON FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_seconds integer, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_seconds integer, p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9767 (class 0 OID 0)
 -- Dependencies: 663
@@ -34510,8 +30054,6 @@ GRANT ALL ON FUNCTION public.admin_release_stuck_reserved_drivers(p_stale_after_
 
 REVOKE ALL ON FUNCTION public.admin_revoke_user(p_user uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_revoke_user(p_user uuid, p_note text) TO service_role;
-
-
 --
 -- TOC entry 9768 (class 0 OID 0)
 -- Dependencies: 603
@@ -34522,8 +30064,6 @@ GRANT ALL ON FUNCTION public.admin_revoke_user(p_user uuid, p_note text) TO serv
 REVOKE ALL ON FUNCTION public.admin_revoke_user_v1(p_user uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_revoke_user_v1(p_user uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_revoke_user_v1(p_user uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9769 (class 0 OID 0)
 -- Dependencies: 1054
@@ -34534,8 +30074,6 @@ GRANT ALL ON FUNCTION public.admin_revoke_user_v1(p_user uuid, p_note text) TO a
 REVOKE ALL ON FUNCTION public.admin_ridecheck_escalate(p_event_id uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_ridecheck_escalate(p_event_id uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_ridecheck_escalate(p_event_id uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9770 (class 0 OID 0)
 -- Dependencies: 1611
@@ -34546,8 +30084,6 @@ GRANT ALL ON FUNCTION public.admin_ridecheck_escalate(p_event_id uuid, p_note te
 REVOKE ALL ON FUNCTION public.admin_ridecheck_resolve(p_event_id uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_ridecheck_resolve(p_event_id uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_ridecheck_resolve(p_event_id uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9771 (class 0 OID 0)
 -- Dependencies: 1401
@@ -34558,8 +30094,6 @@ GRANT ALL ON FUNCTION public.admin_ridecheck_resolve(p_event_id uuid, p_note tex
 REVOKE ALL ON FUNCTION public.admin_set_default_pricing_config_v1(p_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_set_default_pricing_config_v1(p_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.admin_set_default_pricing_config_v1(p_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9772 (class 0 OID 0)
 -- Dependencies: 501
@@ -34569,8 +30103,6 @@ GRANT ALL ON FUNCTION public.admin_set_default_pricing_config_v1(p_id uuid) TO a
 
 GRANT ALL ON TABLE public.merchants TO authenticated;
 GRANT ALL ON TABLE public.merchants TO service_role;
-
-
 --
 -- TOC entry 9773 (class 0 OID 0)
 -- Dependencies: 1292
@@ -34581,8 +30113,6 @@ GRANT ALL ON TABLE public.merchants TO service_role;
 REVOKE ALL ON FUNCTION public.admin_set_merchant_status(p_merchant_id uuid, p_status public.merchant_status, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_set_merchant_status(p_merchant_id uuid, p_status public.merchant_status, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_set_merchant_status(p_merchant_id uuid, p_status public.merchant_status, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9774 (class 0 OID 0)
 -- Dependencies: 1493
@@ -34593,8 +30123,6 @@ GRANT ALL ON FUNCTION public.admin_set_merchant_status(p_merchant_id uuid, p_sta
 REVOKE ALL ON FUNCTION public.admin_settlement_approve_payment_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_approve_payment_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_approve_payment_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) TO authenticated;
-
-
 --
 -- TOC entry 9775 (class 0 OID 0)
 -- Dependencies: 1723
@@ -34605,8 +30133,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_approve_payment_request_v1(p_reque
 REVOKE ALL ON FUNCTION public.admin_settlement_approve_payout_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_approve_payout_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_approve_payout_request_v1(p_request_id uuid, p_admin_note text, p_reference_override text) TO authenticated;
-
-
 --
 -- TOC entry 9776 (class 0 OID 0)
 -- Dependencies: 1248
@@ -34617,8 +30143,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_approve_payout_request_v1(p_reques
 REVOKE ALL ON FUNCTION public.admin_settlement_list_accounts_v1(p_party_type public.settlement_party_type, p_only_negative boolean, p_min_abs_balance_iqd bigint, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_list_accounts_v1(p_party_type public.settlement_party_type, p_only_negative boolean, p_min_abs_balance_iqd bigint, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_list_accounts_v1(p_party_type public.settlement_party_type, p_only_negative boolean, p_min_abs_balance_iqd bigint, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9777 (class 0 OID 0)
 -- Dependencies: 1170
@@ -34629,8 +30153,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_list_accounts_v1(p_party_type publ
 REVOKE ALL ON FUNCTION public.admin_settlement_list_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_list_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_list_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9778 (class 0 OID 0)
 -- Dependencies: 785
@@ -34641,8 +30163,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_list_entries_v1(p_party_type publi
 REVOKE ALL ON FUNCTION public.admin_settlement_list_payment_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_list_payment_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_list_payment_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9779 (class 0 OID 0)
 -- Dependencies: 1168
@@ -34653,8 +30173,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_list_payment_requests_v1(p_status 
 REVOKE ALL ON FUNCTION public.admin_settlement_list_payout_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_list_payout_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_list_payout_requests_v1(p_status public.settlement_request_status, p_party_type public.settlement_party_type, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9780 (class 0 OID 0)
 -- Dependencies: 1460
@@ -34665,8 +30183,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_list_payout_requests_v1(p_status p
 REVOKE ALL ON FUNCTION public.admin_settlement_record_payout_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9781 (class 0 OID 0)
 -- Dependencies: 681
@@ -34677,8 +30193,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v1(p_party_type publ
 REVOKE ALL ON FUNCTION public.admin_settlement_record_payout_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9782 (class 0 OID 0)
 -- Dependencies: 1679
@@ -34689,8 +30203,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_record_payout_v2(p_party_type publ
 REVOKE ALL ON FUNCTION public.admin_settlement_record_receipt_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9783 (class 0 OID 0)
 -- Dependencies: 1636
@@ -34701,8 +30213,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v1(p_party_type pub
 REVOKE ALL ON FUNCTION public.admin_settlement_record_receipt_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9784 (class 0 OID 0)
 -- Dependencies: 1772
@@ -34713,8 +30223,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_record_receipt_v2(p_party_type pub
 REVOKE ALL ON FUNCTION public.admin_settlement_reject_payment_request_v1(p_request_id uuid, p_admin_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_reject_payment_request_v1(p_request_id uuid, p_admin_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_reject_payment_request_v1(p_request_id uuid, p_admin_note text) TO authenticated;
-
-
 --
 -- TOC entry 9785 (class 0 OID 0)
 -- Dependencies: 1478
@@ -34725,8 +30233,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_reject_payment_request_v1(p_reques
 REVOKE ALL ON FUNCTION public.admin_settlement_reject_payout_request_v1(p_request_id uuid, p_admin_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_reject_payout_request_v1(p_request_id uuid, p_admin_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_reject_payout_request_v1(p_request_id uuid, p_admin_note text) TO authenticated;
-
-
 --
 -- TOC entry 9786 (class 0 OID 0)
 -- Dependencies: 1490
@@ -34737,8 +30243,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_reject_payout_request_v1(p_request
 REVOKE ALL ON FUNCTION public.admin_settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9787 (class 0 OID 0)
 -- Dependencies: 1431
@@ -34749,8 +30253,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_statement_entries_v1(p_party_type 
 REVOKE ALL ON FUNCTION public.admin_settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) TO service_role;
 GRANT ALL ON FUNCTION public.admin_settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) TO authenticated;
-
-
 --
 -- TOC entry 9788 (class 0 OID 0)
 -- Dependencies: 1491
@@ -34761,8 +30263,6 @@ GRANT ALL ON FUNCTION public.admin_settlement_statement_summary_v1(p_party_type 
 REVOKE ALL ON FUNCTION public.admin_update_pricing_config_caps(p_id uuid, p_max_surge_multiplier numeric) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_update_pricing_config_caps(p_id uuid, p_max_surge_multiplier numeric) TO service_role;
 GRANT ALL ON FUNCTION public.admin_update_pricing_config_caps(p_id uuid, p_max_surge_multiplier numeric) TO authenticated;
-
-
 --
 -- TOC entry 9789 (class 0 OID 0)
 -- Dependencies: 880
@@ -34773,8 +30273,6 @@ GRANT ALL ON FUNCTION public.admin_update_pricing_config_caps(p_id uuid, p_max_s
 REVOKE ALL ON FUNCTION public.admin_update_ride_incident(p_incident_id uuid, p_status public.incident_status, p_assigned_to uuid, p_resolution_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_update_ride_incident(p_incident_id uuid, p_status public.incident_status, p_assigned_to uuid, p_resolution_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_update_ride_incident(p_incident_id uuid, p_status public.incident_status, p_assigned_to uuid, p_resolution_note text) TO authenticated;
-
-
 --
 -- TOC entry 9790 (class 0 OID 0)
 -- Dependencies: 642
@@ -34785,8 +30283,6 @@ GRANT ALL ON FUNCTION public.admin_update_ride_incident(p_incident_id uuid, p_st
 REVOKE ALL ON FUNCTION public.admin_upsert_service_area_geojson_v1(p_name text, p_governorate text, p_geojson jsonb, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_upsert_service_area_geojson_v1(p_name text, p_governorate text, p_geojson jsonb, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_upsert_service_area_geojson_v1(p_name text, p_governorate text, p_geojson jsonb, p_priority integer, p_is_active boolean, p_pricing_config_id uuid, p_min_base_fare_iqd integer, p_surge_multiplier numeric, p_surge_reason text, p_cash_rounding_step_iqd integer) TO authenticated;
-
-
 --
 -- TOC entry 9791 (class 0 OID 0)
 -- Dependencies: 1135
@@ -34797,8 +30293,6 @@ GRANT ALL ON FUNCTION public.admin_upsert_service_area_geojson_v1(p_name text, p
 REVOKE ALL ON FUNCTION public.admin_wallet_integrity_snapshot(p_limit integer, p_hold_age_seconds integer, p_topup_age_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_wallet_integrity_snapshot(p_limit integer, p_hold_age_seconds integer, p_topup_age_seconds integer) TO service_role;
 GRANT ALL ON FUNCTION public.admin_wallet_integrity_snapshot(p_limit integer, p_hold_age_seconds integer, p_topup_age_seconds integer) TO authenticated;
-
-
 --
 -- TOC entry 9793 (class 0 OID 0)
 -- Dependencies: 1720
@@ -34809,8 +30303,6 @@ GRANT ALL ON FUNCTION public.admin_wallet_integrity_snapshot(p_limit integer, p_
 REVOKE ALL ON FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9794 (class 0 OID 0)
 -- Dependencies: 793
@@ -34821,8 +30313,6 @@ GRANT ALL ON FUNCTION public.admin_withdraw_approve(p_request_id uuid, p_note te
 REVOKE ALL ON FUNCTION public.admin_withdraw_mark_paid(p_request_id uuid, p_payout_reference text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_withdraw_mark_paid(p_request_id uuid, p_payout_reference text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_withdraw_mark_paid(p_request_id uuid, p_payout_reference text) TO authenticated;
-
-
 --
 -- TOC entry 9795 (class 0 OID 0)
 -- Dependencies: 706
@@ -34833,8 +30323,6 @@ GRANT ALL ON FUNCTION public.admin_withdraw_mark_paid(p_request_id uuid, p_payou
 REVOKE ALL ON FUNCTION public.admin_withdraw_reject(p_request_id uuid, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.admin_withdraw_reject(p_request_id uuid, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.admin_withdraw_reject(p_request_id uuid, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9796 (class 0 OID 0)
 -- Dependencies: 936
@@ -34844,8 +30332,6 @@ GRANT ALL ON FUNCTION public.admin_withdraw_reject(p_request_id uuid, p_note tex
 
 REVOKE ALL ON FUNCTION public.apply_rating_aggregate() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.apply_rating_aggregate() TO service_role;
-
-
 --
 -- TOC entry 9797 (class 0 OID 0)
 -- Dependencies: 643
@@ -34855,8 +30341,6 @@ GRANT ALL ON FUNCTION public.apply_rating_aggregate() TO service_role;
 
 REVOKE ALL ON FUNCTION public.apply_referral_rewards(p_referred_id uuid, p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.apply_referral_rewards(p_referred_id uuid, p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9798 (class 0 OID 0)
 -- Dependencies: 1613
@@ -34867,8 +30351,6 @@ GRANT ALL ON FUNCTION public.apply_referral_rewards(p_referred_id uuid, p_ride_i
 REVOKE ALL ON FUNCTION public.cancel_ride_request(p_request_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.cancel_ride_request(p_request_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.cancel_ride_request(p_request_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9799 (class 0 OID 0)
 -- Dependencies: 1774
@@ -34879,8 +30361,6 @@ GRANT ALL ON FUNCTION public.cancel_ride_request(p_request_id uuid) TO authentic
 REVOKE ALL ON FUNCTION public.check_destination_lock(p_rider_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.check_destination_lock(p_rider_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.check_destination_lock(p_rider_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9800 (class 0 OID 0)
 -- Dependencies: 1137
@@ -34890,8 +30370,6 @@ GRANT ALL ON FUNCTION public.check_destination_lock(p_rider_id uuid) TO authenti
 
 REVOKE ALL ON FUNCTION public.create_receipt_from_payment() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.create_receipt_from_payment() TO service_role;
-
-
 --
 -- TOC entry 9801 (class 0 OID 0)
 -- Dependencies: 1700
@@ -34902,8 +30380,6 @@ GRANT ALL ON FUNCTION public.create_receipt_from_payment() TO service_role;
 REVOKE ALL ON FUNCTION public.create_ride_incident(p_ride_id uuid, p_category text, p_description text, p_severity public.incident_severity) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.create_ride_incident(p_ride_id uuid, p_category text, p_description text, p_severity public.incident_severity) TO service_role;
 GRANT ALL ON FUNCTION public.create_ride_incident(p_ride_id uuid, p_category text, p_description text, p_severity public.incident_severity) TO authenticated;
-
-
 --
 -- TOC entry 9802 (class 0 OID 0)
 -- Dependencies: 1524
@@ -34913,8 +30389,6 @@ GRANT ALL ON FUNCTION public.create_ride_incident(p_ride_id uuid, p_category tex
 
 REVOKE ALL ON FUNCTION public.customer_addresses_enforce_single_default() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.customer_addresses_enforce_single_default() TO service_role;
-
-
 --
 -- TOC entry 9804 (class 0 OID 0)
 -- Dependencies: 1102
@@ -34924,8 +30398,6 @@ GRANT ALL ON FUNCTION public.customer_addresses_enforce_single_default() TO serv
 
 REVOKE ALL ON FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9805 (class 0 OID 0)
 -- Dependencies: 688
@@ -34936,8 +30408,6 @@ GRANT ALL ON FUNCTION public.dispatch_accept_ride(p_request_id uuid, p_driver_id
 REVOKE ALL ON FUNCTION public.dispatch_accept_ride_user(p_request_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.dispatch_accept_ride_user(p_request_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.dispatch_accept_ride_user(p_request_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9807 (class 0 OID 0)
 -- Dependencies: 1577
@@ -34947,8 +30417,6 @@ GRANT ALL ON FUNCTION public.dispatch_accept_ride_user(p_request_id uuid) TO aut
 
 REVOKE ALL ON FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9809 (class 0 OID 0)
 -- Dependencies: 621
@@ -34959,8 +30427,6 @@ GRANT ALL ON FUNCTION public.dispatch_match_ride(p_request_id uuid, p_rider_id u
 REVOKE ALL ON FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) TO service_role;
 GRANT ALL ON FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radius_m numeric, p_limit_n integer, p_match_ttl_seconds integer, p_stale_after_seconds integer) TO authenticated;
-
-
 --
 -- TOC entry 9810 (class 0 OID 0)
 -- Dependencies: 511
@@ -34970,8 +30436,6 @@ GRANT ALL ON FUNCTION public.dispatch_match_ride_user(p_request_id uuid, p_radiu
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN,UPDATE ON TABLE public.merchant_order_deliveries TO authenticated;
 GRANT ALL ON TABLE public.merchant_order_deliveries TO service_role;
-
-
 --
 -- TOC entry 9811 (class 0 OID 0)
 -- Dependencies: 790
@@ -34982,8 +30446,6 @@ GRANT ALL ON TABLE public.merchant_order_deliveries TO service_role;
 REVOKE ALL ON FUNCTION public.driver_claim_order_delivery(p_delivery_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_claim_order_delivery(p_delivery_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.driver_claim_order_delivery(p_delivery_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9812 (class 0 OID 0)
 -- Dependencies: 1184
@@ -34994,8 +30456,6 @@ GRANT ALL ON FUNCTION public.driver_claim_order_delivery(p_delivery_id uuid) TO 
 REVOKE ALL ON FUNCTION public.driver_hotspots_v1(p_hours integer, p_limit integer, p_grid_m integer, p_service_area_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_hotspots_v1(p_hours integer, p_limit integer, p_grid_m integer, p_service_area_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.driver_hotspots_v1(p_hours integer, p_limit integer, p_grid_m integer, p_service_area_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9813 (class 0 OID 0)
 -- Dependencies: 1695
@@ -35005,8 +30465,6 @@ GRANT ALL ON FUNCTION public.driver_hotspots_v1(p_hours integer, p_limit integer
 
 REVOKE ALL ON FUNCTION public.driver_leaderboard_refresh_day(p_day date) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_leaderboard_refresh_day(p_day date) TO service_role;
-
-
 --
 -- TOC entry 9815 (class 0 OID 0)
 -- Dependencies: 1537
@@ -35017,8 +30475,6 @@ GRANT ALL ON FUNCTION public.driver_leaderboard_refresh_day(p_day date) TO servi
 REVOKE ALL ON FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_lng double precision, p_vehicle_type text, p_accuracy_m numeric, p_heading numeric, p_speed_mps numeric) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_lng double precision, p_vehicle_type text, p_accuracy_m numeric, p_heading numeric, p_speed_mps numeric) TO service_role;
 GRANT ALL ON FUNCTION public.driver_location_upsert_user_v1(p_lat double precision, p_lng double precision, p_vehicle_type text, p_accuracy_m numeric, p_heading numeric, p_speed_mps numeric) TO authenticated;
-
-
 --
 -- TOC entry 9816 (class 0 OID 0)
 -- Dependencies: 1574
@@ -35029,8 +30485,6 @@ GRANT ALL ON FUNCTION public.driver_location_upsert_user_v1(p_lat double precisi
 REVOKE ALL ON FUNCTION public.driver_settlement_get_my_account_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_get_my_account_v1() TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_get_my_account_v1() TO authenticated;
-
-
 --
 -- TOC entry 9817 (class 0 OID 0)
 -- Dependencies: 1268
@@ -35041,8 +30495,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_get_my_account_v1() TO authentica
 REVOKE ALL ON FUNCTION public.driver_settlement_list_entries_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_list_entries_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_list_entries_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9818 (class 0 OID 0)
 -- Dependencies: 1244
@@ -35053,8 +30505,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_list_entries_v1(p_limit integer, 
 REVOKE ALL ON FUNCTION public.driver_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9819 (class 0 OID 0)
 -- Dependencies: 1015
@@ -35065,8 +30515,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_list_payment_requests_v1(p_limit 
 REVOKE ALL ON FUNCTION public.driver_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9820 (class 0 OID 0)
 -- Dependencies: 602
@@ -35077,8 +30525,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_list_payout_requests_v1(p_limit i
 REVOKE ALL ON FUNCTION public.driver_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9821 (class 0 OID 0)
 -- Dependencies: 1075
@@ -35089,8 +30535,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_request_payment_v1(p_amount_iqd i
 REVOKE ALL ON FUNCTION public.driver_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9822 (class 0 OID 0)
 -- Dependencies: 926
@@ -35101,8 +30545,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_request_payout_v1(p_amount_iqd in
 REVOKE ALL ON FUNCTION public.driver_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9823 (class 0 OID 0)
 -- Dependencies: 1393
@@ -35113,8 +30555,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_statement_entries_v1(p_start time
 REVOKE ALL ON FUNCTION public.driver_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) TO service_role;
 GRANT ALL ON FUNCTION public.driver_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) TO authenticated;
-
-
 --
 -- TOC entry 9824 (class 0 OID 0)
 -- Dependencies: 1008
@@ -35124,8 +30564,6 @@ GRANT ALL ON FUNCTION public.driver_settlement_statement_summary_v1(p_start time
 
 REVOKE ALL ON FUNCTION public.driver_stats_rollup_day(p_day date) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.driver_stats_rollup_day(p_day date) TO service_role;
-
-
 --
 -- TOC entry 9825 (class 0 OID 0)
 -- Dependencies: 674
@@ -35135,8 +30573,6 @@ GRANT ALL ON FUNCTION public.driver_stats_rollup_day(p_day date) TO service_role
 
 REVOKE ALL ON FUNCTION public.drivers_force_id_from_auth_uid() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.drivers_force_id_from_auth_uid() TO service_role;
-
-
 --
 -- TOC entry 9826 (class 0 OID 0)
 -- Dependencies: 1443
@@ -35147,8 +30583,6 @@ GRANT ALL ON FUNCTION public.drivers_force_id_from_auth_uid() TO service_role;
 REVOKE ALL ON FUNCTION public.drivers_nearby_user_v1(p_request_id uuid, p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m integer, p_limit_n integer, p_required_capacity integer, p_stale_after_s integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.drivers_nearby_user_v1(p_request_id uuid, p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m integer, p_limit_n integer, p_required_capacity integer, p_stale_after_s integer) TO service_role;
 GRANT ALL ON FUNCTION public.drivers_nearby_user_v1(p_request_id uuid, p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m integer, p_limit_n integer, p_required_capacity integer, p_stale_after_s integer) TO authenticated;
-
-
 --
 -- TOC entry 9827 (class 0 OID 0)
 -- Dependencies: 817
@@ -35158,8 +30592,6 @@ GRANT ALL ON FUNCTION public.drivers_nearby_user_v1(p_request_id uuid, p_pickup_
 
 REVOKE ALL ON FUNCTION public.drivers_prevent_available_with_active_match() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.drivers_prevent_available_with_active_match() TO service_role;
-
-
 --
 -- TOC entry 9828 (class 0 OID 0)
 -- Dependencies: 716
@@ -35169,8 +30601,6 @@ GRANT ALL ON FUNCTION public.drivers_prevent_available_with_active_match() TO se
 
 REVOKE ALL ON FUNCTION public.edge_webhook_outbox_claim(p_limit integer, p_lock_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.edge_webhook_outbox_claim(p_limit integer, p_lock_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9829 (class 0 OID 0)
 -- Dependencies: 1795
@@ -35180,8 +30610,6 @@ GRANT ALL ON FUNCTION public.edge_webhook_outbox_claim(p_limit integer, p_lock_i
 
 REVOKE ALL ON FUNCTION public.edge_webhook_outbox_mark(p_outbox_id bigint, p_lock_id uuid, p_status text, p_error text, p_http_status integer, p_retry_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.edge_webhook_outbox_mark(p_outbox_id bigint, p_lock_id uuid, p_status text, p_error text, p_http_status integer, p_retry_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9830 (class 0 OID 0)
 -- Dependencies: 818
@@ -35191,8 +30619,6 @@ GRANT ALL ON FUNCTION public.edge_webhook_outbox_mark(p_outbox_id bigint, p_lock
 
 REVOKE ALL ON FUNCTION public.edge_webhook_outbox_prune(p_max_age_days integer, p_batch integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.edge_webhook_outbox_prune(p_max_age_days integer, p_batch integer) TO service_role;
-
-
 --
 -- TOC entry 9831 (class 0 OID 0)
 -- Dependencies: 792
@@ -35202,8 +30628,6 @@ GRANT ALL ON FUNCTION public.edge_webhook_outbox_prune(p_max_age_days integer, p
 
 REVOKE ALL ON FUNCTION public.enqueue_notification_outbox() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.enqueue_notification_outbox() TO service_role;
-
-
 --
 -- TOC entry 9832 (class 0 OID 0)
 -- Dependencies: 1003
@@ -35213,8 +30637,6 @@ GRANT ALL ON FUNCTION public.enqueue_notification_outbox() TO service_role;
 
 REVOKE ALL ON FUNCTION public.ensure_referral_code(p_user_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ensure_referral_code(p_user_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9833 (class 0 OID 0)
 -- Dependencies: 1251
@@ -35224,8 +30646,6 @@ GRANT ALL ON FUNCTION public.ensure_referral_code(p_user_id uuid) TO service_rol
 
 REVOKE ALL ON FUNCTION public.ensure_wallet_account() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ensure_wallet_account() TO service_role;
-
-
 --
 -- TOC entry 9834 (class 0 OID 0)
 -- Dependencies: 1594
@@ -35235,8 +30655,6 @@ GRANT ALL ON FUNCTION public.ensure_wallet_account() TO service_role;
 
 REVOKE ALL ON FUNCTION public.expire_matched_ride_requests_v1(p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.expire_matched_ride_requests_v1(p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9835 (class 0 OID 0)
 -- Dependencies: 557
@@ -35246,8 +30664,6 @@ GRANT ALL ON FUNCTION public.expire_matched_ride_requests_v1(p_limit integer) TO
 
 GRANT ALL ON TABLE public.family_members TO authenticated;
 GRANT ALL ON TABLE public.family_members TO service_role;
-
-
 --
 -- TOC entry 9836 (class 0 OID 0)
 -- Dependencies: 1637
@@ -35258,8 +30674,6 @@ GRANT ALL ON TABLE public.family_members TO service_role;
 REVOKE ALL ON FUNCTION public.family_accept_invite(p_invite_token text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.family_accept_invite(p_invite_token text) TO service_role;
 GRANT ALL ON FUNCTION public.family_accept_invite(p_invite_token text) TO authenticated;
-
-
 --
 -- TOC entry 9837 (class 0 OID 0)
 -- Dependencies: 556
@@ -35269,8 +30683,6 @@ GRANT ALL ON FUNCTION public.family_accept_invite(p_invite_token text) TO authen
 
 GRANT ALL ON TABLE public.families TO authenticated;
 GRANT ALL ON TABLE public.families TO service_role;
-
-
 --
 -- TOC entry 9838 (class 0 OID 0)
 -- Dependencies: 859
@@ -35281,8 +30693,6 @@ GRANT ALL ON TABLE public.families TO service_role;
 REVOKE ALL ON FUNCTION public.family_create(p_name text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.family_create(p_name text) TO service_role;
 GRANT ALL ON FUNCTION public.family_create(p_name text) TO authenticated;
-
-
 --
 -- TOC entry 9839 (class 0 OID 0)
 -- Dependencies: 1024
@@ -35293,8 +30703,6 @@ GRANT ALL ON FUNCTION public.family_create(p_name text) TO authenticated;
 REVOKE ALL ON FUNCTION public.family_invite_teen(p_family_id uuid, p_invite_email text, p_invite_token text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.family_invite_teen(p_family_id uuid, p_invite_email text, p_invite_token text) TO service_role;
 GRANT ALL ON FUNCTION public.family_invite_teen(p_family_id uuid, p_invite_email text, p_invite_token text) TO authenticated;
-
-
 --
 -- TOC entry 9840 (class 0 OID 0)
 -- Dependencies: 558
@@ -35304,8 +30712,6 @@ GRANT ALL ON FUNCTION public.family_invite_teen(p_family_id uuid, p_invite_email
 
 GRANT ALL ON TABLE public.teen_policies TO authenticated;
 GRANT ALL ON TABLE public.teen_policies TO service_role;
-
-
 --
 -- TOC entry 9841 (class 0 OID 0)
 -- Dependencies: 1030
@@ -35316,8 +30722,6 @@ GRANT ALL ON TABLE public.teen_policies TO service_role;
 REVOKE ALL ON FUNCTION public.family_update_policy(p_family_id uuid, p_teen_user_id uuid, p_destination_lock_enabled boolean, p_pickup_pin_enabled boolean, p_allowed_hours jsonb, p_geofence_allowlist jsonb, p_spend_cap_daily numeric) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.family_update_policy(p_family_id uuid, p_teen_user_id uuid, p_destination_lock_enabled boolean, p_pickup_pin_enabled boolean, p_allowed_hours jsonb, p_geofence_allowlist jsonb, p_spend_cap_daily numeric) TO service_role;
 GRANT ALL ON FUNCTION public.family_update_policy(p_family_id uuid, p_teen_user_id uuid, p_destination_lock_enabled boolean, p_pickup_pin_enabled boolean, p_allowed_hours jsonb, p_geofence_allowlist jsonb, p_spend_cap_daily numeric) TO authenticated;
-
-
 --
 -- TOC entry 9842 (class 0 OID 0)
 -- Dependencies: 1416
@@ -35327,8 +30731,6 @@ GRANT ALL ON FUNCTION public.family_update_policy(p_family_id uuid, p_teen_user_
 
 REVOKE ALL ON FUNCTION public.fraud_attach_event_to_case(p_case_id uuid, p_event_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_attach_event_to_case(p_case_id uuid, p_event_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9843 (class 0 OID 0)
 -- Dependencies: 1083
@@ -35338,8 +30740,6 @@ GRANT ALL ON FUNCTION public.fraud_attach_event_to_case(p_case_id uuid, p_event_
 
 REVOKE ALL ON FUNCTION public.fraud_close_case(p_case_id uuid, p_closed_by uuid, p_notes text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_close_case(p_case_id uuid, p_closed_by uuid, p_notes text) TO service_role;
-
-
 --
 -- TOC entry 9844 (class 0 OID 0)
 -- Dependencies: 552
@@ -35348,8 +30748,6 @@ GRANT ALL ON FUNCTION public.fraud_close_case(p_case_id uuid, p_closed_by uuid, 
 --
 
 GRANT ALL ON TABLE public.fraud_enforcement_actions TO service_role;
-
-
 --
 -- TOC entry 9845 (class 0 OID 0)
 -- Dependencies: 1399
@@ -35359,8 +30757,6 @@ GRANT ALL ON TABLE public.fraud_enforcement_actions TO service_role;
 
 REVOKE ALL ON FUNCTION public.fraud_enforce_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_reason text, p_severity integer, p_expires_at timestamp with time zone, p_metadata jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_enforce_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_reason text, p_severity integer, p_expires_at timestamp with time zone, p_metadata jsonb) TO service_role;
-
-
 --
 -- TOC entry 9846 (class 0 OID 0)
 -- Dependencies: 980
@@ -35370,8 +30766,6 @@ GRANT ALL ON FUNCTION public.fraud_enforce_action(p_action_type text, p_subject_
 
 REVOKE ALL ON FUNCTION public.fraud_expire_actions() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_expire_actions() TO service_role;
-
-
 --
 -- TOC entry 9847 (class 0 OID 0)
 -- Dependencies: 1095
@@ -35381,8 +30775,6 @@ GRANT ALL ON FUNCTION public.fraud_expire_actions() TO service_role;
 
 REVOKE ALL ON FUNCTION public.fraud_find_collusion_candidates(p_since interval, p_min_count integer, p_max_trip_distance_m integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_find_collusion_candidates(p_since interval, p_min_count integer, p_max_trip_distance_m integer) TO service_role;
-
-
 --
 -- TOC entry 9848 (class 0 OID 0)
 -- Dependencies: 770
@@ -35392,8 +30784,6 @@ GRANT ALL ON FUNCTION public.fraud_find_collusion_candidates(p_since interval, p
 
 REVOKE ALL ON FUNCTION public.fraud_find_route_deviation_candidates(p_min_streak integer, p_seen_since interval) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_find_route_deviation_candidates(p_min_streak integer, p_seen_since interval) TO service_role;
-
-
 --
 -- TOC entry 9849 (class 0 OID 0)
 -- Dependencies: 1103
@@ -35403,8 +30793,6 @@ GRANT ALL ON FUNCTION public.fraud_find_route_deviation_candidates(p_min_streak 
 
 REVOKE ALL ON FUNCTION public.fraud_get_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_get_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) TO service_role;
-
-
 --
 -- TOC entry 9850 (class 0 OID 0)
 -- Dependencies: 624
@@ -35414,8 +30802,6 @@ GRANT ALL ON FUNCTION public.fraud_get_active_action(p_action_type text, p_subje
 
 REVOKE ALL ON FUNCTION public.fraud_has_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_has_active_action(p_action_type text, p_subject_kind public.fraud_subject_kind, p_subject_key text) TO service_role;
-
-
 --
 -- TOC entry 9851 (class 0 OID 0)
 -- Dependencies: 549
@@ -35424,8 +30810,6 @@ GRANT ALL ON FUNCTION public.fraud_has_active_action(p_action_type text, p_subje
 --
 
 GRANT ALL ON TABLE public.fraud_events TO service_role;
-
-
 --
 -- TOC entry 9852 (class 0 OID 0)
 -- Dependencies: 1193
@@ -35435,8 +30819,6 @@ GRANT ALL ON TABLE public.fraud_events TO service_role;
 
 REVOKE ALL ON FUNCTION public.fraud_log_event(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_score integer, p_dedupe_key text, p_ip_prefix text, p_device_hash text, p_metadata jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_log_event(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_score integer, p_dedupe_key text, p_ip_prefix text, p_device_hash text, p_metadata jsonb) TO service_role;
-
-
 --
 -- TOC entry 9853 (class 0 OID 0)
 -- Dependencies: 550
@@ -35445,8 +30827,6 @@ GRANT ALL ON FUNCTION public.fraud_log_event(p_reason text, p_subject_kind publi
 --
 
 GRANT ALL ON TABLE public.fraud_cases TO service_role;
-
-
 --
 -- TOC entry 9854 (class 0 OID 0)
 -- Dependencies: 1270
@@ -35456,8 +30836,6 @@ GRANT ALL ON TABLE public.fraud_cases TO service_role;
 
 REVOKE ALL ON FUNCTION public.fraud_open_case(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_metadata jsonb, p_opened_by text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_open_case(p_reason text, p_subject_kind public.fraud_subject_kind, p_subject_key text, p_severity integer, p_metadata jsonb, p_opened_by text) TO service_role;
-
-
 --
 -- TOC entry 9855 (class 0 OID 0)
 -- Dependencies: 1402
@@ -35467,8 +30845,6 @@ GRANT ALL ON FUNCTION public.fraud_open_case(p_reason text, p_subject_kind publi
 
 REVOKE ALL ON FUNCTION public.fraud_resolve_action(p_action_id uuid, p_resolved_by uuid, p_notes text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.fraud_resolve_action(p_action_id uuid, p_resolved_by uuid, p_notes text) TO service_role;
-
-
 --
 -- TOC entry 9856 (class 0 OID 0)
 -- Dependencies: 937
@@ -35478,8 +30854,6 @@ GRANT ALL ON FUNCTION public.fraud_resolve_action(p_action_id uuid, p_resolved_b
 
 REVOKE ALL ON FUNCTION public.geo_cache_get_v1(p_cache_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.geo_cache_get_v1(p_cache_key text) TO service_role;
-
-
 --
 -- TOC entry 9857 (class 0 OID 0)
 -- Dependencies: 1409
@@ -35489,8 +30863,6 @@ GRANT ALL ON FUNCTION public.geo_cache_get_v1(p_cache_key text) TO service_role;
 
 REVOKE ALL ON FUNCTION public.geo_cache_put_v1(p_cache_key text, p_provider_code text, p_capability text, p_response jsonb, p_ttl_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.geo_cache_put_v1(p_cache_key text, p_provider_code text, p_capability text, p_response jsonb, p_ttl_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9858 (class 0 OID 0)
 -- Dependencies: 1162
@@ -35501,8 +30873,6 @@ GRANT ALL ON FUNCTION public.geo_cache_put_v1(p_cache_key text, p_provider_code 
 REVOKE ALL ON FUNCTION public.get_active_shift(p_driver_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_active_shift(p_driver_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.get_active_shift(p_driver_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9859 (class 0 OID 0)
 -- Dependencies: 606
@@ -35513,8 +30883,6 @@ GRANT ALL ON FUNCTION public.get_active_shift(p_driver_id uuid) TO authenticated
 REVOKE ALL ON FUNCTION public.get_applicable_pricing_rules(p_subtotal_iqd bigint, p_region text, p_user_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_applicable_pricing_rules(p_subtotal_iqd bigint, p_region text, p_user_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.get_applicable_pricing_rules(p_subtotal_iqd bigint, p_region text, p_user_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9860 (class 0 OID 0)
 -- Dependencies: 1276
@@ -35524,8 +30892,6 @@ GRANT ALL ON FUNCTION public.get_applicable_pricing_rules(p_subtotal_iqd bigint,
 
 REVOKE ALL ON FUNCTION public.get_assigned_driver(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_assigned_driver(p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9861 (class 0 OID 0)
 -- Dependencies: 1373
@@ -35535,8 +30901,6 @@ GRANT ALL ON FUNCTION public.get_assigned_driver(p_ride_id uuid) TO service_role
 
 REVOKE ALL ON FUNCTION public.get_driver_leaderboard(p_period public.driver_rank_period, p_period_start date, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_driver_leaderboard(p_period public.driver_rank_period, p_period_start date, p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9862 (class 0 OID 0)
 -- Dependencies: 751
@@ -35546,8 +30910,6 @@ GRANT ALL ON FUNCTION public.get_driver_leaderboard(p_period public.driver_rank_
 
 REVOKE ALL ON FUNCTION public.get_guardian_trip_info(p_trip_id uuid, p_guardian_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_guardian_trip_info(p_trip_id uuid, p_guardian_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9863 (class 0 OID 0)
 -- Dependencies: 1555
@@ -35558,8 +30920,6 @@ GRANT ALL ON FUNCTION public.get_guardian_trip_info(p_trip_id uuid, p_guardian_i
 REVOKE ALL ON FUNCTION public.get_live_activity_throttle_config(p_platform public.live_activity_platform) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_live_activity_throttle_config(p_platform public.live_activity_platform) TO service_role;
 GRANT ALL ON FUNCTION public.get_live_activity_throttle_config(p_platform public.live_activity_platform) TO authenticated;
-
-
 --
 -- TOC entry 9864 (class 0 OID 0)
 -- Dependencies: 1073
@@ -35570,8 +30930,6 @@ GRANT ALL ON FUNCTION public.get_live_activity_throttle_config(p_platform public
 REVOKE ALL ON FUNCTION public.get_my_app_context() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_my_app_context() TO service_role;
 GRANT ALL ON FUNCTION public.get_my_app_context() TO authenticated;
-
-
 --
 -- TOC entry 9865 (class 0 OID 0)
 -- Dependencies: 1550
@@ -35582,8 +30940,6 @@ GRANT ALL ON FUNCTION public.get_my_app_context() TO authenticated;
 REVOKE ALL ON FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng double precision, p_radius_km integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng double precision, p_radius_km integer) TO service_role;
 GRANT ALL ON FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng double precision, p_radius_km integer) TO authenticated;
-
-
 --
 -- TOC entry 9866 (class 0 OID 0)
 -- Dependencies: 726
@@ -35594,8 +30950,6 @@ GRANT ALL ON FUNCTION public.get_nearby_hotspots(p_lat double precision, p_lng d
 REVOKE ALL ON FUNCTION public.get_today_forecast(p_zone_id text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_today_forecast(p_zone_id text) TO service_role;
 GRANT ALL ON FUNCTION public.get_today_forecast(p_zone_id text) TO authenticated;
-
-
 --
 -- TOC entry 9867 (class 0 OID 0)
 -- Dependencies: 947
@@ -35606,8 +30960,6 @@ GRANT ALL ON FUNCTION public.get_today_forecast(p_zone_id text) TO authenticated
 REVOKE ALL ON FUNCTION public.get_user_membership(p_user_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_user_membership(p_user_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.get_user_membership(p_user_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9868 (class 0 OID 0)
 -- Dependencies: 983
@@ -35618,8 +30970,6 @@ GRANT ALL ON FUNCTION public.get_user_membership(p_user_id uuid) TO authenticate
 REVOKE ALL ON FUNCTION public.get_user_passkeys(p_user_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.get_user_passkeys(p_user_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.get_user_passkeys(p_user_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9869 (class 0 OID 0)
 -- Dependencies: 1304
@@ -35629,8 +30979,6 @@ GRANT ALL ON FUNCTION public.get_user_passkeys(p_user_id uuid) TO authenticated;
 
 REVOKE ALL ON FUNCTION public.guard_profiles_sensitive_update() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.guard_profiles_sensitive_update() TO service_role;
-
-
 --
 -- TOC entry 9870 (class 0 OID 0)
 -- Dependencies: 791
@@ -35641,8 +30989,6 @@ GRANT ALL ON FUNCTION public.guard_profiles_sensitive_update() TO service_role;
 REVOKE ALL ON FUNCTION public.guardian_trip_track_user_v1(p_trip_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.guardian_trip_track_user_v1(p_trip_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.guardian_trip_track_user_v1(p_trip_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9871 (class 0 OID 0)
 -- Dependencies: 1345
@@ -35652,8 +30998,6 @@ GRANT ALL ON FUNCTION public.guardian_trip_track_user_v1(p_trip_id uuid) TO auth
 
 REVOKE ALL ON FUNCTION public.handle_new_user() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.handle_new_user() TO service_role;
-
-
 --
 -- TOC entry 9872 (class 0 OID 0)
 -- Dependencies: 845
@@ -35664,8 +31008,6 @@ GRANT ALL ON FUNCTION public.handle_new_user() TO service_role;
 REVOKE ALL ON FUNCTION public.is_admin() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.is_admin() TO service_role;
 GRANT ALL ON FUNCTION public.is_admin() TO authenticated;
-
-
 --
 -- TOC entry 9873 (class 0 OID 0)
 -- Dependencies: 1245
@@ -35676,8 +31018,6 @@ GRANT ALL ON FUNCTION public.is_admin() TO authenticated;
 REVOKE ALL ON FUNCTION public.is_admin(p_user uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.is_admin(p_user uuid) TO service_role;
 GRANT ALL ON FUNCTION public.is_admin(p_user uuid) TO authenticated;
-
-
 --
 -- TOC entry 9874 (class 0 OID 0)
 -- Dependencies: 1116
@@ -35687,8 +31027,6 @@ GRANT ALL ON FUNCTION public.is_admin(p_user uuid) TO authenticated;
 
 REVOKE ALL ON FUNCTION public.is_pickup_pin_required_v1(p_rider_id uuid, p_driver_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.is_pickup_pin_required_v1(p_rider_id uuid, p_driver_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9875 (class 0 OID 0)
 -- Dependencies: 1096
@@ -35698,8 +31036,6 @@ GRANT ALL ON FUNCTION public.is_pickup_pin_required_v1(p_rider_id uuid, p_driver
 
 REVOKE ALL ON FUNCTION public.maps_pick_provider_v1(p_capability text, p_exclude text[]) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_pick_provider_v1(p_capability text, p_exclude text[]) TO service_role;
-
-
 --
 -- TOC entry 9876 (class 0 OID 0)
 -- Dependencies: 1670
@@ -35709,8 +31045,6 @@ GRANT ALL ON FUNCTION public.maps_pick_provider_v1(p_capability text, p_exclude 
 
 REVOKE ALL ON FUNCTION public.maps_pick_provider_v2(p_capability text, p_exclude text[]) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_pick_provider_v2(p_capability text, p_exclude text[]) TO service_role;
-
-
 --
 -- TOC entry 9877 (class 0 OID 0)
 -- Dependencies: 1617
@@ -35720,8 +31054,6 @@ GRANT ALL ON FUNCTION public.maps_pick_provider_v2(p_capability text, p_exclude 
 
 REVOKE ALL ON FUNCTION public.maps_pick_provider_v3(p_capability text, p_exclude text[]) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_pick_provider_v3(p_capability text, p_exclude text[]) TO service_role;
-
-
 --
 -- TOC entry 9878 (class 0 OID 0)
 -- Dependencies: 943
@@ -35731,8 +31063,6 @@ GRANT ALL ON FUNCTION public.maps_pick_provider_v3(p_capability text, p_exclude 
 
 REVOKE ALL ON FUNCTION public.maps_pick_provider_v4(p_capability text, p_exclude text[]) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_pick_provider_v4(p_capability text, p_exclude text[]) TO service_role;
-
-
 --
 -- TOC entry 9879 (class 0 OID 0)
 -- Dependencies: 646
@@ -35742,8 +31072,6 @@ GRANT ALL ON FUNCTION public.maps_pick_provider_v4(p_capability text, p_exclude 
 
 REVOKE ALL ON FUNCTION public.maps_provider_health_on_failure_v1(p_provider_code text, p_capability text, p_http_status integer, p_error_code text, p_base_cooldown_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_provider_health_on_failure_v1(p_provider_code text, p_capability text, p_http_status integer, p_error_code text, p_base_cooldown_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9880 (class 0 OID 0)
 -- Dependencies: 1667
@@ -35753,8 +31081,6 @@ GRANT ALL ON FUNCTION public.maps_provider_health_on_failure_v1(p_provider_code 
 
 REVOKE ALL ON FUNCTION public.maps_provider_health_on_success_v1(p_provider_code text, p_capability text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_provider_health_on_success_v1(p_provider_code text, p_capability text) TO service_role;
-
-
 --
 -- TOC entry 9881 (class 0 OID 0)
 -- Dependencies: 729
@@ -35764,8 +31090,6 @@ GRANT ALL ON FUNCTION public.maps_provider_health_on_success_v1(p_provider_code 
 
 REVOKE ALL ON FUNCTION public.maps_usage_increment_v1(p_provider_code text, p_capability text, p_units integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.maps_usage_increment_v1(p_provider_code text, p_capability text, p_units integer) TO service_role;
-
-
 --
 -- TOC entry 9882 (class 0 OID 0)
 -- Dependencies: 1643
@@ -35775,8 +31099,6 @@ GRANT ALL ON FUNCTION public.maps_usage_increment_v1(p_provider_code text, p_cap
 
 REVOKE ALL ON FUNCTION public.merchant_best_promo(p_merchant_id uuid, p_product_id uuid, p_price_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_best_promo(p_merchant_id uuid, p_product_id uuid, p_price_iqd bigint) TO service_role;
-
-
 --
 -- TOC entry 9883 (class 0 OID 0)
 -- Dependencies: 1496
@@ -35787,8 +31109,6 @@ GRANT ALL ON FUNCTION public.merchant_best_promo(p_merchant_id uuid, p_product_i
 REVOKE ALL ON FUNCTION public.merchant_chat_get_or_create_thread(p_merchant_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_chat_get_or_create_thread(p_merchant_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_chat_get_or_create_thread(p_merchant_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9884 (class 0 OID 0)
 -- Dependencies: 948
@@ -35799,8 +31119,6 @@ GRANT ALL ON FUNCTION public.merchant_chat_get_or_create_thread(p_merchant_id uu
 REVOKE ALL ON FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_before_created_at timestamp with time zone, p_before_id uuid, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_before_created_at timestamp with time zone, p_before_id uuid, p_limit integer) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_before_created_at timestamp with time zone, p_before_id uuid, p_limit integer) TO authenticated;
-
-
 --
 -- TOC entry 9885 (class 0 OID 0)
 -- Dependencies: 730
@@ -35811,8 +31129,6 @@ GRANT ALL ON FUNCTION public.merchant_chat_list_messages(p_thread_id uuid, p_bef
 REVOKE ALL ON FUNCTION public.merchant_chat_mark_read(p_thread_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_chat_mark_read(p_thread_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_chat_mark_read(p_thread_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9886 (class 0 OID 0)
 -- Dependencies: 1267
@@ -35822,8 +31138,6 @@ GRANT ALL ON FUNCTION public.merchant_chat_mark_read(p_thread_id uuid) TO authen
 
 REVOKE ALL ON FUNCTION public.merchant_chat_notify_new_message() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_chat_notify_new_message() TO service_role;
-
-
 --
 -- TOC entry 9887 (class 0 OID 0)
 -- Dependencies: 1787
@@ -35833,8 +31147,6 @@ GRANT ALL ON FUNCTION public.merchant_chat_notify_new_message() TO service_role;
 
 REVOKE ALL ON FUNCTION public.merchant_chat_touch_thread() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_chat_touch_thread() TO service_role;
-
-
 --
 -- TOC entry 9888 (class 0 OID 0)
 -- Dependencies: 1435
@@ -35844,8 +31156,6 @@ GRANT ALL ON FUNCTION public.merchant_chat_touch_thread() TO service_role;
 
 REVOKE ALL ON FUNCTION public.merchant_cod_handling_fee_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_cod_handling_fee_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) TO service_role;
-
-
 --
 -- TOC entry 9889 (class 0 OID 0)
 -- Dependencies: 1330
@@ -35855,8 +31165,6 @@ GRANT ALL ON FUNCTION public.merchant_cod_handling_fee_compute_iqd(p_merchant_id
 
 REVOKE ALL ON FUNCTION public.merchant_commission_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_commission_compute_iqd(p_merchant_id uuid, p_goods_amount_iqd bigint) TO service_role;
-
-
 --
 -- TOC entry 9890 (class 0 OID 0)
 -- Dependencies: 1762
@@ -35866,8 +31174,6 @@ GRANT ALL ON FUNCTION public.merchant_commission_compute_iqd(p_merchant_id uuid,
 
 REVOKE ALL ON FUNCTION public.merchant_order_cod_settlement_after() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_cod_settlement_after() TO service_role;
-
-
 --
 -- TOC entry 9891 (class 0 OID 0)
 -- Dependencies: 1676
@@ -35878,8 +31184,6 @@ GRANT ALL ON FUNCTION public.merchant_order_cod_settlement_after() TO service_ro
 REVOKE ALL ON FUNCTION public.merchant_order_create(p_merchant_id uuid, p_address_id uuid, p_customer_note text, p_items jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_create(p_merchant_id uuid, p_address_id uuid, p_customer_note text, p_items jsonb) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_order_create(p_merchant_id uuid, p_address_id uuid, p_customer_note text, p_items jsonb) TO authenticated;
-
-
 --
 -- TOC entry 9892 (class 0 OID 0)
 -- Dependencies: 1747
@@ -35889,8 +31193,6 @@ GRANT ALL ON FUNCTION public.merchant_order_create(p_merchant_id uuid, p_address
 
 REVOKE ALL ON FUNCTION public.merchant_order_delivery_audit_after() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_delivery_audit_after() TO service_role;
-
-
 --
 -- TOC entry 9893 (class 0 OID 0)
 -- Dependencies: 1530
@@ -35900,8 +31202,6 @@ GRANT ALL ON FUNCTION public.merchant_order_delivery_audit_after() TO service_ro
 
 REVOKE ALL ON FUNCTION public.merchant_order_delivery_guard() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_delivery_guard() TO service_role;
-
-
 --
 -- TOC entry 9894 (class 0 OID 0)
 -- Dependencies: 1053
@@ -35912,8 +31212,6 @@ GRANT ALL ON FUNCTION public.merchant_order_delivery_guard() TO service_role;
 REVOKE ALL ON FUNCTION public.merchant_order_get_or_create_chat_thread(p_order_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_get_or_create_chat_thread(p_order_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_order_get_or_create_chat_thread(p_order_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9895 (class 0 OID 0)
 -- Dependencies: 1419
@@ -35924,8 +31222,6 @@ GRANT ALL ON FUNCTION public.merchant_order_get_or_create_chat_thread(p_order_id
 REVOKE ALL ON FUNCTION public.merchant_order_request_delivery(p_order_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_request_delivery(p_order_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_order_request_delivery(p_order_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9896 (class 0 OID 0)
 -- Dependencies: 1368
@@ -35936,8 +31232,6 @@ GRANT ALL ON FUNCTION public.merchant_order_request_delivery(p_order_id uuid) TO
 REVOKE ALL ON FUNCTION public.merchant_order_set_status(p_order_id uuid, p_status public.merchant_order_status, p_merchant_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_set_status(p_order_id uuid, p_status public.merchant_order_status, p_merchant_note text) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_order_set_status(p_order_id uuid, p_status public.merchant_order_status, p_merchant_note text) TO authenticated;
-
-
 --
 -- TOC entry 9897 (class 0 OID 0)
 -- Dependencies: 970
@@ -35947,8 +31241,6 @@ GRANT ALL ON FUNCTION public.merchant_order_set_status(p_order_id uuid, p_status
 
 REVOKE ALL ON FUNCTION public.merchant_order_status_events_on_insert() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_status_events_on_insert() TO service_role;
-
-
 --
 -- TOC entry 9898 (class 0 OID 0)
 -- Dependencies: 1593
@@ -35958,8 +31250,6 @@ GRANT ALL ON FUNCTION public.merchant_order_status_events_on_insert() TO service
 
 REVOKE ALL ON FUNCTION public.merchant_order_status_events_on_status_change() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_order_status_events_on_status_change() TO service_role;
-
-
 --
 -- TOC entry 9899 (class 0 OID 0)
 -- Dependencies: 1034
@@ -35969,8 +31259,6 @@ GRANT ALL ON FUNCTION public.merchant_order_status_events_on_status_change() TO 
 
 REVOKE ALL ON FUNCTION public.merchant_orders_guard() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_orders_guard() TO service_role;
-
-
 --
 -- TOC entry 9900 (class 0 OID 0)
 -- Dependencies: 1589
@@ -35981,8 +31269,6 @@ GRANT ALL ON FUNCTION public.merchant_orders_guard() TO service_role;
 REVOKE ALL ON FUNCTION public.merchant_settlement_get_my_account_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_get_my_account_v1() TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_get_my_account_v1() TO authenticated;
-
-
 --
 -- TOC entry 9901 (class 0 OID 0)
 -- Dependencies: 653
@@ -35993,8 +31279,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_get_my_account_v1() TO authenti
 REVOKE ALL ON FUNCTION public.merchant_settlement_list_entries_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_entries_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_entries_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9902 (class 0 OID 0)
 -- Dependencies: 736
@@ -36005,8 +31289,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_list_entries_v1(p_limit integer
 REVOKE ALL ON FUNCTION public.merchant_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_payment_requests_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9903 (class 0 OID 0)
 -- Dependencies: 998
@@ -36017,8 +31299,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_list_payment_requests_v1(p_limi
 REVOKE ALL ON FUNCTION public.merchant_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_list_payout_requests_v1(p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9904 (class 0 OID 0)
 -- Dependencies: 1291
@@ -36029,8 +31309,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_list_payout_requests_v1(p_limit
 REVOKE ALL ON FUNCTION public.merchant_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_request_payment_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9905 (class 0 OID 0)
 -- Dependencies: 1122
@@ -36041,8 +31319,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_request_payment_v1(p_amount_iqd
 REVOKE ALL ON FUNCTION public.merchant_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_request_payout_v1(p_amount_iqd integer, p_method text, p_reference text, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 9906 (class 0 OID 0)
 -- Dependencies: 737
@@ -36053,8 +31329,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_request_payout_v1(p_amount_iqd 
 REVOKE ALL ON FUNCTION public.merchant_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_statement_entries_v1(p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9907 (class 0 OID 0)
 -- Dependencies: 1771
@@ -36065,8 +31339,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_statement_entries_v1(p_start ti
 REVOKE ALL ON FUNCTION public.merchant_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchant_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) TO service_role;
 GRANT ALL ON FUNCTION public.merchant_settlement_statement_summary_v1(p_start timestamp with time zone, p_end timestamp with time zone) TO authenticated;
-
-
 --
 -- TOC entry 9908 (class 0 OID 0)
 -- Dependencies: 1411
@@ -36076,8 +31348,6 @@ GRANT ALL ON FUNCTION public.merchant_settlement_statement_summary_v1(p_start ti
 
 REVOKE ALL ON FUNCTION public.merchants_audit_status_change() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchants_audit_status_change() TO service_role;
-
-
 --
 -- TOC entry 9909 (class 0 OID 0)
 -- Dependencies: 1708
@@ -36087,8 +31357,6 @@ GRANT ALL ON FUNCTION public.merchants_audit_status_change() TO service_role;
 
 REVOKE ALL ON FUNCTION public.merchants_guard_status() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.merchants_guard_status() TO service_role;
-
-
 --
 -- TOC entry 9910 (class 0 OID 0)
 -- Dependencies: 1597
@@ -36099,8 +31367,6 @@ GRANT ALL ON FUNCTION public.merchants_guard_status() TO service_role;
 REVOKE ALL ON FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer) TO service_role;
 GRANT ALL ON FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer) TO authenticated;
-
-
 --
 -- TOC entry 9911 (class 0 OID 0)
 -- Dependencies: 1014
@@ -36111,8 +31377,6 @@ GRANT ALL ON FUNCTION public.nearby_available_drivers_v1(p_pickup_lat double pre
 REVOKE ALL ON FUNCTION public.nearby_available_drivers_v2(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer, p_required_capacity integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.nearby_available_drivers_v2(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer, p_required_capacity integer) TO service_role;
 GRANT ALL ON FUNCTION public.nearby_available_drivers_v2(p_pickup_lat double precision, p_pickup_lng double precision, p_radius_m double precision, p_stale_after_s integer, p_limit integer, p_required_capacity integer) TO authenticated;
-
-
 --
 -- TOC entry 9912 (class 0 OID 0)
 -- Dependencies: 1665
@@ -36122,8 +31386,6 @@ GRANT ALL ON FUNCTION public.nearby_available_drivers_v2(p_pickup_lat double pre
 
 REVOKE ALL ON FUNCTION public.normalize_iraq_phone_e164(p_phone text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.normalize_iraq_phone_e164(p_phone text) TO service_role;
-
-
 --
 -- TOC entry 9913 (class 0 OID 0)
 -- Dependencies: 1061
@@ -36133,8 +31395,6 @@ GRANT ALL ON FUNCTION public.normalize_iraq_phone_e164(p_phone text) TO service_
 
 REVOKE ALL ON FUNCTION public.notification_outbox_claim(p_limit integer, p_lock_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notification_outbox_claim(p_limit integer, p_lock_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9914 (class 0 OID 0)
 -- Dependencies: 802
@@ -36144,8 +31404,6 @@ GRANT ALL ON FUNCTION public.notification_outbox_claim(p_limit integer, p_lock_i
 
 REVOKE ALL ON FUNCTION public.notification_outbox_mark(p_outbox_id bigint, p_status public.outbox_status, p_error text, p_retry_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notification_outbox_mark(p_outbox_id bigint, p_status public.outbox_status, p_error text, p_retry_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9915 (class 0 OID 0)
 -- Dependencies: 651
@@ -36155,8 +31413,6 @@ GRANT ALL ON FUNCTION public.notification_outbox_mark(p_outbox_id bigint, p_stat
 
 REVOKE ALL ON FUNCTION public.notify_merchant_order_created() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notify_merchant_order_created() TO service_role;
-
-
 --
 -- TOC entry 9916 (class 0 OID 0)
 -- Dependencies: 1533
@@ -36166,8 +31422,6 @@ GRANT ALL ON FUNCTION public.notify_merchant_order_created() TO service_role;
 
 REVOKE ALL ON FUNCTION public.notify_merchant_order_status_changed() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notify_merchant_order_status_changed() TO service_role;
-
-
 --
 -- TOC entry 9917 (class 0 OID 0)
 -- Dependencies: 869
@@ -36177,8 +31431,6 @@ GRANT ALL ON FUNCTION public.notify_merchant_order_status_changed() TO service_r
 
 REVOKE ALL ON FUNCTION public.notify_user(p_user_id uuid, p_kind text, p_title text, p_body text, p_data jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notify_user(p_user_id uuid, p_kind text, p_title text, p_body text, p_data jsonb) TO service_role;
-
-
 --
 -- TOC entry 9918 (class 0 OID 0)
 -- Dependencies: 1246
@@ -36188,8 +31440,6 @@ GRANT ALL ON FUNCTION public.notify_user(p_user_id uuid, p_kind text, p_title te
 
 REVOKE ALL ON FUNCTION public.notify_users_bulk(p_user_ids uuid[], p_kind text, p_title text, p_body text, p_data jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.notify_users_bulk(p_user_ids uuid[], p_kind text, p_title text, p_body text, p_data jsonb) TO service_role;
-
-
 --
 -- TOC entry 9919 (class 0 OID 0)
 -- Dependencies: 1724
@@ -36199,8 +31449,6 @@ GRANT ALL ON FUNCTION public.notify_users_bulk(p_user_ids uuid[], p_kind text, p
 
 REVOKE ALL ON FUNCTION public.on_ride_completed_side_effects() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.on_ride_completed_side_effects() TO service_role;
-
-
 --
 -- TOC entry 9920 (class 0 OID 0)
 -- Dependencies: 875
@@ -36210,8 +31458,6 @@ GRANT ALL ON FUNCTION public.on_ride_completed_side_effects() TO service_role;
 
 REVOKE ALL ON FUNCTION public.on_ride_completed_v1(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.on_ride_completed_v1(p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9921 (class 0 OID 0)
 -- Dependencies: 1580
@@ -36221,8 +31467,6 @@ GRANT ALL ON FUNCTION public.on_ride_completed_v1(p_ride_id uuid) TO service_rol
 
 REVOKE ALL ON FUNCTION public.ops_db_conn_stats() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ops_db_conn_stats() TO service_role;
-
-
 --
 -- TOC entry 9922 (class 0 OID 0)
 -- Dependencies: 962
@@ -36232,8 +31476,6 @@ GRANT ALL ON FUNCTION public.ops_db_conn_stats() TO service_role;
 
 REVOKE ALL ON FUNCTION public.passkey_register(p_user_id uuid, p_credential_id bytea, p_public_key bytea, p_passkey_type text, p_friendly_name text, p_backup_eligible boolean, p_device_type text, p_user_agent text, p_transports text[], p_webauthn_device_type text, p_backup_state boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.passkey_register(p_user_id uuid, p_credential_id bytea, p_public_key bytea, p_passkey_type text, p_friendly_name text, p_backup_eligible boolean, p_device_type text, p_user_agent text, p_transports text[], p_webauthn_device_type text, p_backup_state boolean) TO service_role;
-
-
 --
 -- TOC entry 9923 (class 0 OID 0)
 -- Dependencies: 1424
@@ -36244,8 +31486,6 @@ GRANT ALL ON FUNCTION public.passkey_register(p_user_id uuid, p_credential_id by
 REVOKE ALL ON FUNCTION public.passkey_revoke(p_passkey_id uuid, p_reason text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.passkey_revoke(p_passkey_id uuid, p_reason text) TO service_role;
 GRANT ALL ON FUNCTION public.passkey_revoke(p_passkey_id uuid, p_reason text) TO authenticated;
-
-
 --
 -- TOC entry 9924 (class 0 OID 0)
 -- Dependencies: 965
@@ -36255,8 +31495,6 @@ GRANT ALL ON FUNCTION public.passkey_revoke(p_passkey_id uuid, p_reason text) TO
 
 REVOKE ALL ON FUNCTION public.passkey_update_sign_count(p_credential_id bytea, p_new_sign_count bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.passkey_update_sign_count(p_credential_id bytea, p_new_sign_count bigint) TO service_role;
-
-
 --
 -- TOC entry 9925 (class 0 OID 0)
 -- Dependencies: 499
@@ -36266,8 +31504,6 @@ GRANT ALL ON FUNCTION public.passkey_update_sign_count(p_credential_id bytea, p_
 
 GRANT ALL ON TABLE public.payout_provider_jobs TO service_role;
 GRANT SELECT ON TABLE public.payout_provider_jobs TO authenticated;
-
-
 --
 -- TOC entry 9926 (class 0 OID 0)
 -- Dependencies: 1347
@@ -36277,8 +31513,6 @@ GRANT SELECT ON TABLE public.payout_provider_jobs TO authenticated;
 
 REVOKE ALL ON FUNCTION public.payout_claim_jobs(p_limit integer, p_lock_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.payout_claim_jobs(p_limit integer, p_lock_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9927 (class 0 OID 0)
 -- Dependencies: 1666
@@ -36288,8 +31522,6 @@ GRANT ALL ON FUNCTION public.payout_claim_jobs(p_limit integer, p_lock_seconds i
 
 REVOKE ALL ON FUNCTION public.payout_provider_jobs_set_idem() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.payout_provider_jobs_set_idem() TO service_role;
-
-
 --
 -- TOC entry 9928 (class 0 OID 0)
 -- Dependencies: 1651
@@ -36299,8 +31531,6 @@ GRANT ALL ON FUNCTION public.payout_provider_jobs_set_idem() TO service_role;
 
 REVOKE ALL ON FUNCTION public.payout_provider_jobs_touch() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.payout_provider_jobs_touch() TO service_role;
-
-
 --
 -- TOC entry 9929 (class 0 OID 0)
 -- Dependencies: 1662
@@ -36310,8 +31540,6 @@ GRANT ALL ON FUNCTION public.payout_provider_jobs_touch() TO service_role;
 
 REVOKE ALL ON FUNCTION public.platform_fee_compute_iqd(p_product_code text, p_service_area_id uuid, p_fare_iqd integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.platform_fee_compute_iqd(p_product_code text, p_service_area_id uuid, p_fare_iqd integer) TO service_role;
-
-
 --
 -- TOC entry 9930 (class 0 OID 0)
 -- Dependencies: 1231
@@ -36321,8 +31549,6 @@ GRANT ALL ON FUNCTION public.platform_fee_compute_iqd(p_product_code text, p_ser
 
 REVOKE ALL ON FUNCTION public.profile_kyc_init() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.profile_kyc_init() TO service_role;
-
-
 --
 -- TOC entry 9931 (class 0 OID 0)
 -- Dependencies: 841
@@ -36332,8 +31558,6 @@ GRANT ALL ON FUNCTION public.profile_kyc_init() TO service_role;
 
 REVOKE ALL ON FUNCTION public.profiles_guard_active_role() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.profiles_guard_active_role() TO service_role;
-
-
 --
 -- TOC entry 9932 (class 0 OID 0)
 -- Dependencies: 1736
@@ -36343,8 +31567,6 @@ GRANT ALL ON FUNCTION public.profiles_guard_active_role() TO service_role;
 
 REVOKE ALL ON FUNCTION public.rate_limit_consume(p_key text, p_window_seconds integer, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.rate_limit_consume(p_key text, p_window_seconds integer, p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9933 (class 0 OID 0)
 -- Dependencies: 1767
@@ -36354,8 +31576,6 @@ GRANT ALL ON FUNCTION public.rate_limit_consume(p_key text, p_window_seconds int
 
 REVOKE ALL ON FUNCTION public.rate_limit_prune(p_grace_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.rate_limit_prune(p_grace_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 9934 (class 0 OID 0)
 -- Dependencies: 1286
@@ -36366,8 +31586,6 @@ GRANT ALL ON FUNCTION public.rate_limit_prune(p_grace_seconds integer) TO servic
 REVOKE ALL ON FUNCTION public.redeem_gift_code(p_code text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.redeem_gift_code(p_code text) TO service_role;
 GRANT ALL ON FUNCTION public.redeem_gift_code(p_code text) TO authenticated;
-
-
 --
 -- TOC entry 9935 (class 0 OID 0)
 -- Dependencies: 1362
@@ -36378,8 +31596,6 @@ GRANT ALL ON FUNCTION public.redeem_gift_code(p_code text) TO authenticated;
 REVOKE ALL ON FUNCTION public.referral_apply_code(p_code text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_apply_code(p_code text) TO service_role;
 GRANT ALL ON FUNCTION public.referral_apply_code(p_code text) TO authenticated;
-
-
 --
 -- TOC entry 9936 (class 0 OID 0)
 -- Dependencies: 1223
@@ -36389,8 +31605,6 @@ GRANT ALL ON FUNCTION public.referral_apply_code(p_code text) TO authenticated;
 
 REVOKE ALL ON FUNCTION public.referral_apply_rewards_for_ride(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_apply_rewards_for_ride(p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 9937 (class 0 OID 0)
 -- Dependencies: 836
@@ -36401,8 +31615,6 @@ GRANT ALL ON FUNCTION public.referral_apply_rewards_for_ride(p_ride_id uuid) TO 
 REVOKE ALL ON FUNCTION public.referral_claim(p_code text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_claim(p_code text) TO service_role;
 GRANT ALL ON FUNCTION public.referral_claim(p_code text) TO authenticated;
-
-
 --
 -- TOC entry 9938 (class 0 OID 0)
 -- Dependencies: 1531
@@ -36412,8 +31624,6 @@ GRANT ALL ON FUNCTION public.referral_claim(p_code text) TO authenticated;
 
 REVOKE ALL ON FUNCTION public.referral_code_init() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_code_init() TO service_role;
-
-
 --
 -- TOC entry 9939 (class 0 OID 0)
 -- Dependencies: 1272
@@ -36423,8 +31633,6 @@ GRANT ALL ON FUNCTION public.referral_code_init() TO service_role;
 
 REVOKE ALL ON FUNCTION public.referral_generate_code() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_generate_code() TO service_role;
-
-
 --
 -- TOC entry 9940 (class 0 OID 0)
 -- Dependencies: 1045
@@ -36434,8 +31642,6 @@ GRANT ALL ON FUNCTION public.referral_generate_code() TO service_role;
 
 REVOKE ALL ON FUNCTION public.referral_on_ride_completed() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_on_ride_completed() TO service_role;
-
-
 --
 -- TOC entry 9941 (class 0 OID 0)
 -- Dependencies: 905
@@ -36446,8 +31652,6 @@ GRANT ALL ON FUNCTION public.referral_on_ride_completed() TO service_role;
 REVOKE ALL ON FUNCTION public.referral_status() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.referral_status() TO service_role;
 GRANT ALL ON FUNCTION public.referral_status() TO authenticated;
-
-
 --
 -- TOC entry 9942 (class 0 OID 0)
 -- Dependencies: 721
@@ -36457,8 +31661,6 @@ GRANT ALL ON FUNCTION public.referral_status() TO authenticated;
 
 REVOKE ALL ON FUNCTION public.refresh_driver_rank_snapshots(p_period public.driver_rank_period, p_period_start date, p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.refresh_driver_rank_snapshots(p_period public.driver_rank_period, p_period_start date, p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9943 (class 0 OID 0)
 -- Dependencies: 1076
@@ -36470,8 +31672,6 @@ REVOKE ALL ON FUNCTION public.resolve_service_area(p_lat double precision, p_lng
 GRANT ALL ON FUNCTION public.resolve_service_area(p_lat double precision, p_lng double precision) TO service_role;
 GRANT ALL ON FUNCTION public.resolve_service_area(p_lat double precision, p_lng double precision) TO anon;
 GRANT ALL ON FUNCTION public.resolve_service_area(p_lat double precision, p_lng double precision) TO authenticated;
-
-
 --
 -- TOC entry 9944 (class 0 OID 0)
 -- Dependencies: 1290
@@ -36481,8 +31681,6 @@ GRANT ALL ON FUNCTION public.resolve_service_area(p_lat double precision, p_lng 
 
 REVOKE ALL ON FUNCTION public.revoke_trip_share_tokens_on_ride_end() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.revoke_trip_share_tokens_on_ride_end() TO service_role;
-
-
 --
 -- TOC entry 9945 (class 0 OID 0)
 -- Dependencies: 1545
@@ -36493,8 +31691,6 @@ GRANT ALL ON FUNCTION public.revoke_trip_share_tokens_on_ride_end() TO service_r
 REVOKE ALL ON FUNCTION public.ride_chat_get_or_create_thread(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_chat_get_or_create_thread(p_ride_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_chat_get_or_create_thread(p_ride_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9946 (class 0 OID 0)
 -- Dependencies: 1505
@@ -36505,8 +31701,6 @@ GRANT ALL ON FUNCTION public.ride_chat_get_or_create_thread(p_ride_id uuid) TO a
 REVOKE ALL ON FUNCTION public.ride_chat_list_user_v1(p_ride_id uuid, p_limit integer, p_before timestamp with time zone) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_chat_list_user_v1(p_ride_id uuid, p_limit integer, p_before timestamp with time zone) TO service_role;
 GRANT ALL ON FUNCTION public.ride_chat_list_user_v1(p_ride_id uuid, p_limit integer, p_before timestamp with time zone) TO authenticated;
-
-
 --
 -- TOC entry 9947 (class 0 OID 0)
 -- Dependencies: 1295
@@ -36517,8 +31711,6 @@ GRANT ALL ON FUNCTION public.ride_chat_list_user_v1(p_ride_id uuid, p_limit inte
 REVOKE ALL ON FUNCTION public.ride_chat_mark_read(p_ride_id uuid, p_last_read_at timestamp with time zone, p_last_read_message_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_chat_mark_read(p_ride_id uuid, p_last_read_at timestamp with time zone, p_last_read_message_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_chat_mark_read(p_ride_id uuid, p_last_read_at timestamp with time zone, p_last_read_message_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9948 (class 0 OID 0)
 -- Dependencies: 1327
@@ -36528,8 +31720,6 @@ GRANT ALL ON FUNCTION public.ride_chat_mark_read(p_ride_id uuid, p_last_read_at 
 
 REVOKE ALL ON FUNCTION public.ride_chat_notify_on_message() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_chat_notify_on_message() TO service_role;
-
-
 --
 -- TOC entry 9949 (class 0 OID 0)
 -- Dependencies: 1179
@@ -36540,8 +31730,6 @@ GRANT ALL ON FUNCTION public.ride_chat_notify_on_message() TO service_role;
 REVOKE ALL ON FUNCTION public.ride_chat_send_message(p_ride_id uuid, p_kind public.chat_message_type, p_text text, p_attachment_bucket text, p_attachment_key text, p_metadata jsonb, p_message_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_chat_send_message(p_ride_id uuid, p_kind public.chat_message_type, p_text text, p_attachment_bucket text, p_attachment_key text, p_metadata jsonb, p_message_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_chat_send_message(p_ride_id uuid, p_kind public.chat_message_type, p_text text, p_attachment_bucket text, p_attachment_key text, p_metadata jsonb, p_message_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9951 (class 0 OID 0)
 -- Dependencies: 1583
@@ -36552,8 +31740,6 @@ GRANT ALL ON FUNCTION public.ride_chat_send_message(p_ride_id uuid, p_kind publi
 REVOKE ALL ON FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_source public.ride_intent_source, p_preferences jsonb, p_intent_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_source public.ride_intent_source, p_preferences jsonb, p_intent_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_source public.ride_intent_source, p_preferences jsonb, p_intent_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9952 (class 0 OID 0)
 -- Dependencies: 1464
@@ -36564,8 +31750,6 @@ GRANT ALL ON FUNCTION public.ride_intent_create_user_v1(p_pickup_lat double prec
 REVOKE ALL ON FUNCTION public.ride_pickup_pin_mark_verified(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_pickup_pin_mark_verified(p_ride_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_pickup_pin_mark_verified(p_ride_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9953 (class 0 OID 0)
 -- Dependencies: 911
@@ -36576,8 +31760,6 @@ GRANT ALL ON FUNCTION public.ride_pickup_pin_mark_verified(p_ride_id uuid) TO au
 REVOKE ALL ON FUNCTION public.ride_pickup_pin_record_failure(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_pickup_pin_record_failure(p_ride_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.ride_pickup_pin_record_failure(p_ride_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9954 (class 0 OID 0)
 -- Dependencies: 1631
@@ -36587,8 +31769,6 @@ GRANT ALL ON FUNCTION public.ride_pickup_pin_record_failure(p_ride_id uuid) TO a
 
 REVOKE ALL ON FUNCTION public.ride_requests_clear_match_fields() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_requests_clear_match_fields() TO service_role;
-
-
 --
 -- TOC entry 9955 (class 0 OID 0)
 -- Dependencies: 1319
@@ -36598,8 +31778,6 @@ GRANT ALL ON FUNCTION public.ride_requests_clear_match_fields() TO service_role;
 
 REVOKE ALL ON FUNCTION public.ride_requests_release_driver_on_unmatch() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_requests_release_driver_on_unmatch() TO service_role;
-
-
 --
 -- TOC entry 9956 (class 0 OID 0)
 -- Dependencies: 1591
@@ -36609,8 +31787,6 @@ GRANT ALL ON FUNCTION public.ride_requests_release_driver_on_unmatch() TO servic
 
 REVOKE ALL ON FUNCTION public.ride_requests_set_quote() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_requests_set_quote() TO service_role;
-
-
 --
 -- TOC entry 9957 (class 0 OID 0)
 -- Dependencies: 974
@@ -36620,8 +31796,6 @@ GRANT ALL ON FUNCTION public.ride_requests_set_quote() TO service_role;
 
 REVOKE ALL ON FUNCTION public.ride_requests_set_status_timestamps() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_requests_set_status_timestamps() TO service_role;
-
-
 --
 -- TOC entry 9958 (class 0 OID 0)
 -- Dependencies: 1612
@@ -36632,8 +31806,6 @@ GRANT ALL ON FUNCTION public.ride_requests_set_status_timestamps() TO service_ro
 REVOKE ALL ON FUNCTION public.ride_verify_pickup_pin(p_ride_id uuid, p_pin text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ride_verify_pickup_pin(p_ride_id uuid, p_pin text) TO service_role;
 GRANT ALL ON FUNCTION public.ride_verify_pickup_pin(p_ride_id uuid, p_pin text) TO authenticated;
-
-
 --
 -- TOC entry 9959 (class 0 OID 0)
 -- Dependencies: 931
@@ -36643,8 +31815,6 @@ GRANT ALL ON FUNCTION public.ride_verify_pickup_pin(p_ride_id uuid, p_pin text) 
 
 REVOKE ALL ON FUNCTION public.ridecheck_open_event_v1(p_ride_id uuid, p_kind public.ridecheck_kind, p_metadata jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ridecheck_open_event_v1(p_ride_id uuid, p_kind public.ridecheck_kind, p_metadata jsonb) TO service_role;
-
-
 --
 -- TOC entry 9960 (class 0 OID 0)
 -- Dependencies: 658
@@ -36655,8 +31825,6 @@ GRANT ALL ON FUNCTION public.ridecheck_open_event_v1(p_ride_id uuid, p_kind publ
 REVOKE ALL ON FUNCTION public.ridecheck_respond_user(p_event_id uuid, p_response public.ridecheck_response, p_note text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ridecheck_respond_user(p_event_id uuid, p_response public.ridecheck_response, p_note text) TO service_role;
 GRANT ALL ON FUNCTION public.ridecheck_respond_user(p_event_id uuid, p_response public.ridecheck_response, p_note text) TO authenticated;
-
-
 --
 -- TOC entry 9961 (class 0 OID 0)
 -- Dependencies: 769
@@ -36666,8 +31834,6 @@ GRANT ALL ON FUNCTION public.ridecheck_respond_user(p_event_id uuid, p_response 
 
 REVOKE ALL ON FUNCTION public.ridecheck_run_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.ridecheck_run_v1() TO service_role;
-
-
 --
 -- TOC entry 9962 (class 0 OID 0)
 -- Dependencies: 1115
@@ -36677,8 +31843,6 @@ GRANT ALL ON FUNCTION public.ridecheck_run_v1() TO service_role;
 
 REVOKE ALL ON FUNCTION public.safety_preferences_before_upsert() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.safety_preferences_before_upsert() TO service_role;
-
-
 --
 -- TOC entry 9964 (class 0 OID 0)
 -- Dependencies: 1199
@@ -36689,8 +31853,6 @@ GRANT ALL ON FUNCTION public.safety_preferences_before_upsert() TO service_role;
 REVOKE ALL ON FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9966 (class 0 OID 0)
 -- Dependencies: 1453
@@ -36701,8 +31863,6 @@ GRANT ALL ON FUNCTION public.scheduled_ride_cancel_user_v1(p_id uuid) TO authent
 REVOKE ALL ON FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_preferences jsonb, p_payment_method public.ride_payment_method, p_fare_quote_id uuid, p_scheduled_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_preferences jsonb, p_payment_method public.ride_payment_method, p_fare_quote_id uuid, p_scheduled_ride_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double precision, p_pickup_lng double precision, p_dropoff_lat double precision, p_dropoff_lng double precision, p_pickup_address text, p_dropoff_address text, p_product_code text, p_scheduled_at timestamp with time zone, p_preferences jsonb, p_payment_method public.ride_payment_method, p_fare_quote_id uuid, p_scheduled_ride_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9967 (class 0 OID 0)
 -- Dependencies: 741
@@ -36713,8 +31873,6 @@ GRANT ALL ON FUNCTION public.scheduled_ride_create_user_v1(p_pickup_lat double p
 REVOKE ALL ON FUNCTION public.scheduled_ride_list_user_v1(p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.scheduled_ride_list_user_v1(p_limit integer) TO service_role;
 GRANT ALL ON FUNCTION public.scheduled_ride_list_user_v1(p_limit integer) TO authenticated;
-
-
 --
 -- TOC entry 9968 (class 0 OID 0)
 -- Dependencies: 822
@@ -36724,8 +31882,6 @@ GRANT ALL ON FUNCTION public.scheduled_ride_list_user_v1(p_limit integer) TO aut
 
 REVOKE ALL ON FUNCTION public.scheduled_rides_execute_due(p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.scheduled_rides_execute_due(p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 9969 (class 0 OID 0)
 -- Dependencies: 1601
@@ -36736,8 +31892,6 @@ GRANT ALL ON FUNCTION public.scheduled_rides_execute_due(p_limit integer) TO ser
 REVOKE ALL ON FUNCTION public.search_catalog_v1(p_query text, p_limit integer, p_merchant_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.search_catalog_v1(p_query text, p_limit integer, p_merchant_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.search_catalog_v1(p_query text, p_limit integer, p_merchant_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9970 (class 0 OID 0)
 -- Dependencies: 1713
@@ -36748,8 +31902,6 @@ GRANT ALL ON FUNCTION public.search_catalog_v1(p_query text, p_limit integer, p_
 REVOKE ALL ON FUNCTION public.set_my_active_role(p_role public.user_role) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.set_my_active_role(p_role public.user_role) TO service_role;
 GRANT ALL ON FUNCTION public.set_my_active_role(p_role public.user_role) TO authenticated;
-
-
 --
 -- TOC entry 9971 (class 0 OID 0)
 -- Dependencies: 1093
@@ -36759,8 +31911,6 @@ GRANT ALL ON FUNCTION public.set_my_active_role(p_role public.user_role) TO auth
 
 REVOKE ALL ON FUNCTION public.set_service_area_id_from_pickup() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.set_service_area_id_from_pickup() TO service_role;
-
-
 --
 -- TOC entry 9972 (class 0 OID 0)
 -- Dependencies: 830
@@ -36770,8 +31920,6 @@ GRANT ALL ON FUNCTION public.set_service_area_id_from_pickup() TO service_role;
 
 REVOKE ALL ON FUNCTION public.set_updated_at() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.set_updated_at() TO service_role;
-
-
 --
 -- TOC entry 9973 (class 0 OID 0)
 -- Dependencies: 656
@@ -36781,8 +31929,6 @@ GRANT ALL ON FUNCTION public.set_updated_at() TO service_role;
 
 REVOKE ALL ON FUNCTION public.set_updated_at_wallet_payout_attempts() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.set_updated_at_wallet_payout_attempts() TO service_role;
-
-
 --
 -- TOC entry 9974 (class 0 OID 0)
 -- Dependencies: 532
@@ -36791,8 +31937,6 @@ GRANT ALL ON FUNCTION public.set_updated_at_wallet_payout_attempts() TO service_
 --
 
 GRANT ALL ON TABLE public.settlement_entries TO service_role;
-
-
 --
 -- TOC entry 9975 (class 0 OID 0)
 -- Dependencies: 1756
@@ -36802,8 +31946,6 @@ GRANT ALL ON TABLE public.settlement_entries TO service_role;
 
 REVOKE ALL ON FUNCTION public.settlement_post_entry(p_party_type public.settlement_party_type, p_party_id uuid, p_delta_iqd bigint, p_reason text, p_ref_type text, p_ref_id uuid, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.settlement_post_entry(p_party_type public.settlement_party_type, p_party_id uuid, p_delta_iqd bigint, p_reason text, p_ref_type text, p_ref_id uuid, p_idempotency_key text) TO service_role;
-
-
 --
 -- TOC entry 9976 (class 0 OID 0)
 -- Dependencies: 1377
@@ -36813,8 +31955,6 @@ GRANT ALL ON FUNCTION public.settlement_post_entry(p_party_type public.settlemen
 
 REVOKE ALL ON FUNCTION public.settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.settlement_statement_entries_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone, p_limit integer, p_offset integer) TO service_role;
-
-
 --
 -- TOC entry 9977 (class 0 OID 0)
 -- Dependencies: 672
@@ -36824,8 +31964,6 @@ GRANT ALL ON FUNCTION public.settlement_statement_entries_v1(p_party_type public
 
 REVOKE ALL ON FUNCTION public.settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.settlement_statement_summary_v1(p_party_type public.settlement_party_type, p_party_id uuid, p_start timestamp with time zone, p_end timestamp with time zone) TO service_role;
-
-
 --
 -- TOC entry 9978 (class 0 OID 0)
 -- Dependencies: 1220
@@ -36835,8 +31973,6 @@ GRANT ALL ON FUNCTION public.settlement_statement_summary_v1(p_party_type public
 
 REVOKE ALL ON FUNCTION public.st_dwithin(extensions.geography, extensions.geography, numeric) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.st_dwithin(extensions.geography, extensions.geography, numeric) TO service_role;
-
-
 --
 -- TOC entry 9979 (class 0 OID 0)
 -- Dependencies: 1037
@@ -36847,8 +31983,6 @@ GRANT ALL ON FUNCTION public.st_dwithin(extensions.geography, extensions.geograp
 REVOKE ALL ON FUNCTION public.submit_ride_rating(p_ride_id uuid, p_rating smallint, p_comment text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.submit_ride_rating(p_ride_id uuid, p_rating smallint, p_comment text) TO service_role;
 GRANT ALL ON FUNCTION public.submit_ride_rating(p_ride_id uuid, p_rating smallint, p_comment text) TO authenticated;
-
-
 --
 -- TOC entry 9980 (class 0 OID 0)
 -- Dependencies: 954
@@ -36860,8 +31994,6 @@ REVOKE ALL ON FUNCTION public.support_article_get_public_v1(p_slug text) FROM PU
 GRANT ALL ON FUNCTION public.support_article_get_public_v1(p_slug text) TO service_role;
 GRANT ALL ON FUNCTION public.support_article_get_public_v1(p_slug text) TO anon;
 GRANT ALL ON FUNCTION public.support_article_get_public_v1(p_slug text) TO authenticated;
-
-
 --
 -- TOC entry 9981 (class 0 OID 0)
 -- Dependencies: 990
@@ -36873,8 +32005,6 @@ REVOKE ALL ON FUNCTION public.support_articles_list_public_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_articles_list_public_v1() TO service_role;
 GRANT ALL ON FUNCTION public.support_articles_list_public_v1() TO anon;
 GRANT ALL ON FUNCTION public.support_articles_list_public_v1() TO authenticated;
-
-
 --
 -- TOC entry 9982 (class 0 OID 0)
 -- Dependencies: 1661
@@ -36885,8 +32015,6 @@ GRANT ALL ON FUNCTION public.support_articles_list_public_v1() TO authenticated;
 REVOKE ALL ON FUNCTION public.support_categories_list_user_v1() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_categories_list_user_v1() TO service_role;
 GRANT ALL ON FUNCTION public.support_categories_list_user_v1() TO authenticated;
-
-
 --
 -- TOC entry 9983 (class 0 OID 0)
 -- Dependencies: 909
@@ -36897,8 +32025,6 @@ GRANT ALL ON FUNCTION public.support_categories_list_user_v1() TO authenticated;
 REVOKE ALL ON FUNCTION public.support_ticket_create_user_v1(p_role_context public.user_role, p_subject text, p_message text, p_category_key text, p_category_code text, p_ride_id uuid, p_priority public.support_ticket_priority) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_ticket_create_user_v1(p_role_context public.user_role, p_subject text, p_message text, p_category_key text, p_category_code text, p_ride_id uuid, p_priority public.support_ticket_priority) TO service_role;
 GRANT ALL ON FUNCTION public.support_ticket_create_user_v1(p_role_context public.user_role, p_subject text, p_message text, p_category_key text, p_category_code text, p_ride_id uuid, p_priority public.support_ticket_priority) TO authenticated;
-
-
 --
 -- TOC entry 9984 (class 0 OID 0)
 -- Dependencies: 650
@@ -36909,8 +32035,6 @@ GRANT ALL ON FUNCTION public.support_ticket_create_user_v1(p_role_context public
 REVOKE ALL ON FUNCTION public.support_ticket_get_user_v1(p_ticket_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_ticket_get_user_v1(p_ticket_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.support_ticket_get_user_v1(p_ticket_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 9985 (class 0 OID 0)
 -- Dependencies: 678
@@ -36921,8 +32045,6 @@ GRANT ALL ON FUNCTION public.support_ticket_get_user_v1(p_ticket_id uuid) TO aut
 REVOKE ALL ON FUNCTION public.support_ticket_list_user_v1(p_status text, p_limit integer, p_offset integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_ticket_list_user_v1(p_status text, p_limit integer, p_offset integer) TO service_role;
 GRANT ALL ON FUNCTION public.support_ticket_list_user_v1(p_status text, p_limit integer, p_offset integer) TO authenticated;
-
-
 --
 -- TOC entry 9986 (class 0 OID 0)
 -- Dependencies: 1600
@@ -36933,8 +32055,6 @@ GRANT ALL ON FUNCTION public.support_ticket_list_user_v1(p_status text, p_limit 
 REVOKE ALL ON FUNCTION public.support_ticket_post_message_user_v1(p_ticket_id uuid, p_message text, p_attachments jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_ticket_post_message_user_v1(p_ticket_id uuid, p_message text, p_attachments jsonb) TO service_role;
 GRANT ALL ON FUNCTION public.support_ticket_post_message_user_v1(p_ticket_id uuid, p_message text, p_attachments jsonb) TO authenticated;
-
-
 --
 -- TOC entry 9987 (class 0 OID 0)
 -- Dependencies: 888
@@ -36944,8 +32064,6 @@ GRANT ALL ON FUNCTION public.support_ticket_post_message_user_v1(p_ticket_id uui
 
 REVOKE ALL ON FUNCTION public.support_ticket_touch_updated_at() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.support_ticket_touch_updated_at() TO service_role;
-
-
 --
 -- TOC entry 9988 (class 0 OID 0)
 -- Dependencies: 979
@@ -36955,8 +32073,6 @@ GRANT ALL ON FUNCTION public.support_ticket_touch_updated_at() TO service_role;
 
 REVOKE ALL ON FUNCTION public.sync_profile_kyc_from_submission() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.sync_profile_kyc_from_submission() TO service_role;
-
-
 --
 -- TOC entry 9989 (class 0 OID 0)
 -- Dependencies: 1182
@@ -36966,8 +32082,6 @@ GRANT ALL ON FUNCTION public.sync_profile_kyc_from_submission() TO service_role;
 
 REVOKE ALL ON FUNCTION public.sync_public_profile() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.sync_public_profile() TO service_role;
-
-
 --
 -- TOC entry 9990 (class 0 OID 0)
 -- Dependencies: 1698
@@ -36977,8 +32091,6 @@ GRANT ALL ON FUNCTION public.sync_public_profile() TO service_role;
 
 REVOKE ALL ON FUNCTION public.system_withdraw_mark_failed(p_request_id uuid, p_error_message text, p_provider_payload jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.system_withdraw_mark_failed(p_request_id uuid, p_error_message text, p_provider_payload jsonb) TO service_role;
-
-
 --
 -- TOC entry 9991 (class 0 OID 0)
 -- Dependencies: 1768
@@ -36988,8 +32100,6 @@ GRANT ALL ON FUNCTION public.system_withdraw_mark_failed(p_request_id uuid, p_er
 
 REVOKE ALL ON FUNCTION public.system_withdraw_mark_paid(p_request_id uuid, p_payout_reference text, p_provider_payload jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.system_withdraw_mark_paid(p_request_id uuid, p_payout_reference text, p_provider_payload jsonb) TO service_role;
-
-
 --
 -- TOC entry 9992 (class 0 OID 0)
 -- Dependencies: 761
@@ -36999,8 +32109,6 @@ GRANT ALL ON FUNCTION public.system_withdraw_mark_paid(p_request_id uuid, p_payo
 
 REVOKE ALL ON FUNCTION public.tg__set_updated_at() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.tg__set_updated_at() TO service_role;
-
-
 --
 -- TOC entry 9993 (class 0 OID 0)
 -- Dependencies: 1232
@@ -37010,8 +32118,6 @@ GRANT ALL ON FUNCTION public.tg__set_updated_at() TO service_role;
 
 REVOKE ALL ON FUNCTION public.tg_profiles_normalize_iraq_phone() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.tg_profiles_normalize_iraq_phone() TO service_role;
-
-
 --
 -- TOC entry 9994 (class 0 OID 0)
 -- Dependencies: 1348
@@ -37021,8 +32127,6 @@ GRANT ALL ON FUNCTION public.tg_profiles_normalize_iraq_phone() TO service_role;
 
 REVOKE ALL ON FUNCTION public.tg_trusted_contacts_normalize_iraq_phone() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.tg_trusted_contacts_normalize_iraq_phone() TO service_role;
-
-
 --
 -- TOC entry 9995 (class 0 OID 0)
 -- Dependencies: 1572
@@ -37032,8 +32136,6 @@ GRANT ALL ON FUNCTION public.tg_trusted_contacts_normalize_iraq_phone() TO servi
 
 REVOKE ALL ON FUNCTION public.touch_updated_at() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.touch_updated_at() TO service_role;
-
-
 --
 -- TOC entry 9998 (class 0 OID 0)
 -- Dependencies: 422
@@ -37043,8 +32145,6 @@ GRANT ALL ON FUNCTION public.touch_updated_at() TO service_role;
 
 GRANT ALL ON TABLE public.drivers TO authenticated;
 GRANT ALL ON TABLE public.drivers TO service_role;
-
-
 --
 -- TOC entry 10000 (class 0 OID 0)
 -- Dependencies: 1140
@@ -37054,8 +32154,6 @@ GRANT ALL ON TABLE public.drivers TO service_role;
 
 REVOKE ALL ON FUNCTION public.transition_driver(p_driver_id uuid, p_to_status public.driver_status, p_actor_id uuid, p_reason text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.transition_driver(p_driver_id uuid, p_to_status public.driver_status, p_actor_id uuid, p_reason text) TO service_role;
-
-
 --
 -- TOC entry 10001 (class 0 OID 0)
 -- Dependencies: 415
@@ -37065,8 +32163,6 @@ GRANT ALL ON FUNCTION public.transition_driver(p_driver_id uuid, p_to_status pub
 
 GRANT SELECT,INSERT,REFERENCES,DELETE,TRIGGER,TRUNCATE,MAINTAIN ON TABLE public.rides TO authenticated;
 GRANT ALL ON TABLE public.rides TO service_role;
-
-
 --
 -- TOC entry 10002 (class 0 OID 0)
 -- Dependencies: 713
@@ -37077,8 +32173,6 @@ GRANT ALL ON TABLE public.rides TO service_role;
 REVOKE ALL ON FUNCTION public.transition_ride_user_v1(p_ride_id uuid, p_to_status public.ride_status, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.transition_ride_user_v1(p_ride_id uuid, p_to_status public.ride_status, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) TO service_role;
 GRANT ALL ON FUNCTION public.transition_ride_user_v1(p_ride_id uuid, p_to_status public.ride_status, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) TO authenticated;
-
-
 --
 -- TOC entry 10004 (class 0 OID 0)
 -- Dependencies: 634
@@ -37088,8 +32182,6 @@ GRANT ALL ON FUNCTION public.transition_ride_user_v1(p_ride_id uuid, p_to_status
 
 REVOKE ALL ON FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer) TO service_role;
-
-
 --
 -- TOC entry 10006 (class 0 OID 0)
 -- Dependencies: 899
@@ -37099,8 +32191,6 @@ GRANT ALL ON FUNCTION public.transition_ride_v2(p_ride_id uuid, p_to_status publ
 
 REVOKE ALL ON FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status public.ride_status, p_actor_id uuid, p_actor_type public.ride_actor_type, p_expected_version integer, p_cash_collected_amount_iqd integer, p_cash_change_given_iqd integer) TO service_role;
-
-
 --
 -- TOC entry 10007 (class 0 OID 0)
 -- Dependencies: 1473
@@ -37110,8 +32200,6 @@ GRANT ALL ON FUNCTION public.transition_ride_v3(p_ride_id uuid, p_to_status publ
 
 REVOKE ALL ON FUNCTION public.trg_mct_set_last_preview() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_mct_set_last_preview() TO service_role;
-
-
 --
 -- TOC entry 10008 (class 0 OID 0)
 -- Dependencies: 1262
@@ -37121,8 +32209,6 @@ GRANT ALL ON FUNCTION public.trg_mct_set_last_preview() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trg_wh_interest_seed() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_wh_interest_seed() TO service_role;
-
-
 --
 -- TOC entry 10009 (class 0 OID 0)
 -- Dependencies: 704
@@ -37132,8 +32218,6 @@ GRANT ALL ON FUNCTION public.trg_wh_interest_seed() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trg_wh_merchant_chat_autoreply() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_wh_merchant_chat_autoreply() TO service_role;
-
-
 --
 -- TOC entry 10010 (class 0 OID 0)
 -- Dependencies: 1058
@@ -37143,8 +32227,6 @@ GRANT ALL ON FUNCTION public.trg_wh_merchant_chat_autoreply() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trg_wh_notifications_dispatch() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_wh_notifications_dispatch() TO service_role;
-
-
 --
 -- TOC entry 10011 (class 0 OID 0)
 -- Dependencies: 1735
@@ -37154,8 +32236,6 @@ GRANT ALL ON FUNCTION public.trg_wh_notifications_dispatch() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trg_wh_promotion_notify() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_wh_promotion_notify() TO service_role;
-
-
 --
 -- TOC entry 10012 (class 0 OID 0)
 -- Dependencies: 625
@@ -37165,8 +32245,6 @@ GRANT ALL ON FUNCTION public.trg_wh_promotion_notify() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trg_wh_trip_share_auto() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trg_wh_trip_share_auto() TO service_role;
-
-
 --
 -- TOC entry 10013 (class 0 OID 0)
 -- Dependencies: 813
@@ -37176,8 +32254,6 @@ GRANT ALL ON FUNCTION public.trg_wh_trip_share_auto() TO service_role;
 
 REVOKE ALL ON FUNCTION public.trip_claim_pending_broadcasts(p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_claim_pending_broadcasts(p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 10014 (class 0 OID 0)
 -- Dependencies: 559
@@ -37187,8 +32263,6 @@ GRANT ALL ON FUNCTION public.trip_claim_pending_broadcasts(p_limit integer) TO s
 
 GRANT ALL ON TABLE public.trip_guardian_links TO authenticated;
 GRANT ALL ON TABLE public.trip_guardian_links TO service_role;
-
-
 --
 -- TOC entry 10015 (class 0 OID 0)
 -- Dependencies: 1656
@@ -37198,8 +32272,6 @@ GRANT ALL ON TABLE public.trip_guardian_links TO service_role;
 
 REVOKE ALL ON FUNCTION public.trip_guardian_link_create(p_trip_id uuid, p_teen_user_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_guardian_link_create(p_trip_id uuid, p_teen_user_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10016 (class 0 OID 0)
 -- Dependencies: 1301
@@ -37209,8 +32281,6 @@ GRANT ALL ON FUNCTION public.trip_guardian_link_create(p_trip_id uuid, p_teen_us
 
 REVOKE ALL ON FUNCTION public.trip_live_activity_get_tokens(p_trip_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_live_activity_get_tokens(p_trip_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10017 (class 0 OID 0)
 -- Dependencies: 1253
@@ -37220,8 +32290,6 @@ GRANT ALL ON FUNCTION public.trip_live_activity_get_tokens(p_trip_id uuid) TO se
 
 REVOKE ALL ON FUNCTION public.trip_live_activity_record_push(p_activity_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_live_activity_record_push(p_activity_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10018 (class 0 OID 0)
 -- Dependencies: 560
@@ -37231,8 +32299,6 @@ GRANT ALL ON FUNCTION public.trip_live_activity_record_push(p_activity_id uuid) 
 
 GRANT ALL ON TABLE public.trip_live_activities TO authenticated;
 GRANT ALL ON TABLE public.trip_live_activities TO service_role;
-
-
 --
 -- TOC entry 10019 (class 0 OID 0)
 -- Dependencies: 1514
@@ -37243,8 +32309,6 @@ GRANT ALL ON TABLE public.trip_live_activities TO service_role;
 REVOKE ALL ON FUNCTION public.trip_live_activity_register(p_trip_id uuid, p_platform public.live_activity_platform, p_token text, p_show_full_addresses boolean) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_live_activity_register(p_trip_id uuid, p_platform public.live_activity_platform, p_token text, p_show_full_addresses boolean) TO service_role;
 GRANT ALL ON FUNCTION public.trip_live_activity_register(p_trip_id uuid, p_platform public.live_activity_platform, p_token text, p_show_full_addresses boolean) TO authenticated;
-
-
 --
 -- TOC entry 10020 (class 0 OID 0)
 -- Dependencies: 1790
@@ -37255,8 +32319,6 @@ GRANT ALL ON FUNCTION public.trip_live_activity_register(p_trip_id uuid, p_platf
 REVOKE ALL ON FUNCTION public.trip_live_activity_revoke(p_trip_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_live_activity_revoke(p_trip_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.trip_live_activity_revoke(p_trip_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 10021 (class 0 OID 0)
 -- Dependencies: 561
@@ -37266,8 +32328,6 @@ GRANT ALL ON FUNCTION public.trip_live_activity_revoke(p_trip_id uuid) TO authen
 
 GRANT ALL ON TABLE public.trip_status_transitions TO authenticated;
 GRANT ALL ON TABLE public.trip_status_transitions TO service_role;
-
-
 --
 -- TOC entry 10022 (class 0 OID 0)
 -- Dependencies: 1028
@@ -37277,8 +32337,6 @@ GRANT ALL ON TABLE public.trip_status_transitions TO service_role;
 
 REVOKE ALL ON FUNCTION public.trip_record_status_transition(p_trip_id uuid, p_old_status text, p_new_status text, p_eta_minutes integer, p_distance_remaining_m integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_record_status_transition(p_trip_id uuid, p_old_status text, p_new_status text, p_eta_minutes integer, p_distance_remaining_m integer) TO service_role;
-
-
 --
 -- TOC entry 10024 (class 0 OID 0)
 -- Dependencies: 1147
@@ -37288,8 +32346,6 @@ GRANT ALL ON FUNCTION public.trip_record_status_transition(p_trip_id uuid, p_old
 
 REVOKE ALL ON FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_id uuid, p_ttl_minutes integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_id uuid, p_ttl_minutes integer) TO service_role;
-
-
 --
 -- TOC entry 10026 (class 0 OID 0)
 -- Dependencies: 927
@@ -37300,8 +32356,6 @@ GRANT ALL ON FUNCTION public.trip_share_auto_create_v1(p_ride_id uuid, p_rider_i
 REVOKE ALL ON FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes integer) TO service_role;
 GRANT ALL ON FUNCTION public.trip_share_create_user_v1(p_ride_id uuid, p_ttl_minutes integer) TO authenticated;
-
-
 --
 -- TOC entry 10028 (class 0 OID 0)
 -- Dependencies: 1437
@@ -37313,8 +32367,6 @@ REVOKE ALL ON FUNCTION public.trip_share_view_public_v1(p_token text) FROM PUBLI
 GRANT ALL ON FUNCTION public.trip_share_view_public_v1(p_token text) TO service_role;
 GRANT ALL ON FUNCTION public.trip_share_view_public_v1(p_token text) TO anon;
 GRANT ALL ON FUNCTION public.trip_share_view_public_v1(p_token text) TO authenticated;
-
-
 --
 -- TOC entry 10029 (class 0 OID 0)
 -- Dependencies: 1680
@@ -37324,8 +32376,6 @@ GRANT ALL ON FUNCTION public.trip_share_view_public_v1(p_token text) TO authenti
 
 REVOKE ALL ON FUNCTION public.trusted_contact_outbox_claim(p_limit integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trusted_contact_outbox_claim(p_limit integer) TO service_role;
-
-
 --
 -- TOC entry 10030 (class 0 OID 0)
 -- Dependencies: 945
@@ -37335,8 +32385,6 @@ GRANT ALL ON FUNCTION public.trusted_contact_outbox_claim(p_limit integer) TO se
 
 REVOKE ALL ON FUNCTION public.trusted_contact_outbox_mark(p_outbox_id uuid, p_status public.outbox_status, p_error text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trusted_contact_outbox_mark(p_outbox_id uuid, p_status public.outbox_status, p_error text) TO service_role;
-
-
 --
 -- TOC entry 10031 (class 0 OID 0)
 -- Dependencies: 629
@@ -37346,8 +32394,6 @@ GRANT ALL ON FUNCTION public.trusted_contact_outbox_mark(p_outbox_id uuid, p_sta
 
 REVOKE ALL ON FUNCTION public.trusted_contact_outbox_mark_v2(p_outbox_id uuid, p_result text, p_error text, p_retry_in_seconds integer, p_http_status integer, p_provider_message_id text, p_response text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trusted_contact_outbox_mark_v2(p_outbox_id uuid, p_result text, p_error text, p_retry_in_seconds integer, p_http_status integer, p_provider_message_id text, p_response text) TO service_role;
-
-
 --
 -- TOC entry 10032 (class 0 OID 0)
 -- Dependencies: 701
@@ -37357,8 +32403,6 @@ GRANT ALL ON FUNCTION public.trusted_contact_outbox_mark_v2(p_outbox_id uuid, p_
 
 REVOKE ALL ON FUNCTION public.trusted_contacts_enforce_active_limit() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.trusted_contacts_enforce_active_limit() TO service_role;
-
-
 --
 -- TOC entry 10033 (class 0 OID 0)
 -- Dependencies: 1763
@@ -37368,8 +32412,6 @@ GRANT ALL ON FUNCTION public.trusted_contacts_enforce_active_limit() TO service_
 
 REVOKE ALL ON FUNCTION public.try_get_vault_secret(p_name text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.try_get_vault_secret(p_name text) TO service_role;
-
-
 --
 -- TOC entry 10034 (class 0 OID 0)
 -- Dependencies: 759
@@ -37379,8 +32421,6 @@ GRANT ALL ON FUNCTION public.try_get_vault_secret(p_name text) TO service_role;
 
 REVOKE ALL ON FUNCTION public.update_driver_achievements(p_driver_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.update_driver_achievements(p_driver_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10035 (class 0 OID 0)
 -- Dependencies: 1568
@@ -37390,8 +32430,6 @@ GRANT ALL ON FUNCTION public.update_driver_achievements(p_driver_id uuid) TO ser
 
 REVOKE ALL ON FUNCTION public.update_receipt_on_refund() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.update_receipt_on_refund() TO service_role;
-
-
 --
 -- TOC entry 10036 (class 0 OID 0)
 -- Dependencies: 1109
@@ -37401,8 +32439,6 @@ GRANT ALL ON FUNCTION public.update_receipt_on_refund() TO service_role;
 
 REVOKE ALL ON FUNCTION public.upsert_device_token(p_token text, p_platform public.device_platform) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.upsert_device_token(p_token text, p_platform public.device_platform) TO service_role;
-
-
 --
 -- TOC entry 10037 (class 0 OID 0)
 -- Dependencies: 1329
@@ -37413,8 +32449,6 @@ GRANT ALL ON FUNCTION public.upsert_device_token(p_token text, p_platform public
 REVOKE ALL ON FUNCTION public.user_notifications_mark_all_read() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.user_notifications_mark_all_read() TO service_role;
 GRANT ALL ON FUNCTION public.user_notifications_mark_all_read() TO authenticated;
-
-
 --
 -- TOC entry 10038 (class 0 OID 0)
 -- Dependencies: 748
@@ -37425,8 +32459,6 @@ GRANT ALL ON FUNCTION public.user_notifications_mark_all_read() TO authenticated
 REVOKE ALL ON FUNCTION public.user_notifications_mark_read(p_notification_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.user_notifications_mark_read(p_notification_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.user_notifications_mark_read(p_notification_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 10039 (class 0 OID 0)
 -- Dependencies: 1390
@@ -37437,8 +32469,6 @@ GRANT ALL ON FUNCTION public.user_notifications_mark_read(p_notification_id uuid
 REVOKE ALL ON FUNCTION public.wallet_cancel_withdraw(p_request_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_cancel_withdraw(p_request_id uuid) TO service_role;
 GRANT ALL ON FUNCTION public.wallet_cancel_withdraw(p_request_id uuid) TO authenticated;
-
-
 --
 -- TOC entry 10040 (class 0 OID 0)
 -- Dependencies: 1430
@@ -37448,8 +32478,6 @@ GRANT ALL ON FUNCTION public.wallet_cancel_withdraw(p_request_id uuid) TO authen
 
 REVOKE ALL ON FUNCTION public.wallet_capture_ride_hold(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_capture_ride_hold(p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10041 (class 0 OID 0)
 -- Dependencies: 416
@@ -37459,8 +32487,6 @@ GRANT ALL ON FUNCTION public.wallet_capture_ride_hold(p_ride_id uuid) TO service
 
 GRANT ALL ON TABLE public.topup_intents TO authenticated;
 GRANT ALL ON TABLE public.topup_intents TO service_role;
-
-
 --
 -- TOC entry 10042 (class 0 OID 0)
 -- Dependencies: 1092
@@ -37470,8 +32496,6 @@ GRANT ALL ON TABLE public.topup_intents TO service_role;
 
 REVOKE ALL ON FUNCTION public.wallet_fail_topup(p_intent_id uuid, p_failure_reason text, p_provider_payload jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_fail_topup(p_intent_id uuid, p_failure_reason text, p_provider_payload jsonb) TO service_role;
-
-
 --
 -- TOC entry 10043 (class 0 OID 0)
 -- Dependencies: 1275
@@ -37481,8 +32505,6 @@ GRANT ALL ON FUNCTION public.wallet_fail_topup(p_intent_id uuid, p_failure_reaso
 
 REVOKE ALL ON FUNCTION public.wallet_finalize_topup(p_intent_id uuid, p_provider_tx_id text, p_provider_payload jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_finalize_topup(p_intent_id uuid, p_provider_tx_id text, p_provider_payload jsonb) TO service_role;
-
-
 --
 -- TOC entry 10044 (class 0 OID 0)
 -- Dependencies: 417
@@ -37492,8 +32514,6 @@ GRANT ALL ON FUNCTION public.wallet_finalize_topup(p_intent_id uuid, p_provider_
 
 GRANT ALL ON TABLE public.wallet_accounts TO service_role;
 GRANT SELECT ON TABLE public.wallet_accounts TO authenticated;
-
-
 --
 -- TOC entry 10045 (class 0 OID 0)
 -- Dependencies: 1145
@@ -37504,8 +32524,6 @@ GRANT SELECT ON TABLE public.wallet_accounts TO authenticated;
 REVOKE ALL ON FUNCTION public.wallet_get_my_account() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_get_my_account() TO service_role;
 GRANT ALL ON FUNCTION public.wallet_get_my_account() TO authenticated;
-
-
 --
 -- TOC entry 10046 (class 0 OID 0)
 -- Dependencies: 1065
@@ -37515,8 +32533,6 @@ GRANT ALL ON FUNCTION public.wallet_get_my_account() TO authenticated;
 
 REVOKE ALL ON FUNCTION public.wallet_hold_upsert_for_ride(p_user_id uuid, p_ride_id uuid, p_amount_iqd bigint) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_hold_upsert_for_ride(p_user_id uuid, p_ride_id uuid, p_amount_iqd bigint) TO service_role;
-
-
 --
 -- TOC entry 10047 (class 0 OID 0)
 -- Dependencies: 873
@@ -37526,8 +32542,6 @@ GRANT ALL ON FUNCTION public.wallet_hold_upsert_for_ride(p_user_id uuid, p_ride_
 
 REVOKE ALL ON FUNCTION public.wallet_holds_normalize_status() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_holds_normalize_status() TO service_role;
-
-
 --
 -- TOC entry 10048 (class 0 OID 0)
 -- Dependencies: 1539
@@ -37537,8 +32551,6 @@ GRANT ALL ON FUNCTION public.wallet_holds_normalize_status() TO service_role;
 
 REVOKE ALL ON FUNCTION public.wallet_payout_attempts_autolog_paid() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_payout_attempts_autolog_paid() TO service_role;
-
-
 --
 -- TOC entry 10049 (class 0 OID 0)
 -- Dependencies: 1038
@@ -37548,8 +32560,6 @@ GRANT ALL ON FUNCTION public.wallet_payout_attempts_autolog_paid() TO service_ro
 
 REVOKE ALL ON FUNCTION public.wallet_release_ride_hold(p_ride_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_release_ride_hold(p_ride_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10050 (class 0 OID 0)
 -- Dependencies: 1527
@@ -37560,8 +32570,6 @@ GRANT ALL ON FUNCTION public.wallet_release_ride_hold(p_ride_id uuid) TO service
 REVOKE ALL ON FUNCTION public.wallet_request_withdraw(p_amount_iqd bigint, p_payout_kind public.withdraw_payout_kind, p_destination jsonb, p_idempotency_key text) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_request_withdraw(p_amount_iqd bigint, p_payout_kind public.withdraw_payout_kind, p_destination jsonb, p_idempotency_key text) TO service_role;
 GRANT ALL ON FUNCTION public.wallet_request_withdraw(p_amount_iqd bigint, p_payout_kind public.withdraw_payout_kind, p_destination jsonb, p_idempotency_key text) TO authenticated;
-
-
 --
 -- TOC entry 10051 (class 0 OID 0)
 -- Dependencies: 1064
@@ -37571,8 +32579,6 @@ GRANT ALL ON FUNCTION public.wallet_request_withdraw(p_amount_iqd bigint, p_payo
 
 REVOKE ALL ON FUNCTION public.wallet_validate_withdraw_destination(p_payout_kind public.withdraw_payout_kind, p_destination jsonb) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_validate_withdraw_destination(p_payout_kind public.withdraw_payout_kind, p_destination jsonb) TO service_role;
-
-
 --
 -- TOC entry 10052 (class 0 OID 0)
 -- Dependencies: 883
@@ -37582,8 +32588,6 @@ GRANT ALL ON FUNCTION public.wallet_validate_withdraw_destination(p_payout_kind 
 
 REVOKE ALL ON FUNCTION public.wallet_withdraw_audit_log_trigger() FROM PUBLIC;
 GRANT ALL ON FUNCTION public.wallet_withdraw_audit_log_trigger() TO service_role;
-
-
 --
 -- TOC entry 10053 (class 0 OID 0)
 -- Dependencies: 1564
@@ -37593,8 +32597,6 @@ GRANT ALL ON FUNCTION public.wallet_withdraw_audit_log_trigger() TO service_role
 
 REVOKE ALL ON FUNCTION public.webauthn_consume_challenge(p_challenge_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.webauthn_consume_challenge(p_challenge_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10054 (class 0 OID 0)
 -- Dependencies: 1259
@@ -37604,8 +32606,6 @@ GRANT ALL ON FUNCTION public.webauthn_consume_challenge(p_challenge_id uuid) TO 
 
 REVOKE ALL ON FUNCTION public.webauthn_consume_challenge_details(p_challenge_id uuid) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.webauthn_consume_challenge_details(p_challenge_id uuid) TO service_role;
-
-
 --
 -- TOC entry 10055 (class 0 OID 0)
 -- Dependencies: 1138
@@ -37615,8 +32615,6 @@ GRANT ALL ON FUNCTION public.webauthn_consume_challenge_details(p_challenge_id u
 
 REVOKE ALL ON FUNCTION public.webauthn_create_challenge(p_challenge_type text, p_user_id uuid, p_session_id text, p_user_agent text, p_challenge bytea) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.webauthn_create_challenge(p_challenge_type text, p_user_id uuid, p_session_id text, p_user_agent text, p_challenge bytea) TO service_role;
-
-
 --
 -- TOC entry 10056 (class 0 OID 0)
 -- Dependencies: 544
@@ -37626,8 +32624,6 @@ GRANT ALL ON FUNCTION public.webauthn_create_challenge(p_challenge_type text, p_
 
 GRANT ALL ON TABLE public.webhook_jobs TO authenticated;
 GRANT ALL ON TABLE public.webhook_jobs TO service_role;
-
-
 --
 -- TOC entry 10057 (class 0 OID 0)
 -- Dependencies: 1029
@@ -37637,8 +32633,6 @@ GRANT ALL ON TABLE public.webhook_jobs TO service_role;
 
 REVOKE ALL ON FUNCTION public.webhook_claim_jobs(p_limit integer, p_lock_seconds integer) FROM PUBLIC;
 GRANT ALL ON FUNCTION public.webhook_claim_jobs(p_limit integer, p_lock_seconds integer) TO service_role;
-
-
 --
 -- TOC entry 10058 (class 0 OID 0)
 -- Dependencies: 635
@@ -37648,8 +32642,6 @@ GRANT ALL ON FUNCTION public.webhook_claim_jobs(p_limit integer, p_lock_seconds 
 
 GRANT ALL ON TABLE public.achievement_progress TO authenticated;
 GRANT ALL ON TABLE public.achievement_progress TO service_role;
-
-
 --
 -- TOC entry 10145 (class 0 OID 0)
 -- Dependencies: 453
@@ -37658,8 +32650,6 @@ GRANT ALL ON TABLE public.achievement_progress TO service_role;
 --
 
 GRANT ALL ON TABLE public.achievements TO service_role;
-
-
 --
 -- TOC entry 10146 (class 0 OID 0)
 -- Dependencies: 566
@@ -37669,8 +32659,6 @@ GRANT ALL ON TABLE public.achievements TO service_role;
 
 GRANT ALL ON TABLE public.addon_offers TO authenticated;
 GRANT ALL ON TABLE public.addon_offers TO service_role;
-
-
 --
 -- TOC entry 10147 (class 0 OID 0)
 -- Dependencies: 494
@@ -37680,8 +32668,6 @@ GRANT ALL ON TABLE public.addon_offers TO service_role;
 
 GRANT ALL ON TABLE public.admin_audit_log TO service_role;
 GRANT SELECT ON TABLE public.admin_audit_log TO authenticated;
-
-
 --
 -- TOC entry 10149 (class 0 OID 0)
 -- Dependencies: 493
@@ -37691,8 +32677,6 @@ GRANT SELECT ON TABLE public.admin_audit_log TO authenticated;
 
 GRANT ALL ON SEQUENCE public.admin_audit_log_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.admin_audit_log_id_seq TO service_role;
-
-
 --
 -- TOC entry 10150 (class 0 OID 0)
 -- Dependencies: 489
@@ -37702,8 +32686,6 @@ GRANT ALL ON SEQUENCE public.admin_audit_log_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.admin_security_audit_functions_v1 TO authenticated;
 GRANT ALL ON TABLE public.admin_security_audit_functions_v1 TO service_role;
-
-
 --
 -- TOC entry 10151 (class 0 OID 0)
 -- Dependencies: 491
@@ -37713,8 +32695,6 @@ GRANT ALL ON TABLE public.admin_security_audit_functions_v1 TO service_role;
 
 GRANT ALL ON TABLE public.admin_security_audit_policies_v1 TO authenticated;
 GRANT ALL ON TABLE public.admin_security_audit_policies_v1 TO service_role;
-
-
 --
 -- TOC entry 10152 (class 0 OID 0)
 -- Dependencies: 490
@@ -37724,8 +32704,6 @@ GRANT ALL ON TABLE public.admin_security_audit_policies_v1 TO service_role;
 
 GRANT ALL ON TABLE public.admin_security_audit_schema_v1 TO authenticated;
 GRANT ALL ON TABLE public.admin_security_audit_schema_v1 TO service_role;
-
-
 --
 -- TOC entry 10153 (class 0 OID 0)
 -- Dependencies: 492
@@ -37735,8 +32713,6 @@ GRANT ALL ON TABLE public.admin_security_audit_schema_v1 TO service_role;
 
 GRANT ALL ON TABLE public.admin_users TO service_role;
 GRANT SELECT ON TABLE public.admin_users TO authenticated;
-
-
 --
 -- TOC entry 10154 (class 0 OID 0)
 -- Dependencies: 540
@@ -37745,8 +32721,6 @@ GRANT SELECT ON TABLE public.admin_users TO authenticated;
 --
 
 GRANT ALL ON TABLE public.agent_daily_counters TO service_role;
-
-
 --
 -- TOC entry 10155 (class 0 OID 0)
 -- Dependencies: 418
@@ -37755,8 +32729,6 @@ GRANT ALL ON TABLE public.agent_daily_counters TO service_role;
 --
 
 GRANT ALL ON TABLE public.api_rate_limits TO service_role;
-
-
 --
 -- TOC entry 10156 (class 0 OID 0)
 -- Dependencies: 419
@@ -37765,8 +32737,6 @@ GRANT ALL ON TABLE public.api_rate_limits TO service_role;
 --
 
 GRANT ALL ON TABLE public.app_events TO service_role;
-
-
 --
 -- TOC entry 10157 (class 0 OID 0)
 -- Dependencies: 515
@@ -37775,8 +32745,6 @@ GRANT ALL ON TABLE public.app_events TO service_role;
 --
 
 GRANT ALL ON TABLE public.auth_sms_hook_events TO service_role;
-
-
 --
 -- TOC entry 10158 (class 0 OID 0)
 -- Dependencies: 539
@@ -37785,8 +32753,6 @@ GRANT ALL ON TABLE public.auth_sms_hook_events TO service_role;
 --
 
 GRANT ALL ON TABLE public.cash_agents TO service_role;
-
-
 --
 -- TOC entry 10159 (class 0 OID 0)
 -- Dependencies: 533
@@ -37796,8 +32762,6 @@ GRANT ALL ON TABLE public.cash_agents TO service_role;
 
 GRANT ALL ON TABLE public.cash_collections TO authenticated;
 GRANT ALL ON TABLE public.cash_collections TO service_role;
-
-
 --
 -- TOC entry 10160 (class 0 OID 0)
 -- Dependencies: 541
@@ -37806,8 +32770,6 @@ GRANT ALL ON TABLE public.cash_collections TO service_role;
 --
 
 GRANT ALL ON TABLE public.cashbox_daily_closings TO service_role;
-
-
 --
 -- TOC entry 10161 (class 0 OID 0)
 -- Dependencies: 564
@@ -37817,8 +32779,6 @@ GRANT ALL ON TABLE public.cashbox_daily_closings TO service_role;
 
 GRANT ALL ON TABLE public.concierge_feedback TO authenticated;
 GRANT ALL ON TABLE public.concierge_feedback TO service_role;
-
-
 --
 -- TOC entry 10162 (class 0 OID 0)
 -- Dependencies: 563
@@ -37828,8 +32788,6 @@ GRANT ALL ON TABLE public.concierge_feedback TO service_role;
 
 GRANT ALL ON TABLE public.concierge_sessions TO authenticated;
 GRANT ALL ON TABLE public.concierge_sessions TO service_role;
-
-
 --
 -- TOC entry 10163 (class 0 OID 0)
 -- Dependencies: 507
@@ -37839,8 +32797,6 @@ GRANT ALL ON TABLE public.concierge_sessions TO service_role;
 
 GRANT ALL ON TABLE public.customer_addresses TO authenticated;
 GRANT ALL ON TABLE public.customer_addresses TO service_role;
-
-
 --
 -- TOC entry 10164 (class 0 OID 0)
 -- Dependencies: 573
@@ -37850,8 +32806,6 @@ GRANT ALL ON TABLE public.customer_addresses TO service_role;
 
 GRANT ALL ON TABLE public.demand_hotspots TO authenticated;
 GRANT ALL ON TABLE public.demand_hotspots TO service_role;
-
-
 --
 -- TOC entry 10165 (class 0 OID 0)
 -- Dependencies: 447
@@ -37861,8 +32815,6 @@ GRANT ALL ON TABLE public.demand_hotspots TO service_role;
 
 GRANT ALL ON TABLE public.device_tokens TO authenticated;
 GRANT ALL ON TABLE public.device_tokens TO service_role;
-
-
 --
 -- TOC entry 10167 (class 0 OID 0)
 -- Dependencies: 446
@@ -37873,8 +32825,6 @@ GRANT ALL ON TABLE public.device_tokens TO service_role;
 GRANT ALL ON SEQUENCE public.device_tokens_id_seq TO anon;
 GRANT ALL ON SEQUENCE public.device_tokens_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.device_tokens_id_seq TO service_role;
-
-
 --
 -- TOC entry 10168 (class 0 OID 0)
 -- Dependencies: 575
@@ -37884,8 +32834,6 @@ GRANT ALL ON SEQUENCE public.device_tokens_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.driver_coaching_tips TO authenticated;
 GRANT ALL ON TABLE public.driver_coaching_tips TO service_role;
-
-
 --
 -- TOC entry 10169 (class 0 OID 0)
 -- Dependencies: 450
@@ -37895,8 +32843,6 @@ GRANT ALL ON TABLE public.driver_coaching_tips TO service_role;
 
 GRANT ALL ON TABLE public.driver_counters TO authenticated;
 GRANT ALL ON TABLE public.driver_counters TO service_role;
-
-
 --
 -- TOC entry 10170 (class 0 OID 0)
 -- Dependencies: 476
@@ -37906,8 +32852,6 @@ GRANT ALL ON TABLE public.driver_counters TO service_role;
 
 GRANT ALL ON TABLE public.driver_leaderboard_daily TO authenticated;
 GRANT ALL ON TABLE public.driver_leaderboard_daily TO service_role;
-
-
 --
 -- TOC entry 10171 (class 0 OID 0)
 -- Dependencies: 420
@@ -37917,8 +32861,6 @@ GRANT ALL ON TABLE public.driver_leaderboard_daily TO service_role;
 
 GRANT ALL ON TABLE public.driver_locations TO service_role;
 GRANT ALL ON TABLE public.driver_locations TO authenticated;
-
-
 --
 -- TOC entry 10172 (class 0 OID 0)
 -- Dependencies: 452
@@ -37928,8 +32870,6 @@ GRANT ALL ON TABLE public.driver_locations TO authenticated;
 
 GRANT ALL ON TABLE public.driver_rank_snapshots TO authenticated;
 GRANT ALL ON TABLE public.driver_rank_snapshots TO service_role;
-
-
 --
 -- TOC entry 10173 (class 0 OID 0)
 -- Dependencies: 571
@@ -37939,8 +32879,6 @@ GRANT ALL ON TABLE public.driver_rank_snapshots TO service_role;
 
 GRANT ALL ON TABLE public.driver_shifts TO authenticated;
 GRANT ALL ON TABLE public.driver_shifts TO service_role;
-
-
 --
 -- TOC entry 10174 (class 0 OID 0)
 -- Dependencies: 428
@@ -37950,8 +32888,6 @@ GRANT ALL ON TABLE public.driver_shifts TO service_role;
 
 GRANT ALL ON TABLE public.profiles TO service_role;
 GRANT SELECT ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10175 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -37960,8 +32896,6 @@ GRANT SELECT ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(display_name) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10176 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -37970,8 +32904,6 @@ GRANT UPDATE(display_name) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(phone) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10177 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -37980,8 +32912,6 @@ GRANT UPDATE(phone) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(rating_avg) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10178 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -37990,8 +32920,6 @@ GRANT UPDATE(rating_avg) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(rating_count) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10179 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -38000,8 +32928,6 @@ GRANT UPDATE(rating_count) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(avatar_object_key) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10180 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -38010,8 +32936,6 @@ GRANT UPDATE(avatar_object_key) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(locale) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10181 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -38020,8 +32944,6 @@ GRANT UPDATE(locale) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(active_role) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10182 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -38030,8 +32952,6 @@ GRANT UPDATE(active_role) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(gender) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10183 (class 0 OID 0)
 -- Dependencies: 428 10174
@@ -38040,8 +32960,6 @@ GRANT UPDATE(gender) ON TABLE public.profiles TO authenticated;
 --
 
 GRANT UPDATE(role_onboarding_completed) ON TABLE public.profiles TO authenticated;
-
-
 --
 -- TOC entry 10184 (class 0 OID 0)
 -- Dependencies: 581
@@ -38051,8 +32969,6 @@ GRANT UPDATE(role_onboarding_completed) ON TABLE public.profiles TO authenticate
 
 GRANT ALL ON TABLE public.driver_stats TO authenticated;
 GRANT ALL ON TABLE public.driver_stats TO service_role;
-
-
 --
 -- TOC entry 10185 (class 0 OID 0)
 -- Dependencies: 451
@@ -38062,8 +32978,6 @@ GRANT ALL ON TABLE public.driver_stats TO service_role;
 
 GRANT ALL ON TABLE public.driver_stats_daily TO authenticated;
 GRANT ALL ON TABLE public.driver_stats_daily TO service_role;
-
-
 --
 -- TOC entry 10187 (class 0 OID 0)
 -- Dependencies: 514
@@ -38073,8 +32987,6 @@ GRANT ALL ON TABLE public.driver_stats_daily TO service_role;
 
 GRANT ALL ON TABLE public.driver_status_events TO authenticated;
 GRANT ALL ON TABLE public.driver_status_events TO service_role;
-
-
 --
 -- TOC entry 10188 (class 0 OID 0)
 -- Dependencies: 513
@@ -38084,8 +32996,6 @@ GRANT ALL ON TABLE public.driver_status_events TO service_role;
 
 GRANT ALL ON SEQUENCE public.driver_status_events_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.driver_status_events_id_seq TO service_role;
-
-
 --
 -- TOC entry 10189 (class 0 OID 0)
 -- Dependencies: 421
@@ -38095,8 +33005,6 @@ GRANT ALL ON SEQUENCE public.driver_status_events_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.driver_vehicles TO authenticated;
 GRANT ALL ON TABLE public.driver_vehicles TO service_role;
-
-
 --
 -- TOC entry 10190 (class 0 OID 0)
 -- Dependencies: 576
@@ -38106,8 +33014,6 @@ GRANT ALL ON TABLE public.driver_vehicles TO service_role;
 
 GRANT ALL ON TABLE public.earnings_coach_sessions TO authenticated;
 GRANT ALL ON TABLE public.earnings_coach_sessions TO service_role;
-
-
 --
 -- TOC entry 10191 (class 0 OID 0)
 -- Dependencies: 574
@@ -38117,8 +33023,6 @@ GRANT ALL ON TABLE public.earnings_coach_sessions TO service_role;
 
 GRANT ALL ON TABLE public.earnings_forecasts TO authenticated;
 GRANT ALL ON TABLE public.earnings_forecasts TO service_role;
-
-
 --
 -- TOC entry 10192 (class 0 OID 0)
 -- Dependencies: 592
@@ -38127,8 +33031,6 @@ GRANT ALL ON TABLE public.earnings_forecasts TO service_role;
 --
 
 GRANT ALL ON TABLE public.edge_webhook_outbox TO service_role;
-
-
 --
 -- TOC entry 10193 (class 0 OID 0)
 -- Dependencies: 591
@@ -38138,8 +33040,6 @@ GRANT ALL ON TABLE public.edge_webhook_outbox TO service_role;
 
 GRANT ALL ON SEQUENCE public.edge_webhook_outbox_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.edge_webhook_outbox_id_seq TO service_role;
-
-
 --
 -- TOC entry 10194 (class 0 OID 0)
 -- Dependencies: 527
@@ -38149,8 +33049,6 @@ GRANT ALL ON SEQUENCE public.edge_webhook_outbox_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.fare_quotes TO authenticated;
 GRANT ALL ON TABLE public.fare_quotes TO service_role;
-
-
 --
 -- TOC entry 10195 (class 0 OID 0)
 -- Dependencies: 570
@@ -38161,8 +33059,6 @@ GRANT ALL ON TABLE public.fare_quotes TO service_role;
 GRANT ALL ON TABLE public.fee_disclosures TO authenticated;
 GRANT ALL ON TABLE public.fee_disclosures TO service_role;
 GRANT SELECT ON TABLE public.fee_disclosures TO anon;
-
-
 --
 -- TOC entry 10196 (class 0 OID 0)
 -- Dependencies: 551
@@ -38171,8 +33067,6 @@ GRANT SELECT ON TABLE public.fee_disclosures TO anon;
 --
 
 GRANT ALL ON TABLE public.fraud_case_events TO service_role;
-
-
 --
 -- TOC entry 10197 (class 0 OID 0)
 -- Dependencies: 599
@@ -38181,8 +33075,6 @@ GRANT ALL ON TABLE public.fraud_case_events TO service_role;
 --
 
 GRANT ALL ON TABLE public.geo_cache TO service_role;
-
-
 --
 -- TOC entry 10198 (class 0 OID 0)
 -- Dependencies: 469
@@ -38191,8 +33083,6 @@ GRANT ALL ON TABLE public.geo_cache TO service_role;
 --
 
 GRANT ALL ON TABLE public.kyc_document_types TO service_role;
-
-
 --
 -- TOC entry 10199 (class 0 OID 0)
 -- Dependencies: 467
@@ -38202,8 +33092,6 @@ GRANT ALL ON TABLE public.kyc_document_types TO service_role;
 
 GRANT ALL ON TABLE public.kyc_documents TO authenticated;
 GRANT ALL ON TABLE public.kyc_documents TO service_role;
-
-
 --
 -- TOC entry 10200 (class 0 OID 0)
 -- Dependencies: 470
@@ -38213,8 +33101,6 @@ GRANT ALL ON TABLE public.kyc_documents TO service_role;
 
 GRANT ALL ON TABLE public.kyc_liveness_sessions TO authenticated;
 GRANT ALL ON TABLE public.kyc_liveness_sessions TO service_role;
-
-
 --
 -- TOC entry 10201 (class 0 OID 0)
 -- Dependencies: 466
@@ -38224,8 +33110,6 @@ GRANT ALL ON TABLE public.kyc_liveness_sessions TO service_role;
 
 GRANT ALL ON TABLE public.kyc_submissions TO authenticated;
 GRANT ALL ON TABLE public.kyc_submissions TO service_role;
-
-
 --
 -- TOC entry 10202 (class 0 OID 0)
 -- Dependencies: 562
@@ -38235,8 +33119,6 @@ GRANT ALL ON TABLE public.kyc_submissions TO service_role;
 
 GRANT ALL ON TABLE public.live_activity_throttle_config TO authenticated;
 GRANT ALL ON TABLE public.live_activity_throttle_config TO service_role;
-
-
 --
 -- TOC entry 10203 (class 0 OID 0)
 -- Dependencies: 596
@@ -38246,8 +33128,6 @@ GRANT ALL ON TABLE public.live_activity_throttle_config TO service_role;
 
 GRANT ALL ON TABLE public.maps_provider_capabilities TO authenticated;
 GRANT ALL ON TABLE public.maps_provider_capabilities TO service_role;
-
-
 --
 -- TOC entry 10204 (class 0 OID 0)
 -- Dependencies: 600
@@ -38256,8 +33136,6 @@ GRANT ALL ON TABLE public.maps_provider_capabilities TO service_role;
 --
 
 GRANT ALL ON TABLE public.maps_provider_health TO service_role;
-
-
 --
 -- TOC entry 10205 (class 0 OID 0)
 -- Dependencies: 594
@@ -38267,8 +33145,6 @@ GRANT ALL ON TABLE public.maps_provider_health TO service_role;
 
 GRANT ALL ON TABLE public.maps_providers TO authenticated;
 GRANT ALL ON TABLE public.maps_providers TO service_role;
-
-
 --
 -- TOC entry 10206 (class 0 OID 0)
 -- Dependencies: 598
@@ -38277,8 +33153,6 @@ GRANT ALL ON TABLE public.maps_providers TO service_role;
 --
 
 GRANT ALL ON TABLE public.maps_requests_log TO service_role;
-
-
 --
 -- TOC entry 10208 (class 0 OID 0)
 -- Dependencies: 597
@@ -38288,8 +33162,6 @@ GRANT ALL ON TABLE public.maps_requests_log TO service_role;
 
 GRANT ALL ON SEQUENCE public.maps_requests_log_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.maps_requests_log_id_seq TO service_role;
-
-
 --
 -- TOC entry 10209 (class 0 OID 0)
 -- Dependencies: 595
@@ -38299,8 +33171,6 @@ GRANT ALL ON SEQUENCE public.maps_requests_log_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.maps_usage_daily TO authenticated;
 GRANT ALL ON TABLE public.maps_usage_daily TO service_role;
-
-
 --
 -- TOC entry 10210 (class 0 OID 0)
 -- Dependencies: 567
@@ -38311,8 +33181,6 @@ GRANT ALL ON TABLE public.maps_usage_daily TO service_role;
 GRANT ALL ON TABLE public.membership_plans TO authenticated;
 GRANT ALL ON TABLE public.membership_plans TO service_role;
 GRANT SELECT ON TABLE public.membership_plans TO anon;
-
-
 --
 -- TOC entry 10211 (class 0 OID 0)
 -- Dependencies: 568
@@ -38322,8 +33190,6 @@ GRANT SELECT ON TABLE public.membership_plans TO anon;
 
 GRANT ALL ON TABLE public.memberships TO authenticated;
 GRANT ALL ON TABLE public.memberships TO service_role;
-
-
 --
 -- TOC entry 10212 (class 0 OID 0)
 -- Dependencies: 521
@@ -38333,8 +33199,6 @@ GRANT ALL ON TABLE public.memberships TO service_role;
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE public.merchant_chat_ai_receipts TO authenticated;
 GRANT ALL ON TABLE public.merchant_chat_ai_receipts TO service_role;
-
-
 --
 -- TOC entry 10213 (class 0 OID 0)
 -- Dependencies: 520
@@ -38344,8 +33208,6 @@ GRANT ALL ON TABLE public.merchant_chat_ai_receipts TO service_role;
 
 GRANT ALL ON TABLE public.merchant_chat_ai_settings TO authenticated;
 GRANT ALL ON TABLE public.merchant_chat_ai_settings TO service_role;
-
-
 --
 -- TOC entry 10214 (class 0 OID 0)
 -- Dependencies: 505
@@ -38355,8 +33217,6 @@ GRANT ALL ON TABLE public.merchant_chat_ai_settings TO service_role;
 
 GRANT ALL ON TABLE public.merchant_chat_messages TO authenticated;
 GRANT ALL ON TABLE public.merchant_chat_messages TO service_role;
-
-
 --
 -- TOC entry 10215 (class 0 OID 0)
 -- Dependencies: 504
@@ -38366,8 +33226,6 @@ GRANT ALL ON TABLE public.merchant_chat_messages TO service_role;
 
 GRANT ALL ON TABLE public.merchant_chat_threads TO authenticated;
 GRANT ALL ON TABLE public.merchant_chat_threads TO service_role;
-
-
 --
 -- TOC entry 10218 (class 0 OID 0)
 -- Dependencies: 535
@@ -38376,8 +33234,6 @@ GRANT ALL ON TABLE public.merchant_chat_threads TO service_role;
 --
 
 GRANT ALL ON TABLE public.merchant_commission_configs TO service_role;
-
-
 --
 -- TOC entry 10219 (class 0 OID 0)
 -- Dependencies: 512
@@ -38387,8 +33243,6 @@ GRANT ALL ON TABLE public.merchant_commission_configs TO service_role;
 
 GRANT SELECT,REFERENCES,TRIGGER,TRUNCATE,MAINTAIN ON TABLE public.merchant_order_delivery_events TO authenticated;
 GRANT ALL ON TABLE public.merchant_order_delivery_events TO service_role;
-
-
 --
 -- TOC entry 10220 (class 0 OID 0)
 -- Dependencies: 509
@@ -38398,8 +33252,6 @@ GRANT ALL ON TABLE public.merchant_order_delivery_events TO service_role;
 
 GRANT ALL ON TABLE public.merchant_order_items TO authenticated;
 GRANT ALL ON TABLE public.merchant_order_items TO service_role;
-
-
 --
 -- TOC entry 10221 (class 0 OID 0)
 -- Dependencies: 510
@@ -38409,8 +33261,6 @@ GRANT ALL ON TABLE public.merchant_order_items TO service_role;
 
 GRANT ALL ON TABLE public.merchant_order_status_events TO authenticated;
 GRANT ALL ON TABLE public.merchant_order_status_events TO service_role;
-
-
 --
 -- TOC entry 10224 (class 0 OID 0)
 -- Dependencies: 508
@@ -38420,8 +33270,6 @@ GRANT ALL ON TABLE public.merchant_order_status_events TO service_role;
 
 GRANT ALL ON TABLE public.merchant_orders TO authenticated;
 GRANT ALL ON TABLE public.merchant_orders TO service_role;
-
-
 --
 -- TOC entry 10225 (class 0 OID 0)
 -- Dependencies: 502
@@ -38431,8 +33279,6 @@ GRANT ALL ON TABLE public.merchant_orders TO service_role;
 
 GRANT ALL ON TABLE public.merchant_products TO authenticated;
 GRANT ALL ON TABLE public.merchant_products TO service_role;
-
-
 --
 -- TOC entry 10226 (class 0 OID 0)
 -- Dependencies: 503
@@ -38442,8 +33288,6 @@ GRANT ALL ON TABLE public.merchant_products TO service_role;
 
 GRANT ALL ON TABLE public.merchant_promotions TO authenticated;
 GRANT ALL ON TABLE public.merchant_promotions TO service_role;
-
-
 --
 -- TOC entry 10227 (class 0 OID 0)
 -- Dependencies: 506
@@ -38453,8 +33297,6 @@ GRANT ALL ON TABLE public.merchant_promotions TO service_role;
 
 GRANT ALL ON TABLE public.merchant_status_audit_log TO authenticated;
 GRANT ALL ON TABLE public.merchant_status_audit_log TO service_role;
-
-
 --
 -- TOC entry 10228 (class 0 OID 0)
 -- Dependencies: 449
@@ -38464,8 +33306,6 @@ GRANT ALL ON TABLE public.merchant_status_audit_log TO service_role;
 
 GRANT ALL ON TABLE public.notification_outbox TO authenticated;
 GRANT ALL ON TABLE public.notification_outbox TO service_role;
-
-
 --
 -- TOC entry 10230 (class 0 OID 0)
 -- Dependencies: 448
@@ -38476,8 +33316,6 @@ GRANT ALL ON TABLE public.notification_outbox TO service_role;
 GRANT ALL ON SEQUENCE public.notification_outbox_id_seq TO anon;
 GRANT ALL ON SEQUENCE public.notification_outbox_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.notification_outbox_id_seq TO service_role;
-
-
 --
 -- TOC entry 10231 (class 0 OID 0)
 -- Dependencies: 548
@@ -38486,8 +33324,6 @@ GRANT ALL ON SEQUENCE public.notification_outbox_id_seq TO service_role;
 --
 
 GRANT ALL ON TABLE public.ops_alert_events TO service_role;
-
-
 --
 -- TOC entry 10232 (class 0 OID 0)
 -- Dependencies: 546
@@ -38496,8 +33332,6 @@ GRANT ALL ON TABLE public.ops_alert_events TO service_role;
 --
 
 GRANT ALL ON TABLE public.ops_alert_rules TO service_role;
-
-
 --
 -- TOC entry 10233 (class 0 OID 0)
 -- Dependencies: 547
@@ -38506,8 +33340,6 @@ GRANT ALL ON TABLE public.ops_alert_rules TO service_role;
 --
 
 GRANT ALL ON TABLE public.ops_alert_state TO service_role;
-
-
 --
 -- TOC entry 10234 (class 0 OID 0)
 -- Dependencies: 436
@@ -38517,8 +33349,6 @@ GRANT ALL ON TABLE public.ops_alert_state TO service_role;
 
 GRANT ALL ON TABLE public.ride_requests TO authenticated;
 GRANT ALL ON TABLE public.ride_requests TO service_role;
-
-
 --
 -- TOC entry 10235 (class 0 OID 0)
 -- Dependencies: 587
@@ -38528,8 +33358,6 @@ GRANT ALL ON TABLE public.ride_requests TO service_role;
 
 GRANT ALL ON TABLE public.ops_dispatch_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_dispatch_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10236 (class 0 OID 0)
 -- Dependencies: 553
@@ -38538,8 +33366,6 @@ GRANT ALL ON TABLE public.ops_dispatch_metrics_15m TO service_role;
 --
 
 GRANT ALL ON TABLE public.ops_fraud_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10237 (class 0 OID 0)
 -- Dependencies: 586
@@ -38549,8 +33375,6 @@ GRANT ALL ON TABLE public.ops_fraud_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.ops_job_queue_summary TO authenticated;
 GRANT ALL ON TABLE public.ops_job_queue_summary TO service_role;
-
-
 --
 -- TOC entry 10238 (class 0 OID 0)
 -- Dependencies: 584
@@ -38560,8 +33384,6 @@ GRANT ALL ON TABLE public.ops_job_queue_summary TO service_role;
 
 GRANT ALL ON TABLE public.ops_job_worker_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_job_worker_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10239 (class 0 OID 0)
 -- Dependencies: 585
@@ -38571,8 +33393,6 @@ GRANT ALL ON TABLE public.ops_job_worker_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.ops_maps_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_maps_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10240 (class 0 OID 0)
 -- Dependencies: 423
@@ -38582,8 +33402,6 @@ GRANT ALL ON TABLE public.ops_maps_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.payment_intents TO service_role;
 GRANT SELECT ON TABLE public.payment_intents TO authenticated;
-
-
 --
 -- TOC entry 10241 (class 0 OID 0)
 -- Dependencies: 583
@@ -38593,8 +33411,6 @@ GRANT SELECT ON TABLE public.payment_intents TO authenticated;
 
 GRANT ALL ON TABLE public.ops_payment_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_payment_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10242 (class 0 OID 0)
 -- Dependencies: 588
@@ -38604,8 +33420,6 @@ GRANT ALL ON TABLE public.ops_payment_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.ops_safety_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_safety_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10243 (class 0 OID 0)
 -- Dependencies: 582
@@ -38615,8 +33429,6 @@ GRANT ALL ON TABLE public.ops_safety_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.ops_webhook_metrics_15m TO authenticated;
 GRANT ALL ON TABLE public.ops_webhook_metrics_15m TO service_role;
-
-
 --
 -- TOC entry 10244 (class 0 OID 0)
 -- Dependencies: 565
@@ -38626,8 +33438,6 @@ GRANT ALL ON TABLE public.ops_webhook_metrics_15m TO service_role;
 
 GRANT ALL ON TABLE public.order_bundles TO authenticated;
 GRANT ALL ON TABLE public.order_bundles TO service_role;
-
-
 --
 -- TOC entry 10245 (class 0 OID 0)
 -- Dependencies: 580
@@ -38637,8 +33447,6 @@ GRANT ALL ON TABLE public.order_bundles TO service_role;
 
 GRANT ALL ON TABLE public.passkey_auth_log TO authenticated;
 GRANT ALL ON TABLE public.passkey_auth_log TO service_role;
-
-
 --
 -- TOC entry 10246 (class 0 OID 0)
 -- Dependencies: 424
@@ -38649,8 +33457,6 @@ GRANT ALL ON TABLE public.passkey_auth_log TO service_role;
 GRANT ALL ON TABLE public.payment_providers TO service_role;
 GRANT SELECT ON TABLE public.payment_providers TO anon;
 GRANT SELECT ON TABLE public.payment_providers TO authenticated;
-
-
 --
 -- TOC entry 10247 (class 0 OID 0)
 -- Dependencies: 425
@@ -38660,8 +33466,6 @@ GRANT SELECT ON TABLE public.payment_providers TO authenticated;
 
 GRANT ALL ON TABLE public.payments TO service_role;
 GRANT SELECT ON TABLE public.payments TO authenticated;
-
-
 --
 -- TOC entry 10248 (class 0 OID 0)
 -- Dependencies: 498
@@ -38670,8 +33474,6 @@ GRANT SELECT ON TABLE public.payments TO authenticated;
 --
 
 GRANT ALL ON TABLE public.payout_idempotency TO service_role;
-
-
 --
 -- TOC entry 10250 (class 0 OID 0)
 -- Dependencies: 497
@@ -38681,8 +33483,6 @@ GRANT ALL ON TABLE public.payout_idempotency TO service_role;
 
 GRANT ALL ON SEQUENCE public.payout_idempotency_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.payout_idempotency_id_seq TO service_role;
-
-
 --
 -- TOC entry 10251 (class 0 OID 0)
 -- Dependencies: 500
@@ -38692,8 +33492,6 @@ GRANT ALL ON SEQUENCE public.payout_idempotency_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.payout_provider_job_attempts TO service_role;
 GRANT SELECT ON TABLE public.payout_provider_job_attempts TO authenticated;
-
-
 --
 -- TOC entry 10252 (class 0 OID 0)
 -- Dependencies: 530
@@ -38702,8 +33500,6 @@ GRANT SELECT ON TABLE public.payout_provider_job_attempts TO authenticated;
 --
 
 GRANT ALL ON TABLE public.platform_fee_configs TO service_role;
-
-
 --
 -- TOC entry 10254 (class 0 OID 0)
 -- Dependencies: 426
@@ -38714,8 +33510,6 @@ GRANT ALL ON TABLE public.platform_fee_configs TO service_role;
 GRANT ALL ON TABLE public.pricing_configs TO service_role;
 GRANT SELECT ON TABLE public.pricing_configs TO authenticated;
 GRANT SELECT ON TABLE public.pricing_configs TO anon;
-
-
 --
 -- TOC entry 10255 (class 0 OID 0)
 -- Dependencies: 569
@@ -38725,8 +33519,6 @@ GRANT SELECT ON TABLE public.pricing_configs TO anon;
 
 GRANT ALL ON TABLE public.pricing_rules TO authenticated;
 GRANT ALL ON TABLE public.pricing_rules TO service_role;
-
-
 --
 -- TOC entry 10256 (class 0 OID 0)
 -- Dependencies: 427
@@ -38736,8 +33528,6 @@ GRANT ALL ON TABLE public.pricing_rules TO service_role;
 
 GRANT ALL ON TABLE public.profile_kyc TO authenticated;
 GRANT ALL ON TABLE public.profile_kyc TO service_role;
-
-
 --
 -- TOC entry 10257 (class 0 OID 0)
 -- Dependencies: 519
@@ -38747,8 +33537,6 @@ GRANT ALL ON TABLE public.profile_kyc TO service_role;
 
 GRANT ALL ON TABLE public.promotion_notification_receipts TO authenticated;
 GRANT ALL ON TABLE public.promotion_notification_receipts TO service_role;
-
-
 --
 -- TOC entry 10258 (class 0 OID 0)
 -- Dependencies: 429
@@ -38759,8 +33547,6 @@ GRANT ALL ON TABLE public.promotion_notification_receipts TO service_role;
 GRANT ALL ON TABLE public.provider_events TO service_role;
 GRANT SELECT ON TABLE public.provider_events TO anon;
 GRANT SELECT,INSERT ON TABLE public.provider_events TO authenticated;
-
-
 --
 -- TOC entry 10260 (class 0 OID 0)
 -- Dependencies: 430
@@ -38771,8 +33557,6 @@ GRANT SELECT,INSERT ON TABLE public.provider_events TO authenticated;
 GRANT ALL ON SEQUENCE public.provider_events_id_seq TO anon;
 GRANT ALL ON SEQUENCE public.provider_events_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.provider_events_id_seq TO service_role;
-
-
 --
 -- TOC entry 10261 (class 0 OID 0)
 -- Dependencies: 445
@@ -38782,8 +33566,6 @@ GRANT ALL ON SEQUENCE public.provider_events_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.public_profiles TO authenticated;
 GRANT ALL ON TABLE public.public_profiles TO service_role;
-
-
 --
 -- TOC entry 10262 (class 0 OID 0)
 -- Dependencies: 579
@@ -38793,8 +33575,6 @@ GRANT ALL ON TABLE public.public_profiles TO service_role;
 
 GRANT ALL ON TABLE public.recovery_codes TO authenticated;
 GRANT ALL ON TABLE public.recovery_codes TO service_role;
-
-
 --
 -- TOC entry 10263 (class 0 OID 0)
 -- Dependencies: 455
@@ -38803,8 +33583,6 @@ GRANT ALL ON TABLE public.recovery_codes TO service_role;
 --
 
 GRANT ALL ON TABLE public.referral_campaigns TO service_role;
-
-
 --
 -- TOC entry 10264 (class 0 OID 0)
 -- Dependencies: 456
@@ -38814,8 +33592,6 @@ GRANT ALL ON TABLE public.referral_campaigns TO service_role;
 
 GRANT ALL ON TABLE public.referral_codes TO authenticated;
 GRANT ALL ON TABLE public.referral_codes TO service_role;
-
-
 --
 -- TOC entry 10265 (class 0 OID 0)
 -- Dependencies: 475
@@ -38824,8 +33600,6 @@ GRANT ALL ON TABLE public.referral_codes TO service_role;
 --
 
 GRANT ALL ON TABLE public.referral_invites TO service_role;
-
-
 --
 -- TOC entry 10266 (class 0 OID 0)
 -- Dependencies: 457
@@ -38834,8 +33608,6 @@ GRANT ALL ON TABLE public.referral_invites TO service_role;
 --
 
 GRANT ALL ON TABLE public.referral_redemptions TO service_role;
-
-
 --
 -- TOC entry 10267 (class 0 OID 0)
 -- Dependencies: 474
@@ -38844,8 +33616,6 @@ GRANT ALL ON TABLE public.referral_redemptions TO service_role;
 --
 
 GRANT ALL ON TABLE public.referral_settings TO service_role;
-
-
 --
 -- TOC entry 10268 (class 0 OID 0)
 -- Dependencies: 462
@@ -38855,8 +33625,6 @@ GRANT ALL ON TABLE public.referral_settings TO service_role;
 
 GRANT ALL ON TABLE public.ride_chat_messages TO authenticated;
 GRANT ALL ON TABLE public.ride_chat_messages TO service_role;
-
-
 --
 -- TOC entry 10269 (class 0 OID 0)
 -- Dependencies: 463
@@ -38866,8 +33634,6 @@ GRANT ALL ON TABLE public.ride_chat_messages TO service_role;
 
 GRANT ALL ON TABLE public.ride_chat_read_receipts TO authenticated;
 GRANT ALL ON TABLE public.ride_chat_read_receipts TO service_role;
-
-
 --
 -- TOC entry 10270 (class 0 OID 0)
 -- Dependencies: 473
@@ -38877,8 +33643,6 @@ GRANT ALL ON TABLE public.ride_chat_read_receipts TO service_role;
 
 GRANT ALL ON TABLE public.ride_chat_threads TO authenticated;
 GRANT ALL ON TABLE public.ride_chat_threads TO service_role;
-
-
 --
 -- TOC entry 10271 (class 0 OID 0)
 -- Dependencies: 464
@@ -38888,8 +33652,6 @@ GRANT ALL ON TABLE public.ride_chat_threads TO service_role;
 
 GRANT ALL ON TABLE public.ride_chat_typing TO authenticated;
 GRANT ALL ON TABLE public.ride_chat_typing TO service_role;
-
-
 --
 -- TOC entry 10272 (class 0 OID 0)
 -- Dependencies: 472
@@ -38898,8 +33660,6 @@ GRANT ALL ON TABLE public.ride_chat_typing TO service_role;
 --
 
 GRANT ALL ON TABLE public.ride_completion_log TO service_role;
-
-
 --
 -- TOC entry 10273 (class 0 OID 0)
 -- Dependencies: 431
@@ -38908,8 +33668,6 @@ GRANT ALL ON TABLE public.ride_completion_log TO service_role;
 --
 
 GRANT ALL ON TABLE public.ride_events TO service_role;
-
-
 --
 -- TOC entry 10275 (class 0 OID 0)
 -- Dependencies: 432
@@ -38920,8 +33678,6 @@ GRANT ALL ON TABLE public.ride_events TO service_role;
 GRANT ALL ON SEQUENCE public.ride_events_id_seq TO anon;
 GRANT ALL ON SEQUENCE public.ride_events_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.ride_events_id_seq TO service_role;
-
-
 --
 -- TOC entry 10276 (class 0 OID 0)
 -- Dependencies: 433
@@ -38932,8 +33688,6 @@ GRANT ALL ON SEQUENCE public.ride_events_id_seq TO service_role;
 GRANT ALL ON TABLE public.ride_incidents TO service_role;
 GRANT SELECT ON TABLE public.ride_incidents TO anon;
 GRANT SELECT,INSERT,UPDATE ON TABLE public.ride_incidents TO authenticated;
-
-
 --
 -- TOC entry 10277 (class 0 OID 0)
 -- Dependencies: 479
@@ -38943,8 +33697,6 @@ GRANT SELECT,INSERT,UPDATE ON TABLE public.ride_incidents TO authenticated;
 
 GRANT ALL ON TABLE public.ride_intents TO authenticated;
 GRANT ALL ON TABLE public.ride_intents TO service_role;
-
-
 --
 -- TOC entry 10278 (class 0 OID 0)
 -- Dependencies: 468
@@ -38955,8 +33707,6 @@ GRANT ALL ON TABLE public.ride_intents TO service_role;
 GRANT ALL ON TABLE public.ride_products TO service_role;
 GRANT SELECT ON TABLE public.ride_products TO authenticated;
 GRANT SELECT ON TABLE public.ride_products TO anon;
-
-
 --
 -- TOC entry 10279 (class 0 OID 0)
 -- Dependencies: 434
@@ -38966,8 +33716,6 @@ GRANT SELECT ON TABLE public.ride_products TO anon;
 
 GRANT ALL ON TABLE public.ride_ratings TO service_role;
 GRANT SELECT ON TABLE public.ride_ratings TO authenticated;
-
-
 --
 -- TOC entry 10280 (class 0 OID 0)
 -- Dependencies: 435
@@ -38978,8 +33726,6 @@ GRANT SELECT ON TABLE public.ride_ratings TO authenticated;
 GRANT ALL ON TABLE public.ride_receipts TO service_role;
 GRANT SELECT ON TABLE public.ride_receipts TO anon;
 GRANT SELECT ON TABLE public.ride_receipts TO authenticated;
-
-
 --
 -- TOC entry 10281 (class 0 OID 0)
 -- Dependencies: 486
@@ -38989,8 +33735,6 @@ GRANT SELECT ON TABLE public.ride_receipts TO authenticated;
 
 GRANT ALL ON TABLE public.ridecheck_events TO service_role;
 GRANT SELECT ON TABLE public.ridecheck_events TO authenticated;
-
-
 --
 -- TOC entry 10282 (class 0 OID 0)
 -- Dependencies: 487
@@ -39000,8 +33744,6 @@ GRANT SELECT ON TABLE public.ridecheck_events TO authenticated;
 
 GRANT ALL ON TABLE public.ridecheck_responses TO service_role;
 GRANT SELECT ON TABLE public.ridecheck_responses TO authenticated;
-
-
 --
 -- TOC entry 10283 (class 0 OID 0)
 -- Dependencies: 485
@@ -39010,8 +33752,6 @@ GRANT SELECT ON TABLE public.ridecheck_responses TO authenticated;
 --
 
 GRANT ALL ON TABLE public.ridecheck_state TO service_role;
-
-
 --
 -- TOC entry 10284 (class 0 OID 0)
 -- Dependencies: 555
@@ -39021,8 +33761,6 @@ GRANT ALL ON TABLE public.ridecheck_state TO service_role;
 
 GRANT ALL ON TABLE public.safety_mismatch_reports TO authenticated;
 GRANT ALL ON TABLE public.safety_mismatch_reports TO service_role;
-
-
 --
 -- TOC entry 10285 (class 0 OID 0)
 -- Dependencies: 554
@@ -39032,8 +33770,6 @@ GRANT ALL ON TABLE public.safety_mismatch_reports TO service_role;
 
 GRANT ALL ON TABLE public.safety_preferences TO authenticated;
 GRANT ALL ON TABLE public.safety_preferences TO service_role;
-
-
 --
 -- TOC entry 10286 (class 0 OID 0)
 -- Dependencies: 477
@@ -39043,8 +33779,6 @@ GRANT ALL ON TABLE public.safety_preferences TO service_role;
 
 GRANT ALL ON TABLE public.scheduled_rides TO authenticated;
 GRANT ALL ON TABLE public.scheduled_rides TO service_role;
-
-
 --
 -- TOC entry 10291 (class 0 OID 0)
 -- Dependencies: 478
@@ -39055,8 +33789,6 @@ GRANT ALL ON TABLE public.scheduled_rides TO service_role;
 GRANT ALL ON TABLE public.service_areas TO authenticated;
 GRANT ALL ON TABLE public.service_areas TO service_role;
 GRANT SELECT ON TABLE public.service_areas TO anon;
-
-
 --
 -- TOC entry 10292 (class 0 OID 0)
 -- Dependencies: 531
@@ -39065,8 +33797,6 @@ GRANT SELECT ON TABLE public.service_areas TO anon;
 --
 
 GRANT ALL ON TABLE public.settlement_accounts TO service_role;
-
-
 --
 -- TOC entry 10293 (class 0 OID 0)
 -- Dependencies: 537
@@ -39075,8 +33805,6 @@ GRANT ALL ON TABLE public.settlement_accounts TO service_role;
 --
 
 GRANT ALL ON TABLE public.settlement_payment_requests TO service_role;
-
-
 --
 -- TOC entry 10294 (class 0 OID 0)
 -- Dependencies: 538
@@ -39085,8 +33813,6 @@ GRANT ALL ON TABLE public.settlement_payment_requests TO service_role;
 --
 
 GRANT ALL ON TABLE public.settlement_payout_requests TO service_role;
-
-
 --
 -- TOC entry 10295 (class 0 OID 0)
 -- Dependencies: 536
@@ -39095,8 +33821,6 @@ GRANT ALL ON TABLE public.settlement_payout_requests TO service_role;
 --
 
 GRANT ALL ON TABLE public.settlement_payouts TO service_role;
-
-
 --
 -- TOC entry 10296 (class 0 OID 0)
 -- Dependencies: 534
@@ -39105,8 +33829,6 @@ GRANT ALL ON TABLE public.settlement_payouts TO service_role;
 --
 
 GRANT ALL ON TABLE public.settlement_receipts TO service_role;
-
-
 --
 -- TOC entry 10297 (class 0 OID 0)
 -- Dependencies: 572
@@ -39116,8 +33838,6 @@ GRANT ALL ON TABLE public.settlement_receipts TO service_role;
 
 GRANT ALL ON TABLE public.shift_progress TO authenticated;
 GRANT ALL ON TABLE public.shift_progress TO service_role;
-
-
 --
 -- TOC entry 10298 (class 0 OID 0)
 -- Dependencies: 480
@@ -39127,8 +33847,6 @@ GRANT ALL ON TABLE public.shift_progress TO service_role;
 
 GRANT ALL ON TABLE public.sos_events TO authenticated;
 GRANT ALL ON TABLE public.sos_events TO service_role;
-
-
 --
 -- TOC entry 10299 (class 0 OID 0)
 -- Dependencies: 482
@@ -39139,8 +33857,6 @@ GRANT ALL ON TABLE public.sos_events TO service_role;
 GRANT ALL ON TABLE public.support_articles TO authenticated;
 GRANT ALL ON TABLE public.support_articles TO service_role;
 GRANT SELECT ON TABLE public.support_articles TO anon;
-
-
 --
 -- TOC entry 10300 (class 0 OID 0)
 -- Dependencies: 459
@@ -39149,8 +33865,6 @@ GRANT SELECT ON TABLE public.support_articles TO anon;
 --
 
 GRANT ALL ON TABLE public.support_categories TO service_role;
-
-
 --
 -- TOC entry 10301 (class 0 OID 0)
 -- Dependencies: 461
@@ -39160,8 +33874,6 @@ GRANT ALL ON TABLE public.support_categories TO service_role;
 
 GRANT ALL ON TABLE public.support_messages TO authenticated;
 GRANT ALL ON TABLE public.support_messages TO service_role;
-
-
 --
 -- TOC entry 10302 (class 0 OID 0)
 -- Dependencies: 481
@@ -39172,8 +33884,6 @@ GRANT ALL ON TABLE public.support_messages TO service_role;
 GRANT ALL ON TABLE public.support_sections TO authenticated;
 GRANT ALL ON TABLE public.support_sections TO service_role;
 GRANT SELECT ON TABLE public.support_sections TO anon;
-
-
 --
 -- TOC entry 10303 (class 0 OID 0)
 -- Dependencies: 460
@@ -39183,8 +33893,6 @@ GRANT SELECT ON TABLE public.support_sections TO anon;
 
 GRANT ALL ON TABLE public.support_tickets TO authenticated;
 GRANT ALL ON TABLE public.support_tickets TO service_role;
-
-
 --
 -- TOC entry 10304 (class 0 OID 0)
 -- Dependencies: 526
@@ -39195,8 +33903,6 @@ GRANT ALL ON TABLE public.support_tickets TO service_role;
 GRANT ALL ON TABLE public.support_ticket_summaries TO authenticated;
 GRANT ALL ON TABLE public.support_ticket_summaries TO service_role;
 GRANT ALL ON TABLE public.support_ticket_summaries TO anon;
-
-
 --
 -- TOC entry 10305 (class 0 OID 0)
 -- Dependencies: 437
@@ -39207,8 +33913,6 @@ GRANT ALL ON TABLE public.support_ticket_summaries TO anon;
 GRANT ALL ON TABLE public.topup_packages TO service_role;
 GRANT SELECT ON TABLE public.topup_packages TO anon;
 GRANT SELECT ON TABLE public.topup_packages TO authenticated;
-
-
 --
 -- TOC entry 10306 (class 0 OID 0)
 -- Dependencies: 465
@@ -39218,8 +33922,6 @@ GRANT SELECT ON TABLE public.topup_packages TO authenticated;
 
 GRANT ALL ON TABLE public.trip_share_tokens TO authenticated;
 GRANT ALL ON TABLE public.trip_share_tokens TO service_role;
-
-
 --
 -- TOC entry 10307 (class 0 OID 0)
 -- Dependencies: 484
@@ -39229,8 +33931,6 @@ GRANT ALL ON TABLE public.trip_share_tokens TO service_role;
 
 GRANT ALL ON TABLE public.trusted_contact_events TO authenticated;
 GRANT ALL ON TABLE public.trusted_contact_events TO service_role;
-
-
 --
 -- TOC entry 10308 (class 0 OID 0)
 -- Dependencies: 488
@@ -39240,8 +33940,6 @@ GRANT ALL ON TABLE public.trusted_contact_events TO service_role;
 
 GRANT ALL ON TABLE public.trusted_contact_outbox TO authenticated;
 GRANT ALL ON TABLE public.trusted_contact_outbox TO service_role;
-
-
 --
 -- TOC entry 10309 (class 0 OID 0)
 -- Dependencies: 458
@@ -39251,8 +33949,6 @@ GRANT ALL ON TABLE public.trusted_contact_outbox TO service_role;
 
 GRANT ALL ON TABLE public.trusted_contacts TO authenticated;
 GRANT ALL ON TABLE public.trusted_contacts TO service_role;
-
-
 --
 -- TOC entry 10310 (class 0 OID 0)
 -- Dependencies: 471
@@ -39262,8 +33958,6 @@ GRANT ALL ON TABLE public.trusted_contacts TO service_role;
 
 GRANT ALL ON TABLE public.user_device_tokens TO authenticated;
 GRANT ALL ON TABLE public.user_device_tokens TO service_role;
-
-
 --
 -- TOC entry 10311 (class 0 OID 0)
 -- Dependencies: 518
@@ -39273,8 +33967,6 @@ GRANT ALL ON TABLE public.user_device_tokens TO service_role;
 
 GRANT ALL ON TABLE public.user_interest_targets TO authenticated;
 GRANT ALL ON TABLE public.user_interest_targets TO service_role;
-
-
 --
 -- TOC entry 10312 (class 0 OID 0)
 -- Dependencies: 438
@@ -39284,8 +33976,6 @@ GRANT ALL ON TABLE public.user_interest_targets TO service_role;
 
 GRANT ALL ON TABLE public.user_notifications TO authenticated;
 GRANT ALL ON TABLE public.user_notifications TO service_role;
-
-
 --
 -- TOC entry 10313 (class 0 OID 0)
 -- Dependencies: 577
@@ -39295,8 +33985,6 @@ GRANT ALL ON TABLE public.user_notifications TO service_role;
 
 GRANT ALL ON TABLE public.user_passkeys TO authenticated;
 GRANT ALL ON TABLE public.user_passkeys TO service_role;
-
-
 --
 -- TOC entry 10314 (class 0 OID 0)
 -- Dependencies: 483
@@ -39306,8 +33994,6 @@ GRANT ALL ON TABLE public.user_passkeys TO service_role;
 
 GRANT ALL ON TABLE public.user_safety_settings TO authenticated;
 GRANT ALL ON TABLE public.user_safety_settings TO service_role;
-
-
 --
 -- TOC entry 10315 (class 0 OID 0)
 -- Dependencies: 517
@@ -39317,8 +34003,6 @@ GRANT ALL ON TABLE public.user_safety_settings TO service_role;
 
 GRANT ALL ON TABLE public.voice_call_participants TO authenticated;
 GRANT ALL ON TABLE public.voice_call_participants TO service_role;
-
-
 --
 -- TOC entry 10316 (class 0 OID 0)
 -- Dependencies: 516
@@ -39328,8 +34012,6 @@ GRANT ALL ON TABLE public.voice_call_participants TO service_role;
 
 GRANT ALL ON TABLE public.voice_calls TO authenticated;
 GRANT ALL ON TABLE public.voice_calls TO service_role;
-
-
 --
 -- TOC entry 10317 (class 0 OID 0)
 -- Dependencies: 439
@@ -39339,8 +34021,6 @@ GRANT ALL ON TABLE public.voice_calls TO service_role;
 
 GRANT ALL ON TABLE public.wallet_entries TO authenticated;
 GRANT ALL ON TABLE public.wallet_entries TO service_role;
-
-
 --
 -- TOC entry 10319 (class 0 OID 0)
 -- Dependencies: 440
@@ -39351,8 +34031,6 @@ GRANT ALL ON TABLE public.wallet_entries TO service_role;
 GRANT ALL ON SEQUENCE public.wallet_entries_id_seq TO anon;
 GRANT ALL ON SEQUENCE public.wallet_entries_id_seq TO authenticated;
 GRANT ALL ON SEQUENCE public.wallet_entries_id_seq TO service_role;
-
-
 --
 -- TOC entry 10320 (class 0 OID 0)
 -- Dependencies: 441
@@ -39362,8 +34040,6 @@ GRANT ALL ON SEQUENCE public.wallet_entries_id_seq TO service_role;
 
 GRANT ALL ON TABLE public.wallet_holds TO authenticated;
 GRANT ALL ON TABLE public.wallet_holds TO service_role;
-
-
 --
 -- TOC entry 10321 (class 0 OID 0)
 -- Dependencies: 496
@@ -39373,8 +34049,6 @@ GRANT ALL ON TABLE public.wallet_holds TO service_role;
 
 GRANT ALL ON TABLE public.wallet_payout_attempts TO service_role;
 GRANT SELECT ON TABLE public.wallet_payout_attempts TO authenticated;
-
-
 --
 -- TOC entry 10322 (class 0 OID 0)
 -- Dependencies: 495
@@ -39384,8 +34058,6 @@ GRANT SELECT ON TABLE public.wallet_payout_attempts TO authenticated;
 
 GRANT ALL ON TABLE public.wallet_withdraw_audit_log TO service_role;
 GRANT SELECT ON TABLE public.wallet_withdraw_audit_log TO authenticated;
-
-
 --
 -- TOC entry 10323 (class 0 OID 0)
 -- Dependencies: 442
@@ -39395,8 +34067,6 @@ GRANT SELECT ON TABLE public.wallet_withdraw_audit_log TO authenticated;
 
 GRANT ALL ON TABLE public.wallet_withdraw_payout_methods TO authenticated;
 GRANT ALL ON TABLE public.wallet_withdraw_payout_methods TO service_role;
-
-
 --
 -- TOC entry 10324 (class 0 OID 0)
 -- Dependencies: 443
@@ -39406,8 +34076,6 @@ GRANT ALL ON TABLE public.wallet_withdraw_payout_methods TO service_role;
 
 GRANT ALL ON TABLE public.wallet_withdraw_requests TO service_role;
 GRANT SELECT ON TABLE public.wallet_withdraw_requests TO authenticated;
-
-
 --
 -- TOC entry 10325 (class 0 OID 0)
 -- Dependencies: 444
@@ -39418,8 +34086,6 @@ GRANT SELECT ON TABLE public.wallet_withdraw_requests TO authenticated;
 GRANT ALL ON TABLE public.wallet_withdrawal_policy TO authenticated;
 GRANT ALL ON TABLE public.wallet_withdrawal_policy TO service_role;
 GRANT SELECT ON TABLE public.wallet_withdrawal_policy TO anon;
-
-
 --
 -- TOC entry 10326 (class 0 OID 0)
 -- Dependencies: 578
@@ -39429,8 +34095,6 @@ GRANT SELECT ON TABLE public.wallet_withdrawal_policy TO anon;
 
 GRANT ALL ON TABLE public.webauthn_challenges TO authenticated;
 GRANT ALL ON TABLE public.webauthn_challenges TO service_role;
-
-
 --
 -- TOC entry 10327 (class 0 OID 0)
 -- Dependencies: 545
@@ -39440,8 +34104,6 @@ GRANT ALL ON TABLE public.webauthn_challenges TO service_role;
 
 GRANT ALL ON TABLE public.webhook_job_attempts TO authenticated;
 GRANT ALL ON TABLE public.webhook_job_attempts TO service_role;
-
-
 --
 -- TOC entry 10328 (class 0 OID 0)
 -- Dependencies: 390
@@ -39452,8 +34114,6 @@ GRANT ALL ON TABLE public.webhook_job_attempts TO service_role;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO postgres;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO authenticated;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENCES TO service_role;
-
-
 --
 -- TOC entry 4709 (class 826 OID 40559)
 
@@ -39462,8 +34122,6 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON SEQUENC
 
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO postgres;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIONS TO service_role;
-
-
 --
 -- TOC entry 4707 (class 826 OID 40560)
 
@@ -39473,10 +34131,7 @@ ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON FUNCTIO
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO postgres;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO authenticated;
 ALTER DEFAULT PRIVILEGES FOR ROLE postgres IN SCHEMA public GRANT ALL ON TABLES TO service_role;
-
-
 --
 -- TOC entry 4692 (class 826 OID 16557)
 
 COMMIT;
-

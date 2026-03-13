@@ -1,5 +1,4 @@
 BEGIN;
-
 -- Session 6: rate limiting + request lifecycle improvements for privileged role changes
 -- Goals:
 --  - Add a lightweight, DB-enforced per-admin action throttle (defense-in-depth)
@@ -14,13 +13,11 @@ CREATE TABLE IF NOT EXISTS public.admin_action_throttle (
   count integer NOT NULL DEFAULT 0,
   PRIMARY KEY (user_id, action_key, bucket_start)
 );
-
 ALTER TABLE public.admin_action_throttle ENABLE ROW LEVEL SECURITY;
 REVOKE ALL ON TABLE public.admin_action_throttle FROM PUBLIC;
 REVOKE ALL ON TABLE public.admin_action_throttle FROM anon;
 REVOKE ALL ON TABLE public.admin_action_throttle FROM authenticated;
 GRANT ALL ON TABLE public.admin_action_throttle TO service_role;
-
 -- 2) Throttle function (SECURITY DEFINER)
 -- Uses fixed buckets for simplicity: bucket_start = floor(now/window)*window.
 CREATE OR REPLACE FUNCTION public.admin_throttle_action_v1(
@@ -60,7 +57,6 @@ BEGIN
   END IF;
 END;
 $$;
-
 -- 3) Add richer list RPC v2 with "effective" status (pending requests older than TTL are labeled expired)
 -- Note: we don't mutate status automatically; we compute it to avoid side-effects.
 CREATE OR REPLACE FUNCTION public.admin_list_role_change_requests_v2(
@@ -133,10 +129,8 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
 -- 4) Explicit reject RPC to cleanly close stale/invalid requests
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'reject_admin_role_change';
-
 CREATE OR REPLACE FUNCTION public.admin_reject_role_change_request_v1(
   p_request_id uuid,
   p_note text DEFAULT NULL
@@ -193,7 +187,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'request_id', p_request_id, 'status', 'rejected');
 END;
 $$;
-
 -- 5) Patch role-change request creators/approvers with throttling + expiry check
 -- Note: create/approve definitions live in session 5 migration; we replace them here to avoid editing history.
 
@@ -320,7 +313,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'request_id', req_id);
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_approve_role_change_request_v1(
   p_request_id uuid,
   p_note text DEFAULT NULL
@@ -453,7 +445,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'request_id', p_request_id, 'status', 'executed');
 END;
 $$;
-
 -- 6) Patch direct role setter with throttling (non-super_admin changes)
 CREATE OR REPLACE FUNCTION public.admin_set_user_roles_v1(
   p_user uuid,
@@ -572,9 +563,7 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'user_id', p_user, 'roles', v_roles);
 END;
 $$;
-
 -- Explicit grants (hardening migration will still enforce allowlist)
 GRANT EXECUTE ON FUNCTION public.admin_list_role_change_requests_v2(text, integer, integer, integer) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_reject_role_change_request_v1(uuid, text) TO authenticated, service_role;
-
 COMMIT;

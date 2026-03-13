@@ -3,8 +3,7 @@ import { errorJson, json } from '../_shared/json.ts';
 import { shaHex, timingSafeEqual } from '../_shared/crypto.ts';
 import { findProvider, getPaymentsPublicConfig } from '../_shared/paymentsConfig.ts';
 import { withRequestContext } from '../_shared/requestContext.ts';
-
-const APP_BASE_URL = (Deno.env.get('APP_BASE_URL') ?? '').replace(/\/$/, '').replace(/\/wallet$/, '');
+import { createTopupReturnResponse } from '../_shared/appReturnLinks.ts';
 
 function isUuid(v: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
@@ -13,13 +12,12 @@ function isUuid(v: string) {
 // (SHA helper moved to _shared/crypto.ts)
 
 function redirectToWallet(intentId: string | null, status: string | null, verified: boolean | null) {
-  if (!APP_BASE_URL) return null;
-  const url = new URL(`${APP_BASE_URL}/wallet`);
-  url.searchParams.set('tab', 'topups');
-  if (intentId) url.searchParams.set('intent_id', intentId);
-  if (status) url.searchParams.set('status', status);
-  if (verified !== null) url.searchParams.set('verified', verified ? '1' : '0');
-  return Response.redirect(url.toString(), 302);
+  return createTopupReturnResponse({
+    provider: 'asiapay',
+    intentId,
+    status,
+    verified,
+  });
 }
 
 Deno.serve((req) =>

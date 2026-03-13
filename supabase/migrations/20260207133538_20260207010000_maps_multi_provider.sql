@@ -1,4 +1,4 @@
--- Multi-provider maps control plane (Google -> Mapbox -> HERE).
+-- Multi-provider maps control plane (Google â†’ Mapbox â†’ HERE â†’ Thunderforest).
 -- Adds:
 --  - maps_providers: admin-configurable provider order, locale, caps
 --  - maps_usage_daily: internal counters (approx) to automate fallback when caps are hit
@@ -15,7 +15,7 @@ CREATE TABLE IF NOT EXISTS public.maps_providers (
   note text NULL,
   created_at timestamptz NOT NULL DEFAULT now(),
   updated_at timestamptz NOT NULL DEFAULT now(),
-  CONSTRAINT maps_providers_provider_code_chk CHECK (provider_code IN ('google','mapbox','here'))
+  CONSTRAINT maps_providers_provider_code_chk CHECK (provider_code IN ('google','mapbox','here','thunderforest'))
 );
 
 CREATE TABLE IF NOT EXISTS public.maps_usage_daily (
@@ -65,7 +65,8 @@ INSERT INTO public.maps_providers (provider_code, priority, enabled, language, r
 VALUES
   ('google', 100, true, 'ar', 'IQ', 15000, 20000, 'Primary provider (Dynamic Maps map loads approximation)'),
   ('mapbox',  90, true, 'ar', 'IQ', 45000, 50000, 'Fallback (Mapbox map loads: 50k free tier)'),
-  ('here',    80, true, 'ar', 'IQ', 25000, 30000, 'Fallback (transactions; set per plan)')
+  ('here',    80, true, 'ar', 'IQ', 25000, 30000, 'Fallback (transactions; set per plan)'),
+  ('thunderforest', 70, true, 'ar', 'IQ', 140000, 150000, 'Fallback (tile requests; approx)')
 ON CONFLICT (provider_code) DO UPDATE
 SET priority = EXCLUDED.priority,
     enabled = EXCLUDED.enabled,
@@ -229,7 +230,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here') THEN
+  IF v_code NOT IN ('google','mapbox','here','thunderforest') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 

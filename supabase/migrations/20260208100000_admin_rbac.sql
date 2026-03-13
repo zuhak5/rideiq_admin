@@ -11,7 +11,6 @@
 --  - Existing "grant/revoke admin" RPCs keep working; triggers keep RBAC in sync.
 
 BEGIN;
-
 -- 1) Reference tables
 CREATE TABLE IF NOT EXISTS public.admin_roles (
   id           bigserial PRIMARY KEY,
@@ -20,7 +19,6 @@ CREATE TABLE IF NOT EXISTS public.admin_roles (
   description  text,
   created_at   timestamptz NOT NULL DEFAULT now()
 );
-
 CREATE TABLE IF NOT EXISTS public.admin_permissions (
   id           bigserial PRIMARY KEY,
   key          text NOT NULL UNIQUE CHECK (key ~ '^[a-z0-9_.]+$'),
@@ -28,14 +26,12 @@ CREATE TABLE IF NOT EXISTS public.admin_permissions (
   description  text,
   created_at   timestamptz NOT NULL DEFAULT now()
 );
-
 CREATE TABLE IF NOT EXISTS public.admin_role_permissions (
   role_id       bigint NOT NULL REFERENCES public.admin_roles(id) ON DELETE CASCADE,
   permission_id bigint NOT NULL REFERENCES public.admin_permissions(id) ON DELETE CASCADE,
   created_at    timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (role_id, permission_id)
 );
-
 CREATE TABLE IF NOT EXISTS public.admin_user_roles (
   user_id     uuid NOT NULL REFERENCES public.profiles(id) ON DELETE CASCADE,
   role_id     bigint NOT NULL REFERENCES public.admin_roles(id) ON DELETE CASCADE,
@@ -44,15 +40,12 @@ CREATE TABLE IF NOT EXISTS public.admin_user_roles (
   created_at  timestamptz NOT NULL DEFAULT now(),
   PRIMARY KEY (user_id, role_id)
 );
-
 CREATE INDEX IF NOT EXISTS ix_admin_user_roles_user_id ON public.admin_user_roles(user_id);
 CREATE INDEX IF NOT EXISTS ix_admin_user_roles_role_id ON public.admin_user_roles(role_id);
-
 ALTER TABLE public.admin_roles ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_permissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_role_permissions ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.admin_user_roles ENABLE ROW LEVEL SECURITY;
-
 -- RLS: only admins can read; only service_role can mutate tables directly.
 DO $$
 BEGIN
@@ -120,7 +113,6 @@ BEGIN
       TO service_role USING (true) WITH CHECK (true);$policy$;
   END IF;
 END$$;
-
 -- 2) Seed permissions (idempotent)
 INSERT INTO public.admin_permissions (key, name, description) VALUES
   ('dashboard.view', 'View dashboard', 'Access summary dashboard metrics'),
@@ -131,7 +123,6 @@ INSERT INTO public.admin_permissions (key, name, description) VALUES
   ('fraud.manage', 'Manage fraud', 'Resolve/close fraud cases and actions'),
   ('audit.read', 'Read audit log', 'Access admin audit log')
 ON CONFLICT (key) DO NOTHING;
-
 -- 3) Seed roles (idempotent)
 INSERT INTO public.admin_roles (key, name, description) VALUES
   ('super_admin', 'Super Admin', 'Full access to all admin capabilities'),
@@ -141,7 +132,6 @@ INSERT INTO public.admin_roles (key, name, description) VALUES
   ('user_admin', 'User Admin', 'User/admin access management'),
   ('auditor', 'Auditor', 'Read-only audit access')
 ON CONFLICT (key) DO NOTHING;
-
 -- 4) Role -> permission grants (idempotent)
 -- Helper CTEs for readable inserts
 WITH r AS (SELECT id, key FROM public.admin_roles),
@@ -169,7 +159,6 @@ JOIN p ON (
   (r.key = 'auditor' AND p.key IN ('audit.read'))
 )
 ON CONFLICT DO NOTHING;
-
 -- 5) Backfill existing admins into legacy_admin role
 INSERT INTO public.admin_user_roles (user_id, role_id, granted_by, note)
 SELECT au.user_id, r.id, NULL, 'rbac_backfill:admin_users'
@@ -179,7 +168,6 @@ WHERE NOT EXISTS (
   SELECT 1 FROM public.admin_user_roles ur
   WHERE ur.user_id = au.user_id AND ur.role_id = r.id
 );
-
 -- Backfill from profiles.is_admin if it exists.
 DO $$
 DECLARE
@@ -203,7 +191,6 @@ BEGIN
       );
   END IF;
 END$$;
-
 -- 6) Keep RBAC in sync with admin_users (backward compatibility)
 CREATE OR REPLACE FUNCTION public._rbac_sync_on_admin_users_insert() RETURNS trigger
 LANGUAGE plpgsql SECURITY DEFINER
@@ -224,7 +211,6 @@ BEGIN
   RETURN NEW;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public._rbac_sync_on_admin_users_delete() RETURNS trigger
 LANGUAGE plpgsql SECURITY DEFINER
 SET search_path TO ''
@@ -234,7 +220,6 @@ BEGIN
   RETURN OLD;
 END;
 $$;
-
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -255,7 +240,6 @@ BEGIN
       EXECUTE FUNCTION public._rbac_sync_on_admin_users_delete();
   END IF;
 END$$;
-
 -- 7) Extend audit action enum (idempotent)
 DO $$
 BEGIN
@@ -271,7 +255,6 @@ BEGIN
     ALTER TYPE public.admin_audit_action ADD VALUE 'set_admin_roles';
   END IF;
 END$$;
-
 -- 8) RPCs
 
 -- Returns role keys for the current admin.
@@ -291,7 +274,6 @@ AS $$
       )
     END;
 $$;
-
 -- Returns permission keys for the current admin.
 CREATE OR REPLACE FUNCTION public.admin_permissions() RETURNS text[]
 LANGUAGE sql STABLE SECURITY DEFINER
@@ -310,7 +292,6 @@ AS $$
       )
     END;
 $$;
-
 -- Checks whether the current admin has a specific permission.
 CREATE OR REPLACE FUNCTION public.admin_has_permission(p_permission text) RETURNS boolean
 LANGUAGE plpgsql STABLE SECURITY DEFINER
@@ -331,7 +312,6 @@ BEGIN
   RETURN p_permission = ANY(perms);
 END;
 $$;
-
 -- List available roles.
 CREATE OR REPLACE FUNCTION public.admin_list_roles_v1()
 RETURNS TABLE(key text, name text, description text)
@@ -343,7 +323,6 @@ AS $$
   WHERE public.is_admin()
   ORDER BY r.key;
 $$;
-
 -- List admin users + their roles (for admin access management).
 CREATE OR REPLACE FUNCTION public.admin_list_admin_access_v1(
   p_q text DEFAULT NULL,
@@ -401,7 +380,6 @@ BEGIN
   FROM base b;
 END;
 $$;
-
 -- Set roles for a specific admin user.
 CREATE OR REPLACE FUNCTION public.admin_set_user_roles_v1(
   p_user uuid,
@@ -471,7 +449,6 @@ BEGIN
   );
 END;
 $$;
-
 -- Explicit grants (hardening migration will still enforce allowlist)
 GRANT EXECUTE ON FUNCTION public.admin_my_roles() TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_permissions() TO authenticated, service_role;
@@ -479,5 +456,4 @@ GRANT EXECUTE ON FUNCTION public.admin_has_permission(text) TO authenticated, se
 GRANT EXECUTE ON FUNCTION public.admin_list_roles_v1() TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_list_admin_access_v1(text, integer, integer) TO authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_set_user_roles_v1(uuid, text[], text) TO authenticated, service_role;
-
 COMMIT;

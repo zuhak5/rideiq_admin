@@ -3,8 +3,7 @@ import { errorJson, json } from '../_shared/json.ts';
 import { verifyJwtHS256 } from '../_shared/crypto.ts';
 import { getZaincashV2Config, zaincashV2Inquiry } from '../_shared/zaincashV2.ts';
 import { withRequestContext } from '../_shared/requestContext.ts';
-
-const APP_BASE_URL = (Deno.env.get('APP_BASE_URL') ?? '').replace(/\/$/, '').replace(/\/wallet$/, '');
+import { createTopupReturnResponse } from '../_shared/appReturnLinks.ts';
 
 function isUuid(v: string) {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(v);
@@ -220,11 +219,12 @@ Deno.serve((req) =>
       await service.from('topup_intents').update({ status: 'pending', provider_payload: { token_payload: payload, inquiry: inquiryRaw, status: finalStatus } as any }).eq('id', intentId);
     }
 
-    const dest = APP_BASE_URL
-      ? `${APP_BASE_URL}/wallet?tab=topups&intent_id=${encodeURIComponent(intentId)}&status=${encodeURIComponent(finalStatus || mapped)}`
-      : null;
-
-    if (dest) return Response.redirect(dest, 302);
+    const response = createTopupReturnResponse({
+      provider: 'zaincash',
+      intentId,
+      status: finalStatus || mapped,
+    });
+    if (response) return response;
 
     return json({ ok: true, intent_id: intentId, status: finalStatus, provider_tx_id: tokenTxId });
   } catch (e) {

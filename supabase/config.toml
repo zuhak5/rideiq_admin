@@ -24,7 +24,7 @@ enable_signup = true
 
 [auth.hook.send_sms]
 enabled = true
-uri = "https://ehtimvlmpghstlzvfipx.supabase.co/functions/v1/sms-hook"
+uri = "http://host.docker.internal:54321/functions/v1/sms-hook"
 secrets = "env(AUTH_HOOK_SECRET)"
 # Edge Functions auth model
 # - Default: verify_jwt = true (Supabase gateway validates the user JWT before executing the function).
@@ -48,6 +48,9 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.match-ride]
+verify_jwt = false
+
+[functions.ride-request-create]
 verify_jwt = false
 
 [functions.asiapay-return]
@@ -152,6 +155,15 @@ verify_jwt = false
 verify_jwt = false
 
 [functions.sms-hook]
+verify_jwt = false
+
+[functions.auth-begin]
+verify_jwt = false
+
+[functions.auth-phone-status]
+verify_jwt = false
+
+[functions.auth-request-otp]
 verify_jwt = false
 
 [functions.trip-share-auto]

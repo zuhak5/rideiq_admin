@@ -105,7 +105,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_code NOT IN ('google','mapbox','here') THEN
+  IF v_code NOT IN ('google','mapbox','here','thunderforest') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
 

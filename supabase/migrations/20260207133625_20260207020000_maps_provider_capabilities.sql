@@ -1,7 +1,7 @@
 -- Provider capability matrix for multi-provider maps.
 --
 -- Why:
---  - Not every provider supports every capability.
+--  - Not every provider supports every capability (e.g., Thunderforest is render/tiles only).
 --  - Provider selection must consider capability support to avoid selecting an unusable provider.
 --  - Track unit semantics per provider/capability (map loads vs tile requests vs transactions).
 
@@ -46,6 +46,12 @@ VALUES
  ,('here', 'directions', true, 'transaction', 'Server-side transaction count')
  ,('here', 'geocode', true, 'transaction', 'Server-side transaction count')
  ,('here', 'distance_matrix', false, 'transaction', 'Disabled until implemented')
+
+  -- Thunderforest: tiles only.
+ ,('thunderforest', 'render', true, 'tile_request', 'Tiles requested by the client')
+ ,('thunderforest', 'directions', false, 'n/a', 'Not supported (render only)')
+ ,('thunderforest', 'geocode', false, 'n/a', 'Not supported (render only)')
+ ,('thunderforest', 'distance_matrix', false, 'n/a', 'Not supported (render only)')
 ON CONFLICT (provider_code, capability)
 DO UPDATE SET
   enabled = EXCLUDED.enabled,
@@ -154,7 +160,7 @@ BEGIN
     RAISE EXCEPTION 'not_authorized';
   END IF;
 
-  IF v_provider NOT IN ('google','mapbox','here') THEN
+  IF v_provider NOT IN ('google','mapbox','here','thunderforest') THEN
     RAISE EXCEPTION 'invalid_provider_code';
   END IF;
   IF v_cap NOT IN ('render','directions','geocode','distance_matrix') THEN

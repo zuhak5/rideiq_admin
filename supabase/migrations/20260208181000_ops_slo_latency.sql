@@ -51,8 +51,6 @@ AS $$
   ORDER BY total DESC
   LIMIT GREATEST(1, LEAST(p_limit, 200));
 $$;
-
 ALTER FUNCTION public.ops_metric_latency_summary_v1(timestamptz, integer) OWNER TO postgres;
-
 REVOKE ALL ON FUNCTION public.ops_metric_latency_summary_v1(timestamptz, integer) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.ops_metric_latency_summary_v1(timestamptz, integer) TO service_role;

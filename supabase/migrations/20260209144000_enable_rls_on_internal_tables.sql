@@ -6,7 +6,6 @@
 -- publicly queryable/mutable via PostgREST.
 
 BEGIN;
-
 ALTER TABLE public.agent_daily_counters ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.cash_agents ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.cashbox_daily_closings ENABLE ROW LEVEL SECURITY;
@@ -18,6 +17,4 @@ ALTER TABLE public.settlement_payment_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.settlement_payout_requests ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.settlement_payouts ENABLE ROW LEVEL SECURITY;
 ALTER TABLE public.settlement_receipts ENABLE ROW LEVEL SECURITY;
-
 COMMIT;
-

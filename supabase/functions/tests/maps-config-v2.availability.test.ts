@@ -12,7 +12,8 @@ Deno.test("browser render requests keep omitted required capabilities empty", ()
     capability: "render",
     requiredCapabilities: [],
     origin: "https://rideiqadmin.vercel.app",
-    userAgent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+    userAgent:
+      "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
   });
 
   assertEquals(required, []);

@@ -1,9 +1,10 @@
-import { createServiceClient } from './supabase.ts';
+import { createServiceClient } from "./supabase.ts";
 
 export type RateLimitResult = {
   allowed: boolean;
   remaining: number;
   resetAt: string;
+  degraded: boolean;
 };
 
 export async function consumeRateLimit(params: {
@@ -19,43 +20,48 @@ export async function consumeRateLimit(params: {
 }): Promise<RateLimitResult> {
   const service = createServiceClient();
 
-  const { data, error } = await service.rpc('rate_limit_consume', {
+  const { data, error } = await service.rpc("rate_limit_consume", {
     p_key: params.key,
     p_window_seconds: params.windowSeconds,
     p_limit: params.limit,
   });
 
   if (error) {
-    const resetAt = new Date(Date.now() + params.windowSeconds * 1000).toISOString();
+    const resetAt = new Date(Date.now() + params.windowSeconds * 1000)
+      .toISOString();
     // Default: fail open (core flows). For AI/costly endpoints prefer fail closed.
     if (params.failOpen !== false) {
-      return { allowed: true, remaining: 0, resetAt };
+      return { allowed: true, remaining: 0, resetAt, degraded: true };
     }
-    return { allowed: false, remaining: 0, resetAt };
+    return { allowed: false, remaining: 0, resetAt, degraded: true };
   }
 
   const row = Array.isArray(data) ? data[0] : data;
   return {
     allowed: !!row?.allowed,
     remaining: Number(row?.remaining ?? 0),
-    resetAt: String(row?.reset_at ?? new Date(Date.now() + params.windowSeconds * 1000).toISOString()),
+    resetAt: String(
+      row?.reset_at ??
+        new Date(Date.now() + params.windowSeconds * 1000).toISOString(),
+    ),
+    degraded: false,
   };
 }
 
 export function getClientIp(req: Request): string | null {
   // Prefer trusted single-IP headers when available.
   const candidates = [
-    req.headers.get('cf-connecting-ip'),
-    req.headers.get('true-client-ip'),
-    req.headers.get('x-real-ip'),
-    req.headers.get('x-forwarded-for'),
+    req.headers.get("cf-connecting-ip"),
+    req.headers.get("true-client-ip"),
+    req.headers.get("x-real-ip"),
+    req.headers.get("x-forwarded-for"),
   ];
 
   for (const raw of candidates) {
     if (!raw) continue;
 
     // x-forwarded-for may be a comma-separated list; take the first hop.
-    const first = raw.split(',')[0]?.trim();
+    const first = raw.split(",")[0]?.trim();
     if (!first) continue;
 
     // Basic sanity check: avoid clearly invalid tokens.
@@ -68,7 +74,19 @@ export function getClientIp(req: Request): string | null {
   return null;
 }
 
-
+export function getClientInstallationId(req: Request): string | null {
+  const raw = req.headers.get("x-client-installation-id")?.trim() ?? "";
+  if (!raw) {
+    return null;
+  }
+  if (raw.length > 128) {
+    return null;
+  }
+  if (!/^[A-Za-z0-9._:-]+$/.test(raw)) {
+    return null;
+  }
+  return raw;
+}
 
 function secondsUntilReset(resetAt: string): number {
   const ms = new Date(resetAt).getTime() - Date.now();
@@ -82,18 +100,20 @@ function secondsUntilReset(resetAt: string): number {
  * - RateLimit-Limit/Remaining/Reset: commonly used draft headers (delta seconds reset)
  * - X-RateLimit-*: de-facto compatibility with many clients (epoch reset)
  */
-export function buildRateLimitHeaders(params: { limit: number; remaining: number; resetAt: string }): Record<string, string> {
+export function buildRateLimitHeaders(
+  params: { limit: number; remaining: number; resetAt: string },
+): Record<string, string> {
   const retryAfter = secondsUntilReset(params.resetAt);
   const resetEpoch = Math.floor(new Date(params.resetAt).getTime() / 1000);
 
   return {
-    'Retry-After': String(retryAfter),
-    'RateLimit-Limit': String(params.limit),
-    'RateLimit-Remaining': String(Math.max(0, params.remaining)),
-    'RateLimit-Reset': String(retryAfter),
+    "Retry-After": String(retryAfter),
+    "RateLimit-Limit": String(params.limit),
+    "RateLimit-Remaining": String(Math.max(0, params.remaining)),
+    "RateLimit-Reset": String(retryAfter),
 
-    'X-RateLimit-Limit': String(params.limit),
-    'X-RateLimit-Remaining': String(Math.max(0, params.remaining)),
-    'X-RateLimit-Reset': String(resetEpoch),
+    "X-RateLimit-Limit": String(params.limit),
+    "X-RateLimit-Remaining": String(Math.max(0, params.remaining)),
+    "X-RateLimit-Reset": String(resetEpoch),
   };
 }

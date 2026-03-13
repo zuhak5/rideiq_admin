@@ -9,13 +9,11 @@
 -- chain, and also tightens default privileges for future function creations.
 
 BEGIN;
-
 -- Prevent future functions (created by the migration role) from being PUBLIC-
 -- executable by default. This complements the explicit allowlist below.
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM PUBLIC;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM anon;
 ALTER DEFAULT PRIVILEGES IN SCHEMA public REVOKE EXECUTE ON FUNCTIONS FROM authenticated;
-
 DO $$
 DECLARE
   fn_name text;
@@ -155,7 +153,6 @@ DECLARE
         'family_update_policy',
         'get_active_shift',
         'get_applicable_pricing_rules',
-        'get_assigned_driver',
         'get_live_activity_throttle_config',
         'get_my_app_context',
         'get_nearby_hotspots',
@@ -263,6 +260,4 @@ BEGIN
     END LOOP;
   END LOOP;
 END$$;
-
 COMMIT;
-

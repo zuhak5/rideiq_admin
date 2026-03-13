@@ -6,10 +6,8 @@
 -- -------------------------------------------------------------------
 ALTER TABLE public.service_areas
   ADD COLUMN IF NOT EXISTS notes text;
-
 COMMENT ON COLUMN public.service_areas.notes IS
   'Optional internal notes for service area configuration (admin-supplied).';
-
 -- -------------------------------------------------------------------
 -- 2) Referral: make plpgsql_check happy about control flow + unused vars
 -- -------------------------------------------------------------------
@@ -50,7 +48,6 @@ BEGIN
   RAISE EXCEPTION 'could_not_generate_code';
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.referral_apply_code(p_code text) RETURNS TABLE(applied boolean, referrer_id uuid, campaign_key text)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog, public'
@@ -98,7 +95,6 @@ BEGIN
   RETURN QUERY SELECT true, v_referrer, v_campaign.key;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.referral_claim(p_code text) RETURNS jsonb
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public', 'extensions', 'pg_temp'
@@ -142,7 +138,6 @@ BEGIN
   RETURN jsonb_build_object('ok', true, 'referrer_id', v_referrer);
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 3) Service areas: use p_notes (avoid unused parameter warnings)
 -- -------------------------------------------------------------------
@@ -210,7 +205,6 @@ BEGIN
   RETURN v_id;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 4) Withdrawals: lock wallet row without unused record variables
 -- -------------------------------------------------------------------
@@ -292,4 +286,3 @@ BEGIN
   );
 END;
 $$;
-

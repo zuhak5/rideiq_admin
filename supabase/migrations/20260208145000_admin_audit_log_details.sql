@@ -5,8 +5,6 @@
 -- functions are created.
 
 BEGIN;
-
 ALTER TABLE public.admin_audit_log
   ADD COLUMN IF NOT EXISTS details jsonb;
-
 COMMIT;

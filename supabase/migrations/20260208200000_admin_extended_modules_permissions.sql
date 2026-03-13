@@ -1,7 +1,6 @@
 -- Extended admin permissions and roles for next-gen admin dashboard modules.
 -- Idempotent inserts + grants.
 BEGIN;
-
 -- 1) Permissions
 INSERT INTO public.admin_permissions (key, name, description) VALUES
   ('payments.read', 'Read payments', 'View payments and payment provider metadata'),
@@ -32,7 +31,6 @@ INSERT INTO public.admin_permissions (key, name, description) VALUES
   ('settings.read', 'Read settings', 'View system settings and feature flags'),
   ('settings.manage', 'Manage settings', 'Update system settings and feature flags')
 ON CONFLICT (key) DO NOTHING;
-
 -- 2) Roles
 INSERT INTO public.admin_roles (key, name, description) VALUES
   ('finance_admin', 'Finance Admin', 'Payments, withdrawals, and payout operations'),
@@ -41,7 +39,6 @@ INSERT INTO public.admin_roles (key, name, description) VALUES
   ('safety_admin', 'Safety Admin', 'Incidents/SOS workflows and safety operations'),
   ('growth_admin', 'Growth Admin', 'Promotions, referrals, and growth operations')
 ON CONFLICT (key) DO NOTHING;
-
 -- 3) Grants
 WITH r AS (SELECT id, key FROM public.admin_roles),
      p AS (SELECT id, key FROM public.admin_permissions)
@@ -103,5 +100,4 @@ JOIN p ON (
   ))
 )
 ON CONFLICT DO NOTHING;
-
 COMMIT;

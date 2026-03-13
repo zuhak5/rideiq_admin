@@ -3,42 +3,32 @@
 
 DELETE FROM public.maps_provider_capabilities
 WHERE provider_code IN ('ors', 'thunderforest');
-
 DELETE FROM public.maps_provider_health
 WHERE provider_code IN ('ors', 'thunderforest');
-
 DELETE FROM public.maps_usage_daily
 WHERE provider_code IN ('ors', 'thunderforest');
-
 DELETE FROM public.maps_requests_log
 WHERE provider_code IN ('ors', 'thunderforest');
-
 DELETE FROM public.geo_cache
 WHERE provider_code IN ('ors', 'thunderforest');
-
 DELETE FROM public.maps_providers
 WHERE provider_code IN ('ors', 'thunderforest');
-
 ALTER TABLE IF EXISTS public.geo_cache
   DROP CONSTRAINT IF EXISTS geo_cache_provider_chk,
   ADD CONSTRAINT geo_cache_provider_chk
     CHECK (provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text]));
-
 ALTER TABLE IF EXISTS public.maps_provider_health
   DROP CONSTRAINT IF EXISTS mph_provider_chk,
   ADD CONSTRAINT mph_provider_chk
     CHECK (provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text]));
-
 ALTER TABLE IF EXISTS public.maps_providers
   DROP CONSTRAINT IF EXISTS maps_providers_provider_code_chk,
   ADD CONSTRAINT maps_providers_provider_code_chk
     CHECK (provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text]));
-
 ALTER TABLE IF EXISTS public.maps_requests_log
   DROP CONSTRAINT IF EXISTS maps_requests_log_provider_chk,
   ADD CONSTRAINT maps_requests_log_provider_chk
     CHECK (provider_code = ANY (ARRAY['google'::text, 'mapbox'::text, 'here'::text]));
-
 CREATE OR REPLACE FUNCTION public.admin_maps_provider_capability_set_v1(
   p_provider_code text,
   p_capability text,
@@ -81,7 +71,6 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_maps_provider_health_reset_v1(
   p_provider_code text,
   p_capability text
@@ -118,7 +107,6 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_maps_provider_set_v1(
   p_provider_code text,
   p_priority integer,
@@ -194,7 +182,6 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_maps_provider_set_v2(
   p_provider_code text,
   p_priority integer,
@@ -285,7 +272,6 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.geo_cache_put_v1(
   p_cache_key text,
   p_provider_code text,
@@ -321,7 +307,6 @@ BEGIN
     updated_at = now();
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.maps_provider_health_on_failure_v1(
   p_provider_code text,
   p_capability text,
@@ -374,7 +359,6 @@ BEGIN
     AND capability = v_cap;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.maps_provider_health_on_success_v1(
   p_provider_code text,
   p_capability text

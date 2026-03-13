@@ -26,7 +26,9 @@
     "dev:admin": "pnpm -C admin_dashboard dev",
     "build:admin": "pnpm -C admin_dashboard build",
     "lint:admin": "pnpm -C admin_dashboard lint",
-    "test:admin": "pnpm -C admin_dashboard test"
+    "test:admin": "pnpm -C admin_dashboard test",
+    "test:edge-auth": "deno task test:edge-auth",
+    "test:edge-sms": "deno task test:edge-sms"
   },
   "pnpm": {
     "overrides": {

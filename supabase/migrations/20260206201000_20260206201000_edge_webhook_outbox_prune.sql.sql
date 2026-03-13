@@ -1,2 +1,1 @@
--- Placeholder migration.
--- Marker: applied_via_mcp_execute_sql
+applied_via_mcp_execute_sql;

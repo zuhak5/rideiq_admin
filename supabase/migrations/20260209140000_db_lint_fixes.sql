@@ -5,7 +5,6 @@
 -- 1) Enum consistency: wallet_entry_kind is used with 'reward' in RPCs
 -- -------------------------------------------------------------------
 ALTER TYPE public.wallet_entry_kind ADD VALUE IF NOT EXISTS 'reward';
-
 -- -------------------------------------------------------------------
 -- 2) public.is_admin(): simplify to avoid plpgsql_check false positives
 --    (dynamic SQL referenced columns that don't exist in this schema)
@@ -20,7 +19,6 @@ BEGIN
   RETURN public.is_admin(uid);
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 5) Driver details: avoid ambiguity with RETURNS TABLE plate_number
 -- -------------------------------------------------------------------
@@ -70,7 +68,6 @@ BEGIN
   WHERE d.id = v_ride.driver_id;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 6) Outboxes: avoid ambiguity with RETURNS TABLE(id ...)
 -- -------------------------------------------------------------------
@@ -99,7 +96,6 @@ BEGIN
   RETURNING o.id, o.notification_id, o.user_id, o.device_token_id, o.payload, o.attempts;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.trusted_contact_outbox_claim(p_limit integer DEFAULT 50) RETURNS TABLE(id uuid, user_id uuid, contact_id uuid, sos_event_id uuid, ride_id uuid, channel public.contact_channel, to_phone text, payload jsonb, attempts integer)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog, public'
@@ -127,7 +123,6 @@ BEGIN
   RETURNING o.id, o.user_id, o.contact_id, o.sos_event_id, o.ride_id, o.channel, o.to_phone, o.payload, o.attempts;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 7) Referral + WebAuthn: qualify extensions.gen_random_bytes()
 -- -------------------------------------------------------------------
@@ -165,7 +160,6 @@ BEGIN
   END LOOP;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.webauthn_create_challenge(p_challenge_type text, p_user_id uuid DEFAULT NULL::uuid, p_session_id text DEFAULT NULL::text, p_user_agent text DEFAULT NULL::text, p_challenge bytea DEFAULT NULL::bytea) RETURNS TABLE(challenge_id uuid, challenge bytea, expires_at timestamp with time zone)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'public'
@@ -181,7 +175,6 @@ BEGIN
   INTO challenge_id, challenge, expires_at;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 8) Driver rank snapshots: fix column name (fare_amount_iqd exists)
 -- -------------------------------------------------------------------
@@ -233,7 +226,6 @@ BEGIN
   ) s;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 9) Withdraw hooks: align wallet_holds status with enum (captured)
 -- -------------------------------------------------------------------
@@ -309,7 +301,6 @@ BEGIN
         updated_at = now();
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 10) Service areas: fix broken bbox_v2 overload (missing params)
 -- -------------------------------------------------------------------
@@ -335,7 +326,6 @@ BEGIN
   );
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 11) Maps providers: SUM() returns bigint, but RPC returns integer cols
 -- -------------------------------------------------------------------
@@ -373,7 +363,6 @@ BEGIN
   ORDER BY mp.priority DESC;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_maps_provider_list_v2() RETURNS TABLE(provider_code text, priority integer, enabled boolean, language text, region text, monthly_soft_cap_units integer, monthly_hard_cap_units integer, cache_enabled boolean, cache_ttl_seconds integer, note text, mtd_render integer, mtd_directions integer, mtd_geocode integer, mtd_distance_matrix integer, updated_at timestamp with time zone)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -410,7 +399,6 @@ BEGIN
   ORDER BY mp.priority DESC;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 12) Support tickets (user): cast text filter to enum type
 -- -------------------------------------------------------------------
@@ -479,7 +467,6 @@ BEGIN
   );
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 13) Withdraw admin: fix ON CONFLICT target to match unique index
 -- -------------------------------------------------------------------
@@ -561,7 +548,6 @@ BEGIN
   );
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 14) RideCheck: resolve variable/column ambiguity in ON CONFLICT target
 -- -------------------------------------------------------------------
@@ -647,7 +633,6 @@ BEGIN
   RETURN NEXT;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 3) Settlement RPCs: disambiguate RETURN TABLE column names (id/status)
 -- -------------------------------------------------------------------
@@ -699,7 +684,6 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_settlement_approve_payout_request_v1(p_request_id uuid, p_admin_note text DEFAULT NULL::text, p_reference_override text DEFAULT NULL::text) RETURNS TABLE(id uuid, status text, processed_at timestamp with time zone)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -760,7 +744,6 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_settlement_reject_payment_request_v1(p_request_id uuid, p_admin_note text DEFAULT NULL::text) RETURNS TABLE(id uuid, status text, processed_at timestamp with time zone)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -791,7 +774,6 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_settlement_reject_payout_request_v1(p_request_id uuid, p_admin_note text DEFAULT NULL::text) RETURNS TABLE(id uuid, status text, processed_at timestamp with time zone)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -822,7 +804,6 @@ BEGIN
   RETURN QUERY SELECT v_req.id, v_req.status::text, v_req.processed_at;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_settlement_record_receipt_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) RETURNS TABLE(id uuid, receipt_no text)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -875,7 +856,6 @@ BEGIN
   RETURN QUERY SELECT v_id, v_receipt_no;
 END;
 $$;
-
 CREATE OR REPLACE FUNCTION public.admin_settlement_record_payout_v2(p_party_type public.settlement_party_type, p_party_id uuid, p_amount_iqd integer, p_method text, p_reference text, p_agent_id uuid, p_day date, p_idempotency_key text) RETURNS TABLE(id uuid, payout_no text)
     LANGUAGE plpgsql SECURITY DEFINER
     SET search_path TO 'pg_catalog', 'public'
@@ -928,7 +908,6 @@ BEGIN
   RETURN QUERY SELECT v_id, v_payout_no;
 END;
 $$;
-
 -- -------------------------------------------------------------------
 -- 4) Ride matching: fix ambiguous id reference (RETURNS TABLE(id ...))
 -- -------------------------------------------------------------------

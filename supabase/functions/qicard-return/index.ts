@@ -1,4 +1,5 @@
 import { withRequestContext } from '../_shared/requestContext.ts';
+import { createTopupReturnResponse } from '../_shared/appReturnLinks.ts';
 
 /**
  * QiCard hosted payment page return handler.
@@ -9,32 +10,16 @@ import { withRequestContext } from '../_shared/requestContext.ts';
  *
  * The authoritative payment state is handled asynchronously via `qicard-notify` (callbackUrl).
  */
-const APP_BASE_URL = (Deno.env.get('APP_BASE_URL') ?? '').replace(/\/$/, '');
-
-function redirect(location: string) {
-  return new Response(null, {
-    status: 302,
-    headers: {
-      Location: location,
-      'Cache-Control': 'no-store',
-    },
-  });
-}
-
-function buildRedirectUrl(params: URLSearchParams) {
+function buildReturnResponse(params: URLSearchParams) {
   const requestId = params.get('requestId') ?? params.get('reference') ?? params.get('intent_id') ?? '';
   const paymentId = params.get('paymentId') ?? '';
   const status = params.get('status') ?? params.get('transactionStatus') ?? '';
-
-  const base = `${APP_BASE_URL}/wallet`;
-  const qs = new URLSearchParams();
-  qs.set('tab', 'topups');
-  if (requestId) qs.set('intent_id', requestId);
-  if (paymentId) qs.set('payment_id', paymentId);
-  if (status) qs.set('status', status);
-  qs.set('provider', 'qicard');
-
-  return `${base}?${qs.toString()}`;
+  return createTopupReturnResponse({
+    provider: 'qicard',
+    intentId: requestId || null,
+    paymentId: paymentId || null,
+    status: status || null,
+  });
 }
 
 async function readParams(req: Request): Promise<URLSearchParams> {
@@ -79,13 +64,14 @@ async function readParams(req: Request): Promise<URLSearchParams> {
 Deno.serve((req) =>
   withRequestContext('qicard-return', req, async (_ctx) => {
 
-  if (!APP_BASE_URL) {
-    return new Response('Missing APP_BASE_URL', { status: 500 });
+  const response = buildReturnResponse(await readParams(req));
+  if (!response) {
+    return new Response(
+      'Missing APP_LINK_BASE_URL or APP_CUSTOM_SCHEME_BASE_URL',
+      { status: 500 },
+    );
   }
 
-  const params = await readParams(req);
-
-  // Always redirect back to the app (the app will show "processing" and rely on webhook/polling).
-  return redirect(buildRedirectUrl(params));
+  return response;
   }),
 );

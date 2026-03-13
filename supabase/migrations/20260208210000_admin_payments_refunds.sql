@@ -6,10 +6,8 @@
 --  - admin_record_ride_refund_v2 RPC with idempotency + payments.refund permission
 
 BEGIN;
-
 -- 1) Ensure audit action exists
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'refund_payment';
-
 -- 2) Refund idempotency table
 CREATE TABLE IF NOT EXISTS public.payment_refund_idempotency (
   key          text PRIMARY KEY,
@@ -21,9 +19,7 @@ CREATE TABLE IF NOT EXISTS public.payment_refund_idempotency (
   created_at    timestamptz NOT NULL DEFAULT now(),
   updated_at    timestamptz NOT NULL DEFAULT now()
 );
-
 ALTER TABLE public.payment_refund_idempotency ENABLE ROW LEVEL SECURITY;
-
 DO $$
 BEGIN
   IF NOT EXISTS (
@@ -33,7 +29,6 @@ BEGIN
       TO service_role USING (true) WITH CHECK (true);$policy$;
   END IF;
 END$$;
-
 -- 3) V2 refund RPC with idempotency + permission
 CREATE OR REPLACE FUNCTION public.admin_record_ride_refund_v2(
   p_ride_id uuid,
@@ -117,8 +112,6 @@ BEGIN
   RETURN v_resp;
 END;
 $$;
-
 REVOKE ALL ON FUNCTION public.admin_record_ride_refund_v2(uuid, integer, text, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_record_ride_refund_v2(uuid, integer, text, text) TO authenticated, service_role;
-
 COMMIT;

@@ -8,7 +8,6 @@
 -- Regenerate this file (and pgTAP tests) via: node scripts/generate-security-hardening.mjs
 
 BEGIN;
-
 DO $$
 DECLARE
   fn_name text;
@@ -148,7 +147,6 @@ DECLARE
         'family_update_policy',
         'get_active_shift',
         'get_applicable_pricing_rules',
-        'get_assigned_driver',
         'get_live_activity_throttle_config',
         'get_my_app_context',
         'get_nearby_hotspots',
@@ -256,5 +254,4 @@ BEGIN
     END LOOP;
   END LOOP;
 END$$;
-
 COMMIT;

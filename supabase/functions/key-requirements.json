@@ -42,6 +42,10 @@
       "key": "service_role",
       "reason": "Withdrawal provider webhook ingest: verifies signature then persists events and updates payout records; service role required."
     },
+    "auth-debug-phone-state": {
+      "key": "none",
+      "reason": "Disabled placeholder endpoint kept closed until a real debug implementation is intentionally added."
+    },
     "concierge": {
       "key": "service_role",
       "reason": "Server-side concierge workflow that writes operational records and may bypass RLS for controlled orchestration."
@@ -125,6 +129,10 @@
     "maps-config-v2": {
       "key": "service_role",
       "reason": "Public provider selection endpoint that reads maps provider configuration + capability matrix and enforces monthly quota selection; uses service role to bypass RLS for controlled reads."
+    },
+    "maps-config": {
+      "key": "none",
+      "reason": "Disabled legacy endpoint retained only so old callers receive an explicit upgrade response."
     },
     "maps-usage": {
       "key": "service_role",
@@ -242,6 +250,10 @@
       "key": "anon",
       "reason": "User-scoped endpoint. Uses publishable key + user JWT and a SECURITY DEFINER RPC bound to auth.uid() for the state-changing insert."
     },
+    "ride-request-create": {
+      "key": "anon",
+      "reason": "User-scoped endpoint. Uses publishable key + user JWT and authenticated SECURITY DEFINER RPCs bound to auth.uid() for immediate ride creation and dispatch."
+    },
     "ride-pickup-pin": {
       "key": "service_role",
       "reason": "Server-side endpoint requiring service role for controlled privileged database access."
@@ -278,9 +290,25 @@
       "key": "service_role",
       "reason": "Server-side endpoint requiring service role for controlled privileged database access."
     },
+    "auth-begin": {
+      "key": "service_role",
+      "reason": "Public phone-auth entrypoint that uses service role for controlled route lookup, rate limiting, and hardened OTP orchestration."
+    },
+    "auth-phone-status": {
+      "key": "none",
+      "reason": "Legacy auth endpoint kept only to return an upgrade-required response without calling Supabase APIs."
+    },
+    "auth-request-otp": {
+      "key": "service_role",
+      "reason": "Public OTP resend/recovery endpoint that uses service role for controlled route lookup, rate limiting, and hardened OTP orchestration."
+    },
     "sms-hook": {
       "key": "service_role",
       "reason": "Supabase Auth SMS hook handler writing OTP delivery logs/status server-side; uses service role."
+    },
+    "sms-provider-probe": {
+      "key": "none",
+      "reason": "Disabled placeholder endpoint reserved for future provider probes with no active Supabase integration."
     },
     "stats-rollup": {
       "key": "service_role",

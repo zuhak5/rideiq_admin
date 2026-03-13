@@ -1,5 +1,4 @@
 BEGIN;
-
 -- Session 9: Admin dashboard Rides + Drivers management primitives
 --
 -- Adds:
@@ -17,7 +16,6 @@ INSERT INTO public.admin_permissions (key, name, description) VALUES
   ('drivers.manage', 'Manage drivers', 'Edit driver settings / vehicles / payout settings (future)'),
   ('drivers.suspend', 'Suspend drivers', 'Suspend/unsuspend drivers')
 ON CONFLICT (key) DO NOTHING;
-
 -- 2) Grants
 WITH r AS (SELECT id, key FROM public.admin_roles),
      p AS (SELECT id, key FROM public.admin_permissions)
@@ -38,9 +36,7 @@ JOIN p ON (
   (r.key = 'fraud_admin' AND p.key IN ('rides.read','drivers.read'))
 )
 ON CONFLICT DO NOTHING;
-
 -- 3) Audit action enum values for new operations
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'cancel_ride';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'transition_driver_status';
-
 COMMIT;

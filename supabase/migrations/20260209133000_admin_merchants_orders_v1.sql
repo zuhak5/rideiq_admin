@@ -13,14 +13,12 @@
 --  - RPC outputs are intentionally "view-like" to keep Next Admin simple and stable.
 
 BEGIN;
-
 -- ------------------------------------------------------------
 -- 1) Admin audit actions (extend enum)
 -- ------------------------------------------------------------
 
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'merchant_status_update';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'order_status_update';
-
 -- ------------------------------------------------------------
 -- 2) Merchants
 -- ------------------------------------------------------------
@@ -91,8 +89,6 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
-
 CREATE OR REPLACE FUNCTION public.admin_merchant_get_v1(
   p_merchant_id uuid
 )
@@ -198,8 +194,6 @@ BEGIN
   );
 END;
 $$;
-
-
 CREATE OR REPLACE FUNCTION public.admin_set_merchant_status_v1(
   p_merchant_id uuid,
   p_new_status public.merchant_status,
@@ -242,7 +236,6 @@ BEGIN
   RETURN v_row;
 END;
 $$;
-
 -- ------------------------------------------------------------
 -- 3) Orders
 -- ------------------------------------------------------------
@@ -322,8 +315,6 @@ BEGIN
   LIMIT lim;
 END;
 $$;
-
-
 CREATE OR REPLACE FUNCTION public.admin_order_get_v1(
   p_order_id uuid
 )
@@ -454,8 +445,6 @@ BEGIN
   );
 END;
 $$;
-
-
 CREATE OR REPLACE FUNCTION public.admin_order_set_status_v1(
   p_order_id uuid,
   p_new_status public.merchant_order_status,
@@ -501,27 +490,20 @@ BEGIN
   RETURN v_row;
 END;
 $$;
-
 -- ------------------------------------------------------------
 -- 4) Grants (keep RPCs callable via PostgREST for authenticated users)
 -- ------------------------------------------------------------
 
 REVOKE ALL ON FUNCTION public.admin_merchants_list_v1(text, text, integer, integer) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_merchants_list_v1(text, text, integer, integer) TO authenticated, service_role;
-
 REVOKE ALL ON FUNCTION public.admin_merchant_get_v1(uuid) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_merchant_get_v1(uuid) TO authenticated, service_role;
-
 REVOKE ALL ON FUNCTION public.admin_set_merchant_status_v1(uuid, public.merchant_status, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_set_merchant_status_v1(uuid, public.merchant_status, text) TO authenticated, service_role;
-
 REVOKE ALL ON FUNCTION public.admin_orders_list_v1(text, text, uuid, integer, integer) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_orders_list_v1(text, text, uuid, integer, integer) TO authenticated, service_role;
-
 REVOKE ALL ON FUNCTION public.admin_order_get_v1(uuid) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_order_get_v1(uuid) TO authenticated, service_role;
-
 REVOKE ALL ON FUNCTION public.admin_order_set_status_v1(uuid, public.merchant_order_status, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_order_set_status_v1(uuid, public.merchant_order_status, text) TO authenticated, service_role;
-
 COMMIT;

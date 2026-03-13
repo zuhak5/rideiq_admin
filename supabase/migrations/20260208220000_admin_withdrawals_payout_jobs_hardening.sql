@@ -7,17 +7,14 @@
 --  - Use safe SECURITY DEFINER patterns (search_path='').
 
 BEGIN;
-
 -- 1) Ensure audit actions exist (used by admin-api best-effort audit inserts)
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'withdraw_approve';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'withdraw_reject';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'withdraw_mark_paid';
-
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'payout_job_create';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'payout_job_retry';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'payout_job_cancel';
 ALTER TYPE public.admin_audit_action ADD VALUE IF NOT EXISTS 'payout_job_force_confirm';
-
 -- 2) Harden admin_withdraw_approve: permission check + safe search_path
 CREATE OR REPLACE FUNCTION public.admin_withdraw_approve(
   p_request_id uuid,
@@ -81,10 +78,8 @@ BEGIN
   );
 END;
 $$;
-
 REVOKE ALL ON FUNCTION public.admin_withdraw_approve(uuid, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_withdraw_approve(uuid, text) TO authenticated, service_role;
-
 -- 3) Harden admin_withdraw_reject: permission check + require active hold
 CREATE OR REPLACE FUNCTION public.admin_withdraw_reject(
   p_request_id uuid,
@@ -164,10 +159,8 @@ BEGIN
   );
 END;
 $$;
-
 REVOKE ALL ON FUNCTION public.admin_withdraw_reject(uuid, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_withdraw_reject(uuid, text) TO authenticated, service_role;
-
 -- 4) Harden admin_withdraw_mark_paid: permission check + require active hold
 CREATE OR REPLACE FUNCTION public.admin_withdraw_mark_paid(
   p_request_id uuid,
@@ -276,8 +269,6 @@ BEGIN
   );
 END;
 $$;
-
 REVOKE ALL ON FUNCTION public.admin_withdraw_mark_paid(uuid, text) FROM PUBLIC;
 GRANT EXECUTE ON FUNCTION public.admin_withdraw_mark_paid(uuid, text) TO authenticated, service_role;
-
 COMMIT;
