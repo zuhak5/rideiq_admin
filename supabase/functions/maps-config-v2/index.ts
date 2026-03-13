@@ -1,4 +1,7 @@
-import { getCorsHeadersForRequest } from "../_shared/cors.ts";
+import {
+  getConfiguredOriginAllowlist,
+  getCorsHeadersForRequest,
+} from "../_shared/cors.ts";
 import { errorJson, json } from "../_shared/json.ts";
 import { envTrim } from "../_shared/config.ts";
 import { createServiceClient, requireUser } from "../_shared/supabase.ts";
@@ -65,36 +68,6 @@ function parseCsv(input: string | null): string[] {
     .split(",")
     .map((s) => s.trim())
     .filter(Boolean);
-}
-
-function getAllowedOrigins(): string[] {
-  // Backwards-compatible: allow either ALLOWED_ORIGINS (legacy for this function)
-  // or the shared CORS_ALLOW_ORIGINS used by our CORS helper.
-  const fromEnv = envTrim("ALLOWED_ORIGINS") || envTrim("CORS_ALLOW_ORIGINS") ||
-    "";
-  const configuredOrigins = fromEnv
-    .split(",")
-    .map((s) => s.trim())
-    .filter(Boolean)
-    .map((v) => {
-      try {
-        return new URL(v).origin;
-      } catch {
-        return v;
-      }
-    });
-  return Array.from(
-    new Set<string>([
-      ...configuredOrigins,
-      "https://rideiqadmin.vercel.app",
-      "http://127.0.0.1:3000",
-      "http://127.0.0.1:3001",
-      "http://127.0.0.1:5173",
-      "http://localhost:3000",
-      "http://localhost:3001",
-      "http://localhost:5173",
-    ]),
-  );
 }
 
 function buildClientConfig(
@@ -168,7 +141,9 @@ Deno.serve(async (req) => {
       );
     }
 
-    const allowedOrigins = getAllowedOrigins();
+    const allowedOrigins = getConfiguredOriginAllowlist([
+      envTrim("ALLOWED_ORIGINS"),
+    ]);
     const origin = req.headers.get("origin");
     let hasAuthenticatedUser = false;
 
