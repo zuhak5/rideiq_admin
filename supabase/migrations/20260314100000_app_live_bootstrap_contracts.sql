@@ -309,9 +309,9 @@ BEGIN
   WHERE p.id = v_uid;
 
   SELECT
-    coalesce(sum(r.fare_amount_iqd), 0) FILTER (WHERE r.completed_at >= date_trunc('day', now())),
-    coalesce(sum(r.fare_amount_iqd), 0) FILTER (WHERE r.completed_at >= now() - interval '7 days'),
-    coalesce(sum(r.fare_amount_iqd), 0) FILTER (WHERE r.completed_at >= date_trunc('month', now())),
+    coalesce(sum(r.fare_amount_iqd) FILTER (WHERE r.completed_at >= date_trunc('day', now())), 0),
+    coalesce(sum(r.fare_amount_iqd) FILTER (WHERE r.completed_at >= now() - interval '7 days'), 0),
+    coalesce(sum(r.fare_amount_iqd) FILTER (WHERE r.completed_at >= date_trunc('month', now())), 0),
     count(*) FILTER (WHERE r.completed_at >= date_trunc('day', now())),
     count(*) FILTER (WHERE r.completed_at >= now() - interval '7 days'),
     count(*) FILTER (WHERE r.completed_at >= date_trunc('month', now())),
