@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta name="robots" content="noindex" />
+    <title>Rabi7 verification</title>
+    <style>
+      :root {
+        color-scheme: light;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        display: grid;
+        place-items: center;
+        background:
+          radial-gradient(circle at top, #f3faf6 0%, #ffffff 52%),
+          linear-gradient(180deg, #ffffff 0%, #f6f6f6 100%);
+        color: #14212d;
+      }
+
+      #card {
+        width: min(92vw, 420px);
+        padding: 20px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 14px 42px rgba(0, 0, 0, 0.08);
+      }
+
+      h1 {
+        margin: 0 0 10px;
+        font-size: 20px;
+      }
+
+      p {
+        margin: 0 0 16px;
+        line-height: 1.6;
+        color: #5b646e;
+      }
+
+      #captcha {
+        min-height: 74px;
+      }
+
+      #status {
+        min-height: 24px;
+        margin-top: 16px;
+        color: #a14b00;
+      }
+
+      #open-app-link {
+        display: none;
+        margin-top: 16px;
+        color: #1f6ed4;
+        font-weight: 600;
+      }
+
+      #cancel-link {
+        display: inline-block;
+        margin-top: 16px;
+        color: #5b646e;
+      }
+    </style>
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit"
+      async
+      defer
+    ></script>
+    <script>
+      const pageUrl = new URL(window.location.href);
+      const captchaState = (pageUrl.searchParams.get("state") || "").trim();
+      const siteKey = (pageUrl.searchParams.get("site_key") || "").trim();
+      const returnUrl = "rabi7://auth/captcha";
+      let widgetId = null;
+
+      function buildReturnUrl(params) {
+        const nextUrl = new URL(returnUrl);
+        nextUrl.searchParams.set("state", captchaState);
+        Object.entries(params).forEach(([key, value]) => {
+          if (typeof value === "string" && value.trim()) {
+            nextUrl.searchParams.set(key, value.trim());
+          }
+        });
+        return nextUrl.toString();
+      }
+
+      function setOpenAppLink(url) {
+        const anchor = document.getElementById("open-app-link");
+        anchor.href = url;
+        anchor.style.display = "inline-block";
+      }
+
+      function returnToApp(params) {
+        const nextUrl = buildReturnUrl(params);
+        const status = document.getElementById("status");
+        status.textContent = "Returning to the app...";
+        setOpenAppLink(nextUrl);
+        window.location.replace(nextUrl);
+      }
+
+      function setStatus(message) {
+        document.getElementById("status").textContent = message;
+      }
+
+      function renderCaptcha() {
+        if (!captchaState || !siteKey) {
+          setStatus("Verification could not start. Return to the app and try again.");
+          return;
+        }
+
+        if (!window.turnstile) {
+          window.setTimeout(renderCaptcha, 120);
+          return;
+        }
+
+        if (widgetId !== null) {
+          try {
+            window.turnstile.remove(widgetId);
+          } catch (_) {}
+          widgetId = null;
+        }
+
+        widgetId = window.turnstile.render("#captcha", {
+          sitekey: siteKey,
+          retry: "auto",
+          "retry-interval": 1000,
+          "refresh-expired": "auto",
+          "refresh-timeout": "auto",
+          callback: function (token) {
+            returnToApp({ captcha_token: token });
+          },
+          "error-callback": function (code) {
+            returnToApp({
+              error: code || "turnstile_error",
+              message: "Captcha failed to load.",
+            });
+          },
+          "expired-callback": function () {
+            returnToApp({
+              error: "expired",
+              message: "Verification expired. Try again.",
+            });
+          },
+          "timeout-callback": function () {
+            returnToApp({
+              error: "timeout",
+              message: "Verification timed out before completion. Try again.",
+            });
+          },
+          "unsupported-callback": function () {
+            returnToApp({
+              error: "unsupported",
+              message: "Captcha verification is unavailable on this device.",
+            });
+          },
+        });
+      }
+
+      window.addEventListener("load", function () {
+        const cancelLink = document.getElementById("cancel-link");
+        cancelLink.href = buildReturnUrl({ error: "cancelled" });
+        setStatus(
+          "Complete the verification and you will return to the app automatically."
+        );
+        renderCaptcha();
+      });
+    </script>
+  </head>
+  <body>
+    <div id="card">
+      <h1>Verify before you continue</h1>
+      <p>
+        Complete this short verification to keep sign-in and OTP requests secure.
+      </p>
+      <div id="captcha"></div>
+      <p id="status"></p>
+      <a id="open-app-link" href="#">Open Rabi7</a>
+      <a id="cancel-link" href="#">Cancel and return to the app</a>
+    </div>
+  </body>
+</html>
