@@ -22,6 +22,9 @@ additional_redirect_urls = ["http://localhost:5173", "http://127.0.0.1:5173"]
 jwt_expiry = 3600
 enable_signup = true
 
+[auth.captcha]
+enabled = false
+
 [auth.hook.send_sms]
 enabled = true
 uri = "http://host.docker.internal:54321/functions/v1/sms-hook"
