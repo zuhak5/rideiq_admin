@@ -16,6 +16,7 @@ type AdminUserRow = {
   locale: string | null;
   created_at: string | null;
   is_admin: boolean;
+  role_keys: string[];
 };
 
 function isUuid(v: unknown): v is string {
@@ -38,7 +39,9 @@ Deno.serve((req) =>
     }
 
     const anon = createAnonClient(req);
-    const { data: isAdmin, error: adminErr } = await anon.rpc('is_admin');
+    const { data: isAdmin, error: adminErr } = await anon.rpc('admin_has_permission', {
+      p_permission: 'users.read',
+    });
     if (adminErr) return errorJson(adminErr.message, 400, 'DB_ERROR', undefined, ctx.headers);
     if (!isAdmin) return errorJson('Forbidden', 403, 'FORBIDDEN', undefined, ctx.headers);
 
@@ -61,9 +64,14 @@ Deno.serve((req) =>
       .range(offset, offset + limit - 1);
 
     if (q.length) {
-      // Simple search across name + phone.
-      const like = `%${q.replace(/%/g, '\\%').replace(/_/g, '\\_')}%`;
-      query = query.or(`display_name.ilike.${like},phone.ilike.${like}`);
+      const needle = q.replace(/[^\p{L}\p{N}\s+._-]/gu, '').trim().slice(0, 80);
+      if (needle) {
+        if (isUuid(needle)) {
+          query = query.or(`id.eq.${needle},display_name.ilike.%${needle}%,phone.ilike.%${needle}%`);
+        } else {
+          query = query.or(`display_name.ilike.%${needle}%,phone.ilike.%${needle}%`);
+        }
+      }
     }
 
     const { data: profs, error: profErr } = await query;
@@ -71,22 +79,23 @@ Deno.serve((req) =>
 
     const ids = (profs ?? []).map((p: any) => p.id).filter((v: any) => isUuid(v));
 
-    // Determine admin membership from the dedicated table.
-    const { data: admins, error: admErr } = await svc
-      .from('admin_users')
-      .select('user_id')
-      .in('user_id', ids.length ? ids : ['00000000-0000-0000-0000-000000000000']);
-
-    if (admErr) return errorJson(admErr.message, 400, 'DB_ERROR', undefined, ctx.headers);
-    const adminSet = new Set((admins ?? []).map((r: any) => r.user_id).filter((v: any) => isUuid(v)));
-
-    // Backward-compat: include legacy flag (read via service role only).
-    const legacyAdminSet = new Set<string>();
+    const roleMap = new Map<string, string[]>();
     if (ids.length) {
-      const { data: legacy } = await svc.from('profiles').select('id').in('id', ids).eq('is_admin', true);
-      (legacy ?? []).forEach((r: any) => {
-        if (isUuid(r.id)) legacyAdminSet.add(r.id);
-      });
+      const { data: roleRows, error: roleErr } = await svc
+        .from('admin_user_roles')
+        .select('user_id,admin_roles!inner(key)')
+        .in('user_id', ids);
+
+      if (roleErr) return errorJson(roleErr.message, 400, 'DB_ERROR', undefined, ctx.headers);
+
+      for (const row of roleRows ?? []) {
+        const userId = String((row as any)?.user_id ?? '');
+        const roleKey = String((row as any)?.admin_roles?.key ?? '');
+        if (!isUuid(userId) || !roleKey) continue;
+        const existing = roleMap.get(userId) ?? [];
+        existing.push(roleKey);
+        roleMap.set(userId, existing);
+      }
     }
 
     const users: AdminUserRow[] = (profs ?? []).map((p: any) => ({
@@ -96,7 +105,8 @@ Deno.serve((req) =>
       active_role: p.active_role ?? null,
       locale: p.locale ?? null,
       created_at: p.created_at ?? null,
-      is_admin: adminSet.has(p.id) || legacyAdminSet.has(p.id),
+      is_admin: (roleMap.get(p.id) ?? []).length > 0,
+      role_keys: Array.from(new Set(roleMap.get(p.id) ?? [])).sort(),
     }));
 
     return json({ users, page: { limit, offset, returned: users.length } }, 200, ctx.headers);

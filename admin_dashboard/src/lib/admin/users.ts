@@ -10,6 +10,7 @@ export type AdminUserRow = {
   locale: string | null;
   created_at: string | null;
   is_admin: boolean;
+  role_keys: string[];
 };
 
 export type AdminUsersListResponse = {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 import AdminNav from '../components/AdminNav';
 import { getIsAdmin } from '../lib/admin';
 import { invokeEdge } from '../lib/edgeInvoke';
@@ -14,6 +14,7 @@ type UserRow = {
   locale: string | null;
   created_at: string | null;
   is_admin: boolean;
+  role_keys: string[];
 };
 
 type ListResp = {
@@ -29,7 +30,7 @@ type AuditRow = {
   id: number;
   created_at: string;
   actor_id: string;
-  action: 'grant_admin' | 'revoke_admin';
+  action: string;
   target_user_id: string;
   note: string | null;
 };
@@ -39,7 +40,6 @@ function Badge({ children }: { children: React.ReactNode }) {
 }
 
 export default function AdminUsersPage() {
-  const qc = useQueryClient();
   const adminQ = useQuery({ queryKey: ['is_admin'], queryFn: getIsAdmin });
 
   const [q, setQ] = React.useState('');
@@ -70,36 +70,6 @@ export default function AdminUsersPage() {
     refetchInterval: 30000,
   });
 
-  const grantM = useMutation({
-    mutationFn: async (args: { userId: string; note?: string }) => {
-      const { data, error } = await supabase.rpc('admin_grant_user_v1', { p_user: args.userId, p_note: args.note ?? null });
-      if (error) throw error;
-      const res = data as any;
-      if (res?.ok === false) throw new Error(String(res.error ?? 'Failed to grant admin'));
-    },
-    onSuccess: async () => {
-      await Promise.all([
-        qc.invalidateQueries({ queryKey: ['admin_users_list'] }),
-        qc.invalidateQueries({ queryKey: ['admin_audit_log'] }),
-      ]);
-    },
-  });
-
-  const revokeM = useMutation({
-    mutationFn: async (args: { userId: string; note?: string }) => {
-      const { data, error } = await supabase.rpc('admin_revoke_user_v1', { p_user: args.userId, p_note: args.note ?? null });
-      if (error) throw error;
-      const res = data as any;
-      if (res?.ok === false) throw new Error(String(res.error ?? 'Failed to revoke admin'));
-    },
-    onSuccess: async () => {
-      await Promise.all([
-        qc.invalidateQueries({ queryKey: ['admin_users_list'] }),
-        qc.invalidateQueries({ queryKey: ['admin_audit_log'] }),
-      ]);
-    },
-  });
-
   const users = listQ.data?.users ?? [];
   const listErr = listQ.error ? errorText(listQ.error) : null;
   const auditErr = auditQ.error ? errorText(auditQ.error) : null;
@@ -112,12 +82,14 @@ export default function AdminUsersPage() {
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
             <div className="text-lg font-semibold">Admin Users</div>
-            <div className="text-xs text-gray-500">Grant or revoke admin access. All changes are audited.</div>
+            <div className="text-xs text-gray-500">
+              Read-only view of role assignments. Use the admin dashboard Admin Access screen to change roles.
+            </div>
           </div>
           <div className="flex items-center gap-2 flex-wrap">
             <input
               className="w-64 rounded-xl border border-gray-200 px-3 py-2 text-sm"
-              placeholder="Search name or phone…"
+              placeholder="Search name or phone..."
               value={q}
               onChange={(e) => {
                 setOffset(0);
@@ -141,12 +113,12 @@ export default function AdminUsersPage() {
               onClick={() => void listQ.refetch()}
               disabled={listQ.isFetching}
             >
-              {listQ.isFetching ? 'Refreshing…' : 'Refresh'}
+              {listQ.isFetching ? 'Refreshing...' : 'Refresh'}
             </button>
           </div>
         </div>
 
-        {adminQ.isLoading ? <div className="mt-3 text-sm text-gray-600">Checking admin…</div> : null}
+        {adminQ.isLoading ? <div className="mt-3 text-sm text-gray-600">Checking admin...</div> : null}
         {adminQ.data === false ? <div className="mt-3 text-sm text-red-700">Admin access required.</div> : null}
         {listErr ? <div className="mt-3 text-sm text-red-700">{listErr}</div> : null}
 
@@ -159,55 +131,38 @@ export default function AdminUsersPage() {
                 <th className="px-3 py-2 text-left font-medium">Role</th>
                 <th className="px-3 py-2 text-left font-medium">Locale</th>
                 <th className="px-3 py-2 text-left font-medium">Created</th>
-                <th className="px-3 py-2 text-left font-medium">Access</th>
-                <th className="px-3 py-2 text-right font-medium">Action</th>
+                <th className="px-3 py-2 text-left font-medium">Admin access</th>
               </tr>
             </thead>
             <tbody>
               {users.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-3 py-6 text-center text-sm text-gray-600">No users found.</td>
+                  <td colSpan={6} className="px-3 py-6 text-center text-sm text-gray-600">No users found.</td>
                 </tr>
               ) : (
                 users.map((u, idx) => (
                   <tr key={u.id} className={idx % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
                     <td className="px-3 py-2">
-                      <div className="font-semibold">{u.display_name ?? '—'}</div>
+                      <div className="font-semibold">{u.display_name ?? '-'}</div>
                       <div className="text-xs text-gray-500 font-mono">{u.id}</div>
                     </td>
-                    <td className="px-3 py-2 font-mono text-xs">{u.phone ?? '—'}</td>
-                    <td className="px-3 py-2">{u.active_role ?? '—'}</td>
-                    <td className="px-3 py-2">{u.locale ?? '—'}</td>
+                    <td className="px-3 py-2 font-mono text-xs">{u.phone ?? '-'}</td>
+                    <td className="px-3 py-2">{u.active_role ?? '-'}</td>
+                    <td className="px-3 py-2">{u.locale ?? '-'}</td>
                     <td className="px-3 py-2 text-xs text-gray-600">
-                      {u.created_at ? new Date(u.created_at).toLocaleString() : '—'}
+                      {u.created_at ? new Date(u.created_at).toLocaleString() : '-'}
                     </td>
-                    <td className="px-3 py-2">{u.is_admin ? <Badge>Admin</Badge> : <span className="text-gray-500">User</span>}</td>
-                    <td className="px-3 py-2 text-right">
-                      {u.is_admin ? (
-                        <button
-                          className="rounded-xl border border-gray-200 px-3 py-2 text-sm hover:bg-gray-50 disabled:opacity-60"
-                          disabled={revokeM.isPending}
-                          type="button"
-                          onClick={() => {
-                            const note = prompt('Optional note for audit log (revoke):') ?? undefined;
-                            revokeM.mutate({ userId: u.id, note });
-                          }}
-                        >
-                          {revokeM.isPending ? 'Working…' : 'Revoke'}
-                        </button>
-                      ) : (
-                        <button
-                          className="rounded-xl bg-gray-900 px-3 py-2 text-sm text-white disabled:opacity-60"
-                          disabled={grantM.isPending}
-                          type="button"
-                          onClick={() => {
-                            const note = prompt('Optional note for audit log (grant):') ?? undefined;
-                            grantM.mutate({ userId: u.id, note });
-                          }}
-                        >
-                          {grantM.isPending ? 'Working…' : 'Grant'}
-                        </button>
-                      )}
+                    <td className="px-3 py-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        {u.is_admin ? <Badge>Admin</Badge> : <span className="text-gray-500">User</span>}
+                        {u.role_keys.length ? (
+                          u.role_keys.map((roleKey) => (
+                            <span key={roleKey} className="rounded-xl border border-gray-200 px-2 py-1 text-xs">
+                              {roleKey}
+                            </span>
+                          ))
+                        ) : null}
+                      </div>
                     </td>
                   </tr>
                 ))
@@ -240,8 +195,8 @@ export default function AdminUsersPage() {
       <div className="rounded-2xl border border-gray-200 bg-white p-4 shadow-sm">
         <div className="flex items-start justify-between gap-3 flex-wrap">
           <div>
-            <div className="text-sm font-semibold">Recent admin changes</div>
-            <div className="text-xs text-gray-500">Last 50 grant/revoke operations.</div>
+            <div className="text-sm font-semibold">Recent admin access changes</div>
+            <div className="text-xs text-gray-500">Last 50 audited role and approval actions.</div>
           </div>
           <button
             type="button"
@@ -249,7 +204,7 @@ export default function AdminUsersPage() {
             onClick={() => void auditQ.refetch()}
             disabled={auditQ.isFetching}
           >
-            {auditQ.isFetching ? 'Refreshing…' : 'Refresh'}
+            {auditQ.isFetching ? 'Refreshing...' : 'Refresh'}
           </button>
         </div>
         {auditErr ? <div className="mt-3 text-sm text-red-700">{auditErr}</div> : null}
@@ -279,7 +234,7 @@ export default function AdminUsersPage() {
                     <td className="px-3 py-2 font-mono text-xs">{a.action}</td>
                     <td className="px-3 py-2 font-mono text-xs">{a.actor_id}</td>
                     <td className="px-3 py-2 font-mono text-xs">{a.target_user_id}</td>
-                    <td className="px-3 py-2 text-xs">{a.note ?? '—'}</td>
+                    <td className="px-3 py-2 text-xs">{a.note ?? '-'}</td>
                   </tr>
                 ))
               )}

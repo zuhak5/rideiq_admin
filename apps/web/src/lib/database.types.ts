@@ -36,6 +36,7 @@ export type Database = {
       kyc_status: 'unverified' | 'pending' | 'verified' | 'rejected';
       kyc_submission_status: 'draft' | 'submitted' | 'in_review' | 'approved' | 'rejected' | 'resubmit_required';
       live_activity_platform: 'ios' | 'android';
+      maps_cache_backend: 'off' | 'redis' | 'supabase';
       membership_status: 'active' | 'cancelled' | 'expired' | 'paused';
       merchant_chat_auto_reply_mode: 'smart' | 'always';
       merchant_order_delivery_status: 'requested' | 'assigned' | 'picked_up' | 'delivered' | 'cancelled';
@@ -45,6 +46,10 @@ export type Database = {
       merchant_promotion_discount_type: 'percent' | 'fixed_iqd';
       merchant_status: 'draft' | 'pending' | 'approved' | 'suspended';
       message_direction: 'in' | 'out';
+      notification_campaign_category: 'operational' | 'marketing';
+      notification_campaign_status: 'draft' | 'scheduled' | 'running' | 'completed' | 'cancelled' | 'failed';
+      notification_push_delivery_status: 'pending' | 'sent' | 'failed' | 'suppressed' | 'skipped';
+      notification_route_key: 'notification_center' | 'home' | 'wallet' | 'rider_activity' | 'driver_requests' | 'merchant_orders';
       order_bundle_status: 'pending' | 'confirmed' | 'in_progress' | 'completed' | 'cancelled';
       outbox_status: 'pending' | 'processing' | 'sent' | 'failed' | 'skipped';
       party_role: 'rider' | 'driver';
@@ -180,7 +185,7 @@ export type Database = {
           dismissed_at: string | null;
           eligible_merchants: Json;
           expires_at: string;
-          id: string;
+          id: string | null;
           order_id: string;
           viewed_at: string | null;
         };
@@ -190,7 +195,7 @@ export type Database = {
           dismissed_at?: string | null;
           eligible_merchants?: Json;
           expires_at?: string;
-          id?: string;
+          id?: string | null;
           order_id?: string;
           viewed_at?: string | null;
         };
@@ -200,7 +205,7 @@ export type Database = {
           dismissed_at?: string | null;
           eligible_merchants?: Json;
           expires_at?: string;
-          id?: string;
+          id?: string | null;
           order_id?: string;
           viewed_at?: string | null;
         };
@@ -389,27 +394,6 @@ export type Database = {
         };
         Relationships: [];
       };
-      admin_users: {
-        Row: {
-          created_at: string;
-          created_by: string | null;
-          note: string | null;
-          user_id: string;
-        };
-        Insert: {
-          created_at?: string;
-          created_by?: string | null;
-          note?: string | null;
-          user_id?: string;
-        };
-        Update: {
-          created_at?: string;
-          created_by?: string | null;
-          note?: string | null;
-          user_id?: string;
-        };
-        Relationships: [];
-      };
       agent_daily_counters: {
         Row: {
           agent_id: string;
@@ -496,34 +480,76 @@ export type Database = {
       };
       auth_sms_hook_events: {
         Row: {
+          attempt_count: number;
           created_at: string;
           error: string | null;
-          otp_hash: string | null;
+          final_error_code: string | null;
+          final_http_status: number | null;
           phone_e164: string | null;
+          provider_attempts: Json;
           provider_used: string | null;
           status: Database['public']['Enums']['sms_hook_status'];
+          updated_at: string;
           user_id: string | null;
           webhook_id: string;
         };
         Insert: {
+          attempt_count?: number;
           created_at?: string;
           error?: string | null;
-          otp_hash?: string | null;
+          final_error_code?: string | null;
+          final_http_status?: number | null;
           phone_e164?: string | null;
+          provider_attempts?: Json;
           provider_used?: string | null;
           status?: Database['public']['Enums']['sms_hook_status'];
+          updated_at?: string;
           user_id?: string | null;
           webhook_id?: string;
         };
         Update: {
+          attempt_count?: number;
           created_at?: string;
           error?: string | null;
-          otp_hash?: string | null;
+          final_error_code?: string | null;
+          final_http_status?: number | null;
           phone_e164?: string | null;
+          provider_attempts?: Json;
           provider_used?: string | null;
           status?: Database['public']['Enums']['sms_hook_status'];
+          updated_at?: string;
           user_id?: string | null;
           webhook_id?: string;
+        };
+        Relationships: [];
+      };
+      auth_sms_provider_health: {
+        Row: {
+          consecutive_failures: number;
+          disabled_until: string | null;
+          last_error_code: string | null;
+          last_failure_at: string | null;
+          last_http_status: number | null;
+          provider_code: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          consecutive_failures?: number;
+          disabled_until?: string | null;
+          last_error_code?: string | null;
+          last_failure_at?: string | null;
+          last_http_status?: number | null;
+          provider_code?: string | null;
+          updated_at?: string;
+        };
+        Update: {
+          consecutive_failures?: number;
+          disabled_until?: string | null;
+          last_error_code?: string | null;
+          last_failure_at?: string | null;
+          last_http_status?: number | null;
+          provider_code?: string | null;
+          updated_at?: string;
         };
         Relationships: [];
       };
@@ -640,7 +666,7 @@ export type Database = {
           comment: string | null;
           created_at: string;
           feedback_type: string | null;
-          id: string;
+          id: string | null;
           rating: number | null;
           session_id: string;
           user_id: string;
@@ -649,7 +675,7 @@ export type Database = {
           comment?: string | null;
           created_at?: string;
           feedback_type?: string | null;
-          id?: string;
+          id?: string | null;
           rating?: number | null;
           session_id?: string;
           user_id?: string;
@@ -658,7 +684,7 @@ export type Database = {
           comment?: string | null;
           created_at?: string;
           feedback_type?: string | null;
-          id?: string;
+          id?: string | null;
           rating?: number | null;
           session_id?: string;
           user_id?: string;
@@ -670,7 +696,7 @@ export type Database = {
           created_at: string;
           expires_at: string;
           history: Json;
-          id: string;
+          id: string | null;
           merchant_id: string | null;
           mode: string;
           preferences: Json;
@@ -683,7 +709,7 @@ export type Database = {
           created_at?: string;
           expires_at?: string;
           history?: Json;
-          id?: string;
+          id?: string | null;
           merchant_id?: string | null;
           mode?: string;
           preferences?: Json;
@@ -696,7 +722,7 @@ export type Database = {
           created_at?: string;
           expires_at?: string;
           history?: Json;
-          id?: string;
+          id?: string | null;
           merchant_id?: string | null;
           mode?: string;
           preferences?: Json;
@@ -765,7 +791,7 @@ export type Database = {
           created_at: string;
           demand_level: number;
           expected_wait_minutes: number | null;
-          id: string;
+          id: string | null;
           nearby_driver_count: number | null;
           radius_m: number;
           surge_multiplier: number | null;
@@ -780,7 +806,7 @@ export type Database = {
           created_at?: string;
           demand_level?: number;
           expected_wait_minutes?: number | null;
-          id?: string;
+          id?: string | null;
           nearby_driver_count?: number | null;
           radius_m?: number;
           surge_multiplier?: number | null;
@@ -795,7 +821,7 @@ export type Database = {
           created_at?: string;
           demand_level?: number;
           expected_wait_minutes?: number | null;
-          id?: string;
+          id?: string | null;
           nearby_driver_count?: number | null;
           radius_m?: number;
           surge_multiplier?: number | null;
@@ -808,33 +834,42 @@ export type Database = {
       };
       device_tokens: {
         Row: {
+          app_version: string | null;
           created_at: string;
+          device_id: string | null;
           disabled_at: string | null;
           enabled: boolean;
           id: number;
           last_seen_at: string;
           platform: Database['public']['Enums']['device_platform'];
           token: string;
+          updated_at: string;
           user_id: string;
         };
         Insert: {
+          app_version?: string | null;
           created_at?: string;
+          device_id?: string | null;
           disabled_at?: string | null;
           enabled?: boolean;
           id?: number;
           last_seen_at?: string;
           platform?: Database['public']['Enums']['device_platform'];
           token?: string;
+          updated_at?: string;
           user_id?: string;
         };
         Update: {
+          app_version?: string | null;
           created_at?: string;
+          device_id?: string | null;
           disabled_at?: string | null;
           enabled?: boolean;
           id?: number;
           last_seen_at?: string;
           platform?: Database['public']['Enums']['device_platform'];
           token?: string;
+          updated_at?: string;
           user_id?: string;
         };
         Relationships: [];
@@ -847,7 +882,7 @@ export type Database = {
           dismissed_at: string | null;
           driver_id: string;
           expires_at: string | null;
-          id: string;
+          id: string | null;
           message: string;
           priority: number;
           tip_type: string;
@@ -862,7 +897,7 @@ export type Database = {
           dismissed_at?: string | null;
           driver_id?: string;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           message?: string;
           priority?: number;
           tip_type?: string;
@@ -877,7 +912,7 @@ export type Database = {
           dismissed_at?: string | null;
           driver_id?: string;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           message?: string;
           priority?: number;
           tip_type?: string;
@@ -1025,7 +1060,7 @@ export type Database = {
           actual_start: string | null;
           created_at: string;
           driver_id: string;
-          id: string;
+          id: string | null;
           notes: string | null;
           preferred_zones: string[] | null;
           reminder_minutes_before: number;
@@ -1042,7 +1077,7 @@ export type Database = {
           actual_start?: string | null;
           created_at?: string;
           driver_id?: string;
-          id?: string;
+          id?: string | null;
           notes?: string | null;
           preferred_zones?: string[] | null;
           reminder_minutes_before?: number;
@@ -1059,7 +1094,7 @@ export type Database = {
           actual_start?: string | null;
           created_at?: string;
           driver_id?: string;
-          id?: string;
+          id?: string | null;
           notes?: string | null;
           preferred_zones?: string[] | null;
           reminder_minutes_before?: number;
@@ -1223,7 +1258,7 @@ export type Database = {
           driver_id: string;
           earnings_context: Json | null;
           history: Json;
-          id: string;
+          id: string | null;
           status: string;
           updated_at: string;
         };
@@ -1232,7 +1267,7 @@ export type Database = {
           driver_id?: string;
           earnings_context?: Json | null;
           history?: Json;
-          id?: string;
+          id?: string | null;
           status?: string;
           updated_at?: string;
         };
@@ -1241,7 +1276,7 @@ export type Database = {
           driver_id?: string;
           earnings_context?: Json | null;
           history?: Json;
-          id?: string;
+          id?: string | null;
           status?: string;
           updated_at?: string;
         };
@@ -1255,7 +1290,7 @@ export type Database = {
           expected_trips: number;
           forecast_date: string;
           hour_of_day: number;
-          id: string;
+          id: string | null;
           same_hour_last_week_iqd: number | null;
           zone_id: string;
         };
@@ -1266,7 +1301,7 @@ export type Database = {
           expected_trips?: number;
           forecast_date?: string;
           hour_of_day?: number;
-          id?: string;
+          id?: string | null;
           same_hour_last_week_iqd?: number | null;
           zone_id?: string;
         };
@@ -1277,7 +1312,7 @@ export type Database = {
           expected_trips?: number;
           forecast_date?: string;
           hour_of_day?: number;
-          id?: string;
+          id?: string | null;
           same_hour_last_week_iqd?: number | null;
           zone_id?: string;
         };
@@ -1338,21 +1373,21 @@ export type Database = {
         Row: {
           created_at: string;
           created_by_user_id: string;
-          id: string;
+          id: string | null;
           name: string | null;
           updated_at: string;
         };
         Insert: {
           created_at?: string;
           created_by_user_id?: string;
-          id?: string;
+          id?: string | null;
           name?: string | null;
           updated_at?: string;
         };
         Update: {
           created_at?: string;
           created_by_user_id?: string;
-          id?: string;
+          id?: string | null;
           name?: string | null;
           updated_at?: string;
         };
@@ -1362,7 +1397,7 @@ export type Database = {
         Row: {
           created_at: string;
           family_id: string;
-          id: string;
+          id: string | null;
           invite_email: string | null;
           invite_expires_at: string | null;
           invite_token_hash: string | null;
@@ -1375,7 +1410,7 @@ export type Database = {
         Insert: {
           created_at?: string;
           family_id?: string;
-          id?: string;
+          id?: string | null;
           invite_email?: string | null;
           invite_expires_at?: string | null;
           invite_token_hash?: string | null;
@@ -1388,7 +1423,7 @@ export type Database = {
         Update: {
           created_at?: string;
           family_id?: string;
-          id?: string;
+          id?: string | null;
           invite_email?: string | null;
           invite_expires_at?: string | null;
           invite_token_hash?: string | null;
@@ -1488,21 +1523,21 @@ export type Database = {
         Row: {
           explanation: string;
           fee_type: string;
-          id: string;
+          id: string | null;
           locale: string;
           title: string;
         };
         Insert: {
           explanation?: string;
           fee_type?: string;
-          id?: string;
+          id?: string | null;
           locale?: string;
           title?: string;
         };
         Update: {
           explanation?: string;
           fee_type?: string;
-          id?: string;
+          id?: string | null;
           locale?: string;
           title?: string;
         };
@@ -1532,11 +1567,11 @@ export type Database = {
           closed_by: string | null;
           closure_notes: string | null;
           created_at: string;
-          id: string;
+          id: string | null;
           metadata: Json;
           opened_by: string;
           reason: string;
-          severity: number;
+          severity: unknown;
           status: Database['public']['Enums']['fraud_case_status'];
           subject_key: string;
           subject_kind: Database['public']['Enums']['fraud_subject_kind'];
@@ -1547,11 +1582,11 @@ export type Database = {
           closed_by?: string | null;
           closure_notes?: string | null;
           created_at?: string;
-          id?: string;
+          id?: string | null;
           metadata?: Json;
           opened_by?: string;
           reason?: string;
-          severity?: number;
+          severity?: unknown;
           status?: Database['public']['Enums']['fraud_case_status'];
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
@@ -1562,11 +1597,11 @@ export type Database = {
           closed_by?: string | null;
           closure_notes?: string | null;
           created_at?: string;
-          id?: string;
+          id?: string | null;
           metadata?: Json;
           opened_by?: string;
           reason?: string;
-          severity?: number;
+          severity?: unknown;
           status?: Database['public']['Enums']['fraud_case_status'];
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
@@ -1580,13 +1615,13 @@ export type Database = {
           created_at: string;
           expired_at: string | null;
           expires_at: string | null;
-          id: string;
+          id: string | null;
           metadata: Json;
           reason: string;
           resolution_notes: string | null;
           resolved_at: string | null;
           resolved_by: string | null;
-          severity: number;
+          severity: unknown;
           subject_key: string;
           subject_kind: Database['public']['Enums']['fraud_subject_kind'];
           updated_at: string;
@@ -1596,13 +1631,13 @@ export type Database = {
           created_at?: string;
           expired_at?: string | null;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           metadata?: Json;
           reason?: string;
           resolution_notes?: string | null;
           resolved_at?: string | null;
           resolved_by?: string | null;
-          severity?: number;
+          severity?: unknown;
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
           updated_at?: string;
@@ -1612,13 +1647,13 @@ export type Database = {
           created_at?: string;
           expired_at?: string | null;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           metadata?: Json;
           reason?: string;
           resolution_notes?: string | null;
           resolved_at?: string | null;
           resolved_by?: string | null;
-          severity?: number;
+          severity?: unknown;
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
           updated_at?: string;
@@ -1630,12 +1665,12 @@ export type Database = {
           created_at: string;
           dedupe_key: string | null;
           device_hash: string | null;
-          id: string;
+          id: string | null;
           ip_prefix: string | null;
           metadata: Json;
           reason: string;
-          score: number;
-          severity: number;
+          score: unknown;
+          severity: unknown;
           subject_key: string;
           subject_kind: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -1643,12 +1678,12 @@ export type Database = {
           created_at?: string;
           dedupe_key?: string | null;
           device_hash?: string | null;
-          id?: string;
+          id?: string | null;
           ip_prefix?: string | null;
           metadata?: Json;
           reason?: string;
-          score?: number;
-          severity?: number;
+          score?: unknown;
+          severity?: unknown;
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -1656,12 +1691,12 @@ export type Database = {
           created_at?: string;
           dedupe_key?: string | null;
           device_hash?: string | null;
-          id?: string;
+          id?: string | null;
           ip_prefix?: string | null;
           metadata?: Json;
           reason?: string;
-          score?: number;
-          severity?: number;
+          score?: unknown;
+          severity?: unknown;
           subject_key?: string;
           subject_kind?: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -1925,7 +1960,7 @@ export type Database = {
       live_activity_throttle_config: {
         Row: {
           created_at: string;
-          id: string;
+          id: string | null;
           max_updates_per_trip: number;
           min_interval_seconds: number;
           platform: Database['public']['Enums']['live_activity_platform'];
@@ -1934,7 +1969,7 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
-          id?: string;
+          id?: string | null;
           max_updates_per_trip?: number;
           min_interval_seconds?: number;
           platform?: Database['public']['Enums']['live_activity_platform'];
@@ -1943,7 +1978,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          id?: string;
+          id?: string | null;
           max_updates_per_trip?: number;
           min_interval_seconds?: number;
           platform?: Database['public']['Enums']['live_activity_platform'];
@@ -2156,7 +2191,7 @@ export type Database = {
           description: string | null;
           family_sharing_slots: number | null;
           free_delivery_min_order_iqd: number | null;
-          id: string;
+          id: string | null;
           is_active: boolean;
           member_exclusive_promos: boolean;
           name: string;
@@ -2172,7 +2207,7 @@ export type Database = {
           description?: string | null;
           family_sharing_slots?: number | null;
           free_delivery_min_order_iqd?: number | null;
-          id?: string;
+          id?: string | null;
           is_active?: boolean;
           member_exclusive_promos?: boolean;
           name?: string;
@@ -2188,7 +2223,7 @@ export type Database = {
           description?: string | null;
           family_sharing_slots?: number | null;
           free_delivery_min_order_iqd?: number | null;
-          id?: string;
+          id?: string | null;
           is_active?: boolean;
           member_exclusive_promos?: boolean;
           name?: string;
@@ -2203,7 +2238,7 @@ export type Database = {
           cancelled_at: string | null;
           created_at: string;
           expires_at: string | null;
-          id: string;
+          id: string | null;
           is_primary: boolean;
           last_billed_at: string | null;
           next_bill_at: string | null;
@@ -2219,7 +2254,7 @@ export type Database = {
           cancelled_at?: string | null;
           created_at?: string;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           is_primary?: boolean;
           last_billed_at?: string | null;
           next_bill_at?: string | null;
@@ -2235,7 +2270,7 @@ export type Database = {
           cancelled_at?: string | null;
           created_at?: string;
           expires_at?: string | null;
-          id?: string;
+          id?: string | null;
           is_primary?: boolean;
           last_billed_at?: string | null;
           next_bill_at?: string | null;
@@ -2795,6 +2830,114 @@ export type Database = {
         };
         Relationships: [];
       };
+      notification_campaign_recipients: {
+        Row: {
+          campaign_id: string;
+          created_at: string;
+          id: number | null;
+          push_failed_at: string | null;
+          push_reason: string | null;
+          push_sent_at: string | null;
+          push_status: Database['public']['Enums']['notification_push_delivery_status'];
+          user_id: string;
+          user_notification_id: string | null;
+        };
+        Insert: {
+          campaign_id?: string;
+          created_at?: string;
+          id?: number | null;
+          push_failed_at?: string | null;
+          push_reason?: string | null;
+          push_sent_at?: string | null;
+          push_status?: Database['public']['Enums']['notification_push_delivery_status'];
+          user_id?: string;
+          user_notification_id?: string | null;
+        };
+        Update: {
+          campaign_id?: string;
+          created_at?: string;
+          id?: number | null;
+          push_failed_at?: string | null;
+          push_reason?: string | null;
+          push_sent_at?: string | null;
+          push_status?: Database['public']['Enums']['notification_push_delivery_status'];
+          user_id?: string;
+          user_notification_id?: string | null;
+        };
+        Relationships: [];
+      };
+      notification_campaigns: {
+        Row: {
+          audience_filter: Json;
+          body: string | null;
+          cancelled_at: string | null;
+          category: Database['public']['Enums']['notification_campaign_category'];
+          completed_at: string | null;
+          created_at: string;
+          created_by: string;
+          data: Json;
+          estimated_recipients: number | null;
+          id: string | null;
+          inbox_created: number;
+          last_error: string | null;
+          push_failed: number;
+          push_sent: number;
+          read_count: number;
+          route_key: Database['public']['Enums']['notification_route_key'];
+          scheduled_at: string | null;
+          started_at: string | null;
+          status: unknown;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          audience_filter?: Json;
+          body?: string | null;
+          cancelled_at?: string | null;
+          category?: Database['public']['Enums']['notification_campaign_category'];
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string;
+          data?: Json;
+          estimated_recipients?: number | null;
+          id?: string | null;
+          inbox_created?: number;
+          last_error?: string | null;
+          push_failed?: number;
+          push_sent?: number;
+          read_count?: number;
+          route_key?: Database['public']['Enums']['notification_route_key'];
+          scheduled_at?: string | null;
+          started_at?: string | null;
+          status?: unknown;
+          title?: string;
+          updated_at?: string;
+        };
+        Update: {
+          audience_filter?: Json;
+          body?: string | null;
+          cancelled_at?: string | null;
+          category?: Database['public']['Enums']['notification_campaign_category'];
+          completed_at?: string | null;
+          created_at?: string;
+          created_by?: string;
+          data?: Json;
+          estimated_recipients?: number | null;
+          id?: string | null;
+          inbox_created?: number;
+          last_error?: string | null;
+          push_failed?: number;
+          push_sent?: number;
+          read_count?: number;
+          route_key?: Database['public']['Enums']['notification_route_key'];
+          scheduled_at?: string | null;
+          started_at?: string | null;
+          status?: unknown;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       notification_outbox: {
         Row: {
           attempts: number;
@@ -2849,7 +2992,7 @@ export type Database = {
       ops_alert_events: {
         Row: {
           event_type: string;
-          id: string;
+          id: string | null;
           message: string | null;
           notified_at: string | null;
           notified_attempts: number;
@@ -2862,7 +3005,7 @@ export type Database = {
         };
         Insert: {
           event_type?: string;
-          id?: string;
+          id?: string | null;
           message?: string | null;
           notified_at?: string | null;
           notified_attempts?: number;
@@ -2875,7 +3018,7 @@ export type Database = {
         };
         Update: {
           event_type?: string;
-          id?: string;
+          id?: string | null;
           message?: string | null;
           notified_at?: string | null;
           notified_attempts?: number;
@@ -2894,7 +3037,7 @@ export type Database = {
           cooldown_minutes: number;
           created_at: string;
           enabled: boolean;
-          id: string;
+          id: string | null;
           kind: string;
           name: string;
           severity: string;
@@ -2906,7 +3049,7 @@ export type Database = {
           cooldown_minutes?: number;
           created_at?: string;
           enabled?: boolean;
-          id?: string;
+          id?: string | null;
           kind?: string;
           name?: string;
           severity?: string;
@@ -2918,7 +3061,7 @@ export type Database = {
           cooldown_minutes?: number;
           created_at?: string;
           enabled?: boolean;
-          id?: string;
+          id?: string | null;
           kind?: string;
           name?: string;
           severity?: string;
@@ -2938,7 +3081,7 @@ export type Database = {
           last_resolved_at: string | null;
           last_triggered_at: string | null;
           last_value: Json;
-          rule_id: string;
+          rule_id: string | null;
           updated_at: string;
         };
         Insert: {
@@ -2951,7 +3094,7 @@ export type Database = {
           last_resolved_at?: string | null;
           last_triggered_at?: string | null;
           last_value?: Json;
-          rule_id?: string;
+          rule_id?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -2964,7 +3107,7 @@ export type Database = {
           last_resolved_at?: string | null;
           last_triggered_at?: string | null;
           last_value?: Json;
-          rule_id?: string;
+          rule_id?: string | null;
           updated_at?: string;
         };
         Relationships: [];
@@ -2975,7 +3118,7 @@ export type Database = {
           addon_window_expires_at: string;
           created_at: string;
           fee_waived: boolean;
-          id: string;
+          id: string | null;
           primary_order_id: string;
           same_courier: boolean;
           status: Database['public']['Enums']['order_bundle_status'];
@@ -2987,7 +3130,7 @@ export type Database = {
           addon_window_expires_at?: string;
           created_at?: string;
           fee_waived?: boolean;
-          id?: string;
+          id?: string | null;
           primary_order_id?: string;
           same_courier?: boolean;
           status?: Database['public']['Enums']['order_bundle_status'];
@@ -2999,7 +3142,7 @@ export type Database = {
           addon_window_expires_at?: string;
           created_at?: string;
           fee_waived?: boolean;
-          id?: string;
+          id?: string | null;
           primary_order_id?: string;
           same_courier?: boolean;
           status?: Database['public']['Enums']['order_bundle_status'];
@@ -3026,7 +3169,7 @@ export type Database = {
           device_info: Json | null;
           event_type: string;
           failure_reason: string | null;
-          id: string;
+          id: string | null;
           ip_address: unknown | null;
           passkey_id: string | null;
           success: boolean;
@@ -3038,7 +3181,7 @@ export type Database = {
           device_info?: Json | null;
           event_type?: string;
           failure_reason?: string | null;
-          id?: string;
+          id?: string | null;
           ip_address?: unknown | null;
           passkey_id?: string | null;
           success?: boolean;
@@ -3050,7 +3193,7 @@ export type Database = {
           device_info?: Json | null;
           event_type?: string;
           failure_reason?: string | null;
-          id?: string;
+          id?: string | null;
           ip_address?: unknown | null;
           passkey_id?: string | null;
           success?: boolean;
@@ -3469,7 +3612,7 @@ export type Database = {
           delivery_fee_waived: boolean;
           description: string | null;
           environment: string | null;
-          id: string;
+          id: string | null;
           is_active: boolean;
           max_subtotal_iqd: number | null;
           membership_plan_codes: string[] | null;
@@ -3491,7 +3634,7 @@ export type Database = {
           delivery_fee_waived?: boolean;
           description?: string | null;
           environment?: string | null;
-          id?: string;
+          id?: string | null;
           is_active?: boolean;
           max_subtotal_iqd?: number | null;
           membership_plan_codes?: string[] | null;
@@ -3513,7 +3656,7 @@ export type Database = {
           delivery_fee_waived?: boolean;
           description?: string | null;
           environment?: string | null;
-          id?: string;
+          id?: string | null;
           is_active?: boolean;
           max_subtotal_iqd?: number | null;
           membership_plan_codes?: string[] | null;
@@ -3562,13 +3705,14 @@ export type Database = {
           display_name: string | null;
           gender: Database['public']['Enums']['user_gender'] | null;
           id: string;
-          is_admin: boolean;
           locale: string;
           phone: string | null;
           phone_e164: string | null;
           rating_avg: number;
           rating_count: number;
           role_onboarding_completed: boolean;
+          terms_accepted_at: string | null;
+          terms_version: string | null;
           updated_at: string;
         };
         Insert: {
@@ -3578,13 +3722,14 @@ export type Database = {
           display_name?: string | null;
           gender?: Database['public']['Enums']['user_gender'] | null;
           id?: string;
-          is_admin?: boolean;
           locale?: string;
           phone?: string | null;
           phone_e164?: string | null;
           rating_avg?: number;
           rating_count?: number;
           role_onboarding_completed?: boolean;
+          terms_accepted_at?: string | null;
+          terms_version?: string | null;
           updated_at?: string;
         };
         Update: {
@@ -3594,13 +3739,14 @@ export type Database = {
           display_name?: string | null;
           gender?: Database['public']['Enums']['user_gender'] | null;
           id?: string;
-          is_admin?: boolean;
           locale?: string;
           phone?: string | null;
           phone_e164?: string | null;
           rating_avg?: number;
           rating_count?: number;
           role_onboarding_completed?: boolean;
+          terms_accepted_at?: string | null;
+          terms_version?: string | null;
           updated_at?: string;
         };
         Relationships: [];
@@ -3682,7 +3828,7 @@ export type Database = {
           batch_id: string;
           code_hash: string;
           created_at: string;
-          id: string;
+          id: string | null;
           used_at: string | null;
           user_id: string;
         };
@@ -3690,7 +3836,7 @@ export type Database = {
           batch_id?: string;
           code_hash?: string;
           created_at?: string;
-          id?: string;
+          id?: string | null;
           used_at?: string | null;
           user_id?: string;
         };
@@ -3698,7 +3844,7 @@ export type Database = {
           batch_id?: string;
           code_hash?: string;
           created_at?: string;
-          id?: string;
+          id?: string | null;
           used_at?: string | null;
           user_id?: string;
         };
@@ -4570,7 +4716,7 @@ export type Database = {
           created_at: string;
           description: string | null;
           evidence_urls: string[] | null;
-          id: string;
+          id: string | null;
           report_type: string;
           reported_user_id: string;
           reporter_id: string;
@@ -4584,7 +4730,7 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           evidence_urls?: string[] | null;
-          id?: string;
+          id?: string | null;
           report_type?: string;
           reported_user_id?: string;
           reporter_id?: string;
@@ -4598,7 +4744,7 @@ export type Database = {
           created_at?: string;
           description?: string | null;
           evidence_urls?: string[] | null;
-          id?: string;
+          id?: string | null;
           report_type?: string;
           reported_user_id?: string;
           reporter_id?: string;
@@ -4617,7 +4763,7 @@ export type Database = {
           gender_visibility: Database['public']['Enums']['gender_visibility'];
           is_teen: boolean;
           updated_at: string;
-          user_id: string;
+          user_id: string | null;
           women_preferences_driver_opt_in: boolean;
           women_preferences_eligible: boolean;
           women_preferences_enabled: boolean;
@@ -4628,7 +4774,7 @@ export type Database = {
           gender_visibility?: Database['public']['Enums']['gender_visibility'];
           is_teen?: boolean;
           updated_at?: string;
-          user_id?: string;
+          user_id?: string | null;
           women_preferences_driver_opt_in?: boolean;
           women_preferences_eligible?: boolean;
           women_preferences_enabled?: boolean;
@@ -4639,7 +4785,7 @@ export type Database = {
           gender_visibility?: Database['public']['Enums']['gender_visibility'];
           is_teen?: boolean;
           updated_at?: string;
-          user_id?: string;
+          user_id?: string | null;
           women_preferences_driver_opt_in?: boolean;
           women_preferences_eligible?: boolean;
           women_preferences_enabled?: boolean;
@@ -5044,7 +5190,7 @@ export type Database = {
           avg_rating: number | null;
           created_at: string;
           earnings_iqd: number;
-          id: string;
+          id: string | null;
           online_minutes: number;
           shift_id: string;
           trips_completed: number;
@@ -5053,7 +5199,7 @@ export type Database = {
           avg_rating?: number | null;
           created_at?: string;
           earnings_iqd?: number;
-          id?: string;
+          id?: string | null;
           online_minutes?: number;
           shift_id?: string;
           trips_completed?: number;
@@ -5062,7 +5208,7 @@ export type Database = {
           avg_rating?: number | null;
           created_at?: string;
           earnings_iqd?: number;
-          id?: string;
+          id?: string | null;
           online_minutes?: number;
           shift_id?: string;
           trips_completed?: number;
@@ -5325,7 +5471,7 @@ export type Database = {
           destination_lock_enabled: boolean;
           family_id: string;
           geofence_allowlist: Json | null;
-          id: string;
+          id: string | null;
           pickup_pin_enabled: boolean;
           spend_cap_daily: number | null;
           teen_user_id: string;
@@ -5337,7 +5483,7 @@ export type Database = {
           destination_lock_enabled?: boolean;
           family_id?: string;
           geofence_allowlist?: Json | null;
-          id?: string;
+          id?: string | null;
           pickup_pin_enabled?: boolean;
           spend_cap_daily?: number | null;
           teen_user_id?: string;
@@ -5349,7 +5495,7 @@ export type Database = {
           destination_lock_enabled?: boolean;
           family_id?: string;
           geofence_allowlist?: Json | null;
-          id?: string;
+          id?: string | null;
           pickup_pin_enabled?: boolean;
           spend_cap_daily?: number | null;
           teen_user_id?: string;
@@ -5446,7 +5592,7 @@ export type Database = {
           created_at: string;
           guardian_live_tracking_enabled: boolean;
           guardian_user_id: string;
-          id: string;
+          id: string | null;
           teen_user_id: string;
           trip_id: string;
         };
@@ -5454,7 +5600,7 @@ export type Database = {
           created_at?: string;
           guardian_live_tracking_enabled?: boolean;
           guardian_user_id?: string;
-          id?: string;
+          id?: string | null;
           teen_user_id?: string;
           trip_id?: string;
         };
@@ -5462,7 +5608,7 @@ export type Database = {
           created_at?: string;
           guardian_live_tracking_enabled?: boolean;
           guardian_user_id?: string;
-          id?: string;
+          id?: string | null;
           teen_user_id?: string;
           trip_id?: string;
         };
@@ -5471,7 +5617,7 @@ export type Database = {
       trip_live_activities: {
         Row: {
           created_at: string;
-          id: string;
+          id: string | null;
           last_pushed_at: string | null;
           platform: Database['public']['Enums']['live_activity_platform'];
           push_count: number;
@@ -5484,7 +5630,7 @@ export type Database = {
         };
         Insert: {
           created_at?: string;
-          id?: string;
+          id?: string | null;
           last_pushed_at?: string | null;
           platform?: Database['public']['Enums']['live_activity_platform'];
           push_count?: number;
@@ -5497,7 +5643,7 @@ export type Database = {
         };
         Update: {
           created_at?: string;
-          id?: string;
+          id?: string | null;
           last_pushed_at?: string | null;
           platform?: Database['public']['Enums']['live_activity_platform'];
           push_count?: number;
@@ -5550,7 +5696,7 @@ export type Database = {
           created_at: string;
           distance_remaining_m: number | null;
           eta_minutes: number | null;
-          id: string;
+          id: string | null;
           new_status: string;
           old_status: string | null;
           trip_id: string;
@@ -5561,7 +5707,7 @@ export type Database = {
           created_at?: string;
           distance_remaining_m?: number | null;
           eta_minutes?: number | null;
-          id?: string;
+          id?: string | null;
           new_status?: string;
           old_status?: string | null;
           trip_id?: string;
@@ -5572,7 +5718,7 @@ export type Database = {
           created_at?: string;
           distance_remaining_m?: number | null;
           eta_minutes?: number | null;
-          id?: string;
+          id?: string | null;
           new_status?: string;
           old_status?: string | null;
           trip_id?: string;
@@ -5789,6 +5935,30 @@ export type Database = {
         };
         Relationships: [];
       };
+      user_notification_preferences: {
+        Row: {
+          created_at: string;
+          marketing_inapp_enabled: boolean;
+          marketing_push_enabled: boolean;
+          updated_at: string;
+          user_id: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          marketing_inapp_enabled?: boolean;
+          marketing_push_enabled?: boolean;
+          updated_at?: string;
+          user_id?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          marketing_inapp_enabled?: boolean;
+          marketing_push_enabled?: boolean;
+          updated_at?: string;
+          user_id?: string | null;
+        };
+        Relationships: [];
+      };
       user_notifications: {
         Row: {
           body: string | null;
@@ -5831,7 +6001,7 @@ export type Database = {
           credential_id: unknown;
           device_type: string | null;
           friendly_name: string | null;
-          id: string;
+          id: string | null;
           last_used_at: string | null;
           passkey_type: Database['public']['Enums']['passkey_type'];
           public_key: unknown;
@@ -5839,12 +6009,10 @@ export type Database = {
           revoked_reason: string | null;
           sign_count: number;
           status: Database['public']['Enums']['passkey_status'];
-          transports: string[] | null;
           updated_at: string;
           use_count: number;
           user_agent: string | null;
           user_id: string;
-          webauthn_device_type: string | null;
         };
         Insert: {
           aaguid?: unknown | null;
@@ -5854,7 +6022,7 @@ export type Database = {
           credential_id?: unknown;
           device_type?: string | null;
           friendly_name?: string | null;
-          id?: string;
+          id?: string | null;
           last_used_at?: string | null;
           passkey_type?: Database['public']['Enums']['passkey_type'];
           public_key?: unknown;
@@ -5862,12 +6030,10 @@ export type Database = {
           revoked_reason?: string | null;
           sign_count?: number;
           status?: Database['public']['Enums']['passkey_status'];
-          transports?: string[] | null;
           updated_at?: string;
           use_count?: number;
           user_agent?: string | null;
           user_id?: string;
-          webauthn_device_type?: string | null;
         };
         Update: {
           aaguid?: unknown | null;
@@ -5877,7 +6043,7 @@ export type Database = {
           credential_id?: unknown;
           device_type?: string | null;
           friendly_name?: string | null;
-          id?: string;
+          id?: string | null;
           last_used_at?: string | null;
           passkey_type?: Database['public']['Enums']['passkey_type'];
           public_key?: unknown;
@@ -5885,12 +6051,10 @@ export type Database = {
           revoked_reason?: string | null;
           sign_count?: number;
           status?: Database['public']['Enums']['passkey_status'];
-          transports?: string[] | null;
           updated_at?: string;
           use_count?: number;
           user_agent?: string | null;
           user_id?: string;
-          webauthn_device_type?: string | null;
         };
         Relationships: [];
       };
@@ -6326,7 +6490,7 @@ export type Database = {
           challenge_type: string;
           created_at: string;
           expires_at: string;
-          id: string;
+          id: string | null;
           session_id: string | null;
           used_at: string | null;
           user_agent: string | null;
@@ -6337,7 +6501,7 @@ export type Database = {
           challenge_type?: string;
           created_at?: string;
           expires_at?: string;
-          id?: string;
+          id?: string | null;
           session_id?: string | null;
           used_at?: string | null;
           user_agent?: string | null;
@@ -6348,7 +6512,7 @@ export type Database = {
           challenge_type?: string;
           created_at?: string;
           expires_at?: string;
-          id?: string;
+          id?: string | null;
           session_id?: string | null;
           used_at?: string | null;
           user_agent?: string | null;
@@ -6462,16 +6626,6 @@ export type Database = {
         Args: {
         };
         Returns: undefined;
-      };
-      _rbac_sync_on_admin_users_delete: {
-        Args: {
-        };
-        Returns: unknown;
-      };
-      _rbac_sync_on_admin_users_insert: {
-        Args: {
-        };
-        Returns: unknown;
       };
       _vault_secret: {
         Args: {
@@ -6634,20 +6788,6 @@ export type Database = {
         };
         Returns: unknown;
       };
-      admin_grant_user: {
-        Args: {
-          p_note: string;
-          p_user: string;
-        };
-        Returns: undefined;
-      };
-      admin_grant_user_v1: {
-        Args: {
-          p_note: string;
-          p_user: string;
-        };
-        Returns: Json;
-      };
       admin_has_permission: {
         Args: {
           p_permission: string;
@@ -6721,6 +6861,11 @@ export type Database = {
         };
         Returns: unknown;
       };
+      admin_maps_provider_list_v3: {
+        Args: {
+        };
+        Returns: unknown;
+      };
       admin_maps_provider_set_v1: {
         Args: {
           p_enabled: boolean;
@@ -6737,6 +6882,21 @@ export type Database = {
       admin_maps_provider_set_v2: {
         Args: {
           p_cache_enabled: boolean;
+          p_cache_ttl_seconds: number;
+          p_enabled: boolean;
+          p_language: string;
+          p_monthly_hard_cap_units: number;
+          p_monthly_soft_cap_units: number;
+          p_note: string;
+          p_priority: number;
+          p_provider_code: string;
+          p_region: string;
+        };
+        Returns: undefined;
+      };
+      admin_maps_provider_set_v3: {
+        Args: {
+          p_cache_backend: string;
           p_cache_ttl_seconds: number;
           p_enabled: boolean;
           p_language: string;
@@ -6936,20 +7096,6 @@ export type Database = {
           p_stale_after_seconds: number;
         };
         Returns: number;
-      };
-      admin_revoke_user: {
-        Args: {
-          p_note: string;
-          p_user: string;
-        };
-        Returns: undefined;
-      };
-      admin_revoke_user_v1: {
-        Args: {
-          p_note: string;
-          p_user: string;
-        };
-        Returns: Json;
       };
       admin_ridecheck_escalate: {
         Args: {
@@ -7371,6 +7517,55 @@ export type Database = {
         };
         Returns: undefined;
       };
+      auth_sms_hook_claim_v1: {
+        Args: {
+          p_phone_e164: string;
+          p_processing_ttl_seconds: number;
+          p_user_id: string;
+          p_webhook_id: string;
+        };
+        Returns: string;
+      };
+      auth_sms_hook_complete_v1: {
+        Args: {
+          p_attempt_count: number;
+          p_error: string;
+          p_final_error_code: string;
+          p_final_http_status: number;
+          p_provider_attempts: Json;
+          p_provider_used: string;
+          p_status: Database['public']['Enums']['sms_hook_status'];
+          p_webhook_id: string;
+        };
+        Returns: undefined;
+      };
+      auth_sms_provider_health_on_failure_v1: {
+        Args: {
+          p_base_cooldown_seconds: number;
+          p_error_code: string;
+          p_http_status: number;
+          p_provider_code: string;
+        };
+        Returns: undefined;
+      };
+      auth_sms_provider_health_on_success_v1: {
+        Args: {
+          p_provider_code: string;
+        };
+        Returns: undefined;
+      };
+      auth_sms_provider_health_reset_v1: {
+        Args: {
+          p_provider_code: string;
+        };
+        Returns: undefined;
+      };
+      auth_sms_provider_health_status_v1: {
+        Args: {
+          p_provider_code: string;
+        };
+        Returns: unknown;
+      };
       cancel_ride_request: {
         Args: {
           p_request_id: string;
@@ -7441,6 +7636,11 @@ export type Database = {
           p_delivery_id: string;
         };
         Returns: unknown;
+      };
+      driver_dashboard_bootstrap_v1: {
+        Args: {
+        };
+        Returns: Json;
       };
       driver_hotspots_v1: {
         Args: {
@@ -7656,7 +7856,7 @@ export type Database = {
           p_expires_at: string;
           p_metadata: Json;
           p_reason: string;
-          p_severity: number;
+          p_severity: unknown;
           p_subject_key: string;
           p_subject_kind: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -7665,19 +7865,19 @@ export type Database = {
       fraud_expire_actions: {
         Args: {
         };
-        Returns: number;
+        Returns: unknown;
       };
       fraud_find_collusion_candidates: {
         Args: {
-          p_max_trip_distance_m: number;
-          p_min_count: number;
+          p_max_trip_distance_m: unknown;
+          p_min_count: unknown;
           p_since: unknown;
         };
         Returns: unknown;
       };
       fraud_find_route_deviation_candidates: {
         Args: {
-          p_min_streak: number;
+          p_min_streak: unknown;
           p_seen_since: unknown;
         };
         Returns: unknown;
@@ -7705,8 +7905,8 @@ export type Database = {
           p_ip_prefix: string;
           p_metadata: Json;
           p_reason: string;
-          p_score: number;
-          p_severity: number;
+          p_score: unknown;
+          p_severity: unknown;
           p_subject_key: string;
           p_subject_kind: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -7717,7 +7917,7 @@ export type Database = {
           p_metadata: Json;
           p_opened_by: string;
           p_reason: string;
-          p_severity: number;
+          p_severity: unknown;
           p_subject_key: string;
           p_subject_kind: Database['public']['Enums']['fraud_subject_kind'];
         };
@@ -7743,7 +7943,7 @@ export type Database = {
           p_capability: string;
           p_provider_code: string;
           p_response: Json;
-          p_ttl_seconds: unknown;
+          p_ttl_seconds: number;
         };
         Returns: undefined;
       };
@@ -7793,6 +7993,11 @@ export type Database = {
         };
         Returns: unknown;
       };
+      get_my_auth_session_status: {
+        Args: {
+        };
+        Returns: string;
+      };
       get_nearby_hotspots: {
         Args: {
           p_lat: number;
@@ -7800,6 +8005,12 @@ export type Database = {
           p_radius_km: number;
         };
         Returns: unknown;
+      };
+      get_phone_auth_route: {
+        Args: {
+          p_phone_e164: string;
+        };
+        Returns: string;
       };
       get_today_forecast: {
         Args: {
@@ -7829,6 +8040,11 @@ export type Database = {
           p_trip_id: string;
         };
         Returns: Json;
+      };
+      handle_auth_user_updated: {
+        Args: {
+        };
+        Returns: unknown;
       };
       handle_new_user: {
         Args: {
@@ -7877,10 +8093,10 @@ export type Database = {
       };
       maps_provider_health_on_failure_v1: {
         Args: {
-          p_base_cooldown_seconds: unknown;
+          p_base_cooldown_seconds: number;
           p_capability: string;
           p_error_code: string;
-          p_http_status: unknown;
+          p_http_status: number;
           p_provider_code: string;
         };
         Returns: undefined;
@@ -7953,6 +8169,22 @@ export type Database = {
         };
         Returns: number;
       };
+      merchant_menu_list_my_v1: {
+        Args: {
+        };
+        Returns: unknown;
+      };
+      merchant_menu_upsert_my_v1: {
+        Args: {
+          p_category: string;
+          p_description: string;
+          p_is_active: boolean;
+          p_item_id: string;
+          p_name: string;
+          p_price_iqd: number;
+        };
+        Returns: unknown;
+      };
       merchant_order_cod_settlement_after: {
         Args: {
         };
@@ -8009,6 +8241,20 @@ export type Database = {
       };
       merchant_orders_guard: {
         Args: {
+        };
+        Returns: unknown;
+      };
+      merchant_orders_list_my_v1: {
+        Args: {
+          p_limit: number;
+          p_offset: number;
+        };
+        Returns: unknown;
+      };
+      merchant_orders_update_status_v1: {
+        Args: {
+          p_order_id: string;
+          p_status: Database['public']['Enums']['merchant_order_status'];
         };
         Returns: unknown;
       };
@@ -8109,6 +8355,12 @@ export type Database = {
         };
         Returns: string;
       };
+      notification_campaign_claim_due: {
+        Args: {
+          p_limit: number;
+        };
+        Returns: unknown;
+      };
       notification_outbox_claim: {
         Args: {
           p_limit: number;
@@ -8184,7 +8436,6 @@ export type Database = {
           p_backup_state: boolean;
           p_credential_id: unknown;
           p_device_type: string;
-          p_friendly_name: string;
           p_passkey_type: string;
           p_public_key: unknown;
           p_transports: string[];
@@ -8388,6 +8639,22 @@ export type Database = {
         };
         Returns: Json;
       };
+      ride_request_create_user_v1: {
+        Args: {
+          p_dropoff_address: string;
+          p_dropoff_lat: number;
+          p_dropoff_lng: number;
+          p_fare_quote_id: string;
+          p_payment_method: string;
+          p_pickup_address: string;
+          p_pickup_lat: number;
+          p_pickup_lng: number;
+          p_preferences: Json;
+          p_product_code: string;
+          p_request_id: string;
+        };
+        Returns: Json;
+      };
       ride_requests_clear_match_fields: {
         Args: {
         };
@@ -8435,6 +8702,18 @@ export type Database = {
         Args: {
         };
         Returns: undefined;
+      };
+      rider_activity_list_my_v1: {
+        Args: {
+          p_limit: number;
+          p_offset: number;
+        };
+        Returns: unknown;
+      };
+      rider_home_bootstrap_v1: {
+        Args: {
+        };
+        Returns: Json;
       };
       safety_preferences_before_upsert: {
         Args: {
@@ -8847,6 +9126,13 @@ export type Database = {
           p_token: string;
         };
         Returns: number;
+      };
+      user_notification_preferences_upsert_self: {
+        Args: {
+          p_marketing_inapp_enabled: boolean;
+          p_marketing_push_enabled: boolean;
+        };
+        Returns: unknown;
       };
       user_notifications_mark_all_read: {
         Args: {

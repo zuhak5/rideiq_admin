@@ -81,10 +81,6 @@ export async function setRolesAction(formData: FormData): Promise<void> {
     redirect(safeRedirectUrl(parsed.data.q, parsed.data.offset, { error: msg }));
   }
 
-  if (!roleKeys.length) {
-    redirect(safeRedirectUrl(parsed.data.q, parsed.data.offset, { error: 'Select at least one role' }));
-  }
-
   // If the current user is changing their own roles and would lose admin_access.manage,
   // require an extra acknowledgement to reduce accidental lockout.
   try {

@@ -115,7 +115,7 @@ export default function LoginPage() {
         </form>
 
         <p className="mt-4 text-xs text-neutral-500">
-          Tip: Ensure your account is present in <code>admin_users</code> or has <code>profiles.is_admin=true</code>.
+          Tip: Your account must have at least one assigned admin role to access the dashboard.
         </p>
       </div>
     </main>

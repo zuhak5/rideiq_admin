@@ -35,6 +35,24 @@ async function safeCount(
   }
 }
 
+async function safeDistinctUserCount(
+  ctx: RequestContext,
+  label: string,
+  builder: () => Promise<{ data: Array<{ user_id: string | null }> | null; error: any }>,
+): Promise<number> {
+  try {
+    const { data, error } = await builder();
+    if (error) {
+      ctx.warn('admin.summary.count_failed', { label, error: errMsg(error) });
+      return 0;
+    }
+    return new Set((data ?? []).map((row) => row.user_id).filter((value): value is string => Boolean(value))).size;
+  } catch (e) {
+    ctx.warn('admin.summary.count_failed', { label, error: errMsg(String((e as any)?.message ?? e)) });
+    return 0;
+  }
+}
+
 export async function handle(req: Request, ctx: any): Promise<Response> {
   const methodRes = requireMethod(req, ctx, 'POST');
   if (methodRes) return methodRes;
@@ -70,8 +88,8 @@ export async function handle(req: Request, ctx: any): Promise<Response> {
     safeCount(ctx, 'profiles_total', () =>
       svc.from('profiles').select('id', { count: 'exact', head: true }) as any,
     ),
-    safeCount(ctx, 'admin_users_total', () =>
-      svc.from('admin_users').select('user_id', { count: 'exact', head: true }) as any,
+    safeDistinctUserCount(ctx, 'admin_users_total', () =>
+      svc.from('admin_user_roles').select('user_id') as any,
     ),
     safeCount(ctx, 'rides_active', () =>
       svc

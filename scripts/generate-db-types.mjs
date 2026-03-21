@@ -22,21 +22,23 @@ function readFile(p) {
   return fs.readFileSync(p, 'utf8');
 }
 
-function readMergedSql() {
-  const parts = [readFile(SCHEMA)];
+function readSqlParts() {
+  const parts = [{ label: 'schema.sql', sql: readFile(SCHEMA) }];
   try {
     const migFiles = fs
       .readdirSync(MIGRATIONS_DIR)
       .filter((f) => f.endsWith('.sql'))
       .sort();
     for (const f of migFiles) {
-      parts.push(`\n\n-- MIGRATION: ${f}\n`);
-      parts.push(readFile(path.join(MIGRATIONS_DIR, f)));
+      parts.push({
+        label: f,
+        sql: readFile(path.join(MIGRATIONS_DIR, f)),
+      });
     }
   } catch {
     // If migrations dir is missing, fall back to schema.sql only.
   }
-  return parts.join('\n');
+  return parts;
 }
 
 function writeFile(p, content) {
@@ -45,7 +47,7 @@ function writeFile(p, content) {
 }
 
 function extractCreateTableBlocks(sql) {
-  const blocks = new Map();
+  const blocks = [];
   const re = /CREATE\s+TABLE\s+(?:IF\s+NOT\s+EXISTS\s+)?public\.([a-zA-Z0-9_]+)\s*\(/gi;
   for (let m; (m = re.exec(sql)); ) {
     const name = m[1].toLowerCase();
@@ -57,7 +59,11 @@ function extractCreateTableBlocks(sql) {
       else if (ch === ')') {
         depth--;
         if (depth === 0) {
-          blocks.set(name, sql.slice(re.lastIndex, i)); // inside parens
+          blocks.push({
+            index: m.index,
+            name,
+            block: sql.slice(re.lastIndex, i),
+          });
           break;
         }
       }
@@ -152,66 +158,113 @@ function pgToTs(pgType, enumNames) {
   return isArray ? `${base}[]` : base;
 }
 
-function parseTables(sql, createBlocks, enums) {
-  const tables = new Map(); // table -> col -> {pgType, nullable}
-  for (const [table, block] of createBlocks.entries()) {
-    const cols = new Map();
-    const lines = block.split('\n');
-    for (const line0 of lines) {
-      const line = line0.trim();
-      if (!line || line.startsWith('--')) continue;
-      if (/^(CONSTRAINT|PRIMARY\s+KEY|UNIQUE|FOREIGN\s+KEY|CHECK)\b/i.test(line)) continue;
-      if (/^(generated|stored|always)\b/i.test(line)) continue;
+function parseCreateTableColumns(block) {
+  const cols = new Map();
+  const lines = block.split('\n');
+  for (const line0 of lines) {
+    const line = line0.trim();
+    if (!line || line.startsWith('--')) continue;
+    if (/^(CONSTRAINT|PRIMARY\s+KEY|UNIQUE|FOREIGN\s+KEY|CHECK)\b/i.test(line)) continue;
+    if (/^(generated|stored|always)\b/i.test(line)) continue;
 
-      const m = /^"?(?<col>[a-zA-Z0-9_]+)"?\s+(?<rest>.+)$/.exec(line.replace(/,$/, ''));
-      if (!m?.groups) continue;
+    const m = /^"?(?<col>[a-zA-Z0-9_]+)"?\s+(?<rest>.+)$/.exec(line.replace(/,$/, ''));
+    if (!m?.groups) continue;
 
-      const col = m.groups.col.toLowerCase();
-      const { pgType, nullable } = parseTypeAndNullable(m.groups.rest);
-      cols.set(col, { pgType, nullable });
-    }
-    tables.set(table, cols);
+    const col = m.groups.col.toLowerCase();
+    const { pgType, nullable } = parseTypeAndNullable(m.groups.rest);
+    cols.set(col, { pgType, nullable });
   }
+  return cols;
+}
 
-  // Apply ALTER TABLE ... ADD COLUMN ...
+function extractAlterTableOps(sql) {
+  const ops = [];
   const alter = /alter\s+table\s+public\.([a-zA-Z0-9_]+)\s+([\s\S]*?)\s*;/gi;
   for (let m; (m = alter.exec(sql)); ) {
-    const table = m[1].toLowerCase();
-    const body = m[2];
-    const cols = tables.get(table) ?? new Map();
-    const addRe = /add\s+column\s+(?:if\s+not\s+exists\s+)?/gi;
-    for (let a; (a = addRe.exec(body)); ) {
-      const sub = body.slice(addRe.lastIndex);
-      // read until comma at top-level
-      let depth = 0;
-      let i = 0;
-      for (; i < sub.length; i++) {
-        const ch = sub[i];
-        if (ch === '(') depth++;
-        else if (ch === ')') depth = Math.max(0, depth - 1);
-        else if (ch === ',' && depth === 0) break;
+    ops.push({
+      index: m.index,
+      table: m[1].toLowerCase(),
+      body: m[2],
+    });
+  }
+  return ops;
+}
+
+function applyAlterTableBody(cols, body) {
+  const addRe = /add\s+column\s+(?:if\s+not\s+exists\s+)?/gi;
+  for (let a; (a = addRe.exec(body)); ) {
+    const sub = body.slice(addRe.lastIndex);
+    let depth = 0;
+    let i = 0;
+    for (; i < sub.length; i++) {
+      const ch = sub[i];
+      if (ch === '(') depth++;
+      else if (ch === ')') depth = Math.max(0, depth - 1);
+      else if (ch === ',' && depth === 0) break;
+    }
+    const clause = sub.slice(0, i).trim();
+    const mm = /^"?(?<col>[a-zA-Z0-9_]+)"?\s+(?<rest>.+)$/.exec(clause);
+    if (!mm?.groups) continue;
+    const col = mm.groups.col.toLowerCase();
+    const { pgType, nullable } = parseTypeAndNullable(mm.groups.rest);
+    cols.set(col, { pgType, nullable });
+  }
+
+  const dropRe = /drop\s+column\s+(?:if\s+exists\s+)?("?)([a-zA-Z0-9_]+)\1/gi;
+  for (let d; (d = dropRe.exec(body)); ) {
+    cols.delete(d[2].toLowerCase());
+  }
+}
+
+function extractDropTableOps(sql) {
+  const ops = [];
+  const drop = /drop\s+table\s+(?:if\s+exists\s+)?public\.([a-zA-Z0-9_]+)/gi;
+  for (let m; (m = drop.exec(sql)); ) {
+    ops.push({
+      index: m.index,
+      table: m[1].toLowerCase(),
+    });
+  }
+  return ops;
+}
+
+function buildTables(parts, enums) {
+  const tables = new Map(); // table -> col -> {pgType, nullable}
+
+  for (const part of parts) {
+    const ops = [
+      ...extractCreateTableBlocks(part.sql).map((op) => ({ type: 'create', ...op })),
+      ...extractAlterTableOps(part.sql).map((op) => ({ type: 'alter', ...op })),
+      ...extractDropTableOps(part.sql).map((op) => ({ type: 'drop', ...op })),
+    ].sort((a, b) => a.index - b.index);
+
+    for (const op of ops) {
+      if (op.type === 'create') {
+        tables.set(op.name, parseCreateTableColumns(op.block));
+        continue;
       }
-      const clause = sub.slice(0, i).trim();
-      const mm = /^"?(?<col>[a-zA-Z0-9_]+)"?\s+(?<rest>.+)$/.exec(clause);
-      if (!mm?.groups) continue;
-      const col = mm.groups.col.toLowerCase();
-      const { pgType, nullable } = parseTypeAndNullable(mm.groups.rest);
-      cols.set(col, { pgType, nullable });
-      tables.set(table, cols);
+
+      if (op.type === 'alter') {
+        const cols = tables.get(op.table) ?? new Map();
+        applyAlterTableBody(cols, op.body);
+        tables.set(op.table, cols);
+        continue;
+      }
+
+      tables.delete(op.table);
     }
   }
 
   return tables;
 }
 
-function parseFunctions(sql) {
-  const funcs = new Map();
-  const re = /create\s+(?:or\s+replace\s+)?function\s+public\.([a-zA-Z0-9_]+)\s*\(([\s\S]*?)\)\s*returns\s+([^\n]+)/gi;
-  for (let m; (m = re.exec(sql)); ) {
+function extractFunctionOps(sql) {
+  const ops = [];
+  const createRe = /create\s+(?:or\s+replace\s+)?function\s+public\.([a-zA-Z0-9_]+)\s*\(([\s\S]*?)\)\s*returns\s+([^\n]+)/gi;
+  for (let m; (m = createRe.exec(sql)); ) {
     const name = m[1].toLowerCase();
     const argsBlob = m[2];
     const returns = m[3].trim();
-
     const args = {};
     const parts = [];
     let cur = '';
@@ -239,8 +292,36 @@ function parseFunctions(sql) {
       args[argName] = pgType;
     }
 
-    funcs.set(name, { args, returns });
+    ops.push({
+      index: m.index,
+      type: 'create',
+      name,
+      def: { args, returns },
+    });
   }
+
+  const dropRe = /drop\s+function\s+(?:if\s+exists\s+)?public\.([a-zA-Z0-9_]+)\s*\(/gi;
+  for (let m; (m = dropRe.exec(sql)); ) {
+    ops.push({
+      index: m.index,
+      type: 'drop',
+      name: m[1].toLowerCase(),
+    });
+  }
+
+  return ops.sort((a, b) => a.index - b.index);
+}
+
+function buildFunctions(parts) {
+  const funcs = new Map();
+
+  for (const part of parts) {
+    for (const op of extractFunctionOps(part.sql)) {
+      if (op.type === 'create') funcs.set(op.name, op.def);
+      else funcs.delete(op.name);
+    }
+  }
+
   return funcs;
 }
 
@@ -330,11 +411,11 @@ function main() {
     console.error(`schema not found: ${SCHEMA}`);
     process.exit(1);
   }
-  const sql = readMergedSql();
+  const parts = readSqlParts();
+  const sql = parts.map((part) => part.sql).join('\n');
   const enums = parseEnums(sql);
-  const createBlocks = extractCreateTableBlocks(sql);
-  const tables = parseTables(sql, createBlocks, enums);
-  const functions = parseFunctions(sql);
+  const tables = buildTables(parts, enums);
+  const functions = buildFunctions(parts);
 
   const content = buildTypes({ enums, tables, functions });
   writeFile(OUT_WEB, content);

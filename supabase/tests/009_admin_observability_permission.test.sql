@@ -4,24 +4,17 @@ SELECT plan(2);
 \set admin1 '00000000-0000-0000-0000-000000000011'
 \set admin2 '00000000-0000-0000-0000-000000000012'
 
--- Required for public.profiles FK to auth.users(id)
 INSERT INTO auth.users (id)
 VALUES
   (:'admin1'::uuid),
   (:'admin2'::uuid)
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO public.profiles (id, display_name, phone, is_admin)
+INSERT INTO public.profiles (id, display_name, phone)
 VALUES
-  (:'admin1'::uuid, 'Ops Admin', '+9647000000011', true),
-  (:'admin2'::uuid, 'Auditor Admin', '+9647000000012', true)
+  (:'admin1'::uuid, 'Ops Admin', '+9647000000011'),
+  (:'admin2'::uuid, 'Auditor Admin', '+9647000000012')
 ON CONFLICT (id) DO NOTHING;
-
-INSERT INTO public.admin_users (user_id, note)
-VALUES
-  (:'admin1'::uuid, 'pgtap seed'),
-  (:'admin2'::uuid, 'pgtap seed')
-ON CONFLICT (user_id) DO NOTHING;
 
 DELETE FROM public.admin_user_roles WHERE user_id IN ((:'admin1')::uuid, (:'admin2')::uuid);
 

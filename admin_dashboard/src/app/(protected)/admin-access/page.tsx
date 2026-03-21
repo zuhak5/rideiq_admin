@@ -35,14 +35,14 @@ export default async function AdminAccessPage({
         <div>
           <h1 className="text-xl font-semibold">Admin Access</h1>
           <div className="text-xs text-neutral-500">
-            Manage admin roles and permissions. Changes are audited.
+            Manage admin roles and permissions. Clearing all roles removes admin access.
           </div>
         </div>
         <form className="flex gap-2" action="/admin-access" method="get">
           <input
             name="q"
             defaultValue={q}
-            placeholder="Search name / phone"
+            placeholder="Search name / phone / user ID"
             className="rounded-md border px-3 py-2 text-sm bg-white"
           />
           <button className="rounded-md bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800">
@@ -189,7 +189,7 @@ export default async function AdminAccessPage({
                         </span>
                       ))
                     ) : (
-                      <span className="text-xs text-neutral-500">—</span>
+                      <span className="text-xs text-neutral-500">No admin roles assigned</span>
                     )}
                   </div>
                 </td>
@@ -200,7 +200,7 @@ export default async function AdminAccessPage({
                     <input type="hidden" name="offset" value={String(offset)} />
 
                     <fieldset className="rounded-lg border p-2">
-                      <legend className="px-1 text-xs text-neutral-600">Assign roles</legend>
+                      <legend className="px-1 text-xs text-neutral-600">Set roles</legend>
                       <div className="mt-1 grid grid-cols-2 gap-x-3 gap-y-1">
                         {roles.map((r) => (
                           <label key={r.key} className="flex items-start gap-2 text-xs">
@@ -257,7 +257,7 @@ export default async function AdminAccessPage({
             {access.rows.length === 0 && (
               <tr>
                 <td className="px-4 py-6 text-sm text-neutral-500" colSpan={4}>
-                  No admin users.
+                  No users matched your search.
                 </td>
               </tr>
             )}

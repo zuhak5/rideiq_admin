@@ -225,16 +225,32 @@ Deno.serve((req) => withRequestContext('safety-sos', req, async (ctx) => {
       });
     }
 
-    // Best-effort notify admins (prefer membership table; keep legacy flag fallback).
+    // Best-effort notify admins who can view operational incidents.
     const adminIdsSet = new Set<string>();
-    const { data: admins } = await service.from('admin_users').select('user_id').limit(100);
-    (admins ?? []).forEach((a: any) => {
-      if (a?.user_id) adminIdsSet.add(String(a.user_id));
-    });
-    const { data: legacy } = await service.from('profiles').select('id').eq('is_admin', true).limit(100);
-    (legacy ?? []).forEach((a: any) => {
-      if (a?.id) adminIdsSet.add(String(a.id));
-    });
+    const { data: opsPermission } = await service
+      .from('admin_permissions')
+      .select('id')
+      .eq('key', 'ops.view')
+      .maybeSingle();
+    if (opsPermission?.id) {
+      const { data: rolePermissionRows } = await service
+        .from('admin_role_permissions')
+        .select('role_id')
+        .eq('permission_id', opsPermission.id);
+      const roleIds = Array.from(
+        new Set((rolePermissionRows ?? []).map((row: any) => Number(row?.role_id)).filter((value) => Number.isFinite(value))),
+      );
+      if (roleIds.length) {
+        const { data: operatorRows } = await service
+          .from('admin_user_roles')
+          .select('user_id')
+          .in('role_id', roleIds)
+          .limit(100);
+        (operatorRows ?? []).forEach((row: any) => {
+          if (row?.user_id) adminIdsSet.add(String(row.user_id));
+        });
+      }
+    }
     const adminIds = Array.from(adminIdsSet).filter(Boolean);
     if (adminIds.length) {
       await service.from('user_notifications').insert(

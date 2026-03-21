@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation';
 import { getAdminContext } from '@/lib/auth/guards';
 import { listUsers } from '@/lib/admin/users';
-import { grantAdminAction, revokeAdminAction } from './actions';
 
 export default async function UsersPage({
   searchParams,
@@ -53,62 +52,50 @@ export default async function UsersPage({
           <tbody>
             {res.users.map((u) => (
               <tr key={u.id} className="border-b last:border-b-0">
-                <td className="px-4 py-2">{u.display_name ?? '—'}</td>
-                <td className="px-4 py-2">{u.phone ?? '—'}</td>
-                <td className="px-4 py-2">{u.active_role ?? '—'}</td>
+                <td className="px-4 py-2">{u.display_name ?? '-'}</td>
+                <td className="px-4 py-2">{u.phone ?? '-'}</td>
+                <td className="px-4 py-2">{u.active_role ?? '-'}</td>
                 <td className="px-4 py-2">{u.is_admin ? 'Yes' : 'No'}</td>
                 <td className="px-4 py-2">
-                  {!canManageAccess ? (
-                    <span className="text-xs text-neutral-500">Insufficient privileges</span>
-                  ) : u.is_admin ? (
-                    <form action={revokeAdminAction} className="flex items-center gap-2">
-                      <input type="hidden" name="userId" value={u.id} />
-                      <input
-                        name="note"
-                        placeholder="reason"
-                        required
-                        minLength={3}
-                        maxLength={500}
-                        className="rounded-md border px-2 py-1 text-xs"
-                      />
-                      <label className="flex items-center gap-1 text-xs text-neutral-600">
-                        <input type="checkbox" name="confirm" required />
-                        confirm
-                      </label>
-                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">Revoke</button>
-                    </form>
-                  ) : (
-                    <form action={grantAdminAction} className="flex items-center gap-2">
-                      <input type="hidden" name="userId" value={u.id} />
-                      <input
-                        name="note"
-                        placeholder="reason"
-                        required
-                        minLength={3}
-                        maxLength={500}
-                        className="rounded-md border px-2 py-1 text-xs"
-                      />
-                      <label className="flex items-center gap-1 text-xs text-neutral-600">
-                        <input type="checkbox" name="confirm" required />
-                        confirm
-                      </label>
-                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">Grant</button>
-                    </form>
-                  )}
+                  <div className="space-y-2">
+                    <div className="flex flex-wrap gap-1">
+                      {u.role_keys.length ? (
+                        u.role_keys.map((roleKey) => (
+                          <span key={roleKey} className="rounded-md border bg-white px-2 py-0.5 text-xs">
+                            {roleKey}
+                          </span>
+                        ))
+                      ) : (
+                        <span className="text-xs text-neutral-500">No admin roles assigned</span>
+                      )}
+                    </div>
+                    {!canManageAccess ? (
+                      <span className="text-xs text-neutral-500">Insufficient privileges</span>
+                    ) : (
+                      <a
+                        className="inline-flex rounded-md border px-2 py-1 text-xs hover:bg-neutral-50"
+                        href={`/admin-access?q=${encodeURIComponent(u.id)}`}
+                      >
+                        {u.is_admin ? 'Manage roles' : 'Grant roles'}
+                      </a>
+                    )}
+                  </div>
                 </td>
                 <td className="px-4 py-2">
-                  {canManageNotifications ? (
-                    <a
-                      className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50"
-                      href={`/notifications?include_user_id=${encodeURIComponent(u.id)}`}
-                    >
-                      Send notification
-                    </a>
-                  ) : (
-                    <span className="text-xs text-neutral-500">—</span>
-                  )}
+                  <div className="flex flex-wrap gap-2">
+                    {canManageNotifications ? (
+                      <a
+                        className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50"
+                        href={`/notifications?include_user_id=${encodeURIComponent(u.id)}`}
+                      >
+                        Send notification
+                      </a>
+                    ) : (
+                      <span className="text-xs text-neutral-500">-</span>
+                    )}
+                  </div>
                 </td>
-                <td className="px-4 py-2">{u.created_at ? new Date(u.created_at).toLocaleString() : '—'}</td>
+                <td className="px-4 py-2">{u.created_at ? new Date(u.created_at).toLocaleString() : '-'}</td>
               </tr>
             ))}
             {res.users.length === 0 && (

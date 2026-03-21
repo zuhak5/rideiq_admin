@@ -18,12 +18,11 @@ export default function ForbiddenPage({
           </p>
         ) : (
           <p className="mt-3 text-sm">
-            This area requires admin access.
+            This area requires an assigned admin role.
           </p>
         )}
         <p className="mt-4 text-xs text-neutral-500">
-          If this is unexpected, grant the appropriate admin role (or add the user to <code>admin_users</code> as a
-          fallback).
+          If this is unexpected, ask an existing admin to assign the appropriate RBAC role for your account.
         </p>
       </div>
     </main>
