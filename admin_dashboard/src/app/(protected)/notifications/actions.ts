@@ -9,9 +9,12 @@ import {
   sendNotificationCampaign,
   scheduleNotificationCampaign,
   type NotificationAudienceFilter,
-  type NotificationAudiencePreviewRow,
   upsertNotificationCampaign,
 } from '@/lib/admin/notifications';
+import {
+  type NotificationComposerState,
+  type NotificationMutationState,
+} from './state';
 
 const routeKeySchema = z.enum([
   'notification_center',
@@ -28,24 +31,6 @@ const platformSchema = z.enum(['android', 'ios', 'web']);
 
 const uuidListSchema = z.array(z.string().uuid()).max(1000);
 const localeListSchema = z.array(z.string().trim().min(1).max(16)).max(20);
-
-export type NotificationComposerState = {
-  ok: boolean;
-  error: string | null;
-  notice: string | null;
-  preview: {
-    count: number;
-    sample: NotificationAudiencePreviewRow[];
-  } | null;
-  nextPath: string | null;
-};
-
-export type NotificationMutationState = {
-  ok: boolean;
-  error: string | null;
-  notice: string | null;
-  nextPath: string | null;
-};
 
 function splitList(raw: string): string[] {
   return raw
@@ -219,23 +204,4 @@ export async function cancelNotificationCampaignAction(
       nextPath: null,
     };
   }
-}
-
-export function initialNotificationComposerState(): NotificationComposerState {
-  return {
-    ok: true,
-    error: null,
-    notice: null,
-    preview: null,
-    nextPath: null,
-  };
-}
-
-export function initialNotificationMutationState(): NotificationMutationState {
-  return {
-    ok: true,
-    error: null,
-    notice: null,
-    nextPath: null,
-  };
 }

@@ -10,10 +10,12 @@ import type {
 } from '@/lib/admin/notifications';
 import {
   cancelNotificationCampaignAction,
-  initialNotificationComposerState,
-  initialNotificationMutationState,
   notificationComposerAction,
 } from './actions';
+import {
+  initialNotificationComposerState,
+  initialNotificationMutationState,
+} from './state';
 
 type Props = {
   canManage: boolean;
