@@ -4,6 +4,12 @@
  * sanitizing them (which can hide bugs and security issues).
  */
 import { z } from 'npm:zod@3.23.8';
+import {
+    NOTIFICATION_AUDIENCE_PLATFORMS,
+    NOTIFICATION_AUDIENCE_ROLES,
+    NOTIFICATION_CATEGORIES,
+    NOTIFICATION_ROUTE_KEYS,
+} from './notifications.ts';
 
 // --- Shared refinements ---
 
@@ -336,6 +342,107 @@ export const adminSupportArticleUpsertBodySchema = z.object({
 });
 
 export type AdminSupportArticleUpsertBodyInput = z.infer<typeof adminSupportArticleUpsertBodySchema>;
+
+// --- notifications (Next admin) ---
+
+const notificationRouteKeySchema = z.enum(NOTIFICATION_ROUTE_KEYS as unknown as [string, ...string[]]);
+const notificationCategorySchema = z.enum(NOTIFICATION_CATEGORIES as unknown as [string, ...string[]]);
+const notificationRoleSchema = z.enum(NOTIFICATION_AUDIENCE_ROLES as unknown as [string, ...string[]]);
+const notificationPlatformSchema = z.enum(NOTIFICATION_AUDIENCE_PLATFORMS as unknown as [string, ...string[]]);
+
+function optionalUuidArray(maxItems: number) {
+    return z
+        .array(z.string().uuid('must be a valid UUID'))
+        .max(maxItems, `Too many UUID values (max ${maxItems})`)
+        .optional()
+        .default([]);
+}
+
+function optionalStringArray(maxItems: number, maxLen: number) {
+    return z
+        .array(z.string().trim().min(1).max(maxLen))
+        .max(maxItems, `Too many values (max ${maxItems})`)
+        .optional()
+        .default([]);
+}
+
+export const adminNotificationAudienceFilterSchema = z.object({
+    include_user_ids: optionalUuidArray(1000),
+    exclude_user_ids: optionalUuidArray(1000),
+    roles: z.array(notificationRoleSchema).max(8).optional().default([]),
+    locales: optionalStringArray(20, 16),
+    platforms: z.array(notificationPlatformSchema).max(3).optional().default([]),
+    has_tokens_only: z.boolean().optional().default(false),
+    exclude_admins: z.boolean().optional().default(true),
+});
+
+export type AdminNotificationAudienceFilterInput = z.infer<typeof adminNotificationAudienceFilterSchema>;
+
+export const adminNotificationCampaignsListBodySchema = z.object({
+    q: optionalTrimmedString(120),
+    status: optionalTrimmedString(40),
+    limit: intParam(25, 1, 200),
+    offset: intParam(0, 0, 1_000_000),
+});
+
+export type AdminNotificationCampaignsListBodyInput = z.infer<typeof adminNotificationCampaignsListBodySchema>;
+
+export const adminNotificationCampaignGetQuerySchema = z.object({
+    id: z.string().uuid('id must be a valid UUID'),
+});
+
+export type AdminNotificationCampaignGetQueryInput = z.infer<typeof adminNotificationCampaignGetQuerySchema>;
+
+export const adminNotificationCampaignPreviewBodySchema = z.object({
+    audience_filter: adminNotificationAudienceFilterSchema.optional().default({}),
+});
+
+export type AdminNotificationCampaignPreviewBodyInput = z.infer<typeof adminNotificationCampaignPreviewBodySchema>;
+
+export const adminNotificationCampaignUpsertBodySchema = z.object({
+    id: z.string().uuid('id must be a valid UUID').nullable().optional(),
+    category: notificationCategorySchema,
+    title: trimmedString(120),
+    body: optionalTrimmedString(500),
+    route_key: notificationRouteKeySchema.optional().default('notification_center'),
+    data: z.record(z.unknown()).optional().default({}),
+    audience_filter: adminNotificationAudienceFilterSchema.optional().default({}),
+    scheduled_at: z
+        .string()
+        .nullable()
+        .optional()
+        .transform((value) => {
+            if (!value) return null;
+            const parsed = new Date(value.trim());
+            return Number.isNaN(parsed.getTime()) ? null : parsed.toISOString();
+        }),
+});
+
+export type AdminNotificationCampaignUpsertBodyInput = z.infer<typeof adminNotificationCampaignUpsertBodySchema>;
+
+export const adminNotificationCampaignSendBodySchema = z.object({
+    id: z.string().uuid('id must be a valid UUID'),
+});
+
+export type AdminNotificationCampaignSendBodyInput = z.infer<typeof adminNotificationCampaignSendBodySchema>;
+
+export const adminNotificationCampaignScheduleBodySchema = z.object({
+    id: z.string().uuid('id must be a valid UUID'),
+    scheduled_at: z
+        .string()
+        .transform((value) => value.trim())
+        .refine((value) => !Number.isNaN(new Date(value).getTime()), 'scheduled_at must be a valid ISO timestamp')
+        .transform((value) => new Date(value).toISOString()),
+});
+
+export type AdminNotificationCampaignScheduleBodyInput = z.infer<typeof adminNotificationCampaignScheduleBodySchema>;
+
+export const adminNotificationCampaignCancelBodySchema = z.object({
+    id: z.string().uuid('id must be a valid UUID'),
+    note: optionalTrimmedString(300),
+});
+
+export type AdminNotificationCampaignCancelBodyInput = z.infer<typeof adminNotificationCampaignCancelBodySchema>;
 
 // --- service areas (Next admin) ---
 

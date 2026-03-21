@@ -86,7 +86,10 @@
       "auth": "webhook_signature"
     },
     "notifications-dispatch": {
-      "auth": "webhook_signature"
+      "auth": "cron_secret"
+    },
+    "notifications-campaign-runner": {
+      "auth": "cron_secret"
     },
     "ops-alert-notifier": {
       "auth": "cron_secret"

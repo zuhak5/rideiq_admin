@@ -16,6 +16,7 @@ export default async function UsersPage({
   const q = (searchParams?.q ?? '').trim();
   const offset = Math.max(0, Number(searchParams?.offset ?? 0) || 0);
   const canManageAccess = ctx.can('admin_access.manage');
+  const canManageNotifications = ctx.can('notifications.manage');
 
   const res = await listUsers(ctx.supabase, { q, offset, limit: 25 });
 
@@ -28,24 +29,25 @@ export default async function UsersPage({
             name="q"
             defaultValue={q}
             placeholder="Search name / phone"
-            className="rounded-md border px-3 py-2 text-sm bg-white"
+            className="rounded-md border bg-white px-3 py-2 text-sm"
           />
-          <button className="rounded-md bg-neutral-900 text-white px-3 py-2 text-sm hover:bg-neutral-800">
+          <button className="rounded-md bg-neutral-900 px-3 py-2 text-sm text-white hover:bg-neutral-800">
             Search
           </button>
         </form>
       </div>
 
-      <div className="rounded-xl border bg-white overflow-hidden">
+      <div className="overflow-hidden rounded-xl border bg-white">
         <table className="w-full text-sm">
-          <thead className="bg-neutral-50 border-b">
+          <thead className="border-b bg-neutral-50">
             <tr>
-              <th className="text-left px-4 py-2 font-medium">Name</th>
-              <th className="text-left px-4 py-2 font-medium">Phone</th>
-              <th className="text-left px-4 py-2 font-medium">Role</th>
-              <th className="text-left px-4 py-2 font-medium">Admin</th>
-              <th className="text-left px-4 py-2 font-medium">Admin access</th>
-              <th className="text-left px-4 py-2 font-medium">Created</th>
+              <th className="px-4 py-2 text-left font-medium">Name</th>
+              <th className="px-4 py-2 text-left font-medium">Phone</th>
+              <th className="px-4 py-2 text-left font-medium">Role</th>
+              <th className="px-4 py-2 text-left font-medium">Admin</th>
+              <th className="px-4 py-2 text-left font-medium">Admin access</th>
+              <th className="px-4 py-2 text-left font-medium">Actions</th>
+              <th className="px-4 py-2 text-left font-medium">Created</th>
             </tr>
           </thead>
           <tbody>
@@ -73,9 +75,7 @@ export default async function UsersPage({
                         <input type="checkbox" name="confirm" required />
                         confirm
                       </label>
-                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">
-                        Revoke
-                      </button>
+                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">Revoke</button>
                     </form>
                   ) : (
                     <form action={grantAdminAction} className="flex items-center gap-2">
@@ -92,20 +92,28 @@ export default async function UsersPage({
                         <input type="checkbox" name="confirm" required />
                         confirm
                       </label>
-                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">
-                        Grant
-                      </button>
+                      <button className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50">Grant</button>
                     </form>
                   )}
                 </td>
                 <td className="px-4 py-2">
-                  {u.created_at ? new Date(u.created_at).toLocaleString() : '—'}
+                  {canManageNotifications ? (
+                    <a
+                      className="rounded-md border px-2 py-1 text-xs hover:bg-neutral-50"
+                      href={`/notifications?include_user_id=${encodeURIComponent(u.id)}`}
+                    >
+                      Send notification
+                    </a>
+                  ) : (
+                    <span className="text-xs text-neutral-500">—</span>
+                  )}
                 </td>
+                <td className="px-4 py-2">{u.created_at ? new Date(u.created_at).toLocaleString() : '—'}</td>
               </tr>
             ))}
             {res.users.length === 0 && (
               <tr>
-                <td className="px-4 py-6 text-sm text-neutral-500" colSpan={6}>
+                <td className="px-4 py-6 text-sm text-neutral-500" colSpan={7}>
                   No users.
                 </td>
               </tr>
@@ -115,9 +123,7 @@ export default async function UsersPage({
       </div>
 
       <div className="flex items-center justify-between text-xs text-neutral-500">
-        <div>
-          Showing {res.page.returned} users (offset {res.page.offset})
-        </div>
+        <div>Showing {res.page.returned} users (offset {res.page.offset})</div>
         <div className="flex gap-2">
           <a
             className="rounded-md border bg-white px-2 py-1 hover:bg-neutral-50"

@@ -56,6 +56,13 @@ import { handle as handleAdminMerchantSetStatus } from './routes/admin-merchant-
 import { handle as handleAdminOrdersList } from './routes/admin-orders-list.ts';
 import { handle as handleAdminOrderGet } from './routes/admin-order-get.ts';
 import { handle as handleAdminOrderSetStatus } from './routes/admin-order-set-status.ts';
+import { handle as handleAdminNotificationCampaignsList } from './routes/admin-notification-campaigns-list.ts';
+import { handle as handleAdminNotificationCampaignGet } from './routes/admin-notification-campaign-get.ts';
+import { handle as handleAdminNotificationCampaignPreview } from './routes/admin-notification-campaign-preview.ts';
+import { handle as handleAdminNotificationCampaignUpsert } from './routes/admin-notification-campaign-upsert.ts';
+import { handle as handleAdminNotificationCampaignSend } from './routes/admin-notification-campaign-send.ts';
+import { handle as handleAdminNotificationCampaignSchedule } from './routes/admin-notification-campaign-schedule.ts';
+import { handle as handleAdminNotificationCampaignCancel } from './routes/admin-notification-campaign-cancel.ts';
 
 export type RouteHandler = (req: Request, ctx: any) => Promise<Response>;
 
@@ -118,6 +125,13 @@ export const ROUTES: Record<string, RouteHandler> = {
   'admin-orders-list': handleAdminOrdersList,
   'admin-order-get': handleAdminOrderGet,
   'admin-order-set-status': handleAdminOrderSetStatus,
+  'admin-notification-campaigns-list': handleAdminNotificationCampaignsList,
+  'admin-notification-campaign-get': handleAdminNotificationCampaignGet,
+  'admin-notification-campaign-preview': handleAdminNotificationCampaignPreview,
+  'admin-notification-campaign-upsert': handleAdminNotificationCampaignUpsert,
+  'admin-notification-campaign-send': handleAdminNotificationCampaignSend,
+  'admin-notification-campaign-schedule': handleAdminNotificationCampaignSchedule,
+  'admin-notification-campaign-cancel': handleAdminNotificationCampaignCancel,
 };
 
 export function getRouteFromRequest(req: Request, prefix = '/admin-api'): string | null {

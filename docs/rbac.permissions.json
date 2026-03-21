@@ -73,6 +73,16 @@
       "description": "View merchant accounts"
     },
     {
+      "key": "notifications.manage",
+      "name": "Manage notifications",
+      "description": "Create, schedule, send, and cancel notification campaigns"
+    },
+    {
+      "key": "notifications.read",
+      "name": "Read notifications",
+      "description": "View notification campaigns, recipients, and delivery history"
+    },
+    {
       "key": "observability.view",
       "name": "View observability",
       "description": "Access observability dashboards and recent system events"
@@ -257,6 +267,7 @@
         "dashboard.view",
         "promotions.read",
         "promotions.manage",
+        "notifications.manage",
         "users.read",
         "audit.read"
       ]
@@ -314,6 +325,7 @@
         "support.read",
         "support.manage",
         "agents.view",
+        "notifications.read",
         "users.read",
         "audit.read"
       ]
@@ -376,6 +388,10 @@
     {
       "route": "/merchants/[id]",
       "requires": "merchants.read"
+    },
+    {
+      "route": "/notifications",
+      "requires": "notifications.read"
     },
     {
       "route": "/observability",
@@ -501,6 +517,34 @@
         {
           "path": "admin-observability",
           "requires": "observability.view"
+        },
+        {
+          "path": "admin-notification-campaigns-list",
+          "requires": "notifications.read"
+        },
+        {
+          "path": "admin-notification-campaign-get",
+          "requires": "notifications.read"
+        },
+        {
+          "path": "admin-notification-campaign-preview",
+          "requires": "notifications.manage"
+        },
+        {
+          "path": "admin-notification-campaign-upsert",
+          "requires": "notifications.manage"
+        },
+        {
+          "path": "admin-notification-campaign-send",
+          "requires": "notifications.manage"
+        },
+        {
+          "path": "admin-notification-campaign-schedule",
+          "requires": "notifications.manage"
+        },
+        {
+          "path": "admin-notification-campaign-cancel",
+          "requires": "notifications.manage"
         },
         {
           "path": "admin-payment-detail",

@@ -144,6 +144,12 @@ verify_jwt = false
 [functions.edge-webhook-prune]
 verify_jwt = false
 
+[functions.notifications-dispatch]
+verify_jwt = false
+
+[functions.notifications-campaign-runner]
+verify_jwt = false
+
 # Shared-secret webhooks (no user JWT)
 [functions.interest-seed]
 verify_jwt = false

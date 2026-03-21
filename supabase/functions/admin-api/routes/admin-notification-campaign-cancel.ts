@@ -1,0 +1,58 @@
+import { createServiceClient } from '../../_shared/supabase.ts';
+import { requirePermission } from '../../_shared/admin.ts';
+import { json, errorJson } from '../../_shared/json.ts';
+import { requireMethod, validateJsonBody } from '../../_shared/validate.ts';
+import { adminNotificationCampaignCancelBodySchema } from '../../_shared/schemas.ts';
+import { insertAdminNotificationAudit } from '../../_shared/notifications.ts';
+
+export async function handle(req: Request, ctx: any): Promise<Response> {
+  const methodErr = requireMethod(req, ctx, 'POST');
+  if (methodErr) return methodErr;
+
+  const guard = await requirePermission(req, ctx, 'notifications.manage');
+  if ('res' in guard) return guard.res;
+  ctx.setUserId(guard.user.id);
+
+  const body = await validateJsonBody(req, ctx, adminNotificationCampaignCancelBodySchema);
+  if (!body.ok) return body.res;
+
+  const supabase = createServiceClient();
+  const campaignId = body.data.id;
+  const { data: existing, error: existingError } = await supabase
+    .from('notification_campaigns')
+    .select('id,status')
+    .eq('id', campaignId)
+    .maybeSingle();
+  if (existingError) {
+    return errorJson('Query failed', 500, 'QUERY_FAILED', { error: existingError.message }, ctx.headers);
+  }
+  if (!existing) {
+    return errorJson('Not found', 404, 'NOT_FOUND', undefined, ctx.headers);
+  }
+  if (!['draft', 'scheduled'].includes(String((existing as any).status))) {
+    return errorJson('Campaign can no longer be cancelled', 409, 'INVALID_STATE', undefined, ctx.headers);
+  }
+
+  const cancelledAt = new Date().toISOString();
+  const { error } = await supabase
+    .from('notification_campaigns')
+    .update({
+      status: 'cancelled',
+      cancelled_at: cancelledAt,
+      last_error: null,
+    })
+    .eq('id', campaignId);
+  if (error) {
+    return errorJson('Update failed', 500, 'UPDATE_FAILED', { error: error.message }, ctx.headers);
+  }
+
+  await insertAdminNotificationAudit(
+    supabase,
+    guard.user.id,
+    'notification_campaign_cancel',
+    body.data.note ?? null,
+    { campaign_id: campaignId, previous_status: (existing as any).status },
+  );
+
+  return json({ ok: true, cancelled_at: cancelledAt }, 200, ctx.headers);
+}

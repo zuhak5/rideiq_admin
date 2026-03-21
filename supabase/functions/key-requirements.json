@@ -51,8 +51,12 @@
       "reason": "Server-side concierge workflow that writes operational records and may bypass RLS for controlled orchestration."
     },
     "device-token-upsert": {
+      "key": "service_role",
+      "reason": "Authenticated client endpoint that validates the user JWT first, then uses service role to safely transfer installation ownership across shared devices and update token state atomically."
+    },
+    "device-token-disable": {
       "key": "anon",
-      "reason": "Client-scoped write via RLS using publishable key and user JWT."
+      "reason": "Authenticated client endpoint using publishable key + user JWT with RLS to disable the current user's installation token."
     },
     "driver-accept": {
       "key": "anon",
@@ -148,7 +152,11 @@
     },
     "notifications-dispatch": {
       "key": "service_role",
-      "reason": "Internal dispatch worker that reads/writes notification queues and updates delivery state server-side; uses service role."
+      "reason": "Cron dispatch worker that reads/writes notification queues, sends FCM messages, and updates delivery state server-side; uses service role."
+    },
+    "notifications-campaign-runner": {
+      "key": "service_role",
+      "reason": "Cron campaign worker that claims due campaigns, snapshots recipients, inserts inbox rows, and updates campaign state server-side."
     },
     "notifications-send": {
       "key": "service_role",

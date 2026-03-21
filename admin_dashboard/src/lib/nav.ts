@@ -43,6 +43,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: '/runbooks', label: 'Runbooks', requires: 'ops.view', keywords: ['runbook', 'playbook'] },
       { href: '/support/tickets', label: 'Support Tickets', requires: 'support.read', keywords: ['support', 'tickets', 'helpdesk'] },
       { href: '/support/articles', label: 'Help Center', requires: 'support.read', keywords: ['help center', 'kb', 'articles'] },
+      { href: '/notifications', label: 'Notifications', requires: 'notifications.read', keywords: ['notifications', 'push', 'campaigns'] },
     ],
   },
   {

@@ -1,12 +1,12 @@
 import { serve } from "https://deno.land/std@0.224.0/http/server.ts";
 import { errorJson, json } from "../_shared/json.ts";
-import { requireUser, createAnonClient } from "../_shared/supabase.ts";
+import { createServiceClient, requireUser } from "../_shared/supabase.ts";
 import { withRequestContext } from "../_shared/requestContext.ts";
 
 type Payload = {
   token: string;
   platform: "android" | "ios" | "web";
-  device_id?: string | null;
+  device_id: string;
   app_version?: string | null;
 };
 
@@ -20,27 +20,40 @@ serve((req) =>
   const body = (await req.json().catch(() => ({}))) as Partial<Payload>;
   const token = (body.token ?? "").trim();
   const platform = body.platform as Payload["platform"];
+  const deviceId = (body.device_id ?? '').trim();
 
-  if (!token || !platform) return errorJson("Missing token or platform", 400, "INVALID_PAYLOAD");
+  if (!token || !platform || !deviceId) return errorJson("Missing token, platform, or device_id", 400, "INVALID_PAYLOAD");
   if (!["android", "ios", "web"].includes(platform)) return errorJson("Invalid platform", 400, "INVALID_PLATFORM");
 
-  const anon = createAnonClient(req);
+  const svc = createServiceClient();
+
+  await svc
+    .from('device_tokens')
+    .update({
+      enabled: false,
+      disabled_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    })
+    .eq('token', token)
+    .eq('platform', platform)
+    .neq('device_id', deviceId);
 
   const upsertRow = {
     user_id: user.id,
     token,
     platform,
-    device_id: body.device_id ?? null,
+    device_id: deviceId,
     app_version: body.app_version ?? null,
     enabled: true,
+    disabled_at: null,
     last_seen_at: new Date().toISOString(),
     updated_at: new Date().toISOString(),
   };
 
-  const { data, error: dbErr } = await anon
+  const { data, error: dbErr } = await svc
     .from("device_tokens")
-    .upsert(upsertRow, { onConflict: "user_id,token" })
-    .select("id,user_id,platform,device_id,app_version,enabled,last_seen_at")
+    .upsert(upsertRow, { onConflict: "device_id" })
+    .select("id,user_id,platform,device_id,app_version,enabled,last_seen_at,updated_at")
     .single();
 
   if (dbErr) return errorJson(dbErr.message, 400, "DB_ERROR");
