@@ -38,18 +38,20 @@ this repo:
 
 ## Edge functions
 
-- `maps-config-v2`: renderer/config selection for approved origins and
-  authenticated callers
+- `maps-config-v2`: renderer/config selection for approved browser origins and
+  native mobile callers
 - `maps-usage`: render telemetry and usage metering
 - `geo`: server-side routing/geocoding orchestration
 
 Flutter render requests must send
 `required_capabilities: ['geocode', 'directions']` to `maps-config-v2` so the
 selected renderer can also satisfy the app's geo flows. For backward
-compatibility with older native app builds, `maps-config-v2` now defaults
-authenticated render requests to that same geo-safe capability set when
-`required_capabilities` is omitted. `Dart/*` callers are treated as native even
-if they still send a synthetic local `Origin` header.
+compatibility with older native app builds, `maps-config-v2` now defaults native
+render requests to that same geo-safe capability set when
+`required_capabilities` is omitted. Current Flutter mobile builds identify
+themselves with `X-RideIQ-Client-Platform: mobile`. Older `Dart/*` callers are
+still treated as native when they omit `Origin` or send a synthetic local
+`Origin` header such as `http://localhost:*`.
 
 ## Admin surfaces
 

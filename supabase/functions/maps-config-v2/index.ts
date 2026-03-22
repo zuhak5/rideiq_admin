@@ -4,7 +4,7 @@ import {
 } from "../_shared/cors.ts";
 import { errorJson, json } from "../_shared/json.ts";
 import { envTrim } from "../_shared/config.ts";
-import { createServiceClient, requireUser } from "../_shared/supabase.ts";
+import { createServiceClient } from "../_shared/supabase.ts";
 import {
   buildRateLimitHeaders,
   consumeRateLimit,
@@ -31,7 +31,7 @@ import {
   providerHasClientRenderKey,
   providerHasGeoServerKey,
 } from "../_shared/geo/providerKeys.ts";
-import { canServeMapsConfigRequest } from "./policy.ts";
+import { getMapsConfigRequestDenialCode } from "./policy.ts";
 
 type Capability = "render" | "directions" | "geocode" | "distance_matrix";
 
@@ -145,27 +145,15 @@ Deno.serve(async (req) => {
       envTrim("ALLOWED_ORIGINS"),
     ]);
     const origin = req.headers.get("origin");
-    let hasAuthenticatedUser = false;
+    const denialCode = getMapsConfigRequestDenialCode({
+      origin,
+      allowedOrigins,
+      userAgent: req.headers.get("user-agent"),
+      clientPlatform: req.headers.get("x-rideiq-client-platform"),
+    });
 
-    if (
-      !canServeMapsConfigRequest({
-        origin,
-        allowedOrigins,
-        hasAuthenticatedUser,
-      })
-    ) {
-      const { user } = await requireUser(req);
-      hasAuthenticatedUser = Boolean(user?.id);
-    }
-
-    if (
-      !canServeMapsConfigRequest({
-        origin,
-        allowedOrigins,
-        hasAuthenticatedUser,
-      })
-    ) {
-      throw new Error("origin_not_allowed");
+    if (denialCode) {
+      throw new Error(denialCode);
     }
 
     let capability: Capability = "render";
@@ -422,7 +410,9 @@ Deno.serve(async (req) => {
     return json(out, 200, responseHeaders);
   } catch (e) {
     const msg = e instanceof Error ? e.message : "unknown_error";
-    const status = msg === "origin_not_allowed" ? 403 : 500;
+    const status = msg === "origin_not_allowed" || msg === "missing_origin"
+      ? 403
+      : 500;
     return errorJson(msg, status, msg, undefined, responseHeaders);
   }
 });
