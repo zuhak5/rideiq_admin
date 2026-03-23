@@ -175,6 +175,9 @@ verify_jwt = false
 [functions.auth-request-otp]
 verify_jwt = false
 
+[functions.auth-captcha]
+verify_jwt = false
+
 [functions.trip-share-auto]
 verify_jwt = false
 
