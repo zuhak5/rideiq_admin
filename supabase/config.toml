@@ -154,6 +154,9 @@ verify_jwt = false
 [functions.sms-hook]
 verify_jwt = false
 
+[functions.auth-captcha]
+verify_jwt = false
+
 [functions.trip-share-auto]
 verify_jwt = false
 
