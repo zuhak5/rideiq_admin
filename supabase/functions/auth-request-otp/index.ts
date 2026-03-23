@@ -17,6 +17,7 @@ import {
   isOtpPurpose,
   isSupabaseCaptchaFailure,
   isSupabaseOtpRateLimit,
+  isSupabaseOtpUnavailable,
   type OtpPurpose,
 } from "../_shared/authPublicFlow.ts";
 import { maskPhoneForLogs } from "../_shared/privacy.ts";
@@ -186,9 +187,11 @@ export async function handleAuthRequestOtp(req: Request): Promise<Response> {
     }
 
     const nextStep = data === "password" ? "password" : "otp_signup";
+    // Registered accounts must switch to password entry instead of
+    // sending a signup OTP.
     if (purpose === "signup" && nextStep === "password") {
       return errorJson(
-        "This phone already uses password sign-in.",
+        "This phone is already registered. Use password sign-in.",
         409,
         "ACCOUNT_REQUIRES_PASSWORD",
       );
@@ -241,6 +244,22 @@ export async function handleAuthRequestOtp(req: Request): Promise<Response> {
           "Too many OTP requests. Try again later.",
           429,
           "OTP_RATE_LIMIT",
+          undefined,
+          forwardRetryAfterHeaders(otpResponse.headers),
+        );
+      }
+
+      if (
+        isSupabaseOtpUnavailable(
+          otpResponse.code,
+          otpResponse.message,
+          otpResponse.status,
+        )
+      ) {
+        return errorJson(
+          "OTP delivery is temporarily unavailable.",
+          503,
+          "OTP_REQUEST_UNAVAILABLE",
           undefined,
           forwardRetryAfterHeaders(otpResponse.headers),
         );

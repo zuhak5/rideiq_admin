@@ -1,10 +1,11 @@
 BEGIN;
 
-SELECT plan(7);
+SELECT plan(8);
 
 \set password_user '00000000-0000-0000-0000-000000000031'
 \set unconfirmed_user '00000000-0000-0000-0000-000000000032'
 \set nopassword_user '00000000-0000-0000-0000-000000000033'
+\set digits_only_user '00000000-0000-0000-0000-000000000034'
 
 INSERT INTO auth.users (
   id,
@@ -42,6 +43,15 @@ VALUES
     '{"display_name":"No Password User"}'::jsonb,
     now(),
     now()
+  ),
+  (
+    :'digits_only_user'::uuid,
+    '9647700000034',
+    null,
+    now(),
+    '{"display_name":"Digits Only Phone User"}'::jsonb,
+    now(),
+    now()
   )
 ON CONFLICT (id) DO NOTHING;
 
@@ -59,14 +69,20 @@ SELECT is(
 
 SELECT is(
   public.get_phone_auth_route('+9647700000032'),
-  'otp_signup',
-  'unconfirmed user routes to otp_signup'
+  'password',
+  'existing unconfirmed user still routes to password-first'
 );
 
 SELECT is(
   public.get_phone_auth_route('+9647700000033'),
-  'otp_signup',
-  'confirmed user without password routes to otp_signup'
+  'password',
+  'existing user without password still routes to password-first'
+);
+
+SELECT is(
+  public.get_phone_auth_route('+9647700000034'),
+  'password',
+  'digits-only auth.users phone values still route to password-first'
 );
 
 UPDATE auth.users
