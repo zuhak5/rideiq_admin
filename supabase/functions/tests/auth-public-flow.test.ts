@@ -292,3 +292,72 @@ Deno.test({
     }
   },
 });
+
+Deno.test({
+  name:
+    "auth-request-otp rejects signup OTP for password accounts without calling upstream OTP",
+  permissions: { env: true },
+  fn: async () => {
+    const originalFetch = globalThis.fetch;
+    let otpRequests = 0;
+
+    try {
+      globalThis.fetch = ((input: RequestInfo | URL) => {
+        const url = new URL(
+          typeof input === "string"
+            ? input
+            : input instanceof URL
+            ? input.toString()
+            : input.url,
+        );
+        if (url.pathname.endsWith("/rest/v1/rpc/rate_limit_consume")) {
+          return Promise.resolve(
+            buildJsonResponse({
+              allowed: true,
+              remaining: 4,
+              reset_at: new Date(Date.now() + 60_000).toISOString(),
+            }),
+          );
+        }
+        if (url.pathname.endsWith("/rest/v1/rpc/get_phone_auth_route")) {
+          return Promise.resolve(buildJsonResponse("password"));
+        }
+        if (url.pathname.endsWith("/auth/v1/otp")) {
+          otpRequests += 1;
+          return Promise.resolve(buildJsonResponse({}, 200));
+        }
+        return Promise.resolve(buildJsonResponse({}, 404));
+      }) as typeof fetch;
+
+      await withEnv(
+        {
+          SUPABASE_URL: "https://example.supabase.co",
+          SUPABASE_ANON_KEY: "sb_publishable_test",
+          SUPABASE_SERVICE_ROLE_KEY: "sb_secret_test",
+        },
+        async () => {
+          const { handleAuthRequestOtp } = await import(
+            "../auth-request-otp/index.ts"
+          );
+          const response = await handleAuthRequestOtp(
+            buildAuthRequest(
+              "https://example.supabase.co/functions/v1/auth-request-otp",
+              {
+                phone: "7701234567",
+                purpose: "signup",
+                captchaToken: "captcha-token",
+              },
+            ),
+          );
+          const body = await response.json();
+
+          assertEquals(response.status, 409);
+          assertEquals(body["code"], "ACCOUNT_REQUIRES_PASSWORD");
+          assertEquals(otpRequests, 0);
+        },
+      );
+    } finally {
+      globalThis.fetch = originalFetch;
+    }
+  },
+});

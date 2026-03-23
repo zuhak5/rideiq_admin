@@ -186,6 +186,8 @@ export async function handleAuthRequestOtp(req: Request): Promise<Response> {
     }
 
     const nextStep = data === "password" ? "password" : "otp_signup";
+    // Password-capable accounts must switch to password entry instead of
+    // sending a signup OTP.
     if (purpose === "signup" && nextStep === "password") {
       return errorJson(
         "This phone already uses password sign-in.",
