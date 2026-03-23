@@ -1,9 +1,9 @@
-import { envTrim } from './config.ts';
+import { envTrim } from "./config.ts";
 
-const WALLET_ROUTE_SEGMENTS = ['rider', 'account', 'wallet'] as const;
+const WALLET_ROUTE_SEGMENTS = ["rider", "account", "wallet"] as const;
 const HTML_HEADERS = {
-  'content-type': 'text/html; charset=utf-8',
-  'cache-control': 'no-store',
+  "content-type": "text/html; charset=utf-8",
+  "cache-control": "no-store",
 };
 
 type ReturnValue = string | number | boolean | null | undefined;
@@ -27,27 +27,26 @@ export type TopupReturnTargets = {
 
 function firstNonEmpty(...values: Array<string | null | undefined>) {
   for (const value of values) {
-    const normalized = String(value ?? '').trim();
+    const normalized = String(value ?? "").trim();
     if (normalized) return normalized;
   }
   return null;
 }
 
 function appendWalletRoute(url: URL): URL {
-  const isHttp = url.protocol === 'http:' || url.protocol === 'https:';
+  const isHttp = url.protocol === "http:" || url.protocol === "https:";
   const route = isHttp
-    ? url.pathname.split('/').filter(Boolean)
-    : [url.host, ...url.pathname.split('/').filter(Boolean)].filter(Boolean);
+    ? url.pathname.split("/").filter(Boolean)
+    : [url.host, ...url.pathname.split("/").filter(Boolean)].filter(Boolean);
 
-  const endsWithWalletRoute =
-    route.length >= WALLET_ROUTE_SEGMENTS.length &&
+  const endsWithWalletRoute = route.length >= WALLET_ROUTE_SEGMENTS.length &&
     WALLET_ROUTE_SEGMENTS.every(
       (segment, index) =>
         route[route.length - WALLET_ROUTE_SEGMENTS.length + index] === segment,
     );
 
   if (!endsWithWalletRoute) {
-    if (route[route.length - 1] === 'wallet') {
+    if (route[route.length - 1] === "wallet") {
       route.splice(route.length - 1, 1, ...WALLET_ROUTE_SEGMENTS);
     } else {
       route.push(...WALLET_ROUTE_SEGMENTS);
@@ -55,17 +54,17 @@ function appendWalletRoute(url: URL): URL {
   }
 
   if (isHttp) {
-    url.pathname = `/${route.join('/')}`;
+    url.pathname = `/${route.join("/")}`;
     return url;
   }
 
-  url.host = route[0] ?? '';
-  url.pathname = route.length > 1 ? `/${route.slice(1).join('/')}` : '';
+  url.host = route[0] ?? "";
+  url.pathname = route.length > 1 ? `/${route.slice(1).join("/")}` : "";
   return url;
 }
 
 function buildUrl(baseUrl: string | null | undefined, query: URLSearchParams) {
-  const raw = String(baseUrl ?? '').trim();
+  const raw = String(baseUrl ?? "").trim();
   if (!raw) return null;
 
   let url: URL;
@@ -84,14 +83,14 @@ function buildUrl(baseUrl: string | null | undefined, query: URLSearchParams) {
 
 function buildQuery(params: TopupReturnResponseParams) {
   const query = new URLSearchParams();
-  query.set('tab', 'topups');
-  query.set('provider', params.provider);
+  query.set("tab", "topups");
+  query.set("provider", params.provider);
 
-  if (params.intentId) query.set('intent_id', params.intentId);
-  if (params.paymentId) query.set('payment_id', params.paymentId);
-  if (params.status) query.set('status', params.status);
+  if (params.intentId) query.set("intent_id", params.intentId);
+  if (params.paymentId) query.set("payment_id", params.paymentId);
+  if (params.status) query.set("status", params.status);
   if (params.verified !== null && params.verified !== undefined) {
-    query.set('verified', params.verified ? '1' : '0');
+    query.set("verified", params.verified ? "1" : "0");
   }
 
   for (const [key, value] of Object.entries(params.extras ?? {})) {
@@ -109,7 +108,7 @@ function redirect(location: string) {
     status: 302,
     headers: {
       Location: location,
-      'Cache-Control': 'no-store',
+      "Cache-Control": "no-store",
     },
   });
 }
@@ -146,22 +145,21 @@ export function resolveTopupReturnTargets(
 ): TopupReturnTargets {
   const query = buildQuery(params);
   const preferredBase = firstNonEmpty(
-    params.appLinkBaseUrl,
-    envTrim('APP_LINK_BASE_URL'),
     params.legacyAppBaseUrl,
-    envTrim('APP_BASE_URL'),
+    envTrim("APP_BASE_URL"),
+    params.appLinkBaseUrl,
   );
   const fallbackBase = firstNonEmpty(
     params.appCustomSchemeBaseUrl,
-    envTrim('APP_CUSTOM_SCHEME_BASE_URL'),
+    envTrim("APP_CUSTOM_SCHEME_BASE_URL"),
   );
   const legacyBase = firstNonEmpty(
     params.legacyAppBaseUrl,
-    envTrim('APP_BASE_URL'),
+    envTrim("APP_BASE_URL"),
   );
 
-  const preferredUrl =
-    buildUrl(preferredBase, query) ?? buildUrl(legacyBase, query);
+  const preferredUrl = buildUrl(preferredBase, query) ??
+    buildUrl(legacyBase, query);
   const fallbackUrl = buildUrl(fallbackBase, query);
 
   return {
